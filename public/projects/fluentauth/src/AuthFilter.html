@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>AuthFilter.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="AllowedVerbs.html">AllowedVerbs.cs</a>
+          <a class="source" href="Auth.html">Auth.cs</a>
+          <a class="source" href="AuthFilter.html">AuthFilter.cs</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>AuthFilter.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System.Web.Routing</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">tinyweb.framework</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Tinyweb.FluentAuth</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Simple Tinyweb Filter that can be used to test requests against 
+pre-configured auth</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">class</span> <span class="nc">AuthFilter</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">IResult</span> <span class="nf">Before</span><span class="p">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">HandlerData</span> <span class="n">data</span><span class="p">)</span>
+        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Simple validate test but an more controllable example could be 
+implemented like so</p>
+
+<pre><code>bool granted = Auth.Test(context, data);
+if (!granted)
+{
+    return Auth.OnAccessDenied(context, data);
+}
+
+return Result.None();
+</code></pre>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">return</span> <span class="n">Auth</span><span class="p">.</span><span class="n">Validate</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

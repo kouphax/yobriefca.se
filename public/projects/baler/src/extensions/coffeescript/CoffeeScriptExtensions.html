@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>CoffeeScriptExtensions.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="CoffeeScriptExtensions.html">CoffeeScriptExtensions.cs</a>
+          <a class="source" href="CoffeeScriptProcessor.html">CoffeeScriptProcessor.cs</a>
+          <a class="source" href="Scripts.Designer.html">Scripts.Designer.cs</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>CoffeeScriptExtensions.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CodeSlice.Web.Baler.Extensions.CoffeeScript</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Static class that is used to provide the extension method to allow
+processing the bale as a <a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>
+bale</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">CoffeeScriptExtensions</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Apply CoffeeScript processing to the bale after concatenation and
+render as JavaScript</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">AsCoffeeScript</span><span class="p">(</span><span class="k">this</span> <span class="n">IBale</span> <span class="n">bale</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">bale</span><span class="p">.</span><span class="n">After</span><span class="p">(</span><span class="n">CoffeeScriptProcessor</span><span class="p">.</span><span class="n">Process</span><span class="p">).</span><span class="n">AsJs</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

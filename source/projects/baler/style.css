@@ -1,0 +1,209 @@
+/*--------------------------------------------------
+GENERAL
+--------------------------------------------------*/
+
+body {
+  font-family:  Georgia, "Times New Roman", Times, serif;
+  line-height: 1.4em;
+  font-size: 18px;
+  background: #e0e0d8;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
+img { border: 0; }
+
+a { color: #000; }
+a:hover { color: #c56342; }
+
+h1 {
+  font-size: 44px;
+  line-height: 1.2em;
+  letter-spacing: -1px;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 21px;
+  font-weight: normal;
+  color: #666;
+  line-height: 1.3em;
+  margin-bottom: 20px;
+}
+
+h3 { font-size: 32px;}
+
+.container {
+  width: 950px;
+  margin: 0 auto;
+}
+
+.nav, .intro, .villains, .how, .footer { overflow: hidden; clear: both; }
+
+.middle {
+  font-family: 'Droid Serif';
+}
+
+.middle h1 {
+  font-size:36px;
+}
+
+.middle h2 {
+  font-size:18px;
+}
+
+.version {
+  text-align:right;
+  right: 75px; 
+  position: relative; 
+  top: 75px; 
+  font-family: "Courier New"; 
+  font-size: 11px;
+}
+
+/*--------------------------------------------------
+NAV
+--------------------------------------------------*/
+
+.nav { margin-top: 30px; width: 500px; float: right; font-size: 14px; font-family: 'Helvetica Neue', Helvetica, sans-serif; }
+.nav ul { margin: 0; padding: 0; }
+.nav ul li { display: inline; list-style-type: none; margin-left: 30px; }
+.nav ul li.first { margin-left: 5px; }
+.nav ul li a { color: #999; font-weight: bold; text-decoration: none; border-bottom: 2px solid #d2d2ca; }
+.nav ul li a:hover { color: #000; border-bottom: 2px solid #c56342; }
+
+.manual .nav { width: 100%; text-align:right; }
+
+/*--------------------------------------------------
+MEAT
+--------------------------------------------------*/
+
+
+a.screencast {
+  display: block;
+  width: 300px;
+  height: 50px;
+  background: url('images/btn-screencast.png') 0 0 no-repeat;
+  text-decoration: none;
+  text-indent: -10000em;
+}
+
+a.screencast:hover { background: url('images/btn-screencast.png') 0 -51px no-repeat; }
+
+.logo {
+  float: left;
+  width: 410px;
+  margin-right: 40px;
+}
+
+.middle { float: left; width: 500px; }
+
+code { font: 16px Monaco,'Courier New','DejaVu Sans Mono','Bitstream Vera Sans Mono',monospace; }
+
+code span.light {
+  color: #999;
+  text-shadow: none;
+}
+.install code {
+  background-color: #d2d2ca;
+  float: left;
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+/*--------------------------------------------------
+MANUAL
+--------------------------------------------------*/
+
+body.manual div.container {
+  width: 660px;
+  padding-bottom: 80px;
+}
+
+body.manual div.container p.back {
+  margin-left: -18px;
+  margin-top: 50px;
+  color: #999;
+}
+
+body.manual div.container p.back a { color: #999; font-weight: bold; text-decoration: none; border-bottom: 2px solid #d2d2ca; }
+body.manual div.container p.back a:hover { color: #000; border-bottom: 2px solid #c56342; }
+
+body.manual pre { background-color: #f1f5f2; padding: 5px 10px; border-radius: 5px; overflow: hidden;}
+
+body.manual h1 { margin-bottom: 30px; }
+
+body.manual h2 {
+  font-size: 32px;
+  color: #000;
+  font-weight: bold;
+  border-top: 3px double #d2d2ca;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  line-height: normal; }
+
+body.manual h3, body.manual h4 {
+  display: block;
+  font-size: 21px;
+  color: #000;
+  font-weight: bold;
+  line-height: 1.3em;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+body.manual p code {
+  font-size: 14px;
+  background-color: #d9eaeb;
+  padding: 3px;
+  border-radius: 5px;
+  border: 1px solid #d2d2ca;
+}
+
+
+td {
+ padding:0 15px;
+ 
+}
+
+.features p {
+ margin-top:0;
+}
+
+body {
+  text-shadow: none;
+}
+
+h1, h2,  h3,  h4 {
+  text-shadow: 0 1px 0 white;
+}
+
+
+
+/*----------------------------------------------------
+RESPONSIVE CSS
+----------------------------------------------------*/
+
+/* iPhone */
+@media only screen and (max-device-width: 480px) {
+  .container, .middle, .nav, .footer { width: 100%; margin: 0; }
+  .nav { margin-top: 30px; font-size: 14px; overflow: hidden; }
+  .nav ul li, .nav ul li.first { display: block; margin-left: 10px; line-height: 1.5em; }
+  .intro { padding: 10px;}
+  h1 { font-size: 32px; margin-top: 10px; }
+  h2 { font-size: 18px; }
+  h3 { display: none; }
+  .logo { display: none; }
+  .version { float: none; width: 90%; margin-top: 0; clear: both; }
+  body.manual div.container { width: 100%; padding: 10px; }
+}
+
+/* iPad */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+}

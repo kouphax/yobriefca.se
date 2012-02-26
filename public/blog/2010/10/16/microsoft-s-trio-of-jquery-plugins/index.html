@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Microsoft's Trio of jQuery Plugins - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Microsoft's Trio of jQuery Plugins</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets have a quick look at what they provide.</p><p>There are a ton of blog posts and documentation out there describing what these plugins do,</p><ul><li><a href="http://blog.jquery.com/2010/10/04/new-official-jquery-plugins-provide-templating-data-linking-and-globalization/">Official Post</a> </li><li><a href="http://weblogs.asp.net/scottgu/archive/2010/10/04/jquery-templates-data-link-and-globalization-accepted-as-official-jquery-plugins.aspx">Scottgu&rsquo;s Annoucement</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Template Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Data Link Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-global">Globalisation Git Repo</a> </li></ul><p>I am going to ignore Globalisation for now as it takes too long to put a worthwhile demo together and it&rsquo;s alreaqdy heavily explained on the GitHub page linked above.&nbsp; So lets take the other plugins and use them to create &ldquo;the best todo app evar&rdquo;</p><h2>ToDo App</h2><p>Lets take a simple to do app the you can add Tasks to (along with associated comments) then save them to the server.&nbsp; Simple design like so,</p><p>[[posterous-content:iesdxxncdohkDnbunIad]]</p><h2>HTML</h2><p>So first things first lets get the HTML out of the way,</p><script src="http://gist.github.com/629833.js?file=gistfile1.html"></script><h2>JavaScript</h2><p>Next up is the interesting part &ndash; JavaScript,</p><script src="http://gist.github.com/629836.js?file=gistfile1.js"></script><p>That&rsquo;s it.&nbsp; So lets break it down and see exactly what is happening.</p><h3>Variable Declarations</h3><script src="http://gist.github.com/629839.js?file=gistfile1.js"></script><p>First thing we do is declare a model object.&nbsp; Simply an empty object for our purposes but could be pre-populated with data that can be bound.</p><h3>Model Linking</h3><p>Model linking is effectively 2 way data binding between a data context and a form (1 way optional and configurable mappings possible see API).&nbsp;</p><script src="http://gist.github.com/629840.js?file=gistfile1.js"></script><p>We just want simple 2 way binding so that is all we need.&nbsp; This sets up the 2 form inputs so they are bound to our model object so any changes will be reflected accordingly.</p><h3>Add Functionality</h3><script src="http://gist.github.com/629841.js?file=gistfile1.js"></script><p>First things first we need to take a clone of the current object as this is bound/linked to the form and if we don&rsquo;t clone it we will be referencing the same object over and over.&nbsp; This wont affect the UI but templating has some nice data centric features to pull back our data later and we need this.</p><p>Next we create a very simple template passing the cloned model into the template call.&nbsp; Finally we append this new LI to the UL list.&nbsp;</p><h3>Save Functionality</h3><p>The interesting part of the save functionality is how we actually pull back the list of data to be sent to the server.</p><script src="http://gist.github.com/629842.js?file=gistfile1.js"></script><p>Templates are data centric.&nbsp; That is, when they are created the original data that was used to generate them is stored in the jQuery data cache and can be retrieved using tmplItem.&nbsp; So rather than having to scrape the data back from UI (<em>where are you going to get the comment value from?</em>) you can simply ask for the elements data context.</p><h2>So&hellip;</h2><p>That&rsquo;s it.&nbsp; Some very nice data centric (3rd time in as many paragraphs) plugins.&nbsp; Sure you can do this stuff without these plugins but it would certainly not be as elegant.&nbsp; This is only skimming the surface of the data linking and templating plugins, there is a heap of stuff that I didn&rsquo;t cover,</p><ul><li>One way binding</li><li>Value converters for binding</li><li>Programatically change data values</li><li>Adding custom linking behaviour</li><li>Generate templats from embedded script templates</li><li>Complex and nested templating</li><li>Statically define a reusable template</li></ul></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/microsoft/'>Microsoft</a>, <a class='category' href='/blog/categories/jquery/'>jQuery</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/16/jquery-1-4-3-jquery-mobile-released/" title="Previous Post: jQuery 1.4.3 & jQuery Mobile Released">&laquo; jQuery 1.4.3 & jQuery Mobile Released</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/18/jquery-mobile-quick-look/" title="next Post: jQuery Mobile Quick Look">jQuery Mobile Quick Look &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

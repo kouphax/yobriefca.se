@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>Auth.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="AllowedVerbs.html">AllowedVerbs.cs</a>
+          <a class="source" href="Auth.html">Auth.cs</a>
+          <a class="source" href="AuthFilter.html">AuthFilter.cs</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>Auth.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">tinyweb.framework</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Security.Principal</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Web.Routing</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Reuse the Tinyweb namespace </p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">namespace</span> <span class="nn">Tinyweb.FluentAuth</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Auth'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Auth">&#182;</a>
+        </div>
+        <h1>Auth</h1>
+
+<p>This is the primary class within the FluentAuth architecture.  It 
+provides a single entry point for both configuration of auth and
+validating of requests.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">class</span> <span class="nc">Auth</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Internal store for all secutiry rules associated with a partiuclar 
+handler type</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">static</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Configuration</span><span class="p">&gt;&gt;</span> <span class="n">_config</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Configuration</span><span class="p">&gt;&gt;();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Private constructor</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">private</span> <span class="nf">Auth</span><span class="p">()</span>
+        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>Re-initialise the <code>_config</code> object every time a new instance is 
+constructed</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">_config</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Configuration</span><span class="p">&gt;&gt;();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>set up the default handlers for <code>OnAccessDenied</code>,
+<code>IsAuthenticated</code> and <code>IsInRole</code></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">OnAccessDenied</span> <span class="p">=</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Result</span><span class="p">.</span><span class="n">None</span><span class="p">();</span>
+            <span class="n">IsAuthenticated</span> <span class="p">=</span> <span class="n">rc</span> <span class="p">=&gt;</span> <span class="n">rc</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">;</span>
+            <span class="n">IsInRole</span> <span class="p">=</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">rc</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">IsInRole</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-For&amp;lt;THandler&amp;gt;'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-For&amp;lt;THandler&amp;gt;">&#182;</a>
+        </div>
+        <h2>For&lt;THandler&gt;</h2>
+
+<p>Instance method use to begin specification of a configuration for 
+a handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="n">Configuration</span> <span class="n">For</span><span class="p">&lt;</span><span class="n">THandler</span><span class="p">&gt;()</span> <span class="n">where</span> <span class="n">THandler</span> <span class="p">:</span> <span class="k">class</span>
+        <span class="err">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Call overloaded <code>For&lt;&gt;</code>with the default condition that returns 
+true</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">return</span> <span class="n">For</span><span class="p">&lt;</span><span class="n">THandler</span><span class="p">&gt;((</span><span class="n">r</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">true</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-For&amp;lt;THandler&amp;gt;'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-For&amp;lt;THandler&amp;gt;">&#182;</a>
+        </div>
+        <h2>For&lt;THandler&gt;</h2>
+
+<p>Allows you to specify a rule that must match a certain condition</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="n">Configuration</span> <span class="n">For</span><span class="p">&lt;</span><span class="n">THandler</span><span class="p">&gt;(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">condition</span><span class="p">)</span> <span class="n">where</span> <span class="n">THandler</span> <span class="p">:</span> <span class="k">class</span>
+        <span class="err">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-11'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-11">&#182;</a>
+        </div>
+        <p>create a new default configuration and associate it with a
+handler.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">Type</span> <span class="n">handler</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">THandler</span><span class="p">);</span>
+            <span class="n">Configuration</span> <span class="n">configuration</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Configuration</span><span class="p">(</span><span class="n">condition</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>create an empty configuration collection if this is the first time
+anything has been configured for this handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">if</span> <span class="p">(!</span><span class="n">_config</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">handler</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">_config</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Configuration</span><span class="p">&gt;());</span>
+            <span class="p">}</span>
+
+            <span class="n">_config</span><span class="p">[</span><span class="n">handler</span><span class="p">].</span><span class="n">Add</span><span class="p">(</span><span class="n">configuration</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">configuration</span><span class="p">;</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Auth.Configuration'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Auth.Configuration">&#182;</a>
+        </div>
+        <h1>Auth.Configuration</h1>
+
+<p>Class that can be used to specify the a single configuration for a 
+handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">class</span> <span class="nc">Configuration</span>
+        <span class="p">{</span>
+            <span class="k">internal</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">DeniedRoles</span><span class="p">;</span>
+            <span class="k">internal</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">RequiredRoles</span><span class="p">;</span>
+            <span class="k">internal</span> <span class="kt">bool</span> <span class="n">IsDenyAnonymousAccess</span><span class="p">;</span>
+            <span class="k">internal</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;&gt;</span> <span class="n">CustomRules</span><span class="p">;</span>
+            <span class="k">internal</span> <span class="n">AllowedVerbs</span> <span class="n">AllowedVerbs</span><span class="p">;</span>
+            <span class="k">internal</span> <span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">Condition</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p>Default constructor that accepts a condition for applicability 
+of this configuration</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="nf">Configuration</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">condition</span><span class="p">)</span>
+            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>Set defaults for all configuration settings</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="n">Condition</span> <span class="p">=</span> <span class="n">condition</span><span class="p">;</span>
+                <span class="n">DeniedRoles</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+                <span class="n">RequiredRoles</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+                <span class="n">IsDenyAnonymousAccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                <span class="n">CustomRules</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;&gt;();</span>
+                <span class="n">AllowedVerbs</span> <span class="p">=</span> <span class="n">AllowedVerbs</span><span class="p">.</span><span class="n">GET</span>
+                    <span class="p">|</span> <span class="n">AllowedVerbs</span><span class="p">.</span><span class="n">POST</span>
+                    <span class="p">|</span> <span class="n">AllowedVerbs</span><span class="p">.</span><span class="n">PUT</span>
+                    <span class="p">|</span> <span class="n">AllowedVerbs</span><span class="p">.</span><span class="n">DELETE</span><span class="p">;</span>                    
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-DenyRoles'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-DenyRoles">&#182;</a>
+        </div>
+        <h2>DenyRoles</h2>
+
+<p>Allows you to specify any roles that should be denied by this 
+handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">DenyRoles</span><span class="p">(</span><span class="k">params</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">roles</span><span class="p">)</span>
+            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p>When we add roles into the mix we assume that anonymous 
+acces is also denied</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="n">DenyAnonymousAccess</span><span class="p">();</span>
+                <span class="n">DeniedRoles</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">roles</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-RequiredRoles'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-RequiredRoles">&#182;</a>
+        </div>
+        <h2>RequiredRoles</h2>
+
+<p>Allows you to specify any roles that should be allowed by this 
+handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">RequireRoles</span><span class="p">(</span><span class="k">params</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">roles</span><span class="p">)</span>
+            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p>When we add roles into the mix we assume that anonymous 
+acces is also denied</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="n">DenyAnonymousAccess</span><span class="p">();</span>
+                <span class="n">RequiredRoles</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">roles</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-DenyAnonymousAccess'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-DenyAnonymousAccess">&#182;</a>
+        </div>
+        <h2>DenyAnonymousAccess</h2>
+
+<p>Specify that only authenticated users may use this handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">DenyAnonymousAccess</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="n">IsDenyAnonymousAccess</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-AllowAnonymousAccess'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-AllowAnonymousAccess">&#182;</a>
+        </div>
+        <h2>AllowAnonymousAccess</h2>
+
+<p>Specify that non-authenticated users may use this handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">AllowAnonymousAccess</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="n">IsDenyAnonymousAccess</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-WithCustomRule'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-WithCustomRule">&#182;</a>
+        </div>
+        <h2>WithCustomRule</h2>
+
+<p>Allows you specify a custom rule that can be used to test the 
+applicability of a handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">WithCustomRule</span><span class="p">(</span>
+                <span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IPrincipal</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">rule</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">CustomRules</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">rule</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-AllowVerbs'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-AllowVerbs">&#182;</a>
+        </div>
+        <h2>AllowVerbs</h2>
+
+<p>Allows developer to specify the HTTP verbs that can be used 
+against this handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="nf">AllowVerbs</span><span class="p">(</span><span class="n">AllowedVerbs</span> <span class="n">verbs</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">AllowedVerbs</span> <span class="p">=</span> <span class="n">verbs</span><span class="p">;</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-And'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-And">&#182;</a>
+        </div>
+        <h2>And</h2>
+
+<p>Simple property that returns this instance of the configuration 
+object.  This is an optional property that can be used to create
+a more natural fluent syntax.  e.g.</p>
+
+<pre><code>c.For&lt;RootHandler&gt;().DenyAnonymousAccess().RequireRoles(&ldquo;Admin&rdquo;);
+</code></pre>
+
+<p>can be expressed as,</p>
+
+<pre><code>c.For&lt;RootHandler&gt;().DenyAnonymousAccess().And.RequireRoles(&ldquo;Admin&rdquo;);
+</code></pre>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">public</span> <span class="n">Configuration</span> <span class="n">And</span>
+            <span class="p">{</span>
+                <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Test'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Test">&#182;</a>
+        </div>
+        <h2>Test</h2>
+
+<p>Performs all applicable tests on the current handler request</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">Test</span><span class="p">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">HandlerData</span> <span class="n">data</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">Configuration</span><span class="p">&gt;</span> <span class="n">configs</span><span class="p">;</span>
+            <span class="kt">bool</span> <span class="n">hasConfigs</span> <span class="p">=</span> <span class="n">_config</span><span class="p">.</span><span class="n">TryGetValue</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">Type</span><span class="p">,</span> <span class="k">out</span> <span class="n">configs</span><span class="p">);</span>
+            <span class="kt">bool</span> <span class="n">hasApplicableConfig</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="kt">bool</span> <span class="n">configFailed</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-26'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-26">&#182;</a>
+        </div>
+        <p>If configurations exist for this handler</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">if</span> <span class="p">(</span><span class="n">hasConfigs</span><span class="p">)</span>
+            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-27'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+        </div>
+        <p>Grab some useful request information (verb and principal)</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="n">AllowedVerbs</span> <span class="n">verb</span> <span class="p">=</span> <span class="p">(</span><span class="n">AllowedVerbs</span><span class="p">)</span><span class="n">Enum</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span>
+                    <span class="k">typeof</span><span class="p">(</span><span class="n">AllowedVerbs</span><span class="p">),</span>
+                    <span class="n">context</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">RequestType</span><span class="p">);</span>
+                <span class="n">IPrincipal</span> <span class="n">principal</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">User</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-28'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-28">&#182;</a>
+        </div>
+        <p>iterate over each configuration for this handler and test 
+each sequentially</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                <span class="k">foreach</span> <span class="p">(</span><span class="n">Configuration</span> <span class="n">config</span> <span class="k">in</span> <span class="n">configs</span><span class="p">)</span>
+                <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-29'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-29">&#182;</a>
+        </div>
+        <p>Test to see of this configuration is applicable at this 
+time</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                    <span class="k">if</span> <span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="n">Condition</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">principal</span><span class="p">))</span>
+                    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-30'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-30">&#182;</a>
+        </div>
+        <p>Mark cycle as having an applicable configuration</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                        <span class="n">hasApplicableConfig</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-31'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-31">&#182;</a>
+        </div>
+        <p>Check if the verb is allowed</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                        <span class="kt">bool</span> <span class="n">acceptableVerb</span> <span class="p">=</span> <span class="p">(</span><span class="n">verb</span> <span class="p">&amp;</span> <span class="n">config</span><span class="p">.</span><span class="n">AllowedVerbs</span><span class="p">)</span> <span class="p">!=</span> <span class="m">0</span><span class="p">;</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">acceptableVerb</span><span class="p">)</span>
+                        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-32'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-32">&#182;</a>
+        </div>
+        <p>If the user is authenticated</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                            <span class="k">if</span> <span class="p">(</span><span class="n">IsAuthenticated</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+                            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-33'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-33">&#182;</a>
+        </div>
+        <p>Configuration must pass 3 tests,</p>
+
+<ol>
+<li>Ensure that all Required Roles (if any) are satisifed<br></li>
+<li>Ensure that all Denied Roles (if any) are not present</li>
+<li>Ensure that all custom rules (if any) are satisifed</li>
+</ol>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                                <span class="n">configFailed</span> <span class="p">=</span> <span class="n">config</span><span class="p">.</span><span class="n">RequiredRoles</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">role</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">IsInRole</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+                                    <span class="p">||</span> <span class="n">config</span><span class="p">.</span><span class="n">DeniedRoles</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">role</span> <span class="p">=&gt;</span> <span class="n">IsInRole</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>                                
+                                    <span class="p">||</span> <span class="n">config</span><span class="p">.</span><span class="n">CustomRules</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">rule</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">rule</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">principal</span><span class="p">));</span>
+                            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-34'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-34">&#182;</a>
+        </div>
+        <p>If the user is anonymous and we allow anonymous access</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                            <span class="k">else</span> <span class="nf">if</span> <span class="p">(!</span><span class="n">config</span><span class="p">.</span><span class="n">IsDenyAnonymousAccess</span><span class="p">)</span>
+                            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-35'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-35">&#182;</a>
+        </div>
+        <p>Ensure that all custom rules (if any) are satisifed</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                                <span class="n">configFailed</span> <span class="p">=</span> <span class="n">config</span><span class="p">.</span><span class="n">CustomRules</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">rule</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">rule</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">principal</span><span class="p">));</span>
+                            <span class="p">}</span>
+                            <span class="k">else</span>
+                            <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-36'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-36">&#182;</a>
+        </div>
+        <p>If we have gotten this far then the config 
+has failed due to anonymous access being denied</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                                <span class="n">configFailed</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span>
+                        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-37'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-37">&#182;</a>
+        </div>
+        <p>if we have gotten this far then the config has 
+failed due to an unaaceptable verb</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                            <span class="n">configFailed</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-38'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-38">&#182;</a>
+        </div>
+        <p>if the config has failed the test we short circuit 
+and return immediatley</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>                        <span class="k">if</span> <span class="p">(</span><span class="n">configFailed</span><span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="k">break</span><span class="p">;</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-39'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-39">&#182;</a>
+        </div>
+        <p>We can return true if,</p>
+
+<ul>
+<li>there or no configs for the handler</li>
+<li>if there are no APPLICABLE configs for the handler, or,</li>
+<li>if all request-applicable configs have passed for this handler</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="k">return</span> <span class="p">!</span><span class="n">hasConfigs</span>            
+                <span class="p">||</span> <span class="p">!</span><span class="n">hasApplicableConfig</span>            
+                <span class="p">||</span> <span class="p">(</span><span class="n">hasApplicableConfig</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">configFailed</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Validate'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Validate">&#182;</a>
+        </div>
+        <h2>Validate</h2>
+
+<p>Test the request and return the default None respnose or call the 
+OnAccessDenied Handler depending on result</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">IResult</span> <span class="nf">Validate</span><span class="p">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">HandlerData</span> <span class="n">data</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">Test</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="p">?</span> <span class="n">Result</span><span class="p">.</span><span class="n">None</span><span class="p">()</span> <span class="p">:</span> <span class="n">OnAccessDenied</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Configure'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Configure">&#182;</a>
+        </div>
+        <h2>Configure</h2>
+
+<p>Allows for configuration of FluentAuth</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">Action</span><span class="p">&lt;</span><span class="n">Auth</span><span class="p">&gt;</span> <span class="n">configurer</span><span class="p">)</span>
+        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-42'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-42">&#182;</a>
+        </div>
+        <p>Create a new instance of the class.  This will effectively reset 
+all the auth and OnAccessDenied settings each time so order 
+is important in configuration.  Perhaps come back to this later.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">Auth</span> <span class="n">config</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Auth</span><span class="p">();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-43'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-43">&#182;</a>
+        </div>
+        <p>execute developer described configuration of new instance.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="n">configurer</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-OnAccessDenied'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-OnAccessDenied">&#182;</a>
+        </div>
+        <h2>OnAccessDenied</h2>
+
+<p>Allows developer to set a global handler for <code>OnAccessDenied</code> which 
+will be called when the request fails to validate against a rule</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="n">HandlerData</span><span class="p">,</span> <span class="n">IResult</span><span class="p">&gt;</span> <span class="n">OnAccessDenied</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-IsAuthenticated'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-IsAuthenticated">&#182;</a>
+        </div>
+        <h2>IsAuthenticated</h2>
+
+<p>Allows the developer to set a custom method for checking if a user is
+authenticated.  This is useful if the authentication scheme isn&rsquo;t 
+&ldquo;normal&rdquo;.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">Func</span><span class="p">&lt;</span><span class="n">RequestContext</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">IsAuthenticated</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-IsInRole'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-IsInRole">&#182;</a>
+        </div>
+        <h2>IsInRole</h2>
+
+<p>Allows the developer to set a custom method for checking if a user is
+authenticated.  This is useful if the authentication scheme isn&rsquo;t 
+&ldquo;normal&rdquo;.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">Func</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">RequestContext</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">IsInRole</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

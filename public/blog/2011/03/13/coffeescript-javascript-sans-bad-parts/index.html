@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CoffeeScript: JavaScript sans Bad Parts - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="This was written a long time ago when coffeescript was in early beta and I&rsquo;ve decided to push it into the public domain. I&rsquo;ve updated it &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/03/13/coffeescript-javascript-sans-bad-parts">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CoffeeScript: JavaScript Sans Bad Parts</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <blockquote>This was written a long time ago when coffeescript was in early beta and I&rsquo;ve  decided to push it into the public domain.  I&rsquo;ve updated it a bit but I  apologise for any oversights.<p>Also worth mentioning that I am a lot more taken with it than I was at the time of the original blog. &nbsp;I will be revisiting this again soon.</p></blockquote><p>If I&rsquo;ve said it once, I&rsquo;ve said it a million times &ndash; JavaScript is  misunderstood.  Sure it&rsquo;s got it&rsquo;s bad parts (eval, ==, typed wrappers etc.) and  it&rsquo;s got it&rsquo;s VERY bad parts (global variables, scope, typeof etc) but it&rsquo;s also  got a lot of beautiful parts (functions as first class objects, object and array  literals, dynamic objects and prototypal inheritance etc.).  JSLint validates  your code against the good subset to ensure you aren&rsquo;t using all that nasty  stuff that is going to break your code eventually but can we take it a step  further?  What if we could take out the good subset and create a subset of the  language so we couldn&rsquo;t ever use the bad stuff?  Well turns out you can.</p><h2>Enter CoffeeScript</h2><p><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a> is a  full featured subset of JavaScript.  Essentially it is a meta-language that  compiles into JavaScript.  Its syntax is a bit different, more like Perl, Python  or Ruby and the JavaScript it generates only uses the &ldquo;good parts&rdquo; of JavaScript  and passes all strict JSLint tests.</p><h3>Syntax</h3><p>CoffeeScripts syntax is close to JavaScript and besides a few extra goodies  it is nearly a 1:1 mapping.  However it strips away a lot of the boilerplate  stuff to make the code you write slightly more succinct.  Another feature of the  syntax is that indentation is important (like Perl or Python, I can never  remember which) as there are no line ending tokens.  So lets look at a few  statements</p><p><span style=""><script src="https://gist.github.com/868206.js"></script></span></p><p>This simple example of variable creation and assignment demonstrates how  CoffeeScripts avoids one of the most common and potentially fatal mistakes made  by many JavaScript developers &ndash; Inadvertent global variable declaration.  In  plain old JavaScript leaving out a var statement on a variable declaration  results in the variable being declared (or overwritten &ndash;eek!) in the global  scope.  In CoffeeScript var is optional and all variable declarations are made  in the current scope (and pushed to the top of the scope as is the JavaScript  way).  Want global scope declaration for some random reason?  Use  window.variable name and then ask yourself why you are doing it wrong.</p><p><span style=""><script src="https://gist.github.com/868210.js"></script></span></p><p><span style=""><a href="http://gist.github.com/868210" title="http://gist.github.com/868210"></a></span><span style=""><script src="https://gist.github.com/868208.js"></script></span></p><p>Function declarations are a good example of how succinct CoffeeScript can be  in comparison to JavaScript.  In fact anyone keen on C#&rsquo;s lambdas or Groovys  syntax will find this quite familiar.  Gone are the bloating function and return  keywords ( &ndash;&gt; is the empty function &ndash; function() {})</p><p><span style=""><script src="https://gist.github.com/868212.js"></script></span></p><p><span style=""><a href="http://gist.github.com/868212" title="http://gist.github.com/868212"></a></span><span style=""><script src="https://gist.github.com/868215.js"></script></span></p><p>Existence is a nice feature as it keeps non-boolean falsy values nice and  strict and saves a lot of guessing.  That&rsquo;s the basics but as I mentioned  earlier there are some nice bonus features that can make some common tasks very  clean.</p><h3><strong>The Goodie Bag</strong></h3><h4>Array Comprehension</h4><h4><span style="font-weight: normal;"><script src="https://gist.github.com/868218.js"></script></span></h4><p>Array comprehension is quite a common task in many JavaScript solutions.   Simply put this is the Map part of any typical MapReduce situations (common in  many NoSQL style databases and Ajax situations).  MapReduce is essentially &ndash;  given an array of items,</p><ul><li>Map: Transform that list into what you want (SQLs SELECT) </li><li>Reduce: Based on that mapping remove unwanted items</li></ul><p>In the Ajax world you&rsquo;d probably need to do this when dealing with JSON or  XML responses which are quite often generally result sets.  The example above  shows just how easy it is to apply an arbitrary function over an array of  items.  Now I guess the equivalent JS could be written slightly better by hand  but would it not take longer and be harder to maintain?  Probably.  This being  quite a common task the less you have to write the better!</p><h4>Splats</h4><p>Splats are a convenient way to work with the arguments object in JavaScript  while clearly outlining required and optional arguments.  Lets take this  example.</p><p><script src="https://gist.github.com/868221.js"></script></p><p>Look familiar to you .NET people?  It should because for all intents and  purposes this is the same as the param keyword.  Implementing this sort of thing  in JavaScript is no easy task.  Again the generated JavaScript could be  simplified if written by a human bean but could you get it right first time  without seeing this generated code?</p><h4>Destructing Assignment</h4><p>Already part of the JavaScript spec but not present in all implementations  (see MDC article) destructing assignments allow the assigning of multiple values  in one fell swoop e.g.</p><p><script src="https://gist.github.com/868224.js"></script></p><p>I&rsquo;ve never really come across a massive need for something like this but I  guess it&rsquo;s another handy tool to have in the scripting world.</p><h3>Should We All Be Using It?</h3><p>If you think I am going to say &ldquo;Yes&rdquo; immediatley you are wrong.  And if you are now  asking yourself why I even bothered typing this&hellip;. lets just say train rides are  boring but not as boring as most of the TV shows my darling wife makes me sit  through EVERY FLIPPING NIGHT OF MY LIFE!!!!</p><p>The big reason I am not recommending it yet is that I am not 100% convinced  of the benefits of using it above plain old JavaScript.  It&rsquo;s a bit like  marmite.  Many node.js developers write in CoffeeScript, and ONLY CoffeeScript  but many still simply reject it.  I can understand both standpoints so until I  can say without faltering that one side has got it right I am not taking it  seriously. &nbsp;That said I prefer to form my own opinions anyway so I need to spend a lot more time with it before I can jump to any conclusions.</p><p>Oh and, honestly, who actually really wants to spend what limited time they  have trying new things, hacking around, experimenting, taking risks, getting  frustrated and making plenty of mistakes?  Anyone? Anyone at all? &nbsp;Nah I didn&#8217;t think so. &nbsp;Computers are just a 9-5 job for all of us ;-P</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coffeescript/'>CoffeeScript</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/03/13/coffeescript-javascript-sans-bad-parts/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/03/13/coffeescript-javascript-sans-bad-parts/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/03/10/node-js-lightning-talk/" title="Previous Post: Node.js Lightning Talk">&laquo; Node.js Lightning Talk</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/03/29/serialising-net-resources-to-json-for-web-apps/" title="next Post: Serialising .NET Resources to JSON for Web Apps">Serialising .NET Resources to JSON for Web Apps &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2011/03/13/coffeescript-javascript-sans-bad-parts/';
+          var disqus_url = 'http://kouphax.github.com/blog/2011/03/13/coffeescript-javascript-sans-bad-parts/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

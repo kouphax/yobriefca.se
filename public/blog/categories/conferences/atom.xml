@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Conferences | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/conferences/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012/"/>
+    <updated>2011-11-17T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012</id>
+    <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
+
+<p>So it's been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it's quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>
+
+<!--more-->
+
+
+<blockquote><h3>BDD and .NET</h3>
+
+<p>Behaviour Driven Design/Development is an interesting premise, but does it really work? What benefits does it offer and how can we successfully apply its principles in the .NET world? We can answer these questions by reviewing the principles around BDD and diving into the technologies that exist in the .NET world that support these principles.</p>
+
+<p>From low-level unit focused testing technologies all the way up to the more abstract integration and acceptance level suite of specifications, automated testing and continuous integration, we will see that .NET isn’t lacking in choice. As a bonus we will address the oft ignored testing of our JavaScript project components using tools such as Jasmine and QUnit.</p></blockquote>
+
+<p>The brief was written in haste and sounds a bit boilerplate but I will be giving it my all and really pull off an engaging session.  I've been at the attendee end of a few bad sessions and I will do my damnedest not to put anyone through that kind of ordeal.</p>
+
+<p>The <a href="http://www.devweek.com/sessions/">line-up for DevWeek</a> looks excellent and the pre/post conference workshops all look stellar - so much choice, I just need to find a way to clone myself.</p>
+
+<p>If you're going - see you there, catch up with me and come throw tomatoes and/or abuse during my session.  If you're not going, well sucks to be you then!</p>
+]]></content>
+  </entry>
+  
+</feed>

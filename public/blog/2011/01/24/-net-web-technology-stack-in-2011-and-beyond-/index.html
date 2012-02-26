@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>.NET Web Technology Stack in 2011 and Beyond.... - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Change, or lack thereof is often an indication of how successful your technology stack is.&nbsp; If you are constantly swapping out core &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">.NET Web Technology Stack in 2011 and Beyond....</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T00:00:00+00:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>Change, or lack thereof is often an indication of how successful your  technology stack is.&nbsp; If you are constantly swapping out core technologies then  chances are you&rsquo;ll need to rethink your approach.&nbsp; If, on the other your stack  remains fairly stable save a few new additions or tweaks then odds are you made  the right choices at the start.&nbsp;</p><p>Last year, after careful consideration, I published an internal post that  detailed my recommendations for the standard Microsoft Web Technology stack.&nbsp;  Looking back on this I feel happy enough that my choices have proven  themselves.&nbsp; But time goes on and technologies change so perhaps it&rsquo;s time for  another look at the stack.&nbsp; Perhaps give it a bit of a refresh after all there  has been a number of great developments in the .NET world.&nbsp; Do I need to refresh  it?&nbsp; No not really &ndash; I could quite easily stick with my previous stack and truth  be told the changes are fairly minimal &ndash; mostly version bumps.&nbsp; But I also want  to look to the future, is there anything worth keeping an eye on (there is BTW),  is there anything we should be avoiding (probably) etc.</p><h2>Recap</h2><p>Lets take a very quick run through of the recommended stack from last year.</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2145/5720987951_2b7e6ccbd2_o.png'></p><p>The choice of client side technology really depended on the project  requirements.&nbsp; Essentially I suggested most projects use jQuery and some  jQueryUI stuff.&nbsp; If the UI required a higher degree of complexity/richness I  recommended moving towards Sencha and Silverlight with Silverlight being the  preferred option unless there was some project requirement that blocked the use  of browser plugins.&nbsp; That&rsquo;s the general gist anyway &ndash; I can elaborate if anyone  wants to hear more.</p><h2>Refresh</h2><p>So I&rsquo;m recommending a few minor tweaks in an attempt to keep the stack up to  date.&nbsp; After all .NET4 and Visual Studio 2010 have dropped since I last made my  recommendations.&nbsp; Here goes</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2312/5721546972_c2cfd6bf2a_o.png'></p><p>Not exactly a major overhaul and it shouldn&rsquo;t be.&nbsp; The stack is simple enough  to handle many types of project and has been fairly successful since it was put  forward.&nbsp; So I wanted to keep moving in that direction while bumping the  versions up to the latest and greatest.&nbsp; So lets attempt to justify some of  these changes.</p><h3>MVC3</h3><p>Look at the past posts on this blog and you will see I&rsquo;ve spent a lot of time  with MVC and, more recently MVC3 (Beta &ndash; RC &ndash; RTM).&nbsp; This blog doesn&rsquo;t cover  half the MVC hacking I do on a daily basis.&nbsp; So MVC3 is just released and that  might make some people nervous about using it as the primary basis for a web  stack. I&rsquo;m not - it&rsquo;s a quality release both in terms of features and  stability.&nbsp; MVC3, for the most part, should be considered more as a refinement  of MVC2 with a nice new shiny ViewEngine slapped on top.&nbsp; There really isn&rsquo;t  much there that couldn&rsquo;t be done in MVC2 with a bit of custom code.&nbsp; But that&rsquo;s  good it kind of hints that they were on the right path to begin with.&nbsp; But the  enhancements it does offer make development a much cleaner experience.&nbsp; I  already have a heap of blogs on the subject so if you want to know more about my  views on MVC3 have a look at these,</p><ul><li><a href="http://yobriefcase.posterous.com/aspnet-mvc-3-preview-1-first-look">ASP.NET  MVC3 Preview 1 First Look</a> </li><li><a href="http://yobriefcase.posterous.com/aspnet-mvc3s-jsonvalueproviderfactory" title="http://yobriefcase.posterous.com/aspnet-mvc3s-jsonvalueproviderfactory">ASP.NET  MVC3 JsonValueProvider</a> </li><li><a href="http://yobriefcase.posterous.com/remote-validation-in-aspnet-mvc-3-rc1">Remote  Validation in ASP.NET MVC3 RC1</a> </li><li><a href="http://yobriefcase.posterous.com/unobtrusive-javascript-in-mvc3" title="http://yobriefcase.posterous.com/unobtrusive-javascript-in-mvc3">Unobtrusive  JavaScript in MVC3</a> </li></ul><h3>Razor View Engine</h3><p>Razor is Microsoft&rsquo;s internally developed View Engine.&nbsp; It could be seen as a  successor to the old clunky WebForms View Engine.&nbsp; I am not going to get into  the syntax of Razor and how it is much cleaner than the WebForms syntax, no, if  you want to digest all that have a look at one of my earlier posts &ndash; <a href="http://yobriefcase.posterous.com/the-razor-view-engine">The Razor View  Engine</a>.&nbsp; In that post I also discuss the differences between Razor and Spark  &ndash; my previous View Engine recommendation.&nbsp; So what has changed?&nbsp; Why am I  recommending Razor over Spark now?&nbsp; Well as the previous post says it best with  these lines,</p><blockquote class="posterous_medium_quote"><p>[Spark is] a great engine but has suffered from a lack of tooling.</p><p>Spark, especially in comparison to Razor, has very limited tooling support in  VS2010 &ndash; sure you have SparkSense but it&rsquo;s currently not a patch on Razor  support (which is still in itself RC status) and I can&rsquo;t help but feel they&rsquo;ll  always be playing catch-up with in house developed/supported stuff.</p></blockquote><p>That view hasn&rsquo;t changed.&nbsp; Razor has a brighter future simply because of the  in-house support being offered by Microsoft.&nbsp; Also there isn&rsquo;t an official  release of Spark that works against MVC3 (still built against MVC2 dlls) &ndash; it is  possible to grab a branch off Github though.&nbsp; It&rsquo;s a shame though and I wish all  the best for Spark in the future &ndash; perhaps our paths will cross again?</p><p>The last thing I want to mention about view engine choice &ndash; or at least ask &ndash;  is does it matter?&nbsp; The answer, of course, is not really.&nbsp; Your views should be  very light and not have a lot of serverside logic built into them.&nbsp; So sticking  with one view engine isn&rsquo;t going to ruin anyone&#8217;s life.</p><h3>jQuery/jQueryUI</h3><p>OOTB integration with MVC is the most obvious reason for sticking with jQuery  here.&nbsp; Also the fact that it has proven popular in many of our previous projects  means it&rsquo;ll be sticking around for some time.&nbsp; The majority of&nbsp;our companies web  projects can be catered for by jQuery (and sometimes including jQueryUI for some  richer elements) as a decent base to write custom code.&nbsp; It may not be necessary  in all projects of course and shouldn&rsquo;t be abused but that will depend on the  project but I am confident enough to say 95% of our web based projects (not  including mobile which I will touch on shortly) will feature jQuery and a few  plugins to get the job done.&nbsp; All we need to do is bump the version up to the  latest and we are flying.</p><h3>Sencha (version 3)</h3><p>OK I am still recommending Sencha/ExtJS for the small niche of projects that  need a lot of richness but can&rsquo;t make the move to Silverlight.&nbsp; As before I am  caveating this (or covering my ass).&nbsp; Sencha is a complex beast it has a steep  learning curve and simply hacking away at it in a project is never going to be  the best approach.&nbsp; It&rsquo;s best to avoid it but if jQueryUI doesn&rsquo;t cut it and  Silverlight can&rsquo;t be deployed make sure the developers have plenty of time to  get up to speed, have a capable mentor and code is checked for any bad smells  early and often.&nbsp; Done right Sencha can produce brilliant results &ndash; but getting  it right can be tricky.</p><h2>Revolution</h2><p>As always on the Web front things are changing fast.&nbsp; There new techs and new  versions always round the corner.&nbsp; Some will be relevant, some just novelty.&nbsp;  Obviously to stay ahead of the game we want to be keeping an eye on the  technologies and applying some scientific rigour to determine if these should be  brought into the recommended web stack.&nbsp; Here is a very quick rundown of my  &ldquo;ones to watch in 2011&rdquo;.</p><h3>Knockout.js &amp; Backbone.js</h3><ul><li><a href="http://knockoutjs.com/">http://knockoutjs.com</a> </li><li><a href="http://documentcloud.github.com/backbone/">http://documentcloud.github.com/backbone/</a> </li></ul><p>Complex UI require a bit of structure or you&rsquo;ll end up with a lovely pile of  spaghetti, the bad kind not the tasty good kind.&nbsp; jQuery and jQueryUI don&rsquo;t  really offer anything in this area &ndash; sure you can get a collection of plugins to  solve this but the best approach is a single unified lightweight framework that  does one thing in a simple and consistent manner.&nbsp; Both Knockout and Backbone  provide this but in via different routes.&nbsp; Knockout.js offers an MVVM framework  similar to Silverlight/WPF data binding while Backbone offers a minimal MVC  framework.&nbsp; It&rsquo;s hard to say at this point which is better &ndash; both have their  pros and cons but that is for another post.</p><h3>jQuery 1.5</h3><ul><li><a href="http://blog.jquery.com/2011/01/14/jquery-1-5-beta-1-released/">http://blog.jquery.com/2011/01/14/jquery-1-5-beta-1-released/</a> </li></ul><p>Looks to be more betterness from the jQuery team (yes i know it&rsquo;s not a real  word).&nbsp; So far there has been a re-architecting of the Ajax component so that  you can bind callbacks at anytime (thanks the <a href="http://en.wikipedia.org/wiki/Promise_(programming)">Promise</a> pattern).&nbsp;  This pattern is likely to make it into the public API as well so your own can  make use of the promise construct.&nbsp; Another new feature appear to be subclassing  of the jQuery object.&nbsp; Similar to the YUI3 sandboxing approach subclassing  allows us to extend our own instance of the jQuery object without polluting the  global instance.&nbsp; These changes combined with a number of bug fixes and  performance improvements means jQuery vNext is looking&nbsp;good.&nbsp;</p><h3>Ext JS 4</h3><ul><li><a href="http://www.sencha.com/">http://www.sencha.com</a> </li></ul><p>Ext JS 4 promises to be a big improvement over the current versions.&nbsp; Many  things have been simplified and refactored which is good because often in  version 3+ you get the feeling that things are perhaps OVER-engineered and  needlessly complicated.&nbsp; Ext 2/3 also feels like it has massive functionality  holes &ndash; there are nice widgets but the data package and application architecture  always felt half baked.&nbsp; Not with 4 it seems.&nbsp; The data package is shaping up  very nicely and they have their own MVC based classes built right into the  framework.&nbsp; This could make large applications much easier to manage.</p><h3>jQuery Mobile &amp; Sencha Touch</h3><ul><li><a href="http://jquerymobile.com/">http://jquerymobile.com/</a> </li><li><a href="http://www.sencha.com/products/touch/">http://www.sencha.com/products/touch/</a> </li></ul><p>Mobile is still an immature area among big companies.&nbsp; Many of them have  native apps in various app stores etc. but they still don&rsquo;t really know how best  to manage them.&nbsp; Good web based mobile frameworks appeal to them more as it  gives them much greater control over the content &ndash; after all they own the  hosting servers etc.&nbsp; jQuery Mobile and Sencha Touch have address different  concerns &ndash; jQuery Mobile focuses on offering a consistent cross device  experience while Sencha Touch aims to provide a native look and feel on WebKit  based browsers (iPhone/iPad/Playbook/Android devices).&nbsp; I expect these  frameworks to come into their own this year as they move out of immaturity and  more people start experimenting.</p><h3>Nuget</h3><ul><li><a href="http://nuget.codeplex.com/">http://nuget.codeplex.com</a> </li></ul><p>A nice little package manager for the .NET world offering public and locally  hosted repositories.&nbsp; What makes it different to other is that a package could  be anything &ndash; not just DLL.&nbsp; I like this and one of the reasons why I like it  is that I can use it to distribute my JavaScript frameworks without have to  maintain a big list of files needed for each one.&nbsp; I just click jQuery Mobile  and it will pull in jQuery and the necessary CSS.&nbsp; I want Backbone and it will  pull down Underscore for me as well.&nbsp; Same goes for any .NET libraries.&nbsp; Combine  this with the ability to version packages etc. and it will make projects less of  a &ldquo;DLL Hell&rdquo;.</p><h3>WCF HTTP</h3><ul><li><a href="http://wcf.codeplex.com/wikipage?title=WCF%20HTTP">http://wcf.codeplex.com/wikipage?title=WCF%20HTTP</a> </li></ul><p>The new WCF HTTP stuff is looking really really nice.&nbsp; One of the big issues  with WCF is all the XML configuration and other blah that goes along with it.&nbsp;  Newer WCF has given us .svc-less services generated from pure code, better  configuration control and now some really nice improvements to the WCF  communication channel.&nbsp; You can have custom Media Processors that let you  control what is served to the client based on requested content types or actions  (JSON, XML, Images &ndash; anything you can think of).&nbsp; The cleaning up of  UriTemplates also mean that you can produce a very lightweight RESTful service  or MVC like architecture very very easily.</p><h2>Conclusion</h2><p>Another long ramble that&#8217;s taken me longer than expected to write up!&nbsp;  Obviously there is plenty there to think about and hopefully it will generate  some discussion.&nbsp; Hopefully I get a chance to flesh a lot of this out and offer  more low level justification on my tech choices.&nbsp; 2011 is shaping up to be a  great year in the tech world.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T00:00:00+00:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/-net/'>.NET</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/01/17/using-coffeescript-in-net/" title="Previous Post: Using CoffeeScript in .NET">&laquo; Using CoffeeScript in .NET</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/02/01/jquery-1-5-released/" title="next Post: jQuery 1.5 Released">jQuery 1.5 Released &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-/';
+          var disqus_url = 'http://kouphax.github.com/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

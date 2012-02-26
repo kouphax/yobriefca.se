@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>CssMediaExtensions.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>CssMediaExtensions.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CodeSlice.Web.Baler.Extensions.CssMedia</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p><code>CssMediaExtensions</code> provide methods for setting the media type that a
+stylesheet should render for such as <code>screen</code> or <code>print</code></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">CssMediaExtensions</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>The <code>WithMedia</code> Extension allows you to set the media attribute of
+the rendered CSS tag.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">IBale</span> <span class="nf">WithMedia</span><span class="p">(</span><span class="k">this</span> <span class="n">IBale</span> <span class="n">bale</span><span class="p">,</span> <span class="kt">string</span> <span class="n">media</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">bale</span><span class="p">.</span><span class="n">Attr</span><span class="p">(</span><span class="s">&quot;media&quot;</span><span class="p">,</span> <span class="n">media</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p><code>AsCss</code> overrides the existing <code>AsCss</code> method allowing you to pass a
+media property directly into the render call</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">AsCss</span><span class="p">(</span><span class="k">this</span> <span class="n">IBale</span> <span class="n">bale</span><span class="p">,</span> <span class="kt">string</span> <span class="n">media</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">bale</span><span class="p">.</span><span class="n">WithMedia</span><span class="p">(</span><span class="n">media</span><span class="p">).</span><span class="n">AsCss</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Web | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/web/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
+    <updated>2011-12-30T20:46:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
+    <content type="html"><![CDATA[<p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I'd have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later...</p>
+
+<!-- more -->
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">TEntity</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">NancyModule</span> <span class="n">where</span> <span class="n">TEntity</span> <span class="p">:</span> <span class="k">class</span>
+</span><span class='line'><span class="err">{&lt;/</span><span class="nc">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="n">RailslikeControllerFor</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span> <span class="p">+</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Index</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/new&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">New</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Post</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Create</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Show</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])/edit&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Edit</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Put</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Update</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Delete</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Destroy</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">New</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Create</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Show</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Edit</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Update</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Destroy</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">AsView</span><span class="p">(</span><span class="kt">object</span> <span class="n">model</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">method</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StackTrace</span><span class="p">().</span><span class="n">GetFrame</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">entity</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">View</span><span class="p">[</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;{0}/{1}&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span> <span class="n">model</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>To use it you just subclass the class and override the necessary methods.  Like so.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">QuestionModule</span> <span class="p">:</span> <span class="n">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">Question</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="nf">QuestionModule</span><span class="p">(</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">questions</span> <span class="p">=</span> <span class="n">questions</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">override</span> <span class="n">Response</span> <span class="nf">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">AsView</span><span class="p">(</span><span class="n">questions</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>What the base class does is create the necessary CRUDdy urls with a base route starting with the name of the entity you pass in, pluralised in the easiest way possible.  In this case <code>/questions</code>.  The rules match what you wold get for a controller in Rails.</p>
+
+<table style="width:100%" border="1">
+    <tbody>
+        <tr style="background-color: #666;color:#fff;">
+            <th style="padding:4px;font-weight:bold;">Verb </th>
+            <th style="padding:4px;font-weight:bold;">Path</th>
+            <th style="padding:4px;font-weight:bold;">Action </th>
+            <th style="padding:4px;font-weight:bold;"></th>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">index    </td>
+            <td style="padding:4px;">display a list of all questions</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/new       </td>
+            <td style="padding:4px;">new      </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for creating a new question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">POST</span>    </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">create   </td>
+            <td style="padding:4px;">create a new question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">show     </td>
+            <td style="padding:4px;">display a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id/edit  </td>
+            <td style="padding:4px;">edit     </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for editing a question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">PUT</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">update   </td>
+            <td style="padding:4px;">update a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">DELETE</span>  </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">destroy  </td>
+            <td style="padding:4px;">delete a specific question</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br/>
+
+
+<p>There is a teeny-tiny bit of sugar in the <code>AsView</code> method that will look up the corresponding view.  So the module above would resolve its <code>Index</code> method to <code>questions/index</code> and the view engine would find the correct file (eg. for Razor - <code>questions/index.cshtml</code>).</p>
+
+<p>I've already said it's a bit of fun but I have actually used this at least once - there is probably more that could be added but it'll do for a first spike at least.  Any use to anyone?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook/"/>
+    <updated>2011-11-01T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook</id>
+    <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
+
+<p>I needed to write a simple JSONP capable service recently and decided to run with <a href="http://nancyfx.org">Nancy</a>.  Turns out Nancy doesn't give us a way to do JSONP so I set about creating something that fitted my use case.  The fruits of my very very short labour (thanks to the super-hyper-flexible-powerfulness of the Nancy Pipeline) can be seen here.  The full source is available in the <a href="https://github.com/kouphax/nancy-jsonp">Github repo</a> and hopefully we can get this pushed into the core of Nancy shortly (or at least part of the official repo one way or another) - just for the geek cred of course :)</p>
+
+<!--more-->
+
+
+<h2>Implementation Rundown</h2>
+
+<p>I took the same approach as the existing hooks (using the SassAndCoffee one as my implementation pattern) so created a static <code>Hooks</code> class with an <code>Enable</code> method that simply adds a new item to the end of the pipeline</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Enable JSONP support in the application</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;pipeline&quot;&gt;Application Pipeline to Hook into&lt;/param&gt;</span>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Enable</span><span class="p">(</span><span class="n">IApplicationPipelines</span> <span class="n">pipeline</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">pipeline</span><span class="p">.</span><span class="n">AfterRequest</span><span class="p">.</span><span class="n">AddItemToEndOfPipeline</span><span class="p">(</span><span class="n">PrepareJsonp</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The meat of the work lies in the <code>PrepareJsonp</code> method</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Transmogrify original response and apply JSONP Padding</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;context&quot;&gt;Current Nancy Context&lt;/param&gt;</span>
+</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">PrepareJsonp</span><span class="p">(</span><span class="n">NancyContext</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// grab original contents for running later</span>
+</span><span class='line'>    <span class="n">Action</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Stream</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">original</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">callback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// set content type to application/javascript so browsers can handle it by default</span>
+</span><span class='line'>    <span class="c1">// http://stackoverflow.com/questions/111302/best-content-type-to-serve-jsonp</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'>        <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Let me highlight a few of the key areas here.</p>
+
+<h3>Determine if Response need JSONP Padded</h3>
+
+<p>I decided to take a basic approach to determining if the request should return a JSONP response,</p>
+
+<ul>
+<li>If the content type of the current response is <code>application/json</code></li>
+<li>If there is a query string parameter called <code>callback</code></li>
+</ul>
+
+
+<p>Here is what we need to satisfy that,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I am sure this could be refined and open to suggestion (perhaps more applicable content types or extra possible configuration for the callback parameter).  I wonder if it is a bit safer to restrict requests that are GET requests seeing as that is the only way to do JSONP? Hmmmm.</p>
+
+<p>Next thing I set the content type to <code>application/javascript</code> as that makes perfect sense</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Finally I wrap the original responses content in the JSONP "padding" (the callback function) and write everything out.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'><span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'><span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So all in all very simple but damn I'm proud that I got off my arse and contributed to such a stellar community. hopefully someone finds this useful.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinyweb Fluent Security]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/26/tinyweb-fluentsecurity/"/>
+    <updated>2011-09-26T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/26/tinyweb-fluentsecurity</id>
+    <content type="html"><![CDATA[<p>I've been working on a little project recently that is using Tinyweb.  It's a typical little CRUDdy app and makes use of typical security features in a web app.  Tinyweb itself doesn't provide any sort of custom security features out of the box but as it sits on top of ASP.NET you can avail of all the normal membership stuff.  Problem is though - the default membership stuff, when working directly with it, is a bit cumbersome.  I recently tinkered with a project for ASP.NET MVC called <a href="http://www.fluentsecurity.net/">FluentSecurity</a> that added a fluent syntax to configuring security for ASP.NET MVC applications.  Taking a healthy dose of inspiration from this project I rolled a lightweight Tinyweb version of my own.  I figure this might be useful to someone else so I have now created a new project specifically for this.  It's probably totally broken in areas but the areas I've written tests around appear to work.</p>
+
+<p>The source is available in a <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity">BitBucket repository</a> so feel free to critique.  Once I get it tested better, documents written up and generally applied a bit of sipt and polish I'll push it to Nuget and the fun can really begin.</p>
+
+<h1>Tinyweb.FluentSecurity</h1>
+
+<p>FluentSecurity comes as a 2 part solution</p>
+
+<ol>
+<li>The <code>Security</code> class is the main entry point for configuring FluentSecurity and authenticating users</li>
+<li>The <code>SecurityFilter</code> class is a Tinyweb filter that performs auth tests on the current request</li>
+</ol>
+
+
+<h2>Security</h2>
+
+<p>The <code>Security</code> class provides a central location to configure FluentSecurity.  <code>Security</code> is also responsible for executing the auth tests you pass to it.</p>
+
+<h3>Security.Configure(Action<Configurator> configurator)</h3>
+
+<p><code>Configure</code> lets you define the configuration for you module.  It accepts an Action that can be used to define rules for each handler.  For example</p>
+
+<pre><code>Security.Configure(c =&gt;
+{
+    c.For&lt;RootHandler&gt;().DenyAnonymousAccess();
+    c.For&lt;AdminHandler&gt;().RequireRoles("Admin");
+    c.For&lt;UserHandler&gt;().DenyRoles("Admin");
+    c.For&lt;SecretHandler&gt;().AllowVerbs(Security.AllowedVerbs.GET | Security.AllowedVerbs.POST);
+});
+
+Tinyweb.Init();
+</code></pre>
+
+<p>We call <code>Security.Configure</code> just before we Init Tinyweb (though it can be done at anytime realistically speaking).  The configuration block shows off most of the ways you can configure handlers e.g.</p>
+
+<ol>
+<li><code>DenyAnonymousAccess</code> will prevent, as the name suggests, all anonymous users from accessing this handler</li>
+<li><code>RequireRoles</code> specifes 1..N roles that are required to access this handler</li>
+<li><code>DenyRoles</code> specifies 1..N roles that aren't permitted to access this handler</li>
+<li><code>AllowVerbs</code> restricts the HTTP Verbs that can be used to access this handler (PUT, POST, GET etc.)</li>
+<li><code>WithCustomRule</code> (not listed) allows you to specify a function that can be used to apply a custom rule to each request</li>
+</ol>
+
+
+<p>Each method returns the configuration object so it is possible to chain the calls to create more complex rules.</p>
+
+<pre><code>Security.Configure(c =&gt;
+    c.For&lt;EditHandler&gt;()
+        .DenyAnonymousAccess()
+        .RequireRoles("Author")
+        .DenyRoles("Reader")
+        .AllowVerbs(Security.AllowedVerbs.POST);
+</code></pre>
+
+<p>Obviously some combinations will not make sense, in fact AllowedVerbs needs to be tweaked as it may only apply to certain roles (so the combinations don't make sense right now).  Currently FluentSecurity doesn't care and it probably never will if you try and create illogical combinations.</p>
+
+<h3>bool Security.Test(RequestContext req, HandlerData d)</h3>
+
+<p>This will run all pre-configured rules against the current request to determine if the request is authorised to continue.  It will return a true/false result depengin on whether the rules pass or not.</p>
+
+<pre><code>bool granted = Security.Test(context, data);
+</code></pre>
+
+<h3>IResult Security.Validate(RequestContext req, HandlerData d)</h3>
+
+<p>Implements the typical SecurityFilter use case.  This function will call the <code>Test</code> method and returns <code>Result.None()</code> if the test passes (may be configurable in the future) otherwise it executes the <code>Security.OnAccessDenied</code> function and returns the <code>IResult</code>.  If no <code>OnAccessDenied</code> is defined <code>Result.None()</code> will be returned.</p>
+
+<pre><code>IResult result = Security.Validate(context, data);
+</code></pre>
+
+<p>This is simply shorthand for now but may be expanded with some custom logic in the near future.</p>
+
+<h3>Security.OnAccessDenied</h3>
+
+<p>This property is used to define a function that can be used to return a result should access been denied.  This is done lazily as it allows you access to the <code>RequestContext</code> and <code>HandlerData</code> so you could implement per-request handling of the Result (redirects or return URLs etc.)</p>
+
+<pre><code>Security.OnAccessDenied = (c, d) =&gt; Result.Redirect&lt;AccessDeniedHandler&gt;();
+</code></pre>
+
+<h2>SecurityFilter</h2>
+
+<p>The <code>SecurityFilter</code> class is simply a Tinyweb filter that performs the request validation for authentication.  Nothing special here move along now.</p>
+
+<h1>For Now and Up Next</h1>
+
+<p>So thats all there is for now.  Code is, as I've said, available at the <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity">BitBucket repository</a>.  I'm starting to build up some docs and stuff now and maybe tweak and add useful features.  If there is anything you would like to see raise it as an <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity/issues?status=new&amp;status=open">issue</a> and I'll get around to it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hackathon #2: Mobile]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/15/hackathon-2-mobile/"/>
+    <updated>2011-09-15T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/15/hackathon-2-mobile</id>
+    <content type="html"><![CDATA[<p>So as I've already said in a <a href="/blog/2011/08/29/hackathon-retorspective/">previous post</a> our first hackathon was well recieved.  So why not, we thought, do another one?  And indeed why not?</p>
+
+<p>This time we are changing things up.  Rather than everyone coming together to bang out a solution we are going to have small teams working on the same project on different mobile platforms.  With musical chairs.  Yeah you heard right right.  Musical Chairs.  Kind of.</p>
+
+<p>Heres the deal</p>
+
+<ul>
+<li>A number of stations are set up in a room.</li>
+<li>Each station is set up to host a particular development platform (iOS Native, Android Native, PhoneGap, Web, Windows Phone 7 etc.).</li>
+<li>Each station will have 2 x Developers assigned to them for pairing and 1 X Technology Expert that will act as an advisory role for that stations technology platform</li>
+<li>There will be 1 product owner and 1 idea.</li>
+<li>Each station will produce the solution in the best way possible for that platform</li>
+</ul>
+
+
+<p>Now here's the catch.</p>
+
+<ul>
+<li>Development will be done in sprints lasting 1 hour.  At the end of the sprint the 2 devs at each station get up and move to the next station giving a 5 minute handover to the next team.  This keeps happneing until the Hackathon (24hrs this time) is over.</li>
+</ul>
+
+
+<p>Thats the musical chairs bit.  But why?  Well this allows people to get some exposure to each platform, see the relevant pain points and above all else learn to work as a team rather than being a bunch of selfish pricks (#joke).  Sure the first full cycle will probably be painful for most people but like women who live in the same house - after the first cycle everyone should be roughly in sync (#jokeagain).</p>
+
+<p>It's a grand idea but it's easily broken.  We need to prevent that happening.  Here's how I think we can do that.</p>
+
+<ul>
+<li><strong>People</strong>.  People are key to this one.  More specifically numbers.  We need 3 people per station and 1 product owner.  If people drop out we have to start cutting stations, if numbers aren't right some teams will be too big/small and that wont work.  We got 12 people last time which dropped to about 6 after 24 hours because some people just couldn't hack the pace.  this time people need to commit and stay commited or we fail and that would suck!</li>
+<li><strong>Planning</strong>.  Everything needs to be ready for this one.  It's got a mobile focus and that should remain the focus.  This means all the backend services need to be available and working upfront.  This means user stories need to be defined beforehand and even a few broken down into tasks so devs can get cracking immediatley while the rest are fleshed out.  This means stations needs to be up and running with everything installed and working.  So lots to do.</li>
+<li><strong>Server/Services</strong>.  As I've said these need to be in place and rather than roll our own we are looking at the potentially awesome <a href="https://www.parse.com/">Parse</a> as it will have everything we need for all platforms thanks to the minimum of a RESTful API.  Still under review but it's looking good so far</li>
+<li><strong>Idea</strong>.  We need an idea that is sufficiently small but also feature rich enough to make the implementations different (device integration etc.).  We have some but we need to narrow this down to something that would be beneficial.</li>
+<li><strong>Infrastructure</strong>.  All the infrastructure needs to be in place.  All dev software installed, source control ready, <a href="http://agilezen.com/">AgileZen</a> subscriptions bought, test devices ready blah blah blah</li>
+</ul>
+
+
+<p>I'm sure there's more - I mean it's early days.</p>
+
+<p>So that is where we are right now, lots to think about and lots to do.  We are aiming for a November/December slot if we can get the people and a weekend they are all free.  Excited++.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Agility: Honorable Mentions]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/02/tinkering-with-agility-honorable-mentions/"/>
+    <updated>2011-09-02T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/02/tinkering-with-agility-honorable-mentions</id>
+    <content type="html"><![CDATA[<p>In the process of <a href="/blog/2011/09/01/tinkering-with-agility/">researching Agility</a> I needed to throw together a quick serverside stack to accept the RESTful calls from Agility.  I went with my current framework de jour <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and I must admit it was a great call.  For more basic info on Tinyweb check out my <a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb/">blog post</a></p>
+
+<p>Agility by default routes the RESTful requests to <code>api/model/{id}</code> and Tinyweb let me create a handler associated with this sort of url by way of areas.</p>
+
+<h2>Areas</h2>
+
+<p>Tinyweb has a feature I wasn;t aware of before.  It is possible to register a handlers namespace as an "area" (if you have experience with ASP.NET MVC you'll know what that means).</p>
+
+<pre><code>Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
+</code></pre>
+
+<p>This means that even though my handler is call <code>TodoHandler</code> the url would map to the one above without having to sacrifice naming style of the handler or force us to create a custom route variable in each handler that had to map to this area.  Flippin clever stuff</p>
+
+<h2>WebActivator</h2>
+
+<p>Another excellent Nuget package is the <a href="http://nuget.org/List/Packages/WebActivator">WebActivator</a> and I have been charmed by it's slickness recently.  WebActivator allows you to attribute a class/namespace and specify what code should be run when the application starts.  So rather than having to put in a load of lines for configuring different aspects of your stack into <code>Global.asax.cs</code> you can break them into distinct classes and avoid breaking <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">SRP</a> more than you have too.  Here is the example I used in the Agility.js source</p>
+
+<pre><code>[assembly: WebActivator.PostApplicationStartMethod(typeof(TinywebActivator), "Activate")]
+namespace Agility.Tinkerings.Web.Activators
+{
+    public class TinywebActivator
+    {
+        public static void Activate()
+        {
+            Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
+            Tinyweb.Init();
+        }
+    }
+} 
+</code></pre>
+
+<p> I don't even have a <code>Global.asax</code> defined at all.</p>
+
+<p> Feel free to poke around the source to get a better picture of how I threw the backend together.  Thanks go to <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and <a href="http://twitter.com/#!/martinrue">@martinrue</a></p>
+]]></content>
+  </entry>
+  
+</feed>

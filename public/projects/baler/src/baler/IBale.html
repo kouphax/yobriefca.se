@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>IBale.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="Bale.html">Bale.cs</a>
+          <a class="source" href="Baler.html">Baler.cs</a>
+          <a class="source" href="BalerConfiguration.html">BalerConfiguration.cs</a>
+          <a class="source" href="IBale.html">IBale.cs</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>IBale.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CodeSlice.Web.Baler</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Describes the public view of returned bales.  Allows for generation
+of JS and CSS Bales</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">interface</span> <span class="n">IBale</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Create bale as a JavaScript bale and return the <code>&lt;script /&gt;</code> tag</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="kt">string</span> <span class="nf">AsJs</span><span class="p">();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Create bale as a CSS bale and return the <code>&lt;link /&gt;</code> tag</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="kt">string</span> <span class="nf">AsCss</span><span class="p">();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Adds a function to execute on each item of the bale prior to being
+merged.  It gets the path and the contents and returns the
+transformed content</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="n">IBale</span> <span class="nf">Before</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">processor</span><span class="p">,</span> <span class="kt">int</span> <span class="n">order</span> <span class="p">=</span> <span class="m">0</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>Adds a function to execute on the concatenated bale content.<br/>
+It gets the contents and returns the transformed content</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="n">IBale</span> <span class="nf">After</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">processor</span><span class="p">,</span> <span class="kt">int</span> <span class="n">order</span> <span class="p">=</span> <span class="m">0</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>Adds a custom attribute to the output tag for this bale e.g.</p>
+
+<pre><code>bale.Attr("media", "screen").AsCss();
+</code></pre>
+
+<p>should produce a link tag like so</p>
+
+<p>   <link rel="stylesheet" type="text/css" href="..." media="screen" /></p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="n">IBale</span> <span class="nf">Attr</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">value</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

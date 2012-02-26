@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MonoTouch | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/monotouch/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
+    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <updated>2012-01-05T13:59:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
+
+<p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
+
+<!-- more -->
+
+
+<ol>
+<li>Via its natively compiled binaries (on iOS and Android)</li>
+<li>Via a its Rest API (for all non iOS/Android devices and desktops)</li>
+</ol>
+
+
+<p>Now I wanted to try and create bindings for the iOS library so I could use it for a Monotouch application I've been playing with but truth be told the whole process confused the hell out of me.  Thing was the REST API gave me everything I needed so I started recently to write a dynamic wrapper around the API.  Currently built on .NET in Visual Studio (Mono on my list) with a few sanity tests it works well enough to put it out there incase anyone was wanting to do something similar and could extract value from it.</p>
+
+<p>It's pretty early at the minute - in fact all you can do with this first spike is basic object CRUD.  No querying yet, no special user management features etc.  But they will come.  So what could you use it for?  Well a number of things,</p>
+
+<ul>
+<li>WP7 Cloud Storage</li>
+<li>Monotouch (and Monodroid) storage until someone smarter than me creates proper bindings to the actual iOS frameworks</li>
+<li>It's an object store so why not use it to store data on any web app?</li>
+<li>Just for tinkering.</li>
+</ul>
+
+
+<p>It makes use of <code>dynamic</code> from .NET 4 so you can kind of pass it arbitrary stuff and get arbitrary stuff back (Parse is schemaless so this makes sense for me).  It also means you wont have to create concrete classes for every single thing you want to store.</p>
+
+<p>If you want to run the tests you'll need to sign up for Parse, create an app and update the <code>consts</code> in <code>describe_Parsely</code> to point to your new app (and authenticate).</p>
+
+<h2>Sample Uses</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// create your parsley API</span>
+</span><span class='line'><span class="n">Parsley</span> <span class="n">parsley</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Parsley</span><span class="p">(</span><span class="n">applicationId</span><span class="p">,</span> <span class="n">masterKey</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// create new class</span>
+</span><span class='line'><span class="n">dynamic</span> <span class="n">response</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">1</span>  <span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// do other cool stuff</span>
+</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">4</span><span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">dyanmic</span> <span class="n">myObject</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Retrieve</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">parsley</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">myObject</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Outstanding Tasks</h2>
+
+<p>Lots.  But here is the main ones I see right now.</p>
+
+<ul>
+<li>Compile on Mono and show MonoTouch some Parse love.</li>
+<li>Samples (for WP7, Monotouch, possibly Monodroid)</li>
+<li>Add Queries</li>
+<li>Add User Management</li>
+</ul>
+
+
+<p>It's probably fairly rough right now and could do with some TLC if anyone wants to pitch in?  I've given it a name (Parsley) but that in no way implies this is going to be a long running project or anything.  I just like naming things.  Get it while it's hot, the code is in my <a href="https://bitbucket.org/kouphax/parsley">usual place</a>.</p>
+
+<h2>Pre-Post Update</h2>
+
+<p>Rather than update this blog post I decided to tack this on here.  With BitBucket experiencing some issues at present I spent about 10 minutes hacking in the user management features.  No tests written yet (oh no I have broken all the rules and must be beaten with oversized crayons) so lets just say that it's very edge, very experimental at the minute.  Also bonus - returning a collection of objects is implemented as <code>Query</code> but again totally untested (fast and loose - it's how I roll son).  There be dragons there therebe!</p>
+
+<p>Happy hacking.</p>
+
+<p>Can I have my WP7 MVP now please?  <strong>Kidding</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rolling Your Own PhoneGap with MonoTouch]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
+    <updated>2011-12-05T20:11:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
+    <content type="html"><![CDATA[<p><a href="http://phonegap.com/">PhoneGap</a> is a clever little idea.  Take a transparent native wrapper for a mobile platform, stretch a 100% x 100% web view and provide a JavaScript API that acts as a bridge to native methods that control the device features such as cameras, GPS and Contacts.  It brings all those lovely web people into the mobile space.  Truth be told PhoneGap isn't powered by flaked unicorn and rainbow essence - it's fairly simple to achieve yourself.</p>
+
+<!-- more -->
+
+
+<p>So I was thinking, as I do when I am bored, that it would be super awesome if MonoTouch could do the PhoneGap.  Turns out there have been some attempts in the past to create bindings but I barely understand the posts so I felt disappointed.  Then curious.  Then I started hacking.  Then happy.  Then bored again.  The happy once more.  Then slightly frustrated.  Finally I started writing this post and I think I feel a bit tired because it's late an I've had a hard day.</p>
+
+<p>Anyway what follows is a very primitive start to what is essentially a PhoneGap, possibly NimbleKit, for MonoTouch.  Thats cool becuase not only would you be saying "Screw You Objective-C!!" by using MonoTouch but you'd be sort of saying "Hey MonoTouch - HTML5 just had your mum, twice" as well.  Hey I'd use a NimbleKit/PhoneGap-like framework for MonoTouch if it was available and offered a clever way of mixing Native with Web but thats just me.  Hence I am writing this post.</p>
+
+<h2>The Recipe</h2>
+
+<p>There are various components that would make up a framework like this.</p>
+
+<ol>
+<li>A fullscreen Web View (lets call it the webside)</li>
+<li>A controller that handles requests from the webside (lets call it the nativeside)</li>
+<li>A JavaScript API on the webside that talks to the nativeside</li>
+</ol>
+
+
+<p>Simple enough so lets start proving things.</p>
+
+<h3>The Webside</h3>
+
+<p>Using a simple Single View iPhone Project in MonoDevelop I added some local resources.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>|
+</span><span class='line'>|_ www
+</span><span class='line'>| |_ index.html
+</span><span class='line'>|
+</span><span class='line'>|_ AppDelegate.cs
+</span><span class='line'>|_ MainViewController.cs
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>For now the index.html file has some basic content</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>body<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>h1<span class="ni">&amp;gt;</span>Hello UIWebView<span class="ni">&amp;lt;</span>/h1<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/body<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next up I created a full screen <code>UIWebView</code> and asked it to point to the <code>index.html</code> I just created in <code>wwww</code> folder (which by the way should be set as "Content".</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">ViewDidLoad</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">base</span><span class="p">.</span><span class="n">ViewDidLoad</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">using</span> <span class="p">(</span><span class="n">UIWebView</span> <span class="n">view</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWebView</span><span class="p">(</span><span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">320f</span><span class="p">,</span> <span class="m">460f</span><span class="p">)))</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// obtain path to actual content file</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">path</span> <span class="p">=</span> <span class="n">NSBundle</span><span class="p">.</span><span class="n">MainBundle</span><span class="p">.</span><span class="n">PathForResource</span><span class="p">(</span><span class="s">&quot;www/index&quot;</span><span class="p">,</span> <span class="s">&quot;html&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// create an address and escape whitespace</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">address</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;file:{0}&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;%20&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// create url and request</span>
+</span><span class='line'>    <span class="n">NSUrl</span> <span class="n">url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrl</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">NSUrlRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrlRequest</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// load request and add to main ?view</span>
+</span><span class='line'>    <span class="n">view</span><span class="p">.</span><span class="n">LoadRequest</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">.</span><span class="n">AddSubview</span><span class="p">(</span><span class="n">view</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Running this gives us what we would expect (I hope you expect this otherwise I'd be worried).</p>
+
+<p><img src="/images/blog/monotouch-phonegap/capture1.png" alt="Sample Output for Web View" /></p>
+
+<p>Webside more or less spiked for now.  Next up the nativeside.</p>
+
+<h3>The Nativeside</h3>
+
+<p>So how is the native stuff supposed to respond to requests made via the mysterious JavaScript API from the webside.  The approach that makes the most sense here is to set up an internal HttpListener that reacts to web requests.  This means we can, thanks to the lack of a Same Origin Policy in UIWebViews via the <code>file://</code> protocol, make Ajax requests to said listener to do stuff and return appropriate responses.</p>
+
+<p>In the AppDelegate class I created a basic HttpListener that simply returns a simple JSON response of true if a request is made.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">HttpListener</span> <span class="n">listener</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">void</span> <span class="n">HandleRequest</span> <span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">//Get the listener context</span>
+</span><span class='line'><span class="n">HttpListenerContext</span> <span class="n">context</span> <span class="p">=</span> <span class="n">listener</span><span class="p">.</span><span class="n">EndGetContext</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Start listening for the next request</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">string</span> <span class="n">response</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">byte</span><span class="p">[]</span> <span class="n">responseBytes</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentLength64</span> <span class="p">=</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">responseBytes</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="n">FinishedLaunching</span> <span class="p">(</span><span class="n">UIApplication</span> <span class="n">app</span><span class="p">,</span> <span class="n">NSDictionary</span> <span class="n">options</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">window</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWindow</span> <span class="p">(</span><span class="n">UIScreen</span><span class="p">.</span><span class="n">MainScreen</span><span class="p">.</span><span class="n">Bounds</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">viewController</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsBridgeViewController</span> <span class="p">();</span>
+</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">RootViewController</span> <span class="p">=</span> <span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">MakeKeyAndVisible</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpListener</span><span class="p">();</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Prefixes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;http://*:30001/&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>The Final Step - The Bridge</h3>
+
+<p>So we need to talk to this "server" from our JavaScript.  Easy stuff - for now we just make a simple ajax call to our endpoint in the <code>index.html</code> (synchronous for code simplicity).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;http://127.0.0.1:30001/&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">responseText</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Running this once again reveals that all is sweet...</p>
+
+<p><img src="/images/blog/monotouch-phonegap/capture2.png" alt="Sample Output for Web View with Nativeside call" /></p>
+
+<h2>Now What?</h2>
+
+<p>Well thats about as far as I've actually gotten but this is far enough to satisfy myself that it's possible to talk between the web view and the native stuff.  Yeah I know it's not rocket science but I needed to prove this to myself.  So whats next?  Well I want see what I can do with regards to making real calls to real things, perhaps even venture into NimbleKit territory and generate native elements such as ViewControllers and Tabs - who knows!</p>
+
+<p><em>(MYSTERIOUS EXIT MUSIC)</em></p>
+
+<p><em>(FADE TO BLACK)</em></p>
+
+<p>To Be Continued...</p>
+
+<p><em>(EVIL CACKLE HEARD IN THE DISTANCE)</em></p>
+
+<p><em>(END SCENE)</em></p>
+]]></content>
+  </entry>
+  
+</feed>

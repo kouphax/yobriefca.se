@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mobile | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/mobile/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
+    <updated>2011-12-13T17:39:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
+    <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my "lets have a natter about mobile" blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
+
+<p>On the other hand Enyo is a very nice little framework and in the hands of the Open Source community could be a real winner.  I've had a chance to tinker with over the last few days and thought I'd help get the word out by outlining how to write the obligatory by law ToDo app.  It is currently somewhat similar to the official <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">FeedReader tutorial</a> but it could be easily extended to add more features.  I recommend you look at the original <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">tutorial</a> for more info about how the project is structured as there are certain conventions that may seem odd to your typical web framework.</p>
+
+<p>The entire application, which looks like this (yeah yeah it's not the most beautiful thing on the planet - I suck at design).</p>
+
+<p><img src="/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
+
+<p>Was knocked together with the following bit of code</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">enyo</span><span class="p">.</span><span class="nx">kind</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;TodoApp&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">kind</span><span class="o">:</span> <span class="nx">enyo</span><span class="p">.</span><span class="nx">VFlexBox</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;PageHeader&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VFlexBox&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span><span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;Todos&quot;</span><span class="p">}</span> <span class="p">]},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">]},</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;RowGroup&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;newTask&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="nx">hint</span><span class="o">:</span> <span class="s2">&quot;Enter new ToDo here...&quot;</span><span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Add&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;addTask&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">]},</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>    <span class="p">]}</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">],</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">addTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">task</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">newTask</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">description</span><span class="o">:</span> <span class="nx">task</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">completeTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">evt</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fetchRowIndex</span><span class="p">()].</span><span class="nx">done</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">getChecked</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">clearComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">done</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">buffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">;</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Those of you with some experience in Sencha Touchwill notice that the declarative syntax is quite similar to STs except slightly simpler.  So lets break out some of the features that brought this example together.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is one of the component declarations that make up the suite of components that form the "kind" (Enyo speak for component or object).  This is somewhat similar to the DOM (COM anyone?  Component Object Model) except in JSON form.  You can specify a component type (kind) and apply properties (which may or may not do something depending on the kind).  Events are also declared inline (see onclick) and map to function names within the main kind declaration.  Obviously if this declaration started getting too big and bloated I could decompose it into smaller components all handling their own stuff.</p>
+
+<p>One other thing not highlighted in my demo is that backend service calls can also be defined within this component model and then called programatically.  While this felt alien to me initially it is pretty similar to the way inline stores are declared in Sencha - except slightly less engineered.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span><span class='line'><span class="p">]}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The scroller definition above has a few nice features.  The use of "flex" to manage different screen sizes or viewport resizes and create very nice flexible layout.  The VirtualRepeater which is a templated control that generates items from a collection based on the defined template.  The Virtual part is useful for large lists and ensures that only the minimum amount of items are rendered (just before they are needed).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Create is essentially our component constructor and allows us to set some things up in advance.  Notice the use of the <code>inherited()</code> method - this ensures the superclasses <code>create</code> method is also called (inheritence chaining)</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>this.$</code> is a handy property.  It is essentially a hash of all the named components that are direct and indirect children of the defined component.  This makes it very easy to access a certain component if you want to manipulate it.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>getTask</code> is the method responsible for populating an Item template in the repeater for each row.  This is where I bind the values of the current collection to the Item kind.</p>
+
+<p>There you have it - yet another ToDo app spat out into the world!  Just what we needed :)</p>
+
+<h2>It not all Unicorns and Rainbows</h2>
+
+<p>Yeah Enyo isn't perfect (shock horror).  There are some quite annoying and some serious bugs that I have noticed in my hacking.</p>
+
+<h3>Data Association</h3>
+
+<p>When rendering the Repeater I can't see a way to easily attach data items to that item instance.  I worked it out eventually by using <code>this.$.list.fetchRowIndex()</code> but I think you would need to then manage your own data association.  Not a big issue but it didn't feel right to me at the time.</p>
+
+<h3>iPad/iPhone issues</h3>
+
+<p>The one big issue I had with the iPad was that text fields often didn't bring the keyboard up (more often than not).  Obviously this could be a bit of a deal breaker but there could be a simple fix.  Some other minor quirks included scrolling issues when multiple scroll areas existed and choppy animations in the kitchen sink style demo (Sampler).</p>
+
+<p>The example apps display and work on the iPhone but they are super tiny.  I am not sure if this is just a lack of correct formatting within my HTML or if Enyo is purely designed for larger screens.</p>
+
+<h3>Events</h3>
+
+<p>At one point I wanted to bind to an event of a component programatically (rather than declaring it inline).  I still can;t find a way to do this and I wonder if this could be a bit of hindrence when you get into a truly dynamic application.  Thought this could be me being a bit stupid as usual.</p>
+
+<h2>Conclusion</h2>
+
+<p>Enyo v1.0 is still young in the hands of the OSS community but it's started out strong and could well be a strong competitor to something like Sencha Touch if it keeps up this pace.  Hopefully the community embraces it and allows it to grow.  It could well be great.</p>
+
+<p>So yes, so far I like it but I've only been hacking a few days.  Hopefully I get to spend more time with it over the next few weeks.</p>
+
+<p>The sample project is available on my <a href="https://bitbucket.org/kouphax/enyo-todos">BitBucket Repo</a> if you want to tinker.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rolling Your Own PhoneGap with MonoTouch]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
+    <updated>2011-12-05T20:11:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
+    <content type="html"><![CDATA[<p><a href="http://phonegap.com/">PhoneGap</a> is a clever little idea.  Take a transparent native wrapper for a mobile platform, stretch a 100% x 100% web view and provide a JavaScript API that acts as a bridge to native methods that control the device features such as cameras, GPS and Contacts.  It brings all those lovely web people into the mobile space.  Truth be told PhoneGap isn't powered by flaked unicorn and rainbow essence - it's fairly simple to achieve yourself.</p>
+
+<!-- more -->
+
+
+<p>So I was thinking, as I do when I am bored, that it would be super awesome if MonoTouch could do the PhoneGap.  Turns out there have been some attempts in the past to create bindings but I barely understand the posts so I felt disappointed.  Then curious.  Then I started hacking.  Then happy.  Then bored again.  The happy once more.  Then slightly frustrated.  Finally I started writing this post and I think I feel a bit tired because it's late an I've had a hard day.</p>
+
+<p>Anyway what follows is a very primitive start to what is essentially a PhoneGap, possibly NimbleKit, for MonoTouch.  Thats cool becuase not only would you be saying "Screw You Objective-C!!" by using MonoTouch but you'd be sort of saying "Hey MonoTouch - HTML5 just had your mum, twice" as well.  Hey I'd use a NimbleKit/PhoneGap-like framework for MonoTouch if it was available and offered a clever way of mixing Native with Web but thats just me.  Hence I am writing this post.</p>
+
+<h2>The Recipe</h2>
+
+<p>There are various components that would make up a framework like this.</p>
+
+<ol>
+<li>A fullscreen Web View (lets call it the webside)</li>
+<li>A controller that handles requests from the webside (lets call it the nativeside)</li>
+<li>A JavaScript API on the webside that talks to the nativeside</li>
+</ol>
+
+
+<p>Simple enough so lets start proving things.</p>
+
+<h3>The Webside</h3>
+
+<p>Using a simple Single View iPhone Project in MonoDevelop I added some local resources.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>|
+</span><span class='line'>|_ www
+</span><span class='line'>| |_ index.html
+</span><span class='line'>|
+</span><span class='line'>|_ AppDelegate.cs
+</span><span class='line'>|_ MainViewController.cs
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>For now the index.html file has some basic content</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>body<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>h1<span class="ni">&amp;gt;</span>Hello UIWebView<span class="ni">&amp;lt;</span>/h1<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/body<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next up I created a full screen <code>UIWebView</code> and asked it to point to the <code>index.html</code> I just created in <code>wwww</code> folder (which by the way should be set as "Content".</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">ViewDidLoad</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">base</span><span class="p">.</span><span class="n">ViewDidLoad</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">using</span> <span class="p">(</span><span class="n">UIWebView</span> <span class="n">view</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWebView</span><span class="p">(</span><span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">320f</span><span class="p">,</span> <span class="m">460f</span><span class="p">)))</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// obtain path to actual content file</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">path</span> <span class="p">=</span> <span class="n">NSBundle</span><span class="p">.</span><span class="n">MainBundle</span><span class="p">.</span><span class="n">PathForResource</span><span class="p">(</span><span class="s">&quot;www/index&quot;</span><span class="p">,</span> <span class="s">&quot;html&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// create an address and escape whitespace</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">address</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;file:{0}&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;%20&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// create url and request</span>
+</span><span class='line'>    <span class="n">NSUrl</span> <span class="n">url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrl</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">NSUrlRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrlRequest</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// load request and add to main ?view</span>
+</span><span class='line'>    <span class="n">view</span><span class="p">.</span><span class="n">LoadRequest</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">.</span><span class="n">AddSubview</span><span class="p">(</span><span class="n">view</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Running this gives us what we would expect (I hope you expect this otherwise I'd be worried).</p>
+
+<p><img src="/images/blog/monotouch-phonegap/capture1.png" alt="Sample Output for Web View" /></p>
+
+<p>Webside more or less spiked for now.  Next up the nativeside.</p>
+
+<h3>The Nativeside</h3>
+
+<p>So how is the native stuff supposed to respond to requests made via the mysterious JavaScript API from the webside.  The approach that makes the most sense here is to set up an internal HttpListener that reacts to web requests.  This means we can, thanks to the lack of a Same Origin Policy in UIWebViews via the <code>file://</code> protocol, make Ajax requests to said listener to do stuff and return appropriate responses.</p>
+
+<p>In the AppDelegate class I created a basic HttpListener that simply returns a simple JSON response of true if a request is made.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">HttpListener</span> <span class="n">listener</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">void</span> <span class="n">HandleRequest</span> <span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">//Get the listener context</span>
+</span><span class='line'><span class="n">HttpListenerContext</span> <span class="n">context</span> <span class="p">=</span> <span class="n">listener</span><span class="p">.</span><span class="n">EndGetContext</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Start listening for the next request</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">string</span> <span class="n">response</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">byte</span><span class="p">[]</span> <span class="n">responseBytes</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentLength64</span> <span class="p">=</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">responseBytes</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="n">FinishedLaunching</span> <span class="p">(</span><span class="n">UIApplication</span> <span class="n">app</span><span class="p">,</span> <span class="n">NSDictionary</span> <span class="n">options</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">window</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWindow</span> <span class="p">(</span><span class="n">UIScreen</span><span class="p">.</span><span class="n">MainScreen</span><span class="p">.</span><span class="n">Bounds</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">viewController</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsBridgeViewController</span> <span class="p">();</span>
+</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">RootViewController</span> <span class="p">=</span> <span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">MakeKeyAndVisible</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpListener</span><span class="p">();</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Prefixes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;http://*:30001/&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>The Final Step - The Bridge</h3>
+
+<p>So we need to talk to this "server" from our JavaScript.  Easy stuff - for now we just make a simple ajax call to our endpoint in the <code>index.html</code> (synchronous for code simplicity).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;http://127.0.0.1:30001/&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">responseText</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Running this once again reveals that all is sweet...</p>
+
+<p><img src="/images/blog/monotouch-phonegap/capture2.png" alt="Sample Output for Web View with Nativeside call" /></p>
+
+<h2>Now What?</h2>
+
+<p>Well thats about as far as I've actually gotten but this is far enough to satisfy myself that it's possible to talk between the web view and the native stuff.  Yeah I know it's not rocket science but I needed to prove this to myself.  So whats next?  Well I want see what I can do with regards to making real calls to real things, perhaps even venture into NimbleKit territory and generate native elements such as ViewControllers and Tabs - who knows!</p>
+
+<p><em>(MYSTERIOUS EXIT MUSIC)</em></p>
+
+<p><em>(FADE TO BLACK)</em></p>
+
+<p>To Be Continued...</p>
+
+<p><em>(EVIL CACKLE HEARD IN THE DISTANCE)</em></p>
+
+<p><em>(END SCENE)</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[So This Mobile Stuff Then... (Techologies)]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability/"/>
+    <updated>2011-12-05T13:50:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability</id>
+    <content type="html"><![CDATA[<p>Do you have your mobile strategy yet?  Do you have your "one true way" to cater for every mobile application need?  If not, the world will suddenly end and you'll never get anywhere in the mobile market.  Seriously.  Well not seriously.  Obviously that’s a pile of sheep.</p>
+
+<!-- more -->
+
+
+<p>To be blunt the best "mobile strategy" is the obvious one.  Do whatever suits the project best.  Yeah, yeah your company or your presales guys may not like that, no prepackaged waffle to fill document with or spew out in front of customers.  The easy route is seldom the best route.  Seriously though if your playing it safe with web just in case that iOS project you've gotten involved in goes Android you'll be compromising all the way.</p>
+
+<h2>Just In Case</h2>
+
+<p>Ahhhh good old "just in case".  Nothing produces more mediocrity through compromise than "just in case".  It's up to you to use your head when it comes to deciding what is the best fit for the project but as long as all the stakeholders are aware of the constraints those choices put on the project then those "what if" scenarios can be dealt with later.  We need to stop treating "mobile" as if it was a technology decision.  Web vs Native is not the same as saying Entity Framework vs NHibernate.  It's so much bigger than that.</p>
+
+<h2>Weighing up the options</h2>
+
+<p>So you got a killer mobile project and you want it to be awesome - just like all your projects.  Before we pull out the "Native, Hybrid or Web" question we need to know what is out there.  What tools, technologies or languages can we use to make the best solution we can?</p>
+
+<h2>Going Native</h2>
+
+<p>The problem with the native moniker is that people assume it means a different code base per mobile target and therefore crazy expensive, difficult to handle change, and very time consuming but that isn't always the case.  It is entirely possible to produce truly native apps without having to have an expansive code base in every language possible.</p>
+
+<h3>Appcelerator Titanium</h3>
+
+<p><a href="http://www.appcelerator.com/">Appcelerator's Titanium</a> is a good example of a platform that provides an abstract API via a common meta language (in it's case JavaScript) that allows you to build directly to native apps for each target platform.  You write your code and send it off to the cloud for compilation (AFAIK there currently isn't an in-house option for building but happy to be corrected).  So you've got a middleman that you have no control over. What happens if your app gets rejected due to some low level issue in the compiled code?  What if the cloud service goes down when you really really gotta build?  What if <a href="http://www.appcelerator.com/">Appcelerator</a> goes bust?  I dunno maybe that’s just mostly FUD but these are the questions that customers ask and they are difficult ones to answer.  I realise I've lambasted the use of too much "what if"s in decision making but I've come up against these ones and they directly affect the current solution rather than only the future scope.  They need addressing and that’s difficult.</p>
+
+<p>Having said the a brilliant example of <a href="http://www.appcelerator.com/">Appcelerators</a> usefulness is <a href="http://www.wunderlist.com/">Wunderlist</a> - available on a ton of mobile and desktop platforms and built with Titanium the whole project shares, AFAIK, a common code base.</p>
+
+<h3>MonoTouch, Monodroid etc.</h3>
+
+<p><a href="http://xamarin.com/monotouch">MonoTouch</a> and its ilk take a slightly different approach to the meta-language.  <a href="http://xamarin.com/monotouch">MonoTouch</a>, for example, isn't, as many believe, a cross-platform tool for building native apps.  No, <a href="http://xamarin.com/monotouch">MonoTouch</a> simply compiles to native code through direct bindings to Objective-C code.  You are simply using the C# and the powerful features of the Mono/.NET Base Class Library.  In fact it's even possible to bind to third party Objective-C code like Flurry, Three20 etc. (and many are made available by other developers).</p>
+
+<p>The ability to share a common codebase comes from the fact that the same platform is available in MonoDroid (C# and Android) and Silverlight (Windows Phone 7).  So sharing comes down to architecture.  You can share code provided your code doesn't touch and platform specific code.  You can create your own abstraction layer and work it into your build process or you can use MonoMobile.Extensions which gives you a common API already.</p>
+
+<p>So in one way the <a href="http://xamarin.com/monotouch">MonoTouch</a> stuff is simply the same as writing Objective-C but simply doing it using C#.  This is nice for a number of reasons.</p>
+
+<ul>
+<li>Mono has some very nice features like LINQ and Parallel programming.</li>
+<li>Plenty of nice compatible frameworks - <a href="http://code.google.com/p/sqlite-net/">sqlite-net</a>, <a href="https://github.com/timscott/catnap">catnap</a>, <a href="http://restsharp.org/">restsharp</a> and plenty more.</li>
+<li>Syntax that is less noisy and easier to read</li>
+</ul>
+
+
+<p>There are of course issues.  Assuming most people who use <a href="http://xamarin.com/monotouch">MonoTouch</a> will come from a .NET background and want to use those skills - when you start you'll realise just how nice Visual Studio is.  MonoDevelop isn't terrible, it's just fine, but it's simply not on par with Visual Studio (would you expect it to be?).  With the way <a href="http://xamarin.com/monotouch">MonoTouch</a> works your are kind of stuck with MonoDevelop too.  Your average VS2010 developer might easily get frustrated with MonoDevelop.  An aesthetic concern but one that can put people off easily.  That said XCode is equally as infuriating at times (bugs and quirks abound!).</p>
+
+<p>It's not all roses though.  What if Xamarin, the commercial sponsor of <a href="http://xamarin.com/monotouch">MonoTouch</a>, pull the plug?  What if Apple decide, as they tried to before, to ban the use of any intermediary language?  These are questions that people will ask but again the immediate and real advantages always trump theoretical risks.  One other thing worth thinking about - If you came from a Ruby background for example I'm not sure why you would use <a href="http://xamarin.com/monotouch">MonoTouch</a> over Obj-C.  Will this niche have an affect on Mono* in the long term?  Who knows.</p>
+
+<h2>Mixing It Up aka <em>(cough)</em>Hybrid<em>(cough)</em></h2>
+
+<p>So maybe you're a web guru/ninja/hero/wizard type person and you want to make use of those powers/skills in your mobile development but you want to get market visibility by creating a presence in the app stores.  Perhaps you want to have some sort of reuse across platforms but aren't a .NET dev and Titanium isn't appealing.  There a number of options in this area already.</p>
+
+<h3>PhoneGap/Callback</h3>
+
+<p><a href="http://phonegap.com/">PhoneGap</a> is easily the most technology in the hybrid space.  It is exactly what you expect.  A fullscreen UIWebView in which resources embedded in the application package are executed.  These resources are given access to native device features such as device access etc. via a JavaScript API that hooks into native function calls.  There are wrappers for numerous platforms (iOS, Android, Bada, Blackberry, WP7 etc.) but your code calls the same adaptive API.  Things start to veer off course when you need to introduce custom plugins as these are native and so you need to target all your platforms.  Not much <a href="http://phonegap.com/">PhoneGap</a>  can do in that case of course but worth pointing out.</p>
+
+<p>With <a href="http://phonegap.com/">PhoneGap</a>  it is up to you to create the experience.  Even if you want a simple straight forward native look and feel you'll need to simulate it.  Results may vary depending on how good you are at that sort of thing.  Of course something like Sencha Touch could be used to fake native but again what is native on one platform is weirdly alien on another and if you are targeting one platform only why not just man-up and learn that platform in the long term?  At least give yourself that option.</p>
+
+<h3>NimbleKit</h3>
+
+<p><a href="http://nimblekit.com/index.php">NimbleKit</a> is in some ways a bit like MonoTouch meets <a href="http://phonegap.com/">PhoneGap</a> .  You can use it as you would <a href="http://phonegap.com/">PhoneGap</a>  as a transparent API the bridges native and Web Technologies but you can also create real life native components such a Navigation Controllers and Tabs.  Currently iOS is the only supported platform (more support for iPhone than iPad) though an Android version does exist in beta.</p>
+
+<p>The interesting thing about <a href="http://nimblekit.com/index.php">NimbleKit</a> is that it allows you to make use of a range of technologies to create a really native application while at the same time making use of HTML5/CSS3 features to create a more compelling experience that becomes very difficult in native platforms (see my previous charting example in my last post).</p>
+
+<p>Plugins are extremely simple as well.  Just register the Obj-C class and call it from JavaScript.  Very nice, very simple.  This allows third party extensions to be bridged very easily too (Flurry for example).</p>
+
+<p>The slightly annoying thing about <a href="http://nimblekit.com/index.php">NimbleKit</a> is that it is currently very quiet.  There is still activity but it's certainly not on par with the likes of PhoneGap.  There are also some issues around stability.  It's not falling over all the time but there are somethings that need to be done in a certain order that aren't properly documented.  There is some minor speculation that <a href="http://www.sencha.com/">Sencha</a> have acquired <a href="http://nimblekit.com/index.php">NimbleKit</a> and I'd welcome that with open arms because I like the philosophy around <a href="http://nimblekit.com/index.php">NimbleKit</a> and it could do with some money behind it.</p>
+
+<h2>Options for Using Web Technologies</h2>
+
+<p>Be it hybrid or simply a mobile targeted web site/app there are a ton of options out there.  An absolute TON!</p>
+
+<ul>
+<li>Native look and feel, ultra rich frameworks</li>
+<li>Truly cross-platform progressively enhancing frameworks</li>
+<li>Frameworks for creating structure in your apps like MVC, MVVM etc.</li>
+<li>Frameworks for offering responsive designs</li>
+</ul>
+
+
+<p>Mind boggling choices that change and evolve on a near hourly basis.  Here are just a few</p>
+
+<h3>Native Look and Feel - Sencha Touch</h3>
+
+<p><a href="http://www.sencha.com/products/touch/">Sencha Touch</a> targets high end iOS and Android devices and creates native-esque UIs (WebKit only).  It's can be patchy on Android at times but the results you can get on iOS are very appealing.  Version 2.0 is seeing massive improvements in performance across the compatible platforms.  People who have experience in ExtJS will really feel at home here - other people will struggle with the short but steep learning curve (as with all <a href="http://www.sencha.com/">Sencha</a> frameworks).</p>
+
+<p>Bear in mind that <a href="http://www.sencha.com/products/touch/">Sencha Touch</a> is a framework not a product so there will be work involved in getting it to behave exactly how you want but the available architecture options such as the MVC approach and the Data Stores make it very powerful.</p>
+
+<h3>Cross Platform - jQuery Mobile</h3>
+
+<p><a href="http://jquerymobile.com/">jQuery Mobile</a> lives at the opposite end of the mobile framework spectrum.  It takes the philosophy of jQuery UI (Progressive Enhancement, accessibility, themeability etc.) and put it into a mobile framework.  So you construct a purely functional purely HTML application or site and with data annotations you let <a href="http://jquerymobile.com/">jQuery Mobile</a> make the site as rich and functional as it can.  This means provided your mobile device can render HTML the site or app will at least be functional.  Butt ugly but functional.</p>
+
+<p>This carries a penalty though.  Even when used on the top of the line device there are some trade offs that need to be made.  The experience is not as polished as it could be.  It is possible to tweak it yourself and cater to the high end devices only but there is extra work involved.  Again the result is still very nice and generally smooth but it is easy to nitpick little quirks in the navigation or styling.</p>
+
+<h3>MVC Frameworks - Backbone, Spine(Mobile), Sammy etc.</h3>
+
+<p>If you want to roll your own UI entirely but still need to create a scalable and proven foundation <a href="http://documentcloud.github.com/backbone/">Backbone</a> and <a href="http://spinejs.com/mobile/index">Spine</a> are two very interesting projects.  It's worth noting that Sencha Touch has a powerful MVC architecture built into to and it is somewhat similar to these frameworks.</p>
+
+<p>These sort of frameworks offer base classes for your typical project structure - Controllers, Models and Views.  They provide the wiring between these abstract classes allowing the developers to focus on the important stuff.  The controllers allow you to specify custom routing in your single page apps, the models give you structured persistence and sometimes relationships and the views give you a nicer lifecycle around page components and custom event handling.</p>
+
+<p>It's often said these frameworks take some time to "get" - some people can use them with ease while others just think they introduce unnecessary complexity.  I think they come into their own in the mobile app space but I do still struggle with the concepts at times.</p>
+
+<h3>Responsive Design - Skeleton</h3>
+
+<p>There are grid and UI toolkit frameworks out there that are aimed at creating a responsive design.  Got a large screen?  Make use of the better horizontal space and stack elements horizontally.  On a small mobile device with tiny viewport?  Stack the elements vertically.  <a href="http://getskeleton.com">Skeleton</a> is the perfect example of this using media queries to layout a grid system depending on available space.  It also has a few nice widgets like Tabs and Buttons.  Geared more around the web site rather than the app these frameworks are a handy addition.</p>
+
+<h2>Run out of things to say</h2>
+
+<p>I've covered a lot there but I wanted to get my thoughts out there in the world and hopefully educate and be educated.  My tools of choice right now?  Well RIGHT NOW I am tinkering with Obj-C and iOS as well as MonoTouch and did some NimbleKit hacking at the weekend.  To me this sort of understanding is important and that’s why I do it.  You may argue that it makes you a jack-of-all-trades but I don't think so - this I merely trying to better understand the mobile ecosystem in the same way I try and grok the entire .NET ecosystem.</p>
+
+<p>To me if you want to embrace mobile you need to understand it properly.  If you're just sticking with a particular stack because it's familiar to you you are doing yourself and the project a dis-service.  As many articles before me have said - you are not the programming language you code in - you need to embrace the polyglot nature of a good developer and do what is right for that project.</p>
+
+<p>Hope you enjoyed this.  That’s me for December I think :).  I have other things to do.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[So this mobile stuff then... (Hybrid)]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then/"/>
+    <updated>2011-12-03T11:53:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then</id>
+    <content type="html"><![CDATA[<p>It's fair to say over the past year or so I've dabbled in a bit of mobile development.  I've been involved in a number of  projects (from a technical perspective),</p>
+
+<ul>
+<li>Web Based, Tablet Focused Analytics Dashboard (Custom HTML and <a href="http://www.highcharts.com/">HighCharts</a>)</li>
+<li>Web Based, Tablet Focused Data Capture application (<a href="http://www.sencha.com/products/touch">Sencha Touch</a>)</li>
+<li>Hybrid application for a teleco (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
+<li>Mobile Hackathon (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a> and <a href="http://parse.com">Parse</a>)</li>
+<li>Hybrid Application for a Bank (<a href="http://www.sencha.com/products/touch">Sencha Touch</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
+<li>Various iPhone and iPad POCs for a health based project (<a href="http://xamarin.com/monotouch">MonoTouch</a>, XCode)</li>
+<li>Technology evaluations (Native Apple Development, <a href="http://parse.com">Parse</a>, <a href="http://www.sencha.com/products/touch">Sencha Touch</a>], <a href="http://phonegap.com">PhoneGap</a>, <a href="http://nimblekit.com/index.php">NimbleKit</a>, <a href="http://jquerymobile.com">jQuery Mobile</a>, <a href="http://documentcloud.github.com/backbone/">Backbone</a>, <a href="http://spinejs.com">Spine.js</a>, <a href="http://www.appcelerator.com/">Appcelerator</a>, <a href="http://xamarin.com/monotouch">MonoTouch</a>, <a href="http://android.xamarin.com/">Monodroid</a> and plenty more...)</li>
+<li>Consulted on various projects around the whole "native vs hybrid vs web" thing</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>That Hybrid Word</h2>
+
+<p>One thing I've found is that many clients are using the old "a web app will never be as polished as a native app" argument but TBH that really isn't the case.  This is down to a lack of real understanding and abuse of the word in the industry.  A bit of hybridism can go along way in creating a rich experience.</p>
+
+<h3>A Rose By Any Other Name...</h3>
+
+<p>Many people break mobile applications into 3 VERY distinct areas,</p>
+
+<ol>
+<li><strong>Native</strong> - app installed on the device, written using the default toolkit for that platform.</li>
+<li><strong>Hybrid</strong> - consists of a transparent "native" layer and a Web View into which HTML, JavaScript and CSS is loaded (generally stored within the native package).  The nativelayer provides and API for the JavaScript model in the Web View to call.  Think PhoneGap.</li>
+<li><strong>Web</strong> - HTML, CSS, JavaScript assets hosted on the web and accessed from a mobile device.  Possibly some native-like features such as icons and removing the browser chrome.</li>
+</ol>
+
+
+<p>The problem with the hybrid definition there is that it is, well, wrong.  There isn't a clear distinction between the native and hybrid and there shouldn't be.  If I spun up a Silverlight app that put a Web View in the middle to display some HTML I wouldn't call it hybrid.  If I wrote an Android app that used a library written in Scala it wouldn't be hybrid.  Or even if I wrote a Monotouch app using some bindings to the <a href="http://www.flurry.com/">Flurry</a> framework - nope not hybrid.</p>
+
+<h3>The Charting Example</h3>
+
+<p>A good example of "hybrid" is charting.  There aren't a great deal of nice flexible charting libraries for iOS, but there is for JavaScript/HTML5.  So some of our projects have made use of HighCharts and Sencha Charting inside a transparent UIWebView to render charts that are flexible and rich.  I wouldn't bother pinning the hybrid tag to that app - it's simply making use of whatever technologies helped us get the job done in the best way possible.</p>
+
+<p>I understand the use of hybrid in sales pitches or to simply convey meaning to people who are less technical but the problem is people are starting to develop opinions based on these words alone which is disatorous.  I've had customers tell me that they want native because that hybrid stuff is ugly.  True some hybrid apps are ugly as sin (Aer Lingus iPhone app for one) but then so are some native ones.  It's unfair to collectively throw away and entire type of app because of poorly misunderstood words.</p>
+
+<h2>But, But, But... Reusability</h2>
+
+<p>People use the hybrid term to show that they have thought about portability.  Write once, run anywhere.  In that sense I guess using hybrid makes sense (but that sort of talk is really part of the sales talk right?).  But then it would be just as easy to say that "elements of the solution will be written in a platform agnostic language to minimise code rewrites on different devices" - or something like that.  In fact that would be better.  That way you cover off more than "hybrid".  You've included the things like <a href="http://xamarin.com/monotouch">MonoTouch</a> or <a href="http://www.appcelerator.com/">Appcelerator</a> as well.  You've moved away from implementation specifics at the point where they shouldn't matter anyway!  Thats got to be a good thing.</p>
+
+<h2>Ah ha but what about Skills?</h2>
+
+<p>People go "hybrid" for another good reason - because they have no experience in the native platform.  I used to be one of those people but I'm not convinced that this is a good reason on its own.  If you want to make a compelling experience your limitation should never be your lack of skill.  Get skilled.  Obj-C isn't as scary as it seems - in fact I'd rather write Obj-C than Java.  Dig deep - thats what we've got the internet for - understanding and learning (well that and porn).</p>
+
+<h2>Awareness and Education</h2>
+
+<p>So what am I saying?  Well for a start I'm not saying we totally abandon the word hybrid and mock anyone who uses it.  Hells no.  It's still useful as I've already mentioned above. All I ask is that you make sure you know what you are talking about and that the people you are talking to know what you are talking about.  That and don't just take the easy route because it's easier for you.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hackathon #2: Mobile]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/15/hackathon-2-mobile/"/>
+    <updated>2011-09-15T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/15/hackathon-2-mobile</id>
+    <content type="html"><![CDATA[<p>So as I've already said in a <a href="/blog/2011/08/29/hackathon-retorspective/">previous post</a> our first hackathon was well recieved.  So why not, we thought, do another one?  And indeed why not?</p>
+
+<p>This time we are changing things up.  Rather than everyone coming together to bang out a solution we are going to have small teams working on the same project on different mobile platforms.  With musical chairs.  Yeah you heard right right.  Musical Chairs.  Kind of.</p>
+
+<p>Heres the deal</p>
+
+<ul>
+<li>A number of stations are set up in a room.</li>
+<li>Each station is set up to host a particular development platform (iOS Native, Android Native, PhoneGap, Web, Windows Phone 7 etc.).</li>
+<li>Each station will have 2 x Developers assigned to them for pairing and 1 X Technology Expert that will act as an advisory role for that stations technology platform</li>
+<li>There will be 1 product owner and 1 idea.</li>
+<li>Each station will produce the solution in the best way possible for that platform</li>
+</ul>
+
+
+<p>Now here's the catch.</p>
+
+<ul>
+<li>Development will be done in sprints lasting 1 hour.  At the end of the sprint the 2 devs at each station get up and move to the next station giving a 5 minute handover to the next team.  This keeps happneing until the Hackathon (24hrs this time) is over.</li>
+</ul>
+
+
+<p>Thats the musical chairs bit.  But why?  Well this allows people to get some exposure to each platform, see the relevant pain points and above all else learn to work as a team rather than being a bunch of selfish pricks (#joke).  Sure the first full cycle will probably be painful for most people but like women who live in the same house - after the first cycle everyone should be roughly in sync (#jokeagain).</p>
+
+<p>It's a grand idea but it's easily broken.  We need to prevent that happening.  Here's how I think we can do that.</p>
+
+<ul>
+<li><strong>People</strong>.  People are key to this one.  More specifically numbers.  We need 3 people per station and 1 product owner.  If people drop out we have to start cutting stations, if numbers aren't right some teams will be too big/small and that wont work.  We got 12 people last time which dropped to about 6 after 24 hours because some people just couldn't hack the pace.  this time people need to commit and stay commited or we fail and that would suck!</li>
+<li><strong>Planning</strong>.  Everything needs to be ready for this one.  It's got a mobile focus and that should remain the focus.  This means all the backend services need to be available and working upfront.  This means user stories need to be defined beforehand and even a few broken down into tasks so devs can get cracking immediatley while the rest are fleshed out.  This means stations needs to be up and running with everything installed and working.  So lots to do.</li>
+<li><strong>Server/Services</strong>.  As I've said these need to be in place and rather than roll our own we are looking at the potentially awesome <a href="https://www.parse.com/">Parse</a> as it will have everything we need for all platforms thanks to the minimum of a RESTful API.  Still under review but it's looking good so far</li>
+<li><strong>Idea</strong>.  We need an idea that is sufficiently small but also feature rich enough to make the implementations different (device integration etc.).  We have some but we need to narrow this down to something that would be beneficial.</li>
+<li><strong>Infrastructure</strong>.  All the infrastructure needs to be in place.  All dev software installed, source control ready, <a href="http://agilezen.com/">AgileZen</a> subscriptions bought, test devices ready blah blah blah</li>
+</ul>
+
+
+<p>I'm sure there's more - I mean it's early days.</p>
+
+<p>So that is where we are right now, lots to think about and lots to do.  We are aiming for a November/December slot if we can get the people and a weekend they are all free.  Excited++.</p>
+]]></content>
+  </entry>
+  
+</feed>

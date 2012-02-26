@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Conference | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/conference/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Talking at DDD North and Belfast]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/20/talking-at-ddd-north-and-belfast/"/>
+    <updated>2011-09-20T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/20/talking-at-ddd-north-and-belfast</id>
+    <content type="html"><![CDATA[<p>The start of October is going to be a busy time for me - in a good way.  The first weekend I'll be doing two talks at <a href="http://developerdeveloperdeveloper.com/dddie11/Schedule.aspx">DeveloperDeveloperDeveloper in Belfast</a> and the following week I'll be skipping over to Sunderland (first time there) do do another talk for <a href="http://developerdeveloperdeveloper.com/north/Schedule.aspx">DeveloperDeveloperDeveloper North</a>.  I've been lucky enough to land the same presentation for both DDD Belfast and DD North which means I have slightly less to prepare.  Not that it will be a drop in quality in anyway - no siree.</p>
+
+<p>For the interested folk the two talks are outlined below.  The titles and synopsis are fairly childish/over-sensationalised (delete as you see fit) but thats the way I roll.  My opinion enjoys being passed around and so my talks will feature a heavy dose of it - with all necessary disclaimers attached.</p>
+
+<p>For both events I'll be covering,</p>
+
+<blockquote><h1>refORM: Death to ORMs in .NET</h1>
+
+<p>Data Access is a difficult area to master. There are plenty of frameworks such as Entity Framework, NHibernate, i/myBatis. These frameworks attempt to make data access simpler but while these products are widely used they can lead to leaky abstractions forcing us to work around constraints of the technology or introduce the nightmare of trying to figure out what is happening deep down in the frameworks internals.</p>
+
+<p>In this session we will look at the various lightweight alternatives and the advantages they offer as well as provide rationale about why the more heavyweight approach isn't always the best approach.</p></blockquote>
+
+<p>And for DDD Belfast only,</p>
+
+<blockquote><h1>CoffeeScript the Awesome</h1>
+
+<p>CoffeeScript - "a little language that compiles into JavaScript" has been making a lot of noise in the web community with its inclusion in Ruby on Rail v3 and its swift rise in popularity on Github.</p>
+
+<p>This session will look at the benefits this language brings over the native JavaScript alternative, the syntactical double rainbow it creates, the problems you'll face and of course how you can actually use it in different technology stacks such as Ruby, node.js, .NET and Java.</p></blockquote>
+
+<p>I've never really undertaken sessions of this size before (mostly internal or for a customer) so it's going to be a cracking experience.  Hopefully people get as much out of these sessions as I will.  I'll have whatever resources up after the events as well.</p>
+
+<p>See you there (maybe).</p>
+]]></content>
+  </entry>
+  
+</feed>

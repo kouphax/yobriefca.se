@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>LessExtensions.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>LessExtensions.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span>
+<span class="k">namespace</span> <span class="nn">CodeSlice.Web.Baler.Extensions.Less</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Provides extension methods for converting
+<a href="http://www.dotlesscss.org/">Less</a> files into CSS</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">LessExtensions</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Converts a less bale to CSS and outputs as CSS source</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">AsLess</span><span class="p">(</span><span class="k">this</span> <span class="n">IBale</span> <span class="n">bale</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">bale</span><span class="p">.</span><span class="n">After</span><span class="p">(</span><span class="n">dotless</span><span class="p">.</span><span class="n">Core</span><span class="p">.</span><span class="n">Less</span><span class="p">.</span><span class="n">Parse</span><span class="p">).</span><span class="n">AsCss</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

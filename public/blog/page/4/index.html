@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Having spent a few days tinkering with agility.js I have come to the following conclusions It&#8217;s a bit buggy in places (it is currently on v0.1 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/01/tinkering-with-agility/">Tinkering With Agility</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-01T00:00:00+01:00" pubdate data-updated="true">Sep 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Having spent a few days tinkering with <a href="http://agilityjs.com/">agility.js</a> I have come to the following conclusions</p>
+
+<ol>
+<li>It&#8217;s a bit buggy in places (it is currently on v0.1 so this is to be expected)</li>
+<li>At first glance code written against <a href="http://agilityjs.com/">agility.js</a> looks like a total mess though it appears to be a weird optical illusion because once you grasp the <a href="http://agilityjs.com/">agility.js</a> approach the code makes total sense</li>
+<li><a href="http://agilityjs.com/">Agility</a> would fit well into an existing codebase as much as into a new one.  Certainly more so that some of the other frameworks.  And finally,</li>
+<li>I like it</li>
+</ol>
+
+
+<p>You could almost class <a href="http://agilityjs.com/">agility.js</a> as a micro MVC framework (and we all know how I like them).  I say that because it takes an incredibly simple approach to MVC as well as offering a very small but (IMHO) complete feature set.  Unlike <a href="http://knockoutjs.com/">knockout</a>, which also makes use of the <code>data-</code> attributes for model binding (and more), <a href="http://agilityjs.com/">agility.js</a> uses the <code>data-bind</code> attribute for model binding and thats it.</p>
+
+<p>With Agility you have that ability to compose UI&#8217;s from discrete little self-contained, and/or nested agility objects that behave as standalone MVC implementations.  This is <em>kind of</em> different to the standard appraoch of other MVC-like JS frameworks which generally go for the create a single large MVC architecture and manage components within that architecture.  I am not saying this appraoch is forbidden or impossible in the other frameworks - it&#8217;s just not how a noob would go about things.  At least I never did when I first started looking at them.</p>
+
+<p>To play with agility I went ahead and created &#8220;yet another Todo app&#8221; (<a href="https://bitbucket.org/kouphax/agility-tinkering">source</a>) complete with server side persistence and some responsive UI elements (Complete button will vanish when a Todo is completed - wow).  I&#8217;ll not break the entire thing down here but here are some choice cuts (in CoffeeScript cause I am THAT cool)</p>
+
+<pre><code>todo = $$ 
+  model: {}, 
+  view:
+    format: '''
+      &lt;li&gt;
+        &lt;span data-bind="description"/&gt;
+        &lt;button class="complete-task"&gt;Complete&lt;/button&gt;
+        &lt;button class="delete-task"&gt;Delete&lt;/button&gt;
+      &lt;/li&gt;
+    ''',
+  controller: 
+    'create': -&gt; 
+      @view.$().toggleClass "task-done", @model.get("complete")
+    'change:complete': -&gt; 
+      @view.$().addClass "task-done"
+    'click .complete-task': -&gt;  
+      @model.set "complete": true
+      @persist $$.adapter.restful, collection:'todos'
+      @save()
+    'click .delete-task': -&gt;  
+      @persist $$.adapter.restful, collection:'todos'
+      @erase()
+</code></pre>
+
+<p>The code above shows the creation of a Todo entity i.e. a single entry in the list.  <code>$$</code> is the Agility factory method and will create an MVC based entity out of the object passed in.  I have decalred a view, a model (albeit empty) and a controller with an assortment of tasks for the entity.</p>
+
+<p>This will give you two-way model binding, event wiring up and even custom events totally for free plus a very simple way to react to events.  The controller is essentially the event handler so things like <code>click .delete-task</code> will bind the handler to the click event of the element with the <code>delete-task</code> class (the typical full range of selectors are available thanks to jQuery, Zepto integration forthcoming too).  Events like <code>create</code> and <code>change:complete</code> are custom events given to us by agility and allow us to listen to key points in the lifecycle of the object.  In fact <code>change:complete</code> is a demonstration of something truly awesome (IMHO as usual).  The <code>change</code> event will fire when model properties are changed - the <code>change:&lt;property_name&gt;</code> will only fire when the <code>complete</code> property changes.  Noice!</p>
+
+<p>My Todo list object then creates instances of the <code>todo</code> object above after pulling the info from the server.  It uses agility&#8217;s inheritance strategy to to create them from the <code>todo</code> prototype I pass in</p>
+
+<pre><code>todos = $$
+  model: {},
+  view: 
+    format: '''
+      &lt;div&gt;
+        &lt;input type="text" id="newItem" /&gt;
+        &lt;button class="add-task"&gt;Add&lt;/button&gt;
+        &lt;ol/&gt;
+      &lt;/div&gt;
+    '''
+  controller:
+    'click .add-task': -&gt; 
+      item = @view.$('#newItem').val()
+      if item isnt ""               
+        newTodo = $$ todo, description: item
+        newTodo.persist $$.adapter.restful, collection:'todos'
+        newTodo.save()
+        @empty()
+        @gather todo, 'append', 'ol'
+</code></pre>
+
+<p>Next I append the <code>todos</code> object to the document (which renders it and wires things up)</p>
+
+<pre><code>$$.document.append todos
+</code></pre>
+
+<p>Persistance is provided as a plugin of sorts with ability to provide your own adapters.  You get a RESTful ajax adapter with Agility.  I use this to provide persistence methods on my objects and let agility set that up.</p>
+
+<pre><code>todo.persist $$.adapter.restful, collection:'todos'
+todos.persist()
+</code></pre>
+
+<p>There does seem to be a bug with the factory method and persitance enabled object forcing me to call <code>persist</code> prior to any sort of persitence operation but hopefully we will see that resolved soon.</p>
+
+<p>Finally I fetch from the server and wipe the awesome sauce from my lips and beard.</p>
+
+<pre><code>todos.gather todo, 'append', 'ol'
+</code></pre>
+
+<p>I&#8217;ve went on more than I wanted to but hey it&#8217;s worth it.  Hopefully this has helped clarify agility to a few people or at least got people intrigued.  Feel free to pull down the <a href="https://bitbucket.org/kouphax/agility-tinkering">source</a> and have a go yourself otherwise pop on over to the <a href="http://agilityjs.com/">Agility.js</a> site and read the excellent docs.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/29/hackathon-retorspective/">Hackathon Retrospective</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-29T00:00:00+01:00" pubdate data-updated="true">Aug 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>So my first ever Hackathon (48hr) is done and dusted and has been for over a week (lazy!!).  All in all it was a great experience and plenty of stuff was learnt &#8211; we got some technology evaluation (good and bad), ways we could streamline the process and things that burnt time way too fast.</p><p>This event was intended as a kind of dry run to see if there is any benefit in Kainos running more events of this nature.  Perhaps external ones for charity or educational endeavor.  Does that mean I&#8217;ll be doing it again?  Hope so.  I guess the best question to ask then is what did I want to get out of it.  Well I went in a bit open minded &#8211; mainly I wanted to have the experience but I also wanted to try and get some of the techs I have been tinkering with and see how they faired in a semi-real life environment.  I think I actually wanted to have produced something really usable too but perhaps I was expecting too much?  I mean what we produced wasn&#8217;t a total failure but it needs a lot of work.</p><h1>The End Result</h1><p>We ended up producing a web app for giving continuous feedback to colleagues.  The idea was to allow people to give and ask for feedback as well as facilitating a more formal career review workflow.  Social appraisals as it were.</p><p><img src="/images/appraisr.png" alt="" style="width:100%;"></p><p>We had some basic features such as integrated Windows Authentication and user information look up etc, autocomplete on peoples name, pretty relative time output and some commenting features.  So yeah it&#8217;s pretty sparse but hey it&#8217;s a start.  Whats more interesting is the process and things we observed.</p><h1>The Story</h1><p>The team was a mix of Technical Architects, placement students, software and senior software engineers and even a project manager we had a few no shows and a few people who intended to drop in for a while and leave again.  We also had a person who thought going out the night before was a good idea &#8211; it wasn&#8217;t (hahaha sucker).  But hey at least he showed up.  I have no problem with people not turning up as long as they let someone know but not turning up and not telling me&#8230;. bad form folks.</p><p>Anyway the majority of us gathered in our office at 9ish on Saturday morning and started pitching ideas to attempt.  We ended up with a decent pile of good ideas and started aggressively throwing ideas in the bin until, after some debate, we ended up with the one we decided to run with.  After that we started thrashing out user stories as a group and ended up with a decent amount. The whole process, including getting food, took about 3 or 4 hours.  We then all got stuck into various tasks, I started getting the build server functioning, a few people sat with the product owner and started fleshing out the user stories, a few people looked at the domain model and some people started writing acceptance tests.  This was the bit that cost us a lot of time.  Rather than each person or group working on vertical slice through the system we went horizontally and started arguing over things that never even made it into the end solution.  Everyone fell into their comfort zone cause thats the way Kainos projects typically run &#8211; old school waterfall for the most part.  So yeah no <span class="caps">REAL</span> work actually got done, people were just keen to start and I didn&#8217;t really pull it under control until it was just too late .  It would have been nice to have a Scrum Master type person who was overseeing everything too.  I was too busy doing my own horizontal slice :-S.</p><p>So things went on like this for a while, a lot of &#8220;getting things in place&#8221; and some people had to drop off.  Eventually we hit a point when we realised that our rate of work was nowhere near what it should be and something needed to change.  At about this point everyone but me decided to get some shut eye and I slipped my headphones in, played some Bon Iver and got stuck into fleshing out what we already had.  This formed the basis of the work the next day (this was about 4AM on Sunday morning) when the remaining team (5 left out of the initial 12) kicked of the final leg.  Due to our earlier stumble there wasn&#8217;t very much for our product owner/tester to do for most of the day which was a shame.  Eventually we ended up with what you seen above (finishing up at about 6PM on Sunday night).  The Sunday was less frantic, lots of pairing, lots of trying new technologies and was so much more productive</p><h1>The Technologies</h1><p>We used quite an interesting array of technologies</p><ul>	<li><span class="caps">ASP</span>.<span class="caps">NET</span> <span class="caps">MVC</span> 3</li>	<li><span class="caps">SQL</span> Server Compact 4 (due to issues with <span class="caps">SQL</span> Server on the last leg)</li>	<li><a href="http://www.toptensoftware.com/petapoco/">PetaPoco</a></li>	<li><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a></li>	<li><a href="http://documentcloud.github.com/backbone/">Backbone.js</a></li>	<li><a href="http://jquery.com/">jQuery</a></li>	<li><a href="http://jqueryui.com/">jQueryUI</a></li>	<li><a href="https://github.com/dradovic/MigSharp">Mig#</a></li>	<li><a href="https://github.com/JamesKovacs/psake">Psake</a></li>	<li><a href="http://www.nunit.org/">NUnit</a> which I have discovered is a massive impediment to writing tests after the silky smooth experience of <a href="http://www.nspec.org/">NSpec</a></li>	<li><a href="http://should.codeplex.com/">Should.Fluent</a></li>	<li>Git</li></ul><p>In terms of supporting technologies we used the awesome AgileZen for our Kanban board and HipChat for some shared chatting (we had Lync but it&#8217;s inability to persist conversations is a deal breaker in my book).  Finally, we used TeamCity as our build and continuous integration server which was a much much better experience than CC.<span class="caps">NET</span></p><h1>Hackathon Review</h1><p>I guess my story above probably sounds more negative than it really was cause thats the way I write.  It wasn&#8217;t &#8211; it was great craic.  We held a review post-hackathon with everyone involved and the following point were raised.</p><h2>Likes</h2><ol>	<li>Experience with new technologies e.g. CoffeeScript, PetaPoco</li>	<li>Experience with things such as user stories, kanban etc.</li>	<li>People got to do things that they just don?t get the chance to do. E.g. Andrew was designing screens.</li>	<li>Pair programming</li>	<li>Great craic!</li></ol><h2>Dislikes</h2><ol>	<li>People didn&#8217;t know what to do when there were bottlenecks</li>	<li>Lunches and dinners were taken at different times. This affected communication.</li>	<li>People thought they weren&#8217;t productive with no/little sleep.</li>	<li>Tester/Product Owner wasn&#8217;t used as much as they could&#8217;ve been on the second day.</li>	<li>Facilities room has a motion sensor on the lights</li>	<li>A yoga mat is not good for sleeping on</li></ol><h2>Improvements</h2><ol>	<li>Add an equivalent of a Scrum master to the team.</li>	<li>Agree an idea prior to the hackathon so it doesn&#8217;t eat into dev time.</li>	<li>Create a couple of use cases going into the hackathon so the dev team don&#8217;t have to wait on  the business people</li>	<li>Set up infrastructure prior to the hackathon</li>	<li>Choose a few technologies before hand so that people can learn a bit about them before. e.g. the software for source control can be decided in advance.</li>	<li>Make sure people aren&#8217;t going to the shops/getting food at different times</li>	<li>Clone James for tech leader/troubleshooter/developer</li>	<li>Have <strong>less</strong> team work. We found that the entire team was focused on some tasks that didn&#8217;t require it because, well, teamwork is great.</li>	<li>Focus on core functionality instead of e.g. logins which can be done later. Or prep login functionality before.</li>	<li>Use hackathon specific machines</li>	<li>If there&#8217;s another weekend hackathon, people should go get some sleep to rest eyes and minds!</li></ol><p>So all in all it was a great learning experience and I don&#8217;t think anyone said &#8220;I&#8217;m never doing that again&#8221; which was a result and I am certain we will attempt something else in a similar vein and take on board all those improvements to produce something that changes the world or something.  So many things to try&#8230;. what you all doing next weekend :-P</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/17/life-in-it-lesson-learning-to-say-no-keep-having-fun/">Life (in IT) Lesson #5372: Learning to Say No, Keep Having Fun</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T00:00:00+01:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>In case you haven&#8217;t noticed I didn&#8217;t blog for nearly a whole month.  Thats not like me.  Sure, I have my troughs (and peaks) but in terms of my overall social activity I may as well have been mostly dead.  My lame excuse?  I&#8217;ve been busy.  Yeah just like everybody else I&#8217;ve been working more than usual &#8211; but I&#8217;ve been taught a valuable lesson.  <strong>Fun</strong> is key.</p><p>Over the last month or so I&#8217;ve been gradually building up a collection of in-progress projects &#8211; just like Pokemon.  I was taking new ones on even when it felt risky and assuring people I could get the work done.  My hubris cost me, and others.  I spread myself too thin, I left no time for contingency and eventually I ended up, and this is really the best term for it so excuse the language, &#8220;fucking over&#8221; one of the projects at the worst possible time I can imagine.  I&#8217;ve always prided myself on the fact I can always stay on top of an extremely large amount of work and satisfy all the stakeholders.  I guess now I know my limit and I even have an indicator well before this threshold is met that I need to start waving a red flag &#8211; when it stops being <strong>fun</strong>.</p><p>I enjoy the vast majority of my work, but obviously there are some aspects that less than <strong>fun</strong> (writing documents, estimating etc.)<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.  What started happening was I was doing more <strong>non-fun</strong> work that <strong>fun</strong> work (in fact I was doing very little <strong>fun</strong> stuff at all).  This made me less productive, my heart wasn&#8217;t fully in it and so I wasn&#8217;t 100% focused.  I was less able to predict and plan accordingly and as things started happening on one project (on-site customer meetings etc.) another project had to take the hit and eventually one had to give.  The <strong>fun</strong> factor also meant I was taking on extra work in the vain hope that it might be more <strong>fun</strong>, which upon reflection, is pretty damn stupid.  Oh and lets not forget the fact I was holding off talking to people because of some insane belief that there was a good chance that things would look much better in &#8220;another hour or so&#8221;.  Seldom was this the case of course so it mean&#8217;t that I wasn&#8217;t raising flags early enough and people felt I was being aloof.</p><p>So what will I be doing in future?  Well I now have a rule and I will see how it goes.  Simply put,</p><blockquote><p>I will only take on more work if I am currently having <strong>fun</strong> and the new work will not push me into the <strong>not fun</strong> work spectrum.  If I am <strong>not having fun</strong> I can only take on more work when I have cleared some of my work and am back having <strong>fun</strong>.  The closer I get to the <strong>not fun</strong> end of the spectrum the sooner and more frequent communication with stakeholders needs to be.</p></blockquote><p>Simple enough but it seems to hold up so far.</p><ul>	<li>Give me too much <strong>fun</strong> work and it stops being fun because there is too much pressure.</li></ul><ul>	<li>Give me a single <strong>not fun</strong> job that isn&#8217;t fun and I will only accept it provided I can work on my own projects to re-address the <strong>fun</strong> ratio (blogging about experiences, related technologies etc.)</li></ul><p>This probably sounds quite selfish and, well, of course it is.  Nobody should expect me to just do whatever they say<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup> without at least making the deal appealing to me or at least allowing me a certain amount of free time to draw my own benefits from the situation.  For example I accept a certain amount of <strong>not fun</strong> work because I am permitted to do a lot of my own <strong>fun</strong> work to address the balance.</p><p>I think I&#8217;ve left this open enough for personal interpretation and flexibility but strict enough that there is a foundation here to aid in making decisions.  If I had applied this rule previously I wouldn&#8217;t have taken the extra work (even though it seemed appealing at the time &#8211; it was <strong>fun</strong> and I got paid overtime for it) and both myself and the project would be in better shape.  But hey how can you ever learn if you never make mistakes?</p><p>Is the word <strong>fun</strong> starting to sound really weird to anyone else?</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> I realise some people <span class="caps">LOVE</span> writing documents and estimating &#8211; I don&#8217;t.  They are just a necessary part of the job that I live with.</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> There is only one person that <span class="caps">CAN</span> &#8211; my wife and thats like the law.  The company I work for is great at trying to keep their workforce happy and I am in no way implying that they forced work on me.  They didn&#8217;t.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/16/opinionated-project-structure/">An Opinionated Project Structure</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-16T00:00:00+01:00" pubdate data-updated="true">Aug 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Choice and flexibility are good, in fact they a super smashing awesome.  Sort of.  I mean if you go over the top and offer people &#8220;all the choices&#8221; they are going to get all stressed and probably procrastinate until someone else makes the decision for them.  Also if you give them so much flexibility they will probably do things differently each time &#8211; again that is not a great thing either &#8211; for many things in life and IT you shouldn&#8217;t have to make a conscious decision (it&#8217;s probably waste of time in this case).</p><p>I&#8217;ve recently been reviewing my companies default project structure and it&#8217;s full of choice and flexibility and while this can cater for the vast array of different project types in our company it also imposes a certain level of cognitive-tax prior to kicking off any development to get the solution in a position that can be farmed out to the team.  It imposes this tax across <span class="caps">ALL</span> projects even the 99% of the time typical project, with their typical project structure.  It&#8217;s not a costly tax but it&#8217;s unnecessary.  Why not just push it onto the non-standard projects who will likely need to spend time setting things up correctly anyway?  Suck it, weird projects!  Thats what I say.</p><p>To this end I&#8217;ve been trying to build a fairly opinionated project structure (along with some handy tools during the development stage).  Right now it&#8217;s in the early stages and open to abuse/commentary (in fact I&#8217;d welcome it, please) but I thought it makes sense to share it<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup> &#8211; for the benefit of myself and others (or selfishly unselfish as I like to call it).</p><h1>Folder Structure</h1><p>I didn&#8217;t want to break from tradition here.  There is exists a fairly standard project structure that is common across many languages and environments and rather than create a clever, verbose structure I reckon it&#8217;s probably best to stick with the tried and tested approach.  That way new developers, regardless of background, shouldn&#8217;t have to wrestle with heavily nested folders or obscure names for folders (SolutionSource vs src) when navigating our solution.</p><p class="minimal-gist"><script src='https://gist.github.com/1149975.js?file='></script><noscript><pre><code>  |_ &lt;MySolution&gt;    |_ &lt;lib&gt;	  |_ repositories.config    |_ &lt;src&gt;    |_ &lt;test&gt;	|_ .gitignore			|_ default.ps1		|_ MySolution.sln	|_ nuget.config</code></pre></noscript></p><p>Most of this will be fairly self-explanatory<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup> but whats the harm in a little clarification?</p><ul>	<li><code>lib</code> this is the place either myself or Nuget (see nuget.config and default.ps1) will dump any DLLs, tools or other dependencies required by the solution.  As I will talk about later the only file I ever check in here is the repositories.config and have nuget resolve the rest (still some decisions need made around manually referenced files etc.).</li>	<li><code>src</code> hold all the projects that are actually going to be released as part of the final solution.  This folder doesn&#8217;t contain any of the test projects you create for the solution &#8211; no point in muddyinbg the waters.</li>	<li><code>test</code> holds all the solutions projects that we create for running tests (unit, integration etc) to validate the solution.</li></ul><h1>Special Files</h1><p>My default project comes with a number of files that help make developing and building the solution form scratch as easy as it should be.  These files are open to be tweaked to suit the needs of the project as and when necessary.</p><h2>repositories.config</h2><p>This is a file that is used by <a href="http://nuget.org">Nuget</a> to resolve the location of all the package configuration files associated with the projects in a solution (packages.config).  When I start this file is empty but as dependencies are added via <a href="http://nuget.org">Nuget</a> this file is updated to the location of packages.config files within each project (which in turn is used to resolved the necessary <a href="http://nuget.org">Nuget</a> packages that need to be downloaded).  I include this file along with a download task in my <a href="https://github.com/JamesKovacs/psake">psake</a> build file (see later) so that we we don&#8217;t have to check-in all those, potentially large, dlls and tools into our <acronym title="Version Control System"><span class="caps">VCS</span></acronym> &#8211; it&#8217;s slow and annoying.  As a bonus when using some VCS&#8217;s (e.g. git) this file will ensure the lib folder is committed to source control even thought it is technically empty &#8211; keeping our project structure intact.</p><h2>.gitignore</h2><p>Used to ignore certain generated and user specific files when using the git version control system.  Keeps things nice and clean and reduces annoying unnecessary conflicts.  As with most solutions out there I ignore the following patterns by default,</p><p class="minimal-gist"><script src='https://gist.github.com/1150000.js?file='></script><noscript><pre><code>binobj*.suo*.csproj.user*.cachelib/*/</code></pre></noscript></p><h2>nuget.config</h2><p>I&#8217;ll jump onto the meat of the files, default.ps1, shortly but first as you can probably guess by now I assume the use of <a href="http://nuget.org">Nuget</a>.  It&#8217;s there, it&#8217;s great and thats all I want to say on that matter.  <code>nuget.config</code> is a simple file that tells <a href="http://nuget.org">Nuget</a> (even within Visual Studio) to put all it&#8217;s downloaded files into the lib directory rather than the default <code>packages</code> folder.  Everyone understands what <code>lib</code> is, less people &#8211; packages.</p><p class="minimal-gist"><script src='https://gist.github.com/1150006.js?file='></script><noscript><pre><code>&lt;settings&gt;	&lt;repositoryPath&gt;lib&lt;/repositoryPath&gt;<p><p></code></pre></noscript></p><h2>default.ps1</h2><p>I&#8217;ve decided to run with <a href="https://github.com/JamesKovacs/psake">psake</a> to coordinate and perform my builds.  MSBuild, while useful, is ridden with sickeness I call <span class="caps">XML</span> (<span class="caps">BTW</span> everyone else calls it <span class="caps">XML</span> too <span class="caps">AFAIK</span>).  It&#8217;s a beast to get right.  <a href="https://github.com/JamesKovacs/psake">Psake</a> on the other hand is pure script.  It&#8217;s more succinct and you can even debug it &#8211; how awesome is that?  So <code>default.ps1</code> is my <a href="https://github.com/JamesKovacs/psake">psake</a> based build file.  What does it look like currently?  Glad you asked&#8230;..</p><p class="minimal-gist"><script src='https://gist.github.com/1150010.js?file='></script><noscript><pre><code># -----------------------------------------------------------------------------<p><ol>	<li>S C R I P T   P R O P E R T I E S</li>	<li><del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;<br>Properties {<br>	$solution = (Get-ChildItem *.sln).Name<br>	$solutionname = $solution.Substring(0, $solution.LastIndexOf(&#8216;.&#8217;))<br>}</li></ol></code></pre></noscript><p>I assume that the majority of projects are based on a single solution held at the root of our folder structure (as described above).  So I dynamically grab the name and relative path of the solution file for use later.</p><p class="minimal-gist"><script src='https://gist.github.com/1150017.js?file='></script><noscript><pre><code># -----------------------------------------------------------------------------<p><ol>	<li>H E L P E R   F U N C T I O N S</li>	<li><del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;<br>function Write-LineBreak(){<br>	Write-Host &#8220;<del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-&#8221;<br>}<br></li></ol></code></pre></noscript><p>Set of helper functions currently only provides a simple function to print out a flowerboxing line to make output a bit cleaner.</p><p class="minimal-gist"><script src='https://gist.github.com/1150018.js?file='></script><noscript><pre><code># Set the default framework (3.5 by default)$framework = '4.0'</code></pre></noscript></p><p>Assume that we are all living in the present (as much as possible) so switch to .<span class="caps">NET</span> 4.</p><p class="minimal-gist"><script src='https://gist.github.com/1150019.js?file='></script><noscript><pre><code># Declare default taskTask Default -depends Build,Test</code></pre></noscript></p><p>By default <a href="https://github.com/JamesKovacs/psake">psake</a> should do a <code>Build</code> and <code>Test</code>.</p><p class="minimal-gist"><script src='https://gist.github.com/1150022.js?file='></script><noscript><pre><code># Resolves all the requires nuget dependecies so they don't need checked inTask Resolve {  Push-Location '.\lib\'  Get-Content '.\repositories.config' | foreach {    	if($_ -match 'path="(.*)"'){<p><p>Write-LineBreak<br>	    Write-Host &quot;Resolving Dependencies for &quot; -nonewline<br>	    Write-Host $matches<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.Split(&#8216;\&#8217;)[-2] -ForegroundColor Green<br> 	    Write-LineBreak</p><p>nuget install $matches<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup></p><p>Write-LineBreak<br>	}<br>  }<br>  Pop-Location<br>}</code></pre></noscript></p><p>Resolve is the function mentioned earlier that finds the location of the repositories.config files and asks <a href="http://nuget.org">Nuget</a> to resolve all the external dependencies of the solution.  This should be done when you have pulled from a repository that included new dependencies.</p><p class="minimal-gist"><script src='https://gist.github.com/1150023.js?file='></script><noscript><pre><code># Build the first solution file you findTask Build {<p><p>Write-LineBreak<br>	Write-Host &quot;Building Solution &quot; -nonewline<br>	Write-Host $solutionname -ForegroundColor Green<br>	Write-LineBreak</p><p>Exec { msbuild   /v:quiet /t:Rebuild  }</p><p>Write-LineBreak<br>}</code></pre></noscript></p><p>Performs a basic, quiet build of the default solution.</p><p class="minimal-gist"><script src='https://gist.github.com/1150025.js?file='></script><noscript><pre><code># Run the project testsTask Test {}</code></pre></noscript></p><p>Executes all the tests in the solution.  Currently empty I intend to flesh this out with a default unit testing approach.</p><h1>Baby Steps</h1><p>So this is just the beginning and I hope this evolves based on observations made in our real world projects rather than a bunch of nice to haves.  It will also be nice to automate the creation of projects and solutions but thats certainly for another time.  Recommendations, comments and all that stuff welcome.  I&#8217;ll try and get this basic structure up on Github too.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> I mean, it has been a while since I blogged so it&#8217;s about time I get back to it.  That said this isn&#8217;t a &#8220;filler post&#8221;.  I&#8217;m not doing this under some random contract.  Thought I wish I was &#8211; imagine that &#8211; how fun.</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> Cracker idea, right?  Who&#8217;d have thought it??! I&#8217;m a total genius and you can bow at my feet at will please.  kthnxbai.</p><p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> All subfolders in lib &#8211; as mentioned in the previous section.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb/">Micro Web Frameworks in .NET 101: Tinyweb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-18T00:00:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various <em>micro web frameworks</em> in the .<span class="caps">NET</span> world.  The frameworks I intend to cover will be linked as the series progresses.  For further discussion on the use of micro web framework in .<span class="caps">NET</span> please see my <a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">previous post</a> The current series line up:<ul>	<li><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Jessica</a></li>	<li><a href="/blog/2011/05/23/micro-web-frameworks-101-nancy/">Nancy</a></li>	<li><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Anna</a></li>	<li><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb//">Tinyweb</a><br></li></ul></blockquote><p>Tinyweb takes a slightly different view than the other web frameworks I have talked about.  In fact it takes a fairly opinionated approach to the way your structure your applications code and forces you to think in terms of resource endpoints rather then big monolithic modules or controllers.  It&#8217;s certainly true that projects based on the other frameworks such as Nancy and Jessica can be architected in such a way but Tinyweb ensures that you don&#8217;t start cutting corners and making allowances for lazy code by simply not providing the ability to do it!</p><h2>Getting Started &#8211; Hello World</h2><p>Lets get Tinyweb first from good old reliable Nuget,</p><script src='https://gist.github.com/1101809.js?file=Install.ps1'></script><noscript><pre><code>Install-Package Tinyweb</code></pre></noscript> <p>With Tinyweb installed we can go ahead and create a <code>RootHandler</code> this name is the one exception to the Tinyweb handler naming convention which I&#8217;ll touch on in a minute.</p><script src='https://gist.github.com/1101814.js?file=RootHandler.cs'></script><noscript><pre><code>public class RootHandler{    public IResult Get()    {        return Result.String("Hello World");    }}</code></pre></noscript><p>In our handler I also defined the a <code>Get</code> method which returns an IResult this will act as our endpoint.  One last thing before we magic up a web page is to initialise Tinyweb via our <code>Global.asax.cs</code> so Tinyweb can do its bootstrapping discovery voodoo stuffs.</p><script src='https://gist.github.com/1101802.js?file=Global.asax.cs'></script><noscript><pre><code>public class Global : HttpApplication{    protected void Application_Start(object sender, EventArgs e)    {        Tinyweb.Init();    }}</code></pre></noscript> <p>Et voila! Run the app and once again we have a hello world.</p><h2>Tinyweb Features</h2><p>Even in that small Hello World example there are plenty of Tinyweb features but you&#8217;ll also notice that Tinyweb really doesn&#8217;t get in the way at all.</p><h3>Handlers</h3><p>Each Tinyweb Handler represents a single resource endpoint.  With the exception of <code>RootHandler</code> the <span class="caps">URL</span> endpoint for each handler is inferred from the name of the handler.  For example a handler named <code>HelloHandler</code> will react to <code>/hello</code>, <code>HelloWorldHandler</code> will react to <code>/hello/world</code>.  You can see from these examples that casing of the handler name is important in terms of the url endpoint generation.</p><p>The next thing about handlers is that they respond to 4 methods each one corresponding to the 4 main Http Verbs &#8211; <code>Get()</code>, <code>Post()</code>, <code>Put()</code> and <code>Delete</code> &#8211; the only requirement of these is that they return an <code>IResult</code></p><h3>Model Binding and Arguments</h3><p>Model binding is also provided by handlers actions &#8211; just pass in an object and Tinyweb will do it&#8217;s best to bind request values to this object (accepts primitives, collections and plain C# objects).</p><p>Alternatively if you want to do some work under the hood you can make sure the <code>RequestContext</code> is passed in by simply passing it instead.  This gives you access to the bowels of the request to do with what you please.</p><h3>Advanced Routes</h3><p>It&#8217;s also possible to override the default routing convention by declaring a handler level variable called <code>route</code> of type <code>Route</code>.  This example shows how we can override handlers default route <code>/hello/world</code> and go with the more understandable &#8220;/helloworld&#8221;.</p><script src='https://gist.github.com/1102490.js?file=HelloWorldHandler.cs'></script><noscript><pre><code>public class HelloWorldHandler{    Route route = new Route("helloworld");    public IResult Get()    {        return Result.String("Hello World");    }}</code></pre></noscript><h3>Route Parameters</h3><p>In the spirit of RESTFulness you may also want to accept parameters as part of your <span class="caps">URL</span> and we can do that as well with this <code>route</code> class as well as optionally suppling default values for parameters,</p><script src='https://gist.github.com/1102494.js?file=HelloWorldHandler.cs'></script><noscript><pre><code>public class HelloWorldHandler{    Route route = new Route("hello/{name}");    // OR WITH A DEFAULT VALUE FOR PARAMS    Route route = new Route("hello/{name}", new { name = "World" });    public IResult Get(string name)    {        return Result.String("Hello " + name);    }}</code></pre></noscript><p>A powerful little approach.</p><h3>Results</h3><p>All Tinyweb results (e.g. what the response returns) implement the <code>IResult</code> interface so it&#8217;s simple enough to implement your own custom result type though it is probably unnecessary for the most part as Tinyweb offers a range of result types straight away via the <code>Result</code> classes static methods.</p><ul>	<li>String</li>	<li>File</li>	<li>Json</li>	<li><span class="caps">XML</span></li>	<li>JsonOrXml (returns either Json or <span class="caps">XML</span> depending on the request headers)</li>	<li>Html</li>	<li>Redirect (to a specific handler or <span class="caps">URL</span>)</li></ul><p>Tinyweb also offers a <code>View</code> class that can render views written with Spark and Razor so rendering a view can be as simple as</p><script src='https://gist.github.com/1102510.js?file=HelloWorldHandler.cs'></script><noscript><pre><code>public class HelloWorldHandler{    Route route = new Route("hello/{name}", new { name = "World" });    public IResult Get(string name)    {        return View.Razor&lt;string&gt;(name, "hello.cshtml");    }}</code></pre></noscript><h3>Filters</h3><p>Filters allow us to intercept requests both before and after they are processed on both a per handler and global level.</p><p>Each handler can optionally contain an <code>After</code> and/or a <code>Before</code> method that will, not surprisingly, be called after and before each handler request (I&#8217;ll let you guess which one does which) e.g.</p><script src='https://gist.github.com/1102652.js?file=RootHandler.cs'></script><noscript><pre><code>public class RootHandler{    public void Before()    {        Logger.Log("Before Executed");    }    public IResult Get()    {        return Result.String("Hello World");    }    public void After()    {        Logger.Log("After Executed");    }}</code></pre></noscript><p>Alternatively if you want the same before or after filter applied across all handlers you can create a Filter class by creating a class appended with the word <code>Filter</code>.  We can recreate the same handler above with a global filter for logging,</p><script src='https://gist.github.com/1102658.js?file=Filter.cs'></script><noscript><pre><code>public class LoggingFilter{    public void Before()    {        Logger.Log("Before Executed");    }    public void After()    {        Logger.Log("After Executed");    }}public class RootHandler{    public IResult Get()    {        return Result.String("Hello World");    }}</code></pre></noscript><p><code>Before</code> and <code>After</code> methods can also return <code>IResult</code> objects if you want to work with the actual response.</p><h3>Error Handling and Debugging</h3><p>Not all of us write flawless code and so sometimes things go south and exceptions start throwing their weight around.  Tinyweb has a global hook that is useful for capturing such errors as they bubble up to the surface.  The TinyWeb class has a static property <code>OnError</code> that accepts an Action that can be used to handle the exception e.g.</p><script src='https://gist.github.com/1102667.js?file=Global.asax.cs'></script><noscript><pre><code>protected void Application_Start(object sender, EventArgs e){    Tinyweb.Init();    Tinyweb.OnError = (exception, context, data) =&gt;    {        Logger.Log(exception);    };}</code></pre></noscript><p>Another useful tool when debugging your app is the <code>Tinyweb.WhatHaveIGot()</code>.  It&#8217;s a convenience method that can be used to print out all the matched routes and filters.</p><h2>Conclusion</h2><p>On the surface the focus of Tinyweb may seem only moderately different from other frameworks but after playing with it for a while it become apparent that the opinionated approach really makes you think about your projects structure and <span class="caps">API</span>.  I&#8217;m certainly of the opinion that this is a damn good thing<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.  Tinyweb gives me just enough framework to do pretty much everything I need &#8211; which I would expect from a real micro-framework.  On top of that it&#8217;s flexible and intuitive and another handy utility in my tool belt.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> I&#8217;ve already said that it is possible to make the likes of Nancy and Jessica behave in this, either by ensuring that all module adhere to this pattern, or creating an abstract base class that enforces this sort of structure so I am in no way bashing the alternatives.  I like choice.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/10/baler-v04.1-released/">Baler v0.4.1 Released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-10T00:00:00+01:00" pubdate data-updated="true">Jul 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Tiny release push out to <a href="http://yobriefca.se/projects/baler">Baler</a> that provides VS2008 specific project and solution files.  No new stuff pushed to Nuget as it is source only this time.</p><p>Source available in the <a href="https://github.com/kouphax/baler/">Github Repo</a>.</p><p>More on its way soon!</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/06/get-excited-and-make-things/">Get Excited and Make Things</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-06T00:00:00+01:00" pubdate data-updated="true">Jul 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p style="text-align:center;"><img src="/images/getexcitedandmakethings.png" style="border:15px solid white;"></p><p>Not generally a fan of the <a href="http://en.wikipedia.org/wiki/Keep_Calm_and_Carry_On">Keep Calm and Carry On</a> parodies but this one pretty much sums up how I feel about my job/career type thingies and well worth a mention.  Props to <a href="http://www.flickr.com/photos/blackbeltjones/3365682994/">Matt Jones</a> for this one.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/05/nspec-debuggershim/">Debugging NSpec Tests: The DebuggerShim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-05T00:00:00+01:00" pubdate data-updated="true">Jul 5<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Busy busy busy.  I&#8217;ve been working away on a lot of projects and not had a lot of time to stick anything up on this blog in a while.  I&#8217;ve got a growing &#8220;To Blog&#8221; list but no time to do it, woe is me!!!<br><img src="/images/woeisme.png" style="float:right;"></p><p>Enough about my perfectly normal life, well almost.  Some of my current work has me going full tilt with <span class="caps">TDD</span> on a little C# project and I decided that <a href="http://nspec.org">NSpec</a> would help me with unit testing.  So I went about writing failing tests, writing code, passing tests on and on and on.  Things went along fairly well until I hit a little bit of a wall around a little edge case.  My tests kept failing and I couldn&#8217;t understand why.  The stack trace made little to no sense and my code looked sound.  The problem I had was that <a href="http://nspec.org">NSpec</a>, out of the box at least, doesn&#8217;t have any nice integration with Visual Studio or TestDriven.<span class="caps">NET</span>.  Initially I was using a throw away console application and debugging through it but as you can imagine that was time consuming.</p><p>It wasn&#8217;t long though until I was pointed in the <a href="http://twitter.com/#!/amirrajan/status/87174922782253056">right direction</a>.</p><p><!-- http://twitter.com/#!/amirrajan/status/87174922782253056 --> <style type='text/css'>.bbpBox87174922782253056 {background:url(http://a0.twimg.com/images/themes/theme1/bg.png) #C0DEED;padding:20px;} p.bbpTweet{background:#fff;padding:10px 12px 10px 12px;margin:0;min-height:48px;color:#000;font-size:18px !important;line-height:22px;-moz-border-radius:5px;-webkit-border-radius:5px} p.bbpTweet span.metadata{display:block;width:100%;clear:both;margin-top:8px;padding-top:12px;height:40px;border-top:1px solid #fff;border-top:1px solid #e6e6e6} p.bbpTweet span.metadata span.author{line-height:19px} p.bbpTweet span.metadata span.author img{float:left;margin:0 7px 0 0px;width:38px;height:38px} p.bbpTweet a:hover{text-decoration:underline}p.bbpTweet span.timestamp{font-size:12px;display:block}</style> <div class='bbpBox87174922782253056'><p class='bbpTweet'>If you want to have debugger support for you NSpec specifications, use this: <a href="http://t.co/6SwZcVL" rel="nofollow">http://t.co/6SwZcVL</a> /cc @<a class="tweet-url username" href="http://twitter.com/kouphax" rel="nofollow">kouphax</a> @<a class="tweet-url username" href="http://twitter.com/mattflo" rel="nofollow">mattflo</a><span class='timestamp'><a title='Sat Jul 02 15:04:55 +0000 2011' href='http://twitter.com/#!/amirrajan/status/87174922782253056'>less than a minute ago</a> via web <a href='http://twitter.com/intent/favorite?tweet_id=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/favorite.png'> Favorite</a> <a href='http://twitter.com/intent/retweet?tweet_id=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/retweet.png'> Retweet</a> <a href='http://twitter.com/intent/tweet?in_reply_to=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/reply.png'> Reply</a></span><span class='metadata'><span class='author'><a href='http://twitter.com/amirrajan'><img src='http://a2.twimg.com/profile_images/1326219901/1613d80124a605829d755d9df0fc8b9e_normal.jpeg'></a><strong><a href='http://twitter.com/amirrajan'>Amir Rajan</a></strong><br>amirrajan</span></span></p></div> <!-- end of tweet --></p><p>The gist, in full below, provides a simple debugger shim over nspec that allows you to hook into the Visual Studio debugger (through something like TestDriven.<span class="caps">NET</span> for example).  I simply right clicked on the shim and select &#8220;Run With Debugger&#8221; and boom my stupid mistake was displayed to me rather quickly.</p><script src='https://gist.github.com/1065724.js?file=DebuggerShim.cs'></script><noscript><pre><code>using System;using NUnit.Framework;using NSpec.Domain;using System.Reflection;using NSpec;namespace DynamicBlog.Tests{    [TestFixture]    public class DebuggerShim    {        [Test]        public void debug()        {            //the specification class you want to test            //this can be a regular expression            var testClassYouWantToDebug = "describe_Blog";            //initialize NSpec's specfinder            var finder = new SpecFinder(                Assembly.GetExecutingAssembly().Location,                 new Reflector(),                 testClassYouWantToDebug);                        //initialize NSpec's builder            var builder = new ContextBuilder(                finder,                 new DefaultConventions());            //this line runs the tests you specified in the filter            new ContextRunner(builder).Run();        }    }}</code></pre></noscript><p>Handy until a more concrete solution appears.  One more thing &#8211; really enjoying nspec, it seems to be fitting well with the way I work.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Micro Web Frameworks in .NET 101: Anna</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-22T00:00:00+01:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various <em>micro web frameworks</em> in the .<span class="caps">NET</span> world.  The frameworks I intend to cover will be linked as the series progresses.  For further discussion on the use of micro web framework in .<span class="caps">NET</span> please see my <a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">previous post</a> The current series line up:<ul>	<li><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Jessica</a></li>	<li><a href="/blog/2011/05/23/micro-web-frameworks-101-nancy/">Nancy</a></li>	<li><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Anna</a></li>	<li><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb//">Tinyweb</a><br></li></ul></blockquote><p>It&#8217;s been a while since I visited this subject (at least in my blog) and I&#8217;ve still to record a lot of screencasts around Nancy.  Anyway I thought I&#8217;d give a quick mention to <a href="https://github.com/jfromaniello/Anna/">Anna</a> that has just come up on my radar.  Now the project is still in the very early stages but it&#8217;s possibly one of the best uses of <a href="http://msdn.microsoft.com/en-us/data/gg577609">Rx</a> and worth a quick look.  Now I am a bit rusty in the old Rx stuff so sorry if I say something stupid.</p><h2>Getting Started &#8211; Hello World</h2><p><a href="https://github.com/jfromaniello/Anna/">Anna</a> aims to be an asynchronous event-driven <span class="caps">HTTP</span> server in a similar vein to <a href="http://nodejs.org/">node.js</a>.  At it&#8217;s core is the <code>HttpServer</code> object that allows us to wire up routes.</p><p>There is no configuration required &#8211; just install <a href="https://github.com/jfromaniello/Anna/">Anna</a>  from the Nuget Package Console via <code>Install-Package Anna</code> and you are good to go.  Just create a console application with the infamous <code>Program.cs</code> and a few lines of code gives you the <code>Hello World</code> solution,</p><script src='https://gist.github.com/1038740.js?file=Program.cs'></script><noscript><pre><code>using (var server = new HttpServer("http://localhost:1234/")){    server.GET("/").Subscribe(context =&gt;         context.Respond("Hello World"));    Console.ReadLine();}</code></pre></noscript><p>I added the <code>Console.ReadLine()</code> to stop the console app exiting and cleaning things up.  Running the app and going to <code>http://localhost:1234</code> gives you the result.  The <code>HttpServer</code> object has a number of methods for the various <span class="caps">HTTP</span> verbs and these methods all return instances of <code>IObservable</code> which means you can subscribe to them and apply all those filters, transforms etc. the Rx offers.</p><h2>Other Anna Features</h2><p>As I said <a href="https://github.com/jfromaniello/Anna/">Anna</a>  is still in the early stages so once you grab a route there isn&#8217;t a <span class="caps">MASSIVE</span> amount you can do with but respond.  Responses however are chainable so you can create an almost middleware like stack for requests e.g.</p><script src='https://gist.github.com/1038778.js?file=Anna.cs'></script><noscript><pre><code>var route = server.GET("/");route.Subscribe(context =&gt; context.Respond("Hello "));route.Subscribe(context =&gt; context.Respond("World"));</code></pre></noscript><p>This gives you the same output as the original Hello World sample.</p><p>But from what I can see thats about as far as you can get.  In <a href="http://nodejs.org/">node.js</a> there is a framework called <a href="http://senchalabs.github.com/connect/">Connect</a> now I&#8217;m not sure if <a href="https://github.com/jfromaniello/Anna/">Anna</a>  is intending to go in this sort of direction but I think it could be moulded into something like this with a bit of <span class="caps">TLC</span>.  The problem is at the minute I don&#8217;t see any sort of object passed along the subscription chain e.g. a <code>dynamic</code> bag or something. I don&#8217;t even know how to easily manage response headers.</p><h3>Routes and Route Fragments</h3><p><a href="https://github.com/jfromaniello/Anna/">Anna</a>  supports creating different routes including routes with dynamic sections <code>/name/{name}</code> that are used to populated a <code>UriFragments</code> property,</p><script src='https://gist.github.com/1038812.js?file=Fragments.cs'></script><noscript><pre><code>server.GET("/hello/{name}").Subscribe(context =&gt; context.Respond(    string.Format("Hello {0}", context.Request.UriArguments.name)));</code></pre></noscript><h3>Conditional Routes</h3><p>Thanks to the power of Rx and Linq it is possible to create conditional routes an create chains that have pre-response checks.  For example we can have a route that only triggers a response if the QueryString has a secret parameter.</p><script src='https://gist.github.com/1038831.js?file=Secret.cs'></script><noscript><pre><code>var route = server.GET("/");route.Subscribe(context =&gt; context.Respond("&lt;h1&gt;Hello World<p>&#8220;));<br>route.Where(ctx =&gt; ctx.Request.QueryString.secret == &#8220;letmein&#8221;)<br>     .Subscribe(ctx =&gt; ctx.Respond(&#8220;<h2>Secret Message</h2>&#8221;));</code></pre></noscript><p><p>So if you hit <code>http://localhost:1234/</code> you get Hello World.  Hit that again with the param <code>?/secret=letmein</code> and you get the super secret message.</p><h2>Conclusion</h2><p>Thats about it for now but I think I&#8217;ll be keeping an eye on this project and see were it goes.  Even though it&#8217;s still early days I like the concept behind the library and the fresh approach it&#8217;s taking.  I&#8217;ll push some of my sample code up to Github and update this post in the next few days.  In the meantime Jose the creator of Anna has <a href="http://joseoncode.com/2011/06/17/event-driven-http-server-in-c-with-rx-and-httplistener/">some nice examples</a> of Rx based HttpServer stuff on his blog featuring a long polling example.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/21/microorms-for-dotnet-inserts-updates-deletes/">MicroORMs for .NET: Inserts, Updates &amp; Delete</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-21T00:00:00+01:00" pubdate data-updated="true">Jun 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various microORMs in the .<span class="caps">NET</span> world.  I intend to look at how each microORM meets certain data access and manipulation needs.  The current series includes,<ul>	<li><a href="http://yobriefca.se/blog/2011/06/15/microorms-for-dotnet">Obligatory Introduction Post</a></li>	<li><a href="http://yobriefca.se/blog/2011/06/16/microorms-for-dotnet-select-one">Syntax &#8211; SELECTs</a></li>	<li><a href="http://yobriefca.se/blog/2011/06/18/microorms-for-dotnet-stored-procedures">Stored Procedures</a></li>	<li><a href="http://yobriefca.se/blog/2011/06/21/microorms-for-dotnet-inserts-updates-deletes">Inserts, Updates &amp; Deletes</a><br></li></ul></blockquote><p>Moving swiftly on, if all our solutions only used different way to select data then how would we ever get data into our solution?  So lets look at how these microORMs handle Inserts, Updates and Deletes<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.  These examples will follow on from previous ones so I am only going publish the key lines.  If you want the complete code you can grab them from the <a href="https://github.com/kouphax/microorm-comparison">GitHub project</a>.</p><h2>Dapper</h2><h3>Insert</h3><p>Nothing unexpected here.  More <span class="caps">SQL</span>.  Sam Saffron previously pointed me in the direction of <a href="http://code.google.com/p/dapper-dot-net/source/browse/Dapper.Contrib/Extensions/SqlMapperExtensions.cs">Dapper.Contrib</a> that has extra extension methods for doing things like <code>INSERT</code>, <code>UPDATE</code> and <code>DELETE</code> but at the time of trying I couldn&#8217;t get it to work and have an <a href="https://github.com/SamSaffron/dapper-dot-net/issues/8">open issue</a> on GitHub.  If I get an update on this I&#8217;ll post the slightly cleaner syntax.</p><p class="minimal-gist"><script src='https://gist.github.com/1036689.js?file=DapperInsert.cs'></script><noscript><pre><code>conn.Open();int count = conn.Execute(    "INSERT Authors(Username, FullName, CreatedDate) " +    "VALUES (@Username, @FullName, GETDATE())",    new { Username = "james@dapper.net", FullName = "James Hughes" });</code></pre></noscript></p><h3>Update</h3><p>Update is very similar to insert.  The nice thing about this approach vs. using POCOs is that you only need to send the delta of the object up where as with the other approaches you may have to fetch the object before updating.</p><p class="minimal-gist"><script src='https://gist.github.com/1037727.js?file=DapperUpdate.cs'></script><noscript><pre><code>int count = conn.Execute(    "UPDATE Authors SET FullName = @FullName WHERE Id = @Id",    new { FullName = "James Hughes", Id = 1 });</code></pre></noscript></p><h3>Delete</h3><p>Delete is pretty much what you&#8217;d expect.  I&#8217;ll update these examples when I get my problems with Dapper.Contrib sorted but when you are so close to the <span class="caps">SQL</span> metal there isn&#8217;t a massive amount to discuss.</p><p class="minimal-gist"><script src='https://gist.github.com/1037737.js?file=DapprDelete.cs'></script><noscript><pre><code>int count = conn.Execute(    "DELETE FROM Authors WHERE Id = @Id",    new { Id = 1 });</code></pre></noscript></p><h2>Massive</h2><h3>Insert</h3><p>Massive keeps things simple as usual.  <code>Insert</code> can take POCOs as well as dynamic object (and a number of other types) and it uses the info found in the <code>Authors</code> DynamicModel class to generate the <span class="caps">SQL</span> for you.</p><p class="minimal-gist"><script src='https://gist.github.com/1036724.js?file=MassiveInsert.cs'></script><noscript><pre><code>var tbl = new Authors();var x = tbl.Insert(new {    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><p>As a bonus feature Massive can wrap multiple inserts in a single transaction and perform multiple inserts at once.</p><p class="minimal-gist"><script src='https://gist.github.com/1037434.js?file=MassiveInsertMany.cs'></script><noscript><pre><code>var tbl = new Authors();var x = tbl.InsertMany( new [] {    { Username = "james@dapper.net", FullName = "James Hughes", CreatedDate = DateTime.Now },     { Username = "james@dapper.net", FullName = "James Hughes", CreatedDate = DateTime.Now },     { Username = "james@dapper.net", FullName = "James Hughes", CreatedDate = DateTime.Now } });</code></pre></noscript></p><h3>Update</h3><p>Like Dapper, Massive allows us to send only a delta between the old and new object.</p><p class="minimal-gist"><script src='https://gist.github.com/1037745.js?file=MassvieUpdate.cs'></script><noscript><pre><code>var tbl = new Authors();var x = tbl.Update(new {    FullName = "James Hughes"}, 1);</code></pre></noscript></p><p>Massive also gets extra points for the <code>UpdateMany</code> that, not suprisingly, behaves like the <code>InsertMany</code> method mentioned above (except for updates of course).</p><h3>Delete</h3><p>Ultra simple approach to Deleting specific objects just pass in an id and you&#8217;re done,</p><p class="minimal-gist"><script src='https://gist.github.com/1037749.js?file=MassiveDelete.cs'></script><noscript><pre><code>var tbl = new Authors();var x = tbl.Delete(2);</code></pre></noscript></p><h2>PetaPoco</h2><h3>Insert</h3><p>PetaPoco offers 2 main ways to insert your data<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>.  You can pass in a plain <span class="caps">POCO</span> (or in our case on that uses attributes to normalise the difference between the schema and the C# class),</p><p class="minimal-gist"><script src='https://gist.github.com/1037467.js?file=PetaPocoInsert1.cs'></script><noscript><pre><code>PetaPoco.Database db = new PetaPoco.Database("DefaultConnectionString");var x = db.Insert(new Author{    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><p>Or you can pass in an anonymous object specifying the table and primary key field,</p><p class="minimal-gist"><script src='https://gist.github.com/1037469.js?file=PetaPocoInsert2.cs'></script><noscript><pre><code>var x = db.Insert("Authors", "Id", new{    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><h3>Update</h3><p>There are plenty of ways to update data using PetaPoco.  The first one is to pass in your model object and the row will get updated.  I am creating a new object in this example but you could just fetch it from the database as you&#8217;d expect,</p><p class="minimal-gist"><script src='https://gist.github.com/1037781.js?file=PetaPocoUpdate1.cs'></script><noscript><pre><code>PetaPoco.Database db = new PetaPoco.Database("DefaultConnectionString");var x = db.Update(new Author{    Id = 9,    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><p>Another approach is to just pass up a delta of the changes,</p><p class="minimal-gist"><script src='https://gist.github.com/1037784.js?file=PetaPocoUpdate2.cs'></script><noscript><pre><code>var x = db.Update("Authors", "Id", new{    Id = 10,    FullName = "James Hughes"});</code></pre></noscript></p><p>Alternatively you can simply pass up the delta and specify the primary key value externally,</p><p class="minimal-gist"><script src='https://gist.github.com/1037789.js?file=PetaPocoUpdate3.cs'></script><noscript><pre><code>db.Update("Authors", "Id", new { FullName = "James Hughes" }, 12);</code></pre></noscript></p><p>Variety is the spice of life in PetaPoco!</p><h3>Delete</h3><p>Thanks to the custom attribute on our Author class deleting a record is a matter of passing the Id to the <code>Delete</code> method,</p><p class="minimal-gist"><script src='https://gist.github.com/1037792.js?file=PetaPocoDelete.cs'></script><noscript><pre><code>db.Delete&lt;Author&gt;(8);</code></pre></noscript></p><h2>ServiceStack ORMLite</h2><h3>Insert</h3><p>ORMLite is pretty much inline with the other microORMs a simple <code>Insert</code> method that accepts a <span class="caps">POCO</span> or an anonymous object and generates <span class="caps">SQL</span> based on the info given.  This can be done in one of two ways,</p><p class="minimal-gist"><script src='https://gist.github.com/1037549.js?file=ORMLiteInsert1.cs'></script><noscript><pre><code>using (IDbConnection db = Program.ConnectionString.OpenDbConnection())using (IDbCommand cmd = db.CreateCommand()){    cmd.Insert&lt;Author&gt;(new Author    {        Username = "james@dapper.net",        FullName = "James Hughes",        CreatedDate = DateTime.Now    });}</code></pre></noscript></p><p>Or the factory approach discussed in the first article,</p><p class="minimal-gist"><script src='https://gist.github.com/1037551.js?file=ORMLiteInsert2.cs'></script><noscript><pre><code>IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(    Program.ConnectionString,    SqlServerOrmLiteDialectProvider.Instance);<p><p>dbFactory.Exec(dbCmd =&gt; dbCmd.Insert<author>(new Author<br>{<br>    Username = &#8220;james@dapper.net&#8221;,<br>    FullName = &#8220;James Hughes&#8221;,<br>    CreatedDate = DateTime.Now<br>}));</author></code></pre></noscript></p><h3>Update</h3><p>ORMLite sticks with one approach for updating a row &#8211; passing in a <span class="caps">POCO</span> that it can map to a table/row,</p><p class="minimal-gist"><script src='https://gist.github.com/1037796.js?file=ORMLiteUpdate.cs'></script><noscript><pre><code>cmd.Update(new Author{    Id = 7,    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><p>If you really don&#8217;t want to fetch your row again and only want to send up a delta you&#8217;ll have to roll your own approach (simple enough though).</p><h3>Delete</h3><p>ORMLite supports a number of neat ways to delete rows,</p><ul>	<li><code>DeleteById(id)</code></li>	<li><code>Delete(where_clause, id)</code></li>	<li><code>Delete(object)</code></li></ul><p class="minimal-gist"><script src='https://gist.github.com/1037807.js?file=ORMLiteDelete.cs'></script><noscript><pre><code>cmd.DeleteById&lt;Author&gt;(5);cmd.Delete&lt;Author&gt;("Id = @0", 6);cmd.Delete(new Author { Id = 7 });</code></pre></noscript></p><h2>Simple.Data</h2><h3>Insert</h3><p>Guess what Simple.Data&#8217;s approach is once again very fluent, clean and easy to understand.  OK I don&#8217;t get Intellisense as the methods are dynamic but I didn&#8217;t need it anyway.</p><p class="minimal-gist"><script src='https://gist.github.com/1037553.js?file=SimpleDataInsert.cs'></script><noscript><pre><code>Author x =  Simple.Data.Database.Open().Author.Insert(new Author{    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><h3>Update</h3><p>Simple.Data has 2 ways of updating.  <code>Update</code> takes a <span class="caps">POCO</span> and maps the id to the specific row,</p><p class="minimal-gist"><script src='https://gist.github.com/1037803.js?file=SimpleDataUpdate1.cs'></script><noscript><pre><code>Simple.Data.Database.Open().Authors.Update(new Author{    Id = 5,    Username = "james@dapper.net",    FullName = "James Hughes",    CreatedDate = DateTime.Now});</code></pre></noscript></p><p>Alternatively Simple.Data supports the delta approach too using <code>UpdateById</code></p><p class="minimal-gist"><script src='https://gist.github.com/1037804.js?file=SimpleDataUpdate2.cs'></script><noscript><pre><code>Simple.Data.Database.Open().Authors.UpdateById(    Id: 6,     FullName: "James Hughes");</code></pre></noscript></p><h3>Delete</h3><p>Finally Simple.Data has 2 ways to delete a record,</p><ul>	<li><code>DeleteById(id)</code></li>	<li><code>Delete(named_parameters)</code></li></ul><p class="minimal-gist"><script src='https://gist.github.com/1037813.js?file=SimpleDataDelete.cs'></script><noscript><pre><code>Simple.Data.Database.Open().Authors.DeleteById(3);Simple.Data.Database.Open().Authors.Delete(Id: 4);</code></pre></noscript></p><h2>There We Have It</h2><p>OK OK I guess this post feels a bit rushed.  I started out throwing lots of details into selects and stuff but this one just isn&#8217;t up to par.  I slowly discovered that I&#8217;d have to spend almost all my spare time covering all the aspects I wanted.  So I cut it back to a kind of &#8220;Starter for 10&#8221; approach.  Yeah thats right I&#8217;m leaving stuff up to you to ask and research :-P.  Anyway in these basic examples no one <span class="caps">ORM</span> really stands out too much.  Simple.Data is, as always, lovely and clean and PetaPoco offers a very flexible experience.  I like the ability to send deltas instead of full objects back (in case you hadn&#8217;t guessed) and I had a few annoyances around updates using Massive and Dapper but I think it was my own stupidity (I&#8217;ll update when I investigate).  If I had to choose between them I am still tending towards Simple.Data and PetaPoco (probably PetaPoco at this stage) but I do find all of them a much more pleasant experience vs. MyIbatis or NHibernate.</p><p>That should be enough to start anyone off on the right foot.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> Hehehehe IUDs</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> You can pass a <span class="caps">SQL</span> string or a <span class="caps">SQL</span> builder as well but it&#8217;s fairly straightforward so I&#8217;ll not cover it here.  See the original <a href="http://yobriefca.se/blog/2011/06/16/microorms-for-dotnet-select-one"><span class="caps">SELECT</span> post</a> for a <span class="caps">SQL</span> and <span class="caps">SQL</span> Builder example.</p></div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/page/4/index.html';
+          var disqus_url = 'http://kouphax.github.com/blog/page/4/index.html';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Further Adventures in Unit Testing Technologies - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="This post is a follow up to A Tale of Unit Testing Technologies. Information about the project repository can be found on my projects page.I&#8217; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Further Adventures in Unit Testing Technologies</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>This post is a follow up to <a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a>.  Information about the project repository can be found on my <a href="/projects/unit-testing">projects page</a>.</p><p>I&#8217;ve finally managed to slog through the long and slightly tedious process of re-writing the same suite of tests in a number of C# and JavaScript unit testing technologies &#8211; the results of which can be seen on the <a href="http://github.com/kouphax/unit-testing">project GitHub page</a>.  My conclusion, especially in the .<span class="caps">NET</span> world, is that it doesn&#8217;t really matter that much.  I know it&#8217;s not that much of a brilliant ending but what did you expect?  Fireworks?</p><p>Anyways before I start amazing you all with more awe inspiring revelations let me run through the remaining technologies (until such times as more are added at least) and summarise their good and bad points.  The other technologies I brought on board include,</p><ul>	<li><a href="http://www.nunit.org/">NUnit</a></li>	<li><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></li>	<li><a href="http://nspec.org/">NSpec</a></li>	<li><a href="https://github.com/robconery/Quixote">Quixote</a></li>	<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>	<li><a href="http://docs.jquery.com/Qunit">QUnit</a></li></ul><p>Some obvious ones there just to round out the comparisons and a few JavaScript based ones.</p><h2><a href="http://www.nunit.org/">NUnit</a></h2><p>Good old <a href="http://www.nunit.org/">NUnit</a>.  Whats not to love?  Mark a class as a fixture and mark your methods as a test.</p><script src="https://gist.github.com/974990.js?file=NUnitTest.cs"></script><p>No point in mentioning too much about NUnit as most people will know the ins and outs of it already.  It has VS integration (via <a href="http://testdriven.net/">TestDriven</a>) and a nice NUnit runner capable of watching changes to DLL&#8217;s and automatically rerunning the test contained within.  One caveat around that is often NUnit hangs on to the <span class="caps">DLL</span> reference and requires a restart so Visual Studio can rebuild the <span class="caps">DLL</span> which kind of misses the point &#8211; but it doesn&#8217;t happen too often.</p><p>The framework itself would lend itself to a bit of betterification through sugar such as <a href="http://should.codeplex.com/">Should and Should.Fluent</a> but it does what it says on the tin.</p><h2><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></h2><p>Another staple for many people.  I&#8217;d never really used it too much prior to doing this post because of the general negative opinion of it.  I must admit I kind of agree with some of these things.  It&#8217;s pretty much the MS equivalent of NUnit (in terms of features and look and feel)</p><script src="https://gist.github.com/975043.js?file=MSTestTest.cs"></script><p>So why do so many people prefer NUnit over MSTest?  Well I think the main problem is that it is <a href="http://www.richard-banks.org/2010/03/mstest-sucks-for-unit-tests.html">quite slow</a> in comparison (from Visual Studio at least) but my main gripe is the amount of <a href="http://en.wiktionary.org/wiki/flob">flob</a> it generates for each test run and configuration.  It even produces solution folders for holding test runs and other files. If I want you to create those I&#8217;ll ask you &#8211; don&#8217;t force it on me.  It also has a very limited set of Assertion methods much like NUnit.</p><p>Enough moaning &#8211; surely it must have some benefits?  Well yes it does of course.  The main benefit <span class="caps">IMHO</span> is that it has very nice integration into Visual Studio which offers some very clean feedback.  This is something that requires <a href="http://testdriven.net/">TestDriven</a> for NUNit and the other frameworks which may or may not be free depending on your situation.</p><h2><a href="http://nspec.org/">NSpec</a></h2><p>Not to be confused with the <a href="http://nspec.tigris.org/">first hit on Google</a> which seems to be pretty much a dead project <a href="http://nspec.org">NSpec</a> (.org) is an attempt to bring <a href="http://rspec.info">RSpec</a> into the .<span class="caps">NET</span> world.</p><script src="https://gist.github.com/975150.js?file=NSpecTest.cs"></script><p>This is somewhat similar to <a href="https://github.com/machine/machine.specifications">MSpec</a> I mentioned in the last post.  My bugbear with MSpec however was that it didn&#8217;t feel natural to me.  The equivalent MSpec test for the above looks like this,</p><script src="https://gist.github.com/975159.js?file=MSpecTest.cs"></script><p>Maybe it&#8217;s just me but it doesn&#8217;t read as well as the NSpec version.  I even found it easier to write the NSpec version &#8211; more natural.</p><p>NSpec also has a lot of extra goodies.  Currently there is no integration into Visual Studio yet but the runner is simple to enough to spin up from the NuGet Package Manager Console and it has an added bonus of a file watcher.  <a href="http://nspec.org/continuoustesting">SpecWatchr</a> is similar to NUnit it can watch for changes and automatically run the specs.  It differs from NUnit in that it watches changes to the code files rather than the <span class="caps">DLL</span> &#8211; so need to wait for builds to happen etc.  Nice.</p><p>One minor gripe with it (bar the lack of VS support &#8211; even TestDriven support would be good) is the <code>should</code> syntax. I prefer the Should.Fluent style syntax <code>Should.Be()</code> rather than the current <code>should_be</code> syntax.  It&#8217;s not Ruby and we should accept that :-P.</p><p>It&#8217;s still quite early for NSpec and hopefully it keeps it&#8217;s momentum as it would be one of my frameworks of choice.</p><h2><a href="https://github.com/robconery/Quixote">Quixote</a></h2><p>Quixote by Rob Conery follows on from his current slew of ultra lightweight solutions to common problems (like <a href="https://github.com/robconery/Massive">Massive</a> and <a href="https://github.com/robconery/Sugar">Sugar</a>).  Quixote blends the <span class="caps">HTML</span> reporting directly with the framework and you write tests right in a Razor file.  This is the definition of lightweight.</p><script src="https://gist.github.com/975180.js?file=QuixoteTest.cshtml"></script><p>The obvious problem with this is that you don&#8217;t get continuous integration or build support.  There is no need to rebuild anything just refresh your page and the tests re-run.  Still CI/Build integration would be nice for a framework.</p><h2><a href="http://pivotal.github.com/jasmine/">Jasmine</a></h2><p>Ah Jasmine.  Jasmine is what I wanted out of a JavaScript testing framework.  Rather than going the JSpec route of creating a preprocessed <acronym title="Domain Specific Language"><span class="caps">DSL</span></acronym> Jasmine makes use of JavaScripts dynamic nature and &#8220;functions as 1st class citizens&#8221; feature to create framework that behaves like RSpec but embraces JavaScript.</p><script src="https://gist.github.com/975187.js?file=Tag.spec.js"></script><p>Out of the box you get an extensible framework (custom matchers etc), mocking and asynchronous support.  Ajax faking isn&#8217;t directly available but I recommend using <a href="http://sinonjs.org">Sinon</a> for this as it has an amazing FakeServer object that is fully configurable.</p><p>Another big advantage of Jasmine is it&#8217;s build integration.  Be it node.js, Java or Ruby you can integrate Jasmine specs into your build process.  .<span class="caps">NET</span> integration isn&#8217;t available yet but <a href="http://jurassic.codeplex.com">Jurassic</a> would be a suitable host if anyone wants to make it happen (hint, hint :-P).</p><h2><a href="http://docs.jquery.com/Qunit">QUnit</a></h2><p>And finally QUnit.  QUnit is the NUnit/JUnit equivalent for the JavaScript world.  Well known and mature project with some very nice <span class="caps">HTML</span> output.</p><script src="https://gist.github.com/975220.js?file=Tag.test.js"></script><p>Not much else to say on this one right now&#8230;. must be running out of steam.</p><h2>Summing Up</h2><p>And there you have it.  The first real post since the move and it&#8217;s a bit of a waffly long one.  Anyways what would be my recommendations?  Well for .<span class="caps">NET</span> I&#8217;m torn.  Currently I&#8217;d say NUnit with Should.Fluent extensions.  This is a nice combo for creating simple tests that people can execute from within Visual Studio.  However NSpec has potential &#8211; I&#8217;d like to see it grow a bit more and I&#8217;ll keep watching it.  Visual Studio integration would be aces though.  JavaScript on the other hand I have a clear cut winner.  Jasmine is awesome.  It&#8217;s boosted my code quality and productivity no end on recent projects and with the help of <a href="http://sinonjs.org">Sinon</a> for mocking and controlling Ajax it&#8217;ll be a long time before I am this happy with a .<span class="caps">NET</span> equivalent tech.  Fingers crossed for NSpec on that front.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/-net/'>.NET</a>, <a class='category' href='/blog/categories/jasmine/'>Jasmine</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/mstest/'>MSTest</a>, <a class='category' href='/blog/categories/nspec/'>NSpec</a>, <a class='category' href='/blog/categories/nunit/'>NUnit</a>, <a class='category' href='/blog/categories/qunit/'>QUnit</a>, <a class='category' href='/blog/categories/quixote/'>Quixote</a>, <a class='category' href='/blog/categories/unit-testing/'>Unit Testing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/05/16/the-first-day-of-the-rest-of-my-life/" title="Previous Post: The First Day of the Rest of My Life">&laquo; The First Day of the Rest of My Life</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/" title="next Post: Why Would You Use Micro Web Frameworks in .NET?">Why Would You Use Micro Web Frameworks in .NET? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing/';
+          var disqus_url = 'http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

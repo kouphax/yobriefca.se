@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Parse | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/parse/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
+    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <updated>2012-01-05T13:59:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
+
+<p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
+
+<!-- more -->
+
+
+<ol>
+<li>Via its natively compiled binaries (on iOS and Android)</li>
+<li>Via a its Rest API (for all non iOS/Android devices and desktops)</li>
+</ol>
+
+
+<p>Now I wanted to try and create bindings for the iOS library so I could use it for a Monotouch application I've been playing with but truth be told the whole process confused the hell out of me.  Thing was the REST API gave me everything I needed so I started recently to write a dynamic wrapper around the API.  Currently built on .NET in Visual Studio (Mono on my list) with a few sanity tests it works well enough to put it out there incase anyone was wanting to do something similar and could extract value from it.</p>
+
+<p>It's pretty early at the minute - in fact all you can do with this first spike is basic object CRUD.  No querying yet, no special user management features etc.  But they will come.  So what could you use it for?  Well a number of things,</p>
+
+<ul>
+<li>WP7 Cloud Storage</li>
+<li>Monotouch (and Monodroid) storage until someone smarter than me creates proper bindings to the actual iOS frameworks</li>
+<li>It's an object store so why not use it to store data on any web app?</li>
+<li>Just for tinkering.</li>
+</ul>
+
+
+<p>It makes use of <code>dynamic</code> from .NET 4 so you can kind of pass it arbitrary stuff and get arbitrary stuff back (Parse is schemaless so this makes sense for me).  It also means you wont have to create concrete classes for every single thing you want to store.</p>
+
+<p>If you want to run the tests you'll need to sign up for Parse, create an app and update the <code>consts</code> in <code>describe_Parsely</code> to point to your new app (and authenticate).</p>
+
+<h2>Sample Uses</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// create your parsley API</span>
+</span><span class='line'><span class="n">Parsley</span> <span class="n">parsley</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Parsley</span><span class="p">(</span><span class="n">applicationId</span><span class="p">,</span> <span class="n">masterKey</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// create new class</span>
+</span><span class='line'><span class="n">dynamic</span> <span class="n">response</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">1</span>  <span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// do other cool stuff</span>
+</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">4</span><span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">dyanmic</span> <span class="n">myObject</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Retrieve</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">parsley</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">myObject</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Outstanding Tasks</h2>
+
+<p>Lots.  But here is the main ones I see right now.</p>
+
+<ul>
+<li>Compile on Mono and show MonoTouch some Parse love.</li>
+<li>Samples (for WP7, Monotouch, possibly Monodroid)</li>
+<li>Add Queries</li>
+<li>Add User Management</li>
+</ul>
+
+
+<p>It's probably fairly rough right now and could do with some TLC if anyone wants to pitch in?  I've given it a name (Parsley) but that in no way implies this is going to be a long running project or anything.  I just like naming things.  Get it while it's hot, the code is in my <a href="https://bitbucket.org/kouphax/parsley">usual place</a>.</p>
+
+<h2>Pre-Post Update</h2>
+
+<p>Rather than update this blog post I decided to tack this on here.  With BitBucket experiencing some issues at present I spent about 10 minutes hacking in the user management features.  No tests written yet (oh no I have broken all the rules and must be beaten with oversized crayons) so lets just say that it's very edge, very experimental at the minute.  Also bonus - returning a collection of objects is implemented as <code>Query</code> but again totally untested (fast and loose - it's how I roll son).  There be dragons there therebe!</p>
+
+<p>Happy hacking.</p>
+
+<p>Can I have my WP7 MVP now please?  <strong>Kidding</strong></p>
+]]></content>
+  </entry>
+  
+</feed>

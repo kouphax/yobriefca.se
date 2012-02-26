@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Client Side: Processing vs Responsiveness - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="The examples below are probably best run in a browser that has a relatively slow script engine (IE for example)One of the problem with the whole &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/19/client-side-processing-vs-responsiveness">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Client Side: Processing vs Responsiveness</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p style="padding-left: 30px;"><em>The examples below are probably best run in a browser that has a relatively slow script engine (IE for example)</em></p><p>One of the problem with the whole Web2.0/Rich Client concepts is that people seem to think it&rsquo;s OK to shove processing that should be done on the server on to the client. This is never the answer &ndash; you can control resources on the sever but never on some random browser half way across the world/country/street/room. There are, however, situations where client side processing is going to be mandatory (think Complex Grids and Calculations etc). This obviously leads to a loss of responsiveness on the client (to varying degrees). One of the big problem with large processing is that it obviously takes time. Imagine this scenario&hellip;</p><p><script src="https://gist.github.com/635921.js"></script></p><p>You&rsquo;d expect that this code updates the &ldquo;progress-meter&rdquo; element with &ldquo;Processing&rdquo;, does some long computation and then updates the &ldquo;progress-meter&rdquo; again to indicate it&rsquo;s done. But it doesn&rsquo;t. Screen repaints/updates do not happen until calls complete. So what is actually happening? Well the expected outcome DOES happen it&rsquo;s just both updates happen after the call completes so the first update occurs so fast you never see it.&nbsp;<a href="http://jsfiddle.net/kouphax/VtaHg/" target="_blank">See It In Action</a>. You&rsquo;ll also notice that the entire screen is locked while this processing occurs and that just leads to a bad user experience. So what can be done?</p><h2>Use of setTimeout()</h2><p>Javascript is single threaded which leads to the issues above but there is a way create pseudo-threading using setTimeout. The setTimeout function executes code after a set time in milliseconds (what a surprise!). So delaying this execution (even by 0 miilliseconds) allows screen updates to occur before the processing begins. This requires a small change to the code.</p><p><script src="https://gist.github.com/635922.js"></script></p><p>So if you&nbsp;<a href="http://jsfiddle.net/kouphax/MJFFX/" target="_blank">give this a go</a>&nbsp;you will see there is a much better feedback response compared to the first. This approach solves our initial problem but we still have the issue that the screen is locking up. At least now the users knows something is happening. Another issue this creates is that some browsers prompt users if scripts take to long allowing the user to cancel potentially important tasks.</p><p>[[posterous-content:jcdDmwFBuEneeneritwd]]</p><h2>Asynchronous Processing</h2><p>Now we are getting into the good stuff. To prevent the screen locking up during any complex processing activity it is possible to apply the setTimeout technique but only over a smaller subset of the processing activity each time. This will achieve a sort of asynchronous effect allowing the user to do other stuff while the processing happens in the background. This is a basic example,</p><p><script src="https://gist.github.com/635923.js"></script></p><p>You can&nbsp;<a href="http://jsfiddle.net/kouphax/CKALu/" target="_blank">see this in action</a>&nbsp;for yourself. If you run the example you will see that there is a constant update (after each chunk is processed) and that screen control is still available. So this has solved both our issues but has introduced new considerations.</p><ul><li>Executes asynchronously therefore we need to support a callback mechanism as it&rsquo;s not procedural (see code)</li><li>Processing time increases (see below)</li></ul><p>You will see that the length of time it take to process the complete task is a lot longer than the other 2 examples.. this is due to the increase in complexity of the code (recursion, another function call etc) and this is the trade off. Processing time is inversely proportional to the size of each processing chunk</p><div>[[posterous-content:ImAAruEoruBBGBGeBetI]]<p>Chunk Size (y) vs Response Time (x)</p></div><p><br>As the chunk sizes get smaller you get a more responsive UI but the processing time can get scarily long. The example chunks at about 1% of the total task size and that seems to be a good balance (for this task at least) between responsiveness and processing time. I threw together a little suite of yielding techniques with various update times etc and you can play around with that&nbsp;<a href="http://jsfiddle.net/kouphax/Kkhc9/" target="_blank">here</a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/19/client-side-processing-vs-responsiveness/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/19/client-side-processing-vs-responsiveness/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/19/-head-ache-including-javascript-in-asp-net-master-pages/" title="Previous Post: < HEAD >ache: Including JavaScript in ASP.NET Master Pages">&laquo; < HEAD >ache: Including JavaScript in ASP.NET Master Pages</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/19/javascript-proxy-pattern/" title="next Post: JavaScript Proxy Pattern">JavaScript Proxy Pattern &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/19/client-side-processing-vs-responsiveness/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/19/client-side-processing-vs-responsiveness/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

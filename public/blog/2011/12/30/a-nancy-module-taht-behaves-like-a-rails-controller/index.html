@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>A Nancy Module that Behaves like a Rails Controller... Mother of God - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="If Nancy is inspired by Sinatra I thought I&#8217;d have a little fun a create an abstract class that created modules that kind of mimic the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">A Nancy Module That Behaves Like a Rails Controller... Mother of God</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-30T20:46:00+00:00" pubdate data-updated="true">Dec 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I&#8217;d have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later&#8230;</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">TEntity</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">NancyModule</span> <span class="n">where</span> <span class="n">TEntity</span> <span class="p">:</span> <span class="k">class</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">RailslikeControllerFor</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span> <span class="p">+</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Index</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/new&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">New</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Post</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Create</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Show</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])/edit&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Edit</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Put</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Update</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Delete</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Destroy</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">New</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Create</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Show</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Edit</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Update</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Destroy</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">AsView</span><span class="p">(</span><span class="kt">object</span> <span class="n">model</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">method</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StackTrace</span><span class="p">().</span><span class="n">GetFrame</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">entity</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">View</span><span class="p">[</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;{0}/{1}&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span> <span class="n">model</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To use it you just subclass the class and override the necessary methods.  Like so.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">QuestionModule</span> <span class="p">:</span> <span class="n">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">Question</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">QuestionModule</span><span class="p">(</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">questions</span> <span class="p">=</span> <span class="n">questions</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">override</span> <span class="n">Response</span> <span class="nf">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nf">AsView</span><span class="p">(</span><span class="n">questions</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What the base class does is create the necessary CRUDdy urls with a base route starting with the name of the entity you pass in, pluralised in the easiest way possible.  In this case <code>/questions</code>.  The rules match what you wold get for a controller in Rails.</p>
+
+<table style="width:100%" border="1">
+    <tbody>
+        <tr style="background-color: #666;color:#fff;">
+            <th style="padding:4px;font-weight:bold;">Verb </th>
+            <th style="padding:4px;font-weight:bold;">Path</th>
+            <th style="padding:4px;font-weight:bold;">Action </th>
+            <th style="padding:4px;font-weight:bold;"></th>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">index    </td>
+            <td style="padding:4px;">display a list of all questions</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/new       </td>
+            <td style="padding:4px;">new      </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for creating a new question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">POST</span>    </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">create   </td>
+            <td style="padding:4px;">create a new question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">show     </td>
+            <td style="padding:4px;">display a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id/edit  </td>
+            <td style="padding:4px;">edit     </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for editing a question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">PUT</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">update   </td>
+            <td style="padding:4px;">update a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">DELETE</span>  </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">destroy  </td>
+            <td style="padding:4px;">delete a specific question</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br/>
+
+
+<p>There is a teeny-tiny bit of sugar in the <code>AsView</code> method that will look up the corresponding view.  So the module above would resolve its <code>Index</code> method to <code>questions/index</code> and the view engine would find the correct file (eg. for Razor - <code>questions/index.cshtml</code>).</p>
+
+<p>I&#8217;ve already said it&#8217;s a bit of fun but I have actually used this at least once - there is probably more that could be added but it&#8217;ll do for a first spike at least.  Any use to anyone?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-30T20:46:00+00:00" pubdate data-updated="true">Dec 30<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/nancy/'>Nancy</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/12/30/2011-and-2012-review/" title="Previous Post: Standing at the cusp of 2011... WTF?">&laquo; Standing at the cusp of 2011... WTF?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/05/using-parse-in-net-and-wp7/" title="next Post: Using Parse in .NET and WP7">Using Parse in .NET and WP7 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/';
+        var disqus_url = 'http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Providing a Foundation for .NET Projects using NuGet - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="It&rsquo;s always good to have a foundation, right?&nbsp; I mean if you have a heap of projects going on or you work for a company that has a load &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Providing a Foundation for .NET Projects Using NuGet</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-06T00:00:00+01:00" pubdate data-updated="true">May 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>It&rsquo;s always good to have a foundation, right?&nbsp; I mean if you have a heap of projects going on or you work for a company that has a load of active or future projects then why not have a foundation?&nbsp; Foundations are good.&nbsp; I mean they promote DRY cross projects, reduce development time for many common tasks (logging, data access, etc.).&nbsp; Foundations can also provide a number of tools and technologies that are &ldquo;approved&rdquo; &mdash; that is they have been throughly researched and you aren&rsquo;t going to trip up over license issues, inexperience of the tech or shortcomings of the tech/tools.</p><p>The problem with foundations is that people start assuming they are some sort of magical framework that is supposed to do all the work.&nbsp; You wrong son!&nbsp; A foundation works best when it&#8217;s a pile of techs/lightweight solutions to common problems.&nbsp; They don&rsquo;t work too well when you just get a big monolithic DLL that acts as an abstraction for other technologies.&nbsp; Abstractions are good for certain things but not everything.&nbsp; A big dll is also harder to document.&nbsp; How do you know whats in it bar using Intellisense or reflector?&nbsp; OK OK OK there should also be some sort of associated documentation that comes with it but keeping these two things inline is extra work.&nbsp; Extra work that doesn&rsquo;t get done &mdash; it&rsquo;s not funded work so why bother? Eh?</p><p>In our company we use this approach and it works from a technology perspective but from a people perspective it could be better.&nbsp; There is a general lack awareness of what is contained within the magical 3 dlls that get generated and as such less stuff get pushed into the foundation as it probably could.&nbsp; The current process works like so,</p><p class="img-holder"><img src="http://farm3.static.flickr.com/2076/5719795098_ee9676646b_b.jpg"></p><ul><li>Create a new Subversion repository for the project</li><li>Branch the current Foundation (a Visual Studio Solution) repository for the current project</li><li>Tweak the build step of the Foundation solution to dump it&rsquo;s dlls into the lib folder of the project</li><li>Commit foundation changes to the project foundation branch</li><li>Review and selectively merge changes into the trunk of the Foundation repository</li></ul><p>Even writing the steps out and thinking about all the undocumented steps required to get this to work smoothly tells me that it is possibly more complicated than it has to be.&nbsp; In fact the merging back into the Foundation trunk doesn&rsquo;t happen as much as it should.&nbsp; In fact projects adding thing to their own branch of the foundation rarely happens cause it&rsquo;s a bit messy.</p><p>Another issue with this approach is that it only makes sense for bespoke code.&nbsp; I mean if you are building out a dll how do you tell people that &ldquo;actually JSON.NET is our preferred JSON Serialiser&rdquo;.&nbsp; It&rsquo;s not easy as the documenting and announcing of such things is in another document out in the ether.</p><h2>An Alternative Approach</h2><p>Modular.&nbsp; It&rsquo;s the future I tell thee!&nbsp; Discrete pieces of functionality that can run independently.&nbsp; This enables project to take the parts of the foundation they want and build a framework from it.&nbsp; Much like ender (<a href="http://ender.no.de/">http://ender.no.de/</a>) is doing in the JavaScript world currently being able to take micro-libraries and build a macro-framework that suits your needs and just that.&nbsp; No risk of featureitis, evolve your framework as you need and be in complete control doing it.</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3045/5719234363_1b5f04b781_z.jpg"></p><p>Thats the plan but how do we achieve it?&nbsp; HINT: The answer, a partial one anyway, is in the title of this post.&nbsp; Well, first things first we would need to take our current foundation and modularise it.&nbsp; Along with that we&rsquo;d probably need to ensure tests etc. are up to scratch (start on the right foot).&nbsp; Secondly we would need to change the delivery mechanism - no more branching and merging of codebases - too heavyweight.&nbsp; NuGet (<a href="http://nuget.codeplex.com">nuget.codeplex.com</a>) will help.&nbsp; With NuGet we could create packages from our modules, manage dependencies, document usage right in the package manifest, and expose these packages as a server and searchable package repository (a la <a href="http://www.nuget.org">nuget.org</a>).&nbsp; Into this repository we could push all our approved technologies (researched and vetted previously) as well as new versions of our bespoke code.&nbsp; As time goes on this repository can grow and more people can add to it.&nbsp; Heck we can even make the submission process as easy as we see on nuget.org.&nbsp; Wunderbar!</p><p>So how would this affect how projects operate on a daily basis?</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3532/5719234439_0171705928_z.jpg"></p><p>Well the mechanism for the typical usage is greatly simplified.&nbsp; The project pushes and pulls packages from a central package repo.&nbsp; People use the repo to search for things they need (JSON Serialiser, Micro-ORM etc) and if they don&rsquo;t find something they can then push a new package into the repo (or just suggest one).&nbsp; Self documenting use of 3rd party techs, all available all searchable.</p><p>Another advantage of this approach, and using NuGet in particular, allows us to bundle not just dlls but also transform files for configuration (web.xml etc.), javascript/css/other client side assets, project and solution wide tools (executable that can be run from the VS command prompt etc.) and even code samples and templates. &nbsp;This gives us a richer, more cohesive delivery mechanism for a foundation to a project.</p><p>Of course it&rsquo;s not all perfect.&nbsp; Urgent changes to bespoke code will need to be done the old fashioned way and pushed to the main server which is less than ideal but it&rsquo;s a bit of an edge case.</p><p>So whats not to like about this idea?&nbsp; Foundations not frameworks is the key here.&nbsp; Let the project create its own framework as that will work much better than imposing one upon them.</p><p>So this is a bit of a brain dump (some would say brain fart no doubt) as usual and I am open to suggestions and corrections.&nbsp; I&rsquo;ve likely missed a few glaring problems with the new approach so let the critics loose and I&rsquo;ll try my best to address their concerns.</p><p>Next step - setting up a simple POC to test the general workflow.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-06T00:00:00+01:00" pubdate data-updated="true">May 6<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/-net/'>.NET</a>, <a class='category' href='/blog/categories/nuget/'>NuGet</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags/" title="Previous Post: Guerrilla Learning Experiment #2: FlashBags">&laquo; Guerrilla Learning Experiment #2: FlashBags</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/05/14/on-the-move/" title="next Post: On The Move">On The Move &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/';
+          var disqus_url = 'http://kouphax.github.com/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

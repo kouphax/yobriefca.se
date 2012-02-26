@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: JavaScript | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
+    <updated>2011-12-13T17:39:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
+    <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my "lets have a natter about mobile" blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
+
+<p>On the other hand Enyo is a very nice little framework and in the hands of the Open Source community could be a real winner.  I've had a chance to tinker with over the last few days and thought I'd help get the word out by outlining how to write the obligatory by law ToDo app.  It is currently somewhat similar to the official <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">FeedReader tutorial</a> but it could be easily extended to add more features.  I recommend you look at the original <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">tutorial</a> for more info about how the project is structured as there are certain conventions that may seem odd to your typical web framework.</p>
+
+<p>The entire application, which looks like this (yeah yeah it's not the most beautiful thing on the planet - I suck at design).</p>
+
+<p><img src="/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
+
+<p>Was knocked together with the following bit of code</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">enyo</span><span class="p">.</span><span class="nx">kind</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;TodoApp&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">kind</span><span class="o">:</span> <span class="nx">enyo</span><span class="p">.</span><span class="nx">VFlexBox</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;PageHeader&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VFlexBox&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span><span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;Todos&quot;</span><span class="p">}</span> <span class="p">]},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">]},</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;RowGroup&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;newTask&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="nx">hint</span><span class="o">:</span> <span class="s2">&quot;Enter new ToDo here...&quot;</span><span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Add&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;addTask&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">]},</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>    <span class="p">]}</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">],</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">addTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">task</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">newTask</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">description</span><span class="o">:</span> <span class="nx">task</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">completeTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">evt</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fetchRowIndex</span><span class="p">()].</span><span class="nx">done</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">getChecked</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">},</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">clearComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">done</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">buffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">;</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Those of you with some experience in Sencha Touchwill notice that the declarative syntax is quite similar to STs except slightly simpler.  So lets break out some of the features that brought this example together.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is one of the component declarations that make up the suite of components that form the "kind" (Enyo speak for component or object).  This is somewhat similar to the DOM (COM anyone?  Component Object Model) except in JSON form.  You can specify a component type (kind) and apply properties (which may or may not do something depending on the kind).  Events are also declared inline (see onclick) and map to function names within the main kind declaration.  Obviously if this declaration started getting too big and bloated I could decompose it into smaller components all handling their own stuff.</p>
+
+<p>One other thing not highlighted in my demo is that backend service calls can also be defined within this component model and then called programatically.  While this felt alien to me initially it is pretty similar to the way inline stores are declared in Sencha - except slightly less engineered.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]}</span>
+</span><span class='line'><span class="p">]}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The scroller definition above has a few nice features.  The use of "flex" to manage different screen sizes or viewport resizes and create very nice flexible layout.  The VirtualRepeater which is a templated control that generates items from a collection based on the defined template.  The Virtual part is useful for large lists and ensures that only the minimum amount of items are rendered (just before they are needed).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Create is essentially our component constructor and allows us to set some things up in advance.  Notice the use of the <code>inherited()</code> method - this ensures the superclasses <code>create</code> method is also called (inheritence chaining)</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>this.$</code> is a handy property.  It is essentially a hash of all the named components that are direct and indirect children of the defined component.  This makes it very easy to access a certain component if you want to manipulate it.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>getTask</code> is the method responsible for populating an Item template in the repeater for each row.  This is where I bind the values of the current collection to the Item kind.</p>
+
+<p>There you have it - yet another ToDo app spat out into the world!  Just what we needed :)</p>
+
+<h2>It not all Unicorns and Rainbows</h2>
+
+<p>Yeah Enyo isn't perfect (shock horror).  There are some quite annoying and some serious bugs that I have noticed in my hacking.</p>
+
+<h3>Data Association</h3>
+
+<p>When rendering the Repeater I can't see a way to easily attach data items to that item instance.  I worked it out eventually by using <code>this.$.list.fetchRowIndex()</code> but I think you would need to then manage your own data association.  Not a big issue but it didn't feel right to me at the time.</p>
+
+<h3>iPad/iPhone issues</h3>
+
+<p>The one big issue I had with the iPad was that text fields often didn't bring the keyboard up (more often than not).  Obviously this could be a bit of a deal breaker but there could be a simple fix.  Some other minor quirks included scrolling issues when multiple scroll areas existed and choppy animations in the kitchen sink style demo (Sampler).</p>
+
+<p>The example apps display and work on the iPhone but they are super tiny.  I am not sure if this is just a lack of correct formatting within my HTML or if Enyo is purely designed for larger screens.</p>
+
+<h3>Events</h3>
+
+<p>At one point I wanted to bind to an event of a component programatically (rather than declaring it inline).  I still can;t find a way to do this and I wonder if this could be a bit of hindrence when you get into a truly dynamic application.  Thought this could be me being a bit stupid as usual.</p>
+
+<h2>Conclusion</h2>
+
+<p>Enyo v1.0 is still young in the hands of the OSS community but it's started out strong and could well be a strong competitor to something like Sencha Touch if it keeps up this pace.  Hopefully the community embraces it and allows it to grow.  It could well be great.</p>
+
+<p>So yes, so far I like it but I've only been hacking a few days.  Hopefully I get to spend more time with it over the next few weeks.</p>
+
+<p>The sample project is available on my <a href="https://bitbucket.org/kouphax/enyo-todos">BitBucket Repo</a> if you want to tinker.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chutzpah 1.3 Released]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
+    <updated>2011-11-27T09:51:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released</id>
+    <content type="html"><![CDATA[<p>I missed the announcement last week the <a href="http://matthewmanela.com/blog/chutzpah-1-3-0-released/">Chutzpah 1.3 has been released</a>.  This is a big release as it brings support for <a href="http://pivotal.github.com/jasmine">Jasmine</a> - my BDD framework of choice for JavaScript.</p>
+
+<!-- more -->
+
+
+<p><a href="http://chutzpah.codeplex.com/">Chutzpah</a> is available as a plugin for Visual Studio but more importantly as a command line runner which allows us to integrate JavaScript testing into our continuious integration builds.  Excellent stuff!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Agility]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/01/tinkering-with-agility/"/>
+    <updated>2011-09-01T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/01/tinkering-with-agility</id>
+    <content type="html"><![CDATA[<p>Having spent a few days tinkering with <a href="http://agilityjs.com/">agility.js</a> I have come to the following conclusions</p>
+
+<ol>
+<li>It's a bit buggy in places (it is currently on v0.1 so this is to be expected)</li>
+<li>At first glance code written against <a href="http://agilityjs.com/">agility.js</a> looks like a total mess though it appears to be a weird optical illusion because once you grasp the <a href="http://agilityjs.com/">agility.js</a> approach the code makes total sense</li>
+<li><a href="http://agilityjs.com/">Agility</a> would fit well into an existing codebase as much as into a new one.  Certainly more so that some of the other frameworks.  And finally,</li>
+<li>I like it</li>
+</ol>
+
+
+<p>You could almost class <a href="http://agilityjs.com/">agility.js</a> as a micro MVC framework (and we all know how I like them).  I say that because it takes an incredibly simple approach to MVC as well as offering a very small but (IMHO) complete feature set.  Unlike <a href="http://knockoutjs.com/">knockout</a>, which also makes use of the <code>data-</code> attributes for model binding (and more), <a href="http://agilityjs.com/">agility.js</a> uses the <code>data-bind</code> attribute for model binding and thats it.</p>
+
+<p>With Agility you have that ability to compose UI's from discrete little self-contained, and/or nested agility objects that behave as standalone MVC implementations.  This is <em>kind of</em> different to the standard appraoch of other MVC-like JS frameworks which generally go for the create a single large MVC architecture and manage components within that architecture.  I am not saying this appraoch is forbidden or impossible in the other frameworks - it's just not how a noob would go about things.  At least I never did when I first started looking at them.</p>
+
+<p>To play with agility I went ahead and created "yet another Todo app" (<a href="https://bitbucket.org/kouphax/agility-tinkering">source</a>) complete with server side persistence and some responsive UI elements (Complete button will vanish when a Todo is completed - wow).  I'll not break the entire thing down here but here are some choice cuts (in CoffeeScript cause I am THAT cool)</p>
+
+<pre><code>todo = $$ 
+  model: {}, 
+  view:
+    format: '''
+      &lt;li&gt;
+        &lt;span data-bind="description"/&gt;
+        &lt;button class="complete-task"&gt;Complete&lt;/button&gt;
+        &lt;button class="delete-task"&gt;Delete&lt;/button&gt;
+      &lt;/li&gt;
+    ''',
+  controller: 
+    'create': -&gt; 
+      @view.$().toggleClass "task-done", @model.get("complete")
+    'change:complete': -&gt; 
+      @view.$().addClass "task-done"
+    'click .complete-task': -&gt;  
+      @model.set "complete": true
+      @persist $$.adapter.restful, collection:'todos'
+      @save()
+    'click .delete-task': -&gt;  
+      @persist $$.adapter.restful, collection:'todos'
+      @erase()
+</code></pre>
+
+<p>The code above shows the creation of a Todo entity i.e. a single entry in the list.  <code>$$</code> is the Agility factory method and will create an MVC based entity out of the object passed in.  I have decalred a view, a model (albeit empty) and a controller with an assortment of tasks for the entity.</p>
+
+<p>This will give you two-way model binding, event wiring up and even custom events totally for free plus a very simple way to react to events.  The controller is essentially the event handler so things like <code>click .delete-task</code> will bind the handler to the click event of the element with the <code>delete-task</code> class (the typical full range of selectors are available thanks to jQuery, Zepto integration forthcoming too).  Events like <code>create</code> and <code>change:complete</code> are custom events given to us by agility and allow us to listen to key points in the lifecycle of the object.  In fact <code>change:complete</code> is a demonstration of something truly awesome (IMHO as usual).  The <code>change</code> event will fire when model properties are changed - the <code>change:&lt;property_name&gt;</code> will only fire when the <code>complete</code> property changes.  Noice!</p>
+
+<p>My Todo list object then creates instances of the <code>todo</code> object above after pulling the info from the server.  It uses agility's inheritance strategy to to create them from the <code>todo</code> prototype I pass in</p>
+
+<pre><code>todos = $$
+  model: {},
+  view: 
+    format: '''
+      &lt;div&gt;
+        &lt;input type="text" id="newItem" /&gt;
+        &lt;button class="add-task"&gt;Add&lt;/button&gt;
+        &lt;ol/&gt;
+      &lt;/div&gt;
+    '''
+  controller:
+    'click .add-task': -&gt; 
+      item = @view.$('#newItem').val()
+      if item isnt ""               
+        newTodo = $$ todo, description: item
+        newTodo.persist $$.adapter.restful, collection:'todos'
+        newTodo.save()
+        @empty()
+        @gather todo, 'append', 'ol'
+</code></pre>
+
+<p>Next I append the <code>todos</code> object to the document (which renders it and wires things up)</p>
+
+<pre><code>$$.document.append todos
+</code></pre>
+
+<p>Persistance is provided as a plugin of sorts with ability to provide your own adapters.  You get a RESTful ajax adapter with Agility.  I use this to provide persistence methods on my objects and let agility set that up.</p>
+
+<pre><code>todo.persist $$.adapter.restful, collection:'todos'
+todos.persist()
+</code></pre>
+
+<p>There does seem to be a bug with the factory method and persitance enabled object forcing me to call <code>persist</code> prior to any sort of persitence operation but hopefully we will see that resolved soon.</p>
+
+<p>Finally I fetch from the server and wipe the awesome sauce from my lips and beard.</p>
+
+<pre><code>todos.gather todo, 'append', 'ol'
+</code></pre>
+
+<p>I've went on more than I wanted to but hey it's worth it.  Hopefully this has helped clarify agility to a few people or at least got people intrigued.  Feel free to pull down the <a href="https://bitbucket.org/kouphax/agility-tinkering">source</a> and have a go yourself otherwise pop on over to the <a href="http://agilityjs.com/">Agility.js</a> site and read the excellent docs.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Further Adventures in Unit Testing Technologies]]></title>
+    <link href="http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing/"/>
+    <updated>2011-05-17T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/05/17/further-adventures-in-unit-testing</id>
+    <content type="html"><![CDATA[<p>  <p>This post is a follow up to <a href="http://kouphax.github.com/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a>.  Information about the project repository can be found on my <a href="http://kouphax.github.com/projects/unit-testing">projects page</a>.</p><p>I&#8217;ve finally managed to slog through the long and slightly tedious process of re-writing the same suite of tests in a number of C# and JavaScript unit testing technologies &#8211; the results of which can be seen on the <a href="http://github.com/kouphax/unit-testing">project GitHub page</a>.  My conclusion, especially in the .<span class="caps">NET</span> world, is that it doesn&#8217;t really matter that much.  I know it&#8217;s not that much of a brilliant ending but what did you expect?  Fireworks?</p><p>Anyways before I start amazing you all with more awe inspiring revelations let me run through the remaining technologies (until such times as more are added at least) and summarise their good and bad points.  The other technologies I brought on board include,</p><ul>  <li><a href="http://www.nunit.org/">NUnit</a></li>  <li><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></li> <li><a href="http://nspec.org/">NSpec</a></li>  <li><a href="https://github.com/robconery/Quixote">Quixote</a></li> <li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>   <li><a href="http://docs.jquery.com/Qunit">QUnit</a></li></ul><p>Some obvious ones there just to round out the comparisons and a few JavaScript based ones.</p><h2><a href="http://www.nunit.org/">NUnit</a></h2><p>Good old <a href="http://www.nunit.org/">NUnit</a>.  Whats not to love?  Mark a class as a fixture and mark your methods as a test.</p><script src="https://gist.github.com/974990.js?file=NUnitTest.cs"></script><p>No point in mentioning too much about NUnit as most people will know the ins and outs of it already.  It has VS integration (via <a href="http://testdriven.net/">TestDriven</a>) and a nice NUnit runner capable of watching changes to DLL&#8217;s and automatically rerunning the test contained within.  One caveat around that is often NUnit hangs on to the <span class="caps">DLL</span> reference and requires a restart so Visual Studio can rebuild the <span class="caps">DLL</span> which kind of misses the point &#8211; but it doesn&#8217;t happen too often.</p><p>The framework itself would lend itself to a bit of betterification through sugar such as <a href="http://should.codeplex.com/">Should and Should.Fluent</a> but it does what it says on the tin.</p><h2><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></h2><p>Another staple for many people.  I&#8217;d never really used it too much prior to doing this post because of the general negative opinion of it.  I must admit I kind of agree with some of these things.  It&#8217;s pretty much the MS equivalent of NUnit (in terms of features and look and feel)</p><script src="https://gist.github.com/975043.js?file=MSTestTest.cs"></script><p>So why do so many people prefer NUnit over MSTest?  Well I think the main problem is that it is <a href="http://www.richard-banks.org/2010/03/mstest-sucks-for-unit-tests.html">quite slow</a> in comparison (from Visual Studio at least) but my main gripe is the amount of <a href="http://en.wiktionary.org/wiki/flob">flob</a> it generates for each test run and configuration.  It even produces solution folders for holding test runs and other files. If I want you to create those I&#8217;ll ask you &#8211; don&#8217;t force it on me.  It also has a very limited set of Assertion methods much like NUnit.</p><p>Enough moaning &#8211; surely it must have some benefits?  Well yes it does of course.  The main benefit <span class="caps">IMHO</span> is that it has very nice integration into Visual Studio which offers some very clean feedback.  This is something that requires <a href="http://testdriven.net/">TestDriven</a> for NUNit and the other frameworks which may or may not be free depending on your situation.</p><h2><a href="http://nspec.org/">NSpec</a></h2><p>Not to be confused with the <a href="http://nspec.tigris.org/">first hit on Google</a> which seems to be pretty much a dead project <a href="http://nspec.org">NSpec</a> (.org) is an attempt to bring <a href="http://rspec.info">RSpec</a> into the .<span class="caps">NET</span> world.</p><script src="https://gist.github.com/975150.js?file=NSpecTest.cs"></script><p>This is somewhat similar to <a href="https://github.com/machine/machine.specifications">MSpec</a> I mentioned in the last post.  My bugbear with MSpec however was that it didn&#8217;t feel natural to me.  The equivalent MSpec test for the above looks like this,</p><script src="https://gist.github.com/975159.js?file=MSpecTest.cs"></script><p>Maybe it&#8217;s just me but it doesn&#8217;t read as well as the NSpec version.  I even found it easier to write the NSpec version &#8211; more natural.</p><p>NSpec also has a lot of extra goodies.  Currently there is no integration into Visual Studio yet but the runner is simple to enough to spin up from the NuGet Package Manager Console and it has an added bonus of a file watcher.  <a href="http://nspec.org/continuoustesting">SpecWatchr</a> is similar to NUnit it can watch for changes and automatically run the specs.  It differs from NUnit in that it watches changes to the code files rather than the <span class="caps">DLL</span> &#8211; so need to wait for builds to happen etc.  Nice.</p><p>One minor gripe with it (bar the lack of VS support &#8211; even TestDriven support would be good) is the <code>should</code> syntax. I prefer the Should.Fluent style syntax <code>Should.Be()</code> rather than the current <code>should_be</code> syntax.  It&#8217;s not Ruby and we should accept that :-P.</p><p>It&#8217;s still quite early for NSpec and hopefully it keeps it&#8217;s momentum as it would be one of my frameworks of choice.</p><h2><a href="https://github.com/robconery/Quixote">Quixote</a></h2><p>Quixote by Rob Conery follows on from his current slew of ultra lightweight solutions to common problems (like <a href="https://github.com/robconery/Massive">Massive</a> and <a href="https://github.com/robconery/Sugar">Sugar</a>).  Quixote blends the <span class="caps">HTML</span> reporting directly with the framework and you write tests right in a Razor file.  This is the definition of lightweight.</p><script src="https://gist.github.com/975180.js?file=QuixoteTest.cshtml"></script><p>The obvious problem with this is that you don&#8217;t get continuous integration or build support.  There is no need to rebuild anything just refresh your page and the tests re-run.  Still CI/Build integration would be nice for a framework.</p><h2><a href="http://pivotal.github.com/jasmine/">Jasmine</a></h2><p>Ah Jasmine.  Jasmine is what I wanted out of a JavaScript testing framework.  Rather than going the JSpec route of creating a preprocessed <acronym title="Domain Specific Language"><span class="caps">DSL</span></acronym> Jasmine makes use of JavaScripts dynamic nature and &#8220;functions as 1st class citizens&#8221; feature to create framework that behaves like RSpec but embraces JavaScript.</p><script src="https://gist.github.com/975187.js?file=Tag.spec.js"></script><p>Out of the box you get an extensible framework (custom matchers etc), mocking and asynchronous support.  Ajax faking isn&#8217;t directly available but I recommend using <a href="http://sinonjs.org">Sinon</a> for this as it has an amazing FakeServer object that is fully configurable.</p><p>Another big advantage of Jasmine is it&#8217;s build integration.  Be it node.js, Java or Ruby you can integrate Jasmine specs into your build process.  .<span class="caps">NET</span> integration isn&#8217;t available yet but <a href="http://jurassic.codeplex.com">Jurassic</a> would be a suitable host if anyone wants to make it happen (hint, hint :-P).</p><h2><a href="http://docs.jquery.com/Qunit">QUnit</a></h2><p>And finally QUnit.  QUnit is the NUnit/JUnit equivalent for the JavaScript world.  Well known and mature project with some very nice <span class="caps">HTML</span> output.</p><script src="https://gist.github.com/975220.js?file=Tag.test.js"></script><p>Not much else to say on this one right now&#8230;. must be running out of steam.</p><h2>Summing Up</h2><p>And there you have it.  The first real post since the move and it&#8217;s a bit of a waffly long one.  Anyways what would be my recommendations?  Well for .<span class="caps">NET</span> I&#8217;m torn.  Currently I&#8217;d say NUnit with Should.Fluent extensions.  This is a nice combo for creating simple tests that people can execute from within Visual Studio.  However NSpec has potential &#8211; I&#8217;d like to see it grow a bit more and I&#8217;ll keep watching it.  Visual Studio integration would be aces though.  JavaScript on the other hand I have a clear cut winner.  Jasmine is awesome.  It&#8217;s boosted my code quality and productivity no end on recent projects and with the help of <a href="http://sinonjs.org">Sinon</a> for mocking and controlling Ajax it&#8217;ll be a long time before I am this happy with a .<span class="caps">NET</span> equivalent tech.  Fingers crossed for NSpec on that front.</p></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Tale of Unit Testing Technologies]]></title>
+    <link href="http://kouphax.github.com/blog/2011/04/04/a-tale-of-unit-testing-technologies/"/>
+    <updated>2011-04-04T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/04/04/a-tale-of-unit-testing-technologies</id>
+    <content type="html"><![CDATA[<p>  <p>I&rsquo;ve had a big bad dirty secret for a while now.&nbsp; One I&rsquo;ve kept hidden from my friend and colleagues for years.&nbsp; But now its time to come clean...... here goes..... hold onto your pants.</p><blockquote>&lt;pause for dramatic effect&gt;<br>I hardly ever write unit tests!<br>&lt;gasps&gt;</blockquote><p>I&rsquo;ve come clean and it feels good.&nbsp; Another reason why it feels good is that it is slowly but surely becoming a falsehood.&nbsp; I&rsquo;ve had my eyes opened recently to the art of BDD and discovered that I&rsquo;ve simply been doing it wrong - I was so busy writing code first and then tests to fit my, possibly incorrect, assumptions that tests failed to hold any worthwhile value &mdash; time wasted in my mind.&nbsp; Also when writing said tests I was too worried on the internal mechanics of the &ldquo;unit&rdquo; being tested and not about its intended behaviour &mdash; essentially missing the point and time wasted once more.&nbsp; Being a man that has no time for, well, time wasting I feel I have come full circle on why I didn&rsquo;t test.&nbsp; In the past at least....</p><p>But I digress.... Where was I?&nbsp; Ah yes I&rsquo;ve had my eyes opened - I&rsquo;ve been doing it right.&nbsp; Yep I&rsquo;ve gone all TDD/BDD - write a failing test, write some code to make it work, make the test fail again and so on and so forth.&nbsp; Its been a good experience.&nbsp; I finally see the benefit in it.&nbsp; Yes, it takes slightly longer and it&rsquo;s hard to break old habits but the amount of times I&rsquo;ve been tripped up by assumptions and edge cases that would only normally be found during system testing after a frustrating debugging session with plenty of hair pulling and swearing.</p><p>Since the whole behaviour driven enlightenment I&rsquo;ve been trying to find a suitable set of technologies that allow me to perfect my new found approach and turn me into a fast and effective code cutting machine.&nbsp; NUnit is fine &mdash; it does the job but it&rsquo;s a task in itself to express what you want out of a test which slows things down.&nbsp; No if you're going to do it right you want the best tools.&nbsp; So I have decided to jump in head first and discover what testing tools are the most effective.&nbsp; I&rsquo;ve been through a few already , including,</p><ul><li>SpecFlow (C#)</li><li>MSpec (Machine.Specifications) (C#)&nbsp;</li><li>JSpec&nbsp; (JavaScript)</li><li>Should/Should.Fluent (C#)</li></ul><p>Here are a few of my thoughts so far.&nbsp;</p><h2>SpecFlow (<a href="http://www.specflow.org/">http://www.specflow.org/</a>)</h2><p>SpecFlow is essentially the .NET equivalent of Cucumber (from the Ruby world).&nbsp; Offering natural language syntax for defining scenarios that make up the behaviour of a feature.&nbsp; Its better as an example,</p><p><script src="https://gist.github.com/900860.js"></script></p><p>So you see the test here is written in pretty much straight english.&nbsp; It&rsquo;s easy to understand and this means even domain experts (aka &ldquo;the business folk&rdquo;) can help write them.&nbsp; So how does this end up being turned into executable tests.&nbsp; Well, initially you need to do a bit of wiring up using Step Definitions.</p><p><script src="https://gist.github.com/900863.js"></script></p><p>As you can see we can match up each line of the feature file with an appropriate executable action.&nbsp; We even have the power of regular expressions at our disposal - allowing us to reuse steps and build up a decent library that comes with us across projects.&nbsp; Some very very powerful stuff here &mdash; we can get everyone involved in writing these things,</p><ul><li>Developers and business users during design</li><li>Developers during development</li><li>Testers during system test &mdash; in fact why not write a feature as the &ldquo;Steps to reproduce&rdquo;?&nbsp; Win, win!</li></ul><p>The thing is...... well.... Technically speaking SpecFlow isn&rsquo;t really aimed at the fine grained, unit test level of testing.&nbsp; It&rsquo;s more about the higher level integration testing.&nbsp; I mean it&rsquo;s useable but it does become a bit awkward to express things in a reusable manner.&nbsp; The problem with that is things start feeling quite heavy weight and you need to do a lot of extra work to get them to fit.&nbsp; No I think, while SpecFlow is great for many things (automated testing, integration testing, system testing etc.) it&rsquo;s not the best fit for what I am looking for in this article - unit testing tools.</p><h2>MSpec (<a href="https://github.com/machine/machine.specifications">https://github.com/machine/machine.specifications</a>)</h2><p>Machine.Specifications (MSpec for short) is a Context/Specification framework geared towards  removing language noise and simplifying tests.&nbsp;</p><p>Thats the official intention and I must admit I was initially taken by it.&nbsp; Rather than having a single huge class filled with methods representing tests MSpec takes the approach that a single class represents a single scenario and uses lambda expressions to offer the BDD style syntax (Because/It/Subject etc.).&nbsp; So lets take the Tag scenario described above and convert it to MSpec format,</p><p><script src="https://gist.github.com/901245.js"></script></p><p>It&rsquo;s quite simple and it really forces you to ensure your tests are as simple as possible.&nbsp; To be honest having used it on a project I&rsquo;m not 100% sold.&nbsp; I think its down to my personal coding style.&nbsp; I honestly think while it reduces line count it doesn&rsquo;t necessarily reduce language noise.&nbsp; Also having used on a project I found it quite awkward to write &mdash; the style is different to what I am used to and I guess with training that would change.&nbsp; As I say this is a personal opinion and I am happy to be shown a better approach.</p><h2>JSpec (<a href="http://visionmedia.github.com/jspec/">http://visionmedia.github.com/jspec/</a>)</h2><p>JSpec is a clever little JavaScript testing framework.&nbsp; I&rsquo;s no longer supported by it&rsquo;s creators (booooo!) but honestly its stable enough to use anyway.&nbsp; JSpec takes the RSpec DSL (a decent subset at least) and is capable of converting it to JavaScript for execution in the browser.&nbsp; It&rsquo;s got a heap of stuff in it,</p><ul><li>Mock Ajax</li><li>Stubbing</li><li>Fake timers</li></ul><p>Lets take a look at a simple example,</p><p><script src="https://gist.github.com/901253.js"></script></p><p>People who have used RSpec before will feel right at home.&nbsp; People who haven&rsquo;t should be able to understand exactly what is going on.&nbsp; Pretty - right?&nbsp; I thought so.&nbsp; For the people who think &mdash; &ldquo;ugh we don&rsquo;t need another dialect/language&rdquo; - wise up!&nbsp; Out of all the testing techs I&rsquo;ve used recently this one has been the most successful and the output it generates is nice and clean.</p><h2>Should/Should.Fluent (<a href="http://should.codeplex.com/">http://should.codeplex.com/</a>)</h2><p>This little gem isn&rsquo;t a framework in itself and can be used with any framework you care to use.&nbsp; Should provides a more expressive way of stating assertions in your code by making the code closer to natural language using extensions methods and nicer method names.&nbsp; Example I hear you say?&nbsp; Why certainly sirs and madams,</p><p><script src="https://gist.github.com/901260.js"></script></p><p>I stole this one from the Should Codeplex site (linked above) and it makes use of the fluent syntax (optional).&nbsp; OK technically it doesn&rsquo;t do much but it really helps when trying to express assertions in your tests.&nbsp; Highly recommend this one.</p><h2>Conclusion</h2><p>Thats the first lot of technologies covered but there are still plenty out there.&nbsp; I think my next port of call is to actually spin up IronRuby and get RSpec involved.&nbsp; After all it is the marker by which I am comparing these things so why did I not jump on it first of all?&nbsp; Perhaps I like to build up suspense :-P</p><p>Also worth pointing out is that I haven&rsquo;t touched upon technologies for mocking and stubbing - that is for another time.</p><p>As always heap criticism my way and I&rsquo;ll happily fight my corner and stubbornly refuse to back down :-P (second smilie within a few paragraphs time to end this post).</p><p>UPDATE: &nbsp;I've pushed some of my code to GitHub and intend to expand on this using the various other technologies. &nbsp;The repository can be found on my <a href="https://github.com/kouphax/unit-testing">repo on GitHub</a></p></p>
+]]></content>
+  </entry>
+  
+</feed>

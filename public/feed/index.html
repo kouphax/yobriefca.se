@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/feed/index.html" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Estimation 4x4]]></title>
+    <link href="http://kouphax.github.com/blog/2012/02/12/the-estimation-4x4/"/>
+    <updated>2012-02-12T19:36:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/02/12/the-estimation-4x4</id>
+    <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I&#8217;ve ever had the pleasure to work with.</p></blockquote>
+
+<p>I&#8217;m of the opinion that the moment you start trying to apply complex mathematical rigour and time to estimation you&#8217;ve entered into a broken system. <!-- more --> You&#8217;re wasting time trying to protect yourself from finger pointing managers or getting a kicking from old school &#8220;us or them&#8221; lawyer types. None of that adds anything to the project except a big stick to beat people with and make sure they work themselves to death based a a random stab in the dark that is somehow made more realistic by the application if science. Ultimately though if the initial guesswork is wrong, and it&#8217;s seldom on the nose, the science means sweet FA. So why bother? You&#8217;re pleasing the wrong people. But then those people hold a lot of power.  So as long as we can keep them happy with the minimum of effort life should be sweet.</p>
+
+<h2>The Answer</h2>
+
+<p>Ladies and gentlemen I bring you the <strong>Estimation 4x4</strong> - guaranteed to knock those super science estimation techniques out of the park.</p>
+
+<h2>The Science Bit</h2>
+
+<p>Got a project to estimate?  I&#8217;ve done your homework for you - <strong>4 people, 4 weeks</strong>.  BOOM!  Mind Blown!  Now get on with delivering that project bro.  Oh wait it&#8217;s a big ass project - 4 people, 4 months.  Oh wait you&#8217;re limited by deadlines and/or resourcing - adjust as needed (3 people, 5 weeks or 5 people, 3 weeks).</p>
+
+<h2>Balancing Act</h2>
+
+<p>Careful now, 9 women dont make a baby in 1 month so don&#8217;t assume that scaling one side up to cater for the other will get the same results.  Theres a balance that needs addressed.  This is real science after all - repsect the rule and the rule will respect you.</p>
+
+<h2>You Gotta Be Kidding Me</h2>
+
+<p>Dont believe me?  Try it out next time.  Do your pseudo-scientific enterprise-ready finger in the air analysis.  But hey see when that project is finished see how close the 4x4 would have brought you to the real result.  I bet 9 times out of 10 it was as accurate as your real estimate, except you could have started much sooner&#8230;.</p>
+
+<p> #winning</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Caveat Abstractor]]></title>
+    <link href="http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/"/>
+    <updated>2012-02-09T08:37:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/02/09/caveat-abstractor</id>
+    <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
+
+<p>Every time you create an abstraction there is a very good chance you&#8217;ve introduced unnecessary complexity into a solution.  It should never be done alone - it should be a team decision.  The goal of an abstraction is to simplify but in its untamed natural form an abstraction will only add complexity.</p>
+
+<!-- more -->
+
+
+<p>As programmers it&#8217;s easy to fall into the trap whereby we want the code that we write to be the last time anyone ever has to write that code again.  We dream of creating reusable works of art that ever other developer will use and never be concerned with the low level implementation ever again.</p>
+
+<p>This is wrong and impossible.  An anti-pattern even!</p>
+
+<p>It baffles me that anyone would create an abstraction that they didn&#8217;t have a need for at the time. It&#8217;s wasteful and degrades the readability, grokability and all those other good &#8220;ilities&#8221; we use.  Of course I say this like i don&#8217;t do it myself but I&#8217;d be lying to you and myself.</p>
+
+<p>An abstraction, by definition, is an intentional hiding of implementation and knowledge but surely understanding of these things will lead to a higher chance of success in a project?  The person that created the abstraction has that understanding but it&#8217;s like they dont want anyone else to know how it works.  They&#8217;re ready to take that secret to their grave.</p>
+
+<p>When you start to abstract you need to remind yourself you are building a specific solution and not a framework (unless you are of course).  Abstractions should be done only within the scope of the project and you should have a strong case to back up its creation (make the decision a team effort).  This may sound like overhead but if you find it difficult to justify the creation odds are the abstraction is unnecessary.</p>
+
+<p>Abstractions should not be grand, they should be light and convey their intent clearly by other people (pair programming and peer review will help weed out any verbose abstractions).</p>
+
+<p>If you are creating an abstraction for anything other than DRY, odds are youre probably creating it for YAGNI.  You&#8217;ll start considering irrelevant use cases and having to cater for insane edge cases.  This will happen even if you are taking a strong test driven approach - you&#8217;ll concern youself with the workings of the abstraction rather then the problem you are solving and begin creating endless &#8220;what if&#8221; tests to cater for all those &#8220;0.00000001% chance of happening&#8221; edge cases. When this happens youre going to end up in mediocrity.  Mediocre abstractions attract more abstraction.  Even in a shared codebase bad abstractions create a certain amount of implied ownership to the person that created it. Inevitably someone will come along and create an abstraction around your abstraction (even if they have access to the original source).  This in turn will likely become YAMA (Yet Another Mediocre Abstraction) attracting yet more abstraction&#8230;. You can guess where I am going with that one&#8230; Its abstractions all the way down and everytime you abstract you&#8217;ve decreased system comphension and likely destroyed another future developers soul.</p>
+
+<p>In the same way guns dont kill people, people do - Abstraction dont kill projects, developers do.  You&#8217;ve only got yourself to blame (been there done that, will be again).  A nice simple abstraction, at the right time (e.g. When needed) can be expressive and helpful but too often we put the abstraction before the need.</p>
+
+<p>So consider abstractions as “guilty until proven innocent” not the other way around.  Solve YOUR problem - not every other problem, not until you need to.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[On Craftmanship and Understanding, I Guess]]></title>
+    <link href="http://kouphax.github.com/blog/2012/01/31/on-craftmanship/"/>
+    <updated>2012-01-31T16:53:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/01/31/on-craftmanship</id>
+    <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It&#8217;s the one that&#8217;s always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you&#8217;ll have better stories to tell when you get there.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enterprise Scale]]></title>
+    <link href="http://kouphax.github.com/blog/2012/01/26/enterprise-scale/"/>
+    <updated>2012-01-26T09:54:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/01/26/enterprise-scale</id>
+    <content type="html"><![CDATA[<p>Enterprise.  What a broken, misued term.  Its meant to sound big, huge even. I guess many years ago it used to mean big, huge, big business serious work.</p>
+
+<p>But when you think about it, its none of those things really, not any more. <!-- more --> Even the biggest multi-nationals entire enterprise backbone throughput is probably a small fraction of Lady Gagas Twitter feed. Enterprise is just that - one enterprise. Social is global, its all of us at anytime and that is so much bigger than some old enterprise. So if you try and pimp out your CV by using the term enterprise - the only people who are probably going to care are the managers and execs that think their little boring legacy system is unique and special&#8230; Do you really want to be sold that sort of job?  All bytes are equal, some are more equal than others - Pah!  Some are more mired in unnecessary abstraction, contracts and unread, out-of-date doucmentation but they are still bytes.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
+    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <updated>2012-01-05T13:59:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn&#8217;t the current build wont run in WP7.  So another item on the list is a version that doesn&#8217;t rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
+
+<p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
+
+<!-- more -->
+
+
+<ol>
+<li>Via its natively compiled binaries (on iOS and Android)</li>
+<li>Via a its Rest API (for all non iOS/Android devices and desktops)</li>
+</ol>
+
+
+<p>Now I wanted to try and create bindings for the iOS library so I could use it for a Monotouch application I&#8217;ve been playing with but truth be told the whole process confused the hell out of me.  Thing was the REST API gave me everything I needed so I started recently to write a dynamic wrapper around the API.  Currently built on .NET in Visual Studio (Mono on my list) with a few sanity tests it works well enough to put it out there incase anyone was wanting to do something similar and could extract value from it.</p>
+
+<p>It&#8217;s pretty early at the minute - in fact all you can do with this first spike is basic object CRUD.  No querying yet, no special user management features etc.  But they will come.  So what could you use it for?  Well a number of things,</p>
+
+<ul>
+<li>WP7 Cloud Storage</li>
+<li>Monotouch (and Monodroid) storage until someone smarter than me creates proper bindings to the actual iOS frameworks</li>
+<li>It&#8217;s an object store so why not use it to store data on any web app?</li>
+<li>Just for tinkering.</li>
+</ul>
+
+
+<p>It makes use of <code>dynamic</code> from .NET 4 so you can kind of pass it arbitrary stuff and get arbitrary stuff back (Parse is schemaless so this makes sense for me).  It also means you wont have to create concrete classes for every single thing you want to store.</p>
+
+<p>If you want to run the tests you&#8217;ll need to sign up for Parse, create an app and update the <code>consts</code> in <code>describe_Parsely</code> to point to your new app (and authenticate).</p>
+
+<h2>Sample Uses</h2>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// create your parsley API</span>
+</span><span class='line'><span class="n">Parsley</span> <span class="n">parsley</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Parsley</span><span class="p">(</span><span class="n">applicationId</span><span class="p">,</span> <span class="n">masterKey</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// create new class</span>
+</span><span class='line'><span class="n">dynamic</span> <span class="n">response</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">1</span>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// do other cool stuff</span>
+</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">4</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dyanmic</span> <span class="n">myObject</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Retrieve</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">myObject</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Outstanding Tasks</h2>
+
+<p>Lots.  But here is the main ones I see right now.</p>
+
+<ul>
+<li>Compile on Mono and show MonoTouch some Parse love.</li>
+<li>Samples (for WP7, Monotouch, possibly Monodroid)</li>
+<li>Add Queries</li>
+<li>Add User Management</li>
+</ul>
+
+
+<p>It&#8217;s probably fairly rough right now and could do with some TLC if anyone wants to pitch in?  I&#8217;ve given it a name (Parsley) but that in no way implies this is going to be a long running project or anything.  I just like naming things.  Get it while it&#8217;s hot, the code is in my <a href="https://bitbucket.org/kouphax/parsley">usual place</a>.</p>
+
+<h2>Pre-Post Update</h2>
+
+<p>Rather than update this blog post I decided to tack this on here.  With BitBucket experiencing some issues at present I spent about 10 minutes hacking in the user management features.  No tests written yet (oh no I have broken all the rules and must be beaten with oversized crayons) so lets just say that it&#8217;s very edge, very experimental at the minute.  Also bonus - returning a collection of objects is implemented as <code>Query</code> but again totally untested (fast and loose - it&#8217;s how I roll son).  There be dragons there therebe!</p>
+
+<p>Happy hacking.</p>
+
+<p>Can I have my WP7 MVP now please?  <strong>Kidding</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
+    <updated>2011-12-30T20:46:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
+    <content type="html"><![CDATA[<p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I&#8217;d have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later&#8230;</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">TEntity</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">NancyModule</span> <span class="n">where</span> <span class="n">TEntity</span> <span class="p">:</span> <span class="k">class</span>
+</span><span class='line'><span class="err">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">RailslikeControllerFor</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span> <span class="p">+</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Index</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/new&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">New</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Post</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Create</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Show</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])/edit&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Edit</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Put</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Update</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Delete</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Destroy</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">New</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Create</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Show</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Edit</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Update</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Destroy</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">AsView</span><span class="p">(</span><span class="kt">object</span> <span class="n">model</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">method</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StackTrace</span><span class="p">().</span><span class="n">GetFrame</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">entity</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">View</span><span class="p">[</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;{0}/{1}&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span> <span class="n">model</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To use it you just subclass the class and override the necessary methods.  Like so.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">QuestionModule</span> <span class="p">:</span> <span class="n">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">Question</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">QuestionModule</span><span class="p">(</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">questions</span> <span class="p">=</span> <span class="n">questions</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">override</span> <span class="n">Response</span> <span class="nf">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nf">AsView</span><span class="p">(</span><span class="n">questions</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What the base class does is create the necessary CRUDdy urls with a base route starting with the name of the entity you pass in, pluralised in the easiest way possible.  In this case <code>/questions</code>.  The rules match what you wold get for a controller in Rails.</p>
+
+<table style="width:100%" border="1">
+    <tbody>
+        <tr style="background-color: #666;color:#fff;">
+            <th style="padding:4px;font-weight:bold;">Verb </th>
+            <th style="padding:4px;font-weight:bold;">Path</th>
+            <th style="padding:4px;font-weight:bold;">Action </th>
+            <th style="padding:4px;font-weight:bold;"></th>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">index    </td>
+            <td style="padding:4px;">display a list of all questions</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/new       </td>
+            <td style="padding:4px;">new      </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for creating a new question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">POST</span>    </td>
+            <td style="padding:4px;">/questions           </td>
+            <td style="padding:4px;">create   </td>
+            <td style="padding:4px;">create a new question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">show     </td>
+            <td style="padding:4px;">display a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">GET</span>     </td>
+            <td style="padding:4px;">/questions/:id/edit  </td>
+            <td style="padding:4px;">edit     </td>
+            <td style="padding:4px;">return an <span class="caps">HTML</span> form for editing a question</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td style="padding:4px;"><span class="caps">PUT</span>     </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">update   </td>
+            <td style="padding:4px;">update a specific question</td>
+        </tr>
+        <tr>
+            <td style="padding:4px;"><span class="caps">DELETE</span>  </td>
+            <td style="padding:4px;">/questions/:id       </td>
+            <td style="padding:4px;">destroy  </td>
+            <td style="padding:4px;">delete a specific question</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br/>
+
+
+<p>There is a teeny-tiny bit of sugar in the <code>AsView</code> method that will look up the corresponding view.  So the module above would resolve its <code>Index</code> method to <code>questions/index</code> and the view engine would find the correct file (eg. for Razor - <code>questions/index.cshtml</code>).</p>
+
+<p>I&#8217;ve already said it&#8217;s a bit of fun but I have actually used this at least once - there is probably more that could be added but it&#8217;ll do for a first spike at least.  Any use to anyone?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Standing at the cusp of 2011... WTF?]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/30/2011-and-2012-review/"/>
+    <updated>2011-12-30T19:51:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/30/2011-and-2012-review</id>
+    <content type="html"><![CDATA[<p>I&#8217;m not sure where this post is going to go in terms of content.  I&#8217;m thinking a bit of full disclosure might be quite cathartic but at the same time do you really want to know the ins and out of my somewhat awful 2011?  Compromise - I&#8217;ll keep it short.  Possibly.</p>
+
+<!-- more -->
+
+
+<h2>2011 (The Bad Parts)</h2>
+
+<p>2011 was a pretty terrible year if I&#8217;m honest.  It was the year my wife suffered two miscarriages, I got into my first car accident, stuff kept breaking and I totally dropped the ball in work when I burnt out (I&#8217;m certain I&#8217;m still feeling the effects of that).  Oh and yes on top of all that I was diagnosed with severe depression for which I am now fully medicated.  But you know what?  I&#8217;m not alone - I know a ton of people for whom (look at me I said whom - how posh) 2011 was grim.</p>
+
+<p>So lets cast aside all the personal stuff, we&#8217;ve all had our problems, and let me talk about the burn out.  Long and short of it was that I took too much work on and eventually delivered unacceptable results for them all.  I have something akin to ADD when it comes to work and unless I am suitably challenged or stimulated my productivity drops to pretty much nil.  2011 was full of time consuming mundane boring work for me and as I tried desperately to pull personal value from the work (or hobbies) I started making mistakes, over committing and generally under achieving.  Lesson learned - I need to learn to say no and sometimes I just need to suck up the fact that we can&#8217;t all be doing the best part of our jobs ALL THE TIME.  Sometimes we need to just knuckle down and get on with it.  Just not for a full year&#8230;</p>
+
+<p>Anyway I became somewhat disillusioned with my employer and, truthfully, Northern Ireland.  I like other people to be excited about the stuff I preach but I felt there was a lot of disinterest and empty words.  This annoyed me and I guess I just started pushing harder, which I guess made me look quite angry and pushy.  This obviously wouldn&#8217;t help.  When I looked outside of my company - Northern Ireland didn&#8217;t seem that much better.  So I felt a bit out of place and I had 2 choices ahead of me.</p>
+
+<ol>
+<li>Up sticks and go somewhere that I felt would be more receptive to my extreme nerdyness and desire to share it.</li>
+<li>Stick around, my company and Northern Ireland and try and make a difference.</li>
+</ol>
+
+
+<p>I chose the second, not being to be hero or anything but for more pragmatic reasons,</p>
+
+<ul>
+<li>My wife got pregnant again (due soon yay!), the economy is terrible and it would be too much of a risk right now</li>
+<li><span class='pullquote-right' data-pullquote='It is better to invest in people and risk them leaving than to not invest in them and risk them staying '>
+If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is any other company that would support me (aka let me get away with) the things I do.  I&#8217;m not the most predictable of sorts.  I work weird hours and do strange things.  <a href="http://www.kainos.com">Kainos</a> have always been there for me and supported me.  Having done interviews with people from various levels from various other companies the state of other IT firms makes me seethe with anger. It is better to invest in people and risk them leaving than to not invest in them and risk them staying&#8221;
+</span></li>
+</ul>
+
+
+<p>So I start 2012 with a big challenge set for myself.  That sounds about right.  The more I think about <a href="http://www.kainos.com">Kainos</a>, my employer, deserves more credit than I give it.  We have been in a space thats been all about big business types with big enterprisey solutions and delivered well.  It&#8217;s not an area that exactly screams enthusiasm and I think it will take a while to draw people out of that kind of insular thinking. <a href="http://www.kainos.com">Kainos</a> certainly seems to be better than most in this area.  Now enough gushing about <a href="http://www.kainos.com">Kainos</a> (who are hiring BTW)</p>
+
+<h2>2011 (The Good Parts)</h2>
+
+<p>OK OK 2011 wasn&#8217;t all sob stories and dullness some really cool things happened.</p>
+
+<ul>
+<li>My CodeSlice initiative in work (meet at least once a month, talk nerdy things, get <a href="http://www.kainos.com">Kainos</a> to pay for free pizza) didn&#8217;t die.  In fact in the hands of one of my colleagues, Jonny Holmes, it flourished.  Attendence was never HUGE but it was consistent and varied.  May long this tradition continue and hopefully we can expand it..</li>
+<li>I organised and participated in not one but two hackathons (internally).  Once again <a href="http://www.kainos.com">Kainos</a> covered the costs for our weekend long hack sessions.  Turnout was decent (about 8-12 people) with all types turning up - managers, placement students, technical architects etc.  The experience was enough for me - which is a clever way of saying the end products weren&#8217;t as good as envisaged.  But we drew so many valuable lessons that the second one was infinitely more successful that the first - live and learn!  And, oh lord, the plans I have for the first half of 2012 around hackathons are going to be legendary!</li>
+<li>I talked, and not just to myself but to real people, real people who were not paid to be there!  I talked, outside of work, a total of three times.  I know the number isn&#8217;t huge but it was late on in the year before I decided to get out there.  Already topped that number for 2012 and the year hasn&#8217;t started.  Double figures would be good next year thank you.</li>
+<li>I attended <a href="http://gotocon.com/amsterdam-2011/">GOTO Amsterdam</a> were I got to meet a lot of people I have deemed awesome (because they are).  Being in rooms with like minded people (who are generally much smarter than me) saying things that make you realise you are not insane for thinking things could be better really strengthens your beliefs!</li>
+<li>Shared more.  All the stuff above I did because I wanted to get my thoughts out there - I wanted to be educated as well as educate.  I was happy to look like a fool if it meant I didn&#8217;t look like a fool later.  Thats hard for an introvert but damn it I gave it my best shot.  I know people, the one who only know me through my writing on <a href="http://yammer.com">Yammer</a> or half-read blog post, think I am a purist (I&#8217;m not - perfect is the enemy of better), or angry (not me, frustrated at times but never angry), or opinionated (openly opinionated perhaps) or even annoyed that everyone isn&#8217;t dancing the happy geek dance like myself (as long as I&#8217;m not dancing alone on the dance floor like a sleazy old man stalking girls half his age I&#8217;m happy).  Thats fine.  People reckon I risk detracting from the message I am trying to communicate.  Fair enough.  Perhaps I need to tone it down sometimes - but I can&#8217;t see that happening - it&#8217;s no in my nature.  I think it&#8217;s better that people see me as a purist and take some of my ideas away rather than being half-assed and them not taking anything on board!  It&#8217;s inevitable that when I try and challenge peoples conceptions of technical things, especially in the open, it&#8217;s going to leave a sour taste in some peoples mouths.  But thats how I roll and thats how it should be.  Sorry but there is more on the way.  But I take as good as I give so come at me bros!</li>
+<li>Won a years to subscription to <a href="http://tekpub.com">Tekpub</a> on Christmas Day thanks Rob &#8216;Santa Clause&#8217; Conrey.</li>
+<li>Put my foot in it a few times.  Yeah sounds odd I am classing this as a good thing but Scott Hanselman gave me permission, and I <a href="http://www.hanselman.com/blog/BestPracticesForIndividualContribution.aspx">quote</a></li>
+</ul>
+
+
+<blockquote><p>Chris Sells told me once, If you’re not getting in trouble with your boss at least twice a year, you’re likely not pushing the envelope hard enough. Two slaps a year might be the cost for 10 successes. If you’re not moving forward, well, you’re not moving forward.</p></blockquote>
+
+<h2>2012 (More like 20AWESOME! AMIRITE!)</h2>
+
+<p>So enough dwelling in the past - how am I going to make 2012 be the awesomest?  Well thats easy - <strong>set some real fecking goals</strong>.  I failed to do that last year (outside of my typical career goals during my annual reviews of course) and ended up coasting in parts.  Not next year - hells no.  I got me a bucket list (stuff to do before the year dies - not me - unless that comes first - oh god I never thought of that).  TO THE LIST!</p>
+
+<h3>2012 Bucket List (In No Particular Order)</h3>
+
+<ul>
+<li>Release a screencast</li>
+<li>Release a game</li>
+<li>Appalachian Trail</li>
+<li><a href="http://givecampni.org.uk">GiveCamp NI</a></li>
+<li>Talk/Present as often as possible</li>
+<li>Learn a new language</li>
+<li>Contribute more to OSS</li>
+</ul>
+
+
+<p>So let me explain some of these, as I am sure they mean sweet FA to some of you.</p>
+
+<h3>Release a Screencast</h3>
+
+<p>A lot of my blog posts last year were a kind of &#8220;Introduction to Technology X&#8221; and I think that sort of knowledge can be better shared via video and real coding.  Coupled with my desire to go a bit deeper in my technical posts but always getting distracted with other blog posts I think 2012 is the year I try my hand at producing a real life proper screencast (or perhaps a series).  With decent production values and what not.  The topic?  Well I am currently thinking <a href="http://nancyfx.org">Nancy</a> but I need to really get my head around it a lot than I already do - but thats fine.  Time will tell on that one.</p>
+
+<h3>Release a Game</h3>
+
+<p>Game programming is an area I&#8217;ve failed to venture into and I feel it is about time.  I wan&#8217;t to do something really simple, something mobiley possibly using <a href="http://impactjs.com/">ImpactJS</a> because it interests me.  I&#8217;d like to release said game into an app store as well - just to watch it get flamed and to say &#8220;I&#8217;ve done it&#8221;</p>
+
+<h3>Appalachian Trail</h3>
+
+<p>This is a codename for a current unfunded project of mine.  The goal is to get a more fuller understanding of the spectrum of mobile development approaches, platforms and technologies.  So simply put generate a bunch of super simple (though still useful) app ideas and using every conceivable type of technology from native to web and all in-between deliver decent quality apps across all the major platforms through hackathons, team challenges, school and university outreach, app camps etc..</p>
+
+<p>Sounds awesome doesn&#8217;t it?</p>
+
+<h3>GiveCamp NI</h3>
+
+<blockquote><p>GiveCamp was founded by Microsoft Developer Evangelist, Chris Koenig, in Dallas, Texas in 2007. His vision was to bring together passionate developers and local charitable organisations for an entire weekend, and see what would happen.</p>
+
+<p>In late 2012 GiveCamp is coming to Northern Ireland.</p></blockquote>
+
+<p>Thats what the <a href="http://givecampni.org.uk/">official site</a> says (I should know I put it there).  So late next year we will run GiveCamp for the first time in Northern Ireland.  A weekend long charity focused public hackathon.  It&#8217;s going to be a belter!</p>
+
+<h3>Talk/Present as often as possible</h3>
+
+<p>I enjoy talking about nerdy things.  I got a taste for it last year when I went public (having been talking internally to <a href="http://www.kainos.com">Kainos</a> staff for years) and in 2012 I really want to get out there as much as possible.  I find it an amazing way for me to learn as well as understand whats going on in the industry.  So far I am speaking in <a href="http://dublinalt.net/2011/12/14/january-meetup-calling-all-mobile-devs/">Dublin in January</a>, <a href="http://www.devweek.com/">Devweek in London</a> and a few other un-announced venues.</p>
+
+<p>BTW if anyone can recommend conferences I should pitch for, or want me to come over and talk about anything in the .NET/JavaScript/Mobie world(s) (see my blog for the kind of thing I know about) - let me know!</p>
+
+<h3>Learn a new language</h3>
+
+<p>Everyone says this one right?  Yeah so I spent last year looking at node.js and Ruby and I think it&#8217;s time to get out of my safe - I&#8217;m thinking F# - yeah that sounds sweet!</p>
+
+<h3>Contribute more to OSS</h3>
+
+<p>I head-dived into OSS .NET last year and loved it.  Many people see .NET as a very restricted, Microsoft led platform were every modern web-app is MVC3 with Entity Framework and WCF rules the web service world.  Thats total bull.  .NET has a very vibrant, very active OSS community.  There is almost no need to use any MS technology ever.  But lets not forget MS have really started to embrace and support OSS in a big way.  Lets hope that trend continues!</p>
+
+<h2>In Summary</h2>
+
+<p>Boooo to 2011, Yay to 2012.  See you around the same time next year when I have another failful year and promising myself a better one in 2013 :-P</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Code Coverage and the Forces of Good]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/27/code-coverage-and-the-forces-of-good/"/>
+    <updated>2011-12-27T09:23:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/27/code-coverage-and-the-forces-of-good</id>
+    <content type="html"><![CDATA[<p>Code coverage often does more harm than good.  It removes the focus from testing the expected behaviour of the code to just writing tests to make sure all your code is hit (gamifiying the process to its own detriment).  People will bend tests, often in a way that no typical use case could, just to make them run as they want.  This is unrealistic and paints a false picture of the behaviour of your code.</p>
+
+<!-- more -->
+
+
+<p>That being said - code coverage is a tool and it shouldn&#8217;t be blamed for enabling bad habits (a bad workman always blames hi&#8230; well, you know the rest).  So can code coverage be applied in a less obvious way?  Indeed it can.</p>
+
+<p>Business users invariably end up using things like <a href="http://google.com/analytics">Google Analytics</a>, <a href="http://gaug.es">Gauges</a> or <a href="http://flurry.com">Flurry</a> to discover the most valuable areas of the solution and tailor accordingly.  Makes perfect sense, right?  So why not use code coverage, during development, as a mechanism to identify redundant areas of code, or discover feature hotspots that could benefit from refactoring or performance tweaking?  Why not indeed?</p>
+
+<p>As any system evolves there will be behaviours that simply don&#8217;t need to exist to satisfy the overall behaviour of the system.  Some code and it&#8217;s related tests will still hang around.  It happens and with the right tools you&#8217;ll be able to see those areas - MightyMoose will show you hit counts for lines of code for example.  So by ensuring tests are reviewed as part of your code review process (or refactored during pairing) you&#8217;ll also get reporting of redundant code or feature hotspots for free.</p>
+
+<p>So if your project is already reporting on code coverage thanks to some great architectural mandate why not at least use it for something more positive?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
+    <updated>2011-12-13T17:39:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
+    <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my &#8220;lets have a natter about mobile&#8221; blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
+
+<p>On the other hand Enyo is a very nice little framework and in the hands of the Open Source community could be a real winner.  I&#8217;ve had a chance to tinker with over the last few days and thought I&#8217;d help get the word out by outlining how to write the obligatory by law ToDo app.  It is currently somewhat similar to the official <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">FeedReader tutorial</a> but it could be easily extended to add more features.  I recommend you look at the original <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">tutorial</a> for more info about how the project is structured as there are certain conventions that may seem odd to your typical web framework.</p>
+
+<p>The entire application, which looks like this (yeah yeah it&#8217;s not the most beautiful thing on the planet - I suck at design).</p>
+
+<p><img src="http://kouphax.github.com/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
+
+<p>Was knocked together with the following bit of code</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">enyo</span><span class="p">.</span><span class="nx">kind</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;TodoApp&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">kind</span><span class="o">:</span> <span class="nx">enyo</span><span class="p">.</span><span class="nx">VFlexBox</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;PageHeader&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VFlexBox&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span><span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;Todos&quot;</span><span class="p">}</span> <span class="p">]},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">]},</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;RowGroup&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;newTask&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="nx">hint</span><span class="o">:</span> <span class="s2">&quot;Enter new ToDo here...&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Add&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;addTask&quot;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">]},</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>          <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>            <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>            <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>          <span class="p">]}</span>
+</span><span class='line'>        <span class="p">]}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">addTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">task</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">newTask</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">description</span><span class="o">:</span> <span class="nx">task</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">completeTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">evt</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fetchRowIndex</span><span class="p">()].</span><span class="nx">done</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">getChecked</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">clearComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">done</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">buffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Those of you with some experience in Sencha Touchwill notice that the declarative syntax is quite similar to STs except slightly simpler.  So lets break out some of the features that brought this example together.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is one of the component declarations that make up the suite of components that form the &#8220;kind&#8221; (Enyo speak for component or object).  This is somewhat similar to the DOM (COM anyone?  Component Object Model) except in JSON form.  You can specify a component type (kind) and apply properties (which may or may not do something depending on the kind).  Events are also declared inline (see onclick) and map to function names within the main kind declaration.  Obviously if this declaration started getting too big and bloated I could decompose it into smaller components all handling their own stuff.</p>
+
+<p>One other thing not highlighted in my demo is that backend service calls can also be defined within this component model and then called programatically.  While this felt alien to me initially it is pretty similar to the way inline stores are declared in Sencha - except slightly less engineered.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>    <span class="p">]}</span>
+</span><span class='line'><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The scroller definition above has a few nice features.  The use of &#8220;flex&#8221; to manage different screen sizes or viewport resizes and create very nice flexible layout.  The VirtualRepeater which is a templated control that generates items from a collection based on the defined template.  The Virtual part is useful for large lists and ensures that only the minimum amount of items are rendered (just before they are needed).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create is essentially our component constructor and allows us to set some things up in advance.  Notice the use of the <code>inherited()</code> method - this ensures the superclasses <code>create</code> method is also called (inheritence chaining)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>this.$</code> is a handy property.  It is essentially a hash of all the named components that are direct and indirect children of the defined component.  This makes it very easy to access a certain component if you want to manipulate it.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>getTask</code> is the method responsible for populating an Item template in the repeater for each row.  This is where I bind the values of the current collection to the Item kind.</p>
+
+<p>There you have it - yet another ToDo app spat out into the world!  Just what we needed :)</p>
+
+<h2>It not all Unicorns and Rainbows</h2>
+
+<p>Yeah Enyo isn&#8217;t perfect (shock horror).  There are some quite annoying and some serious bugs that I have noticed in my hacking.</p>
+
+<h3>Data Association</h3>
+
+<p>When rendering the Repeater I can&#8217;t see a way to easily attach data items to that item instance.  I worked it out eventually by using <code>this.$.list.fetchRowIndex()</code> but I think you would need to then manage your own data association.  Not a big issue but it didn&#8217;t feel right to me at the time.</p>
+
+<h3>iPad/iPhone issues</h3>
+
+<p>The one big issue I had with the iPad was that text fields often didn&#8217;t bring the keyboard up (more often than not).  Obviously this could be a bit of a deal breaker but there could be a simple fix.  Some other minor quirks included scrolling issues when multiple scroll areas existed and choppy animations in the kitchen sink style demo (Sampler).</p>
+
+<p>The example apps display and work on the iPhone but they are super tiny.  I am not sure if this is just a lack of correct formatting within my HTML or if Enyo is purely designed for larger screens.</p>
+
+<h3>Events</h3>
+
+<p>At one point I wanted to bind to an event of a component programatically (rather than declaring it inline).  I still can;t find a way to do this and I wonder if this could be a bit of hindrence when you get into a truly dynamic application.  Thought this could be me being a bit stupid as usual.</p>
+
+<h2>Conclusion</h2>
+
+<p>Enyo v1.0 is still young in the hands of the OSS community but it&#8217;s started out strong and could well be a strong competitor to something like Sencha Touch if it keeps up this pace.  Hopefully the community embraces it and allows it to grow.  It could well be great.</p>
+
+<p>So yes, so far I like it but I&#8217;ve only been hacking a few days.  Hopefully I get to spend more time with it over the next few weeks.</p>
+
+<p>The sample project is available on my <a href="https://bitbucket.org/kouphax/enyo-todos">BitBucket Repo</a> if you want to tinker.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rolling Your Own PhoneGap with MonoTouch]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
+    <updated>2011-12-05T20:11:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
+    <content type="html"><![CDATA[<p><a href="http://phonegap.com/">PhoneGap</a> is a clever little idea.  Take a transparent native wrapper for a mobile platform, stretch a 100% x 100% web view and provide a JavaScript API that acts as a bridge to native methods that control the device features such as cameras, GPS and Contacts.  It brings all those lovely web people into the mobile space.  Truth be told PhoneGap isn&#8217;t powered by flaked unicorn and rainbow essence - it&#8217;s fairly simple to achieve yourself.</p>
+
+<!-- more -->
+
+
+<p>So I was thinking, as I do when I am bored, that it would be super awesome if MonoTouch could do the PhoneGap.  Turns out there have been some attempts in the past to create bindings but I barely understand the posts so I felt disappointed.  Then curious.  Then I started hacking.  Then happy.  Then bored again.  The happy once more.  Then slightly frustrated.  Finally I started writing this post and I think I feel a bit tired because it&#8217;s late an I&#8217;ve had a hard day.</p>
+
+<p>Anyway what follows is a very primitive start to what is essentially a PhoneGap, possibly NimbleKit, for MonoTouch.  Thats cool becuase not only would you be saying &#8220;Screw You Objective-C!!&#8221; by using MonoTouch but you&#8217;d be sort of saying &#8220;Hey MonoTouch - HTML5 just had your mum, twice&#8221; as well.  Hey I&#8217;d use a NimbleKit/PhoneGap-like framework for MonoTouch if it was available and offered a clever way of mixing Native with Web but thats just me.  Hence I am writing this post.</p>
+
+<h2>The Recipe</h2>
+
+<p>There are various components that would make up a framework like this.</p>
+
+<ol>
+<li>A fullscreen Web View (lets call it the webside)</li>
+<li>A controller that handles requests from the webside (lets call it the nativeside)</li>
+<li>A JavaScript API on the webside that talks to the nativeside</li>
+</ol>
+
+
+<p>Simple enough so lets start proving things.</p>
+
+<h3>The Webside</h3>
+
+<p>Using a simple Single View iPhone Project in MonoDevelop I added some local resources.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>|
+</span><span class='line'>    |_ www
+</span><span class='line'>    | |_ index.html
+</span><span class='line'>    |
+</span><span class='line'>    |_ AppDelegate.cs
+</span><span class='line'>    |_ MainViewController.cs</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For now the index.html file has some basic content</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;h1&gt;</span>Hello UIWebView<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next up I created a full screen <code>UIWebView</code> and asked it to point to the <code>index.html</code> I just created in <code>wwww</code> folder (which by the way should be set as &#8220;Content&#8221;.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">ViewDidLoad</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">base</span><span class="p">.</span><span class="n">ViewDidLoad</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">using</span> <span class="p">(</span><span class="n">UIWebView</span> <span class="n">view</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWebView</span><span class="p">(</span><span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">320f</span><span class="p">,</span> <span class="m">460f</span><span class="p">)))</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// obtain path to actual content file</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">path</span> <span class="p">=</span> <span class="n">NSBundle</span><span class="p">.</span><span class="n">MainBundle</span><span class="p">.</span><span class="n">PathForResource</span><span class="p">(</span><span class="s">&quot;www/index&quot;</span><span class="p">,</span> <span class="s">&quot;html&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// create an address and escape whitespace</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">address</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;file:{0}&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;%20&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// create url and request</span>
+</span><span class='line'>        <span class="n">NSUrl</span> <span class="n">url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrl</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">NSUrlRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrlRequest</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// load request and add to main ?view</span>
+</span><span class='line'>        <span class="n">view</span><span class="p">.</span><span class="n">LoadRequest</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">.</span><span class="n">AddSubview</span><span class="p">(</span><span class="n">view</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Running this gives us what we would expect (I hope you expect this otherwise I&#8217;d be worried).</p>
+
+<p><img src="http://kouphax.github.com/images/blog/monotouch-phonegap/capture1.png" alt="Sample Output for Web View" /></p>
+
+<p>Webside more or less spiked for now.  Next up the nativeside.</p>
+
+<h3>The Nativeside</h3>
+
+<p>So how is the native stuff supposed to respond to requests made via the mysterious JavaScript API from the webside.  The approach that makes the most sense here is to set up an internal HttpListener that reacts to web requests.  This means we can, thanks to the lack of a Same Origin Policy in UIWebViews via the <code>file://</code> protocol, make Ajax requests to said listener to do stuff and return appropriate responses.</p>
+
+<p>In the AppDelegate class I created a basic HttpListener that simply returns a simple JSON response of true if a request is made.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">HttpListener</span> <span class="n">listener</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">void</span> <span class="nf">HandleRequest</span> <span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">//Get the listener context</span>
+</span><span class='line'>    <span class="n">HttpListenerContext</span> <span class="n">context</span> <span class="p">=</span> <span class="n">listener</span><span class="p">.</span><span class="n">EndGetContext</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//Start listening for the next request</span>
+</span><span class='line'>    <span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">response</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">byte</span><span class="p">[]</span> <span class="n">responseBytes</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/json&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentLength64</span> <span class="p">=</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">responseBytes</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">FinishedLaunching</span> <span class="p">(</span><span class="n">UIApplication</span> <span class="n">app</span><span class="p">,</span> <span class="n">NSDictionary</span> <span class="n">options</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">window</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWindow</span> <span class="p">(</span><span class="n">UIScreen</span><span class="p">.</span><span class="n">MainScreen</span><span class="p">.</span><span class="n">Bounds</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">viewController</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsBridgeViewController</span> <span class="p">();</span>
+</span><span class='line'>    <span class="n">window</span><span class="p">.</span><span class="n">RootViewController</span> <span class="p">=</span> <span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">window</span><span class="p">.</span><span class="n">MakeKeyAndVisible</span> <span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpListener</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">listener</span><span class="p">.</span><span class="n">Prefixes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;http://*:30001/&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">listener</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>The Final Step - The Bridge</h3>
+
+<p>So we need to talk to this &#8220;server&#8221; from our JavaScript.  Easy stuff - for now we just make a simple ajax call to our endpoint in the <code>index.html</code> (synchronous for code simplicity).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;http://127.0.0.1:30001/&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">responseText</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Running this once again reveals that all is sweet&#8230;</p>
+
+<p><img src="http://kouphax.github.com/images/blog/monotouch-phonegap/capture2.png" alt="Sample Output for Web View with Nativeside call" /></p>
+
+<h2>Now What?</h2>
+
+<p>Well thats about as far as I&#8217;ve actually gotten but this is far enough to satisfy myself that it&#8217;s possible to talk between the web view and the native stuff.  Yeah I know it&#8217;s not rocket science but I needed to prove this to myself.  So whats next?  Well I want see what I can do with regards to making real calls to real things, perhaps even venture into NimbleKit territory and generate native elements such as ViewControllers and Tabs - who knows!</p>
+
+<p><em>(MYSTERIOUS EXIT MUSIC)</em></p>
+
+<p><em>(FADE TO BLACK)</em></p>
+
+<p>To Be Continued&#8230;</p>
+
+<p><em>(EVIL CACKLE HEARD IN THE DISTANCE)</em></p>
+
+<p><em>(END SCENE)</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[So This Mobile Stuff Then... (Techologies)]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability/"/>
+    <updated>2011-12-05T13:50:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability</id>
+    <content type="html"><![CDATA[<p>Do you have your mobile strategy yet?  Do you have your &#8220;one true way&#8221; to cater for every mobile application need?  If not, the world will suddenly end and you&#8217;ll never get anywhere in the mobile market.  Seriously.  Well not seriously.  Obviously that’s a pile of sheep.</p>
+
+<!-- more -->
+
+
+<p>To be blunt the best &#8220;mobile strategy&#8221; is the obvious one.  Do whatever suits the project best.  Yeah, yeah your company or your presales guys may not like that, no prepackaged waffle to fill document with or spew out in front of customers.  The easy route is seldom the best route.  Seriously though if your playing it safe with web just in case that iOS project you&#8217;ve gotten involved in goes Android you&#8217;ll be compromising all the way.</p>
+
+<h2>Just In Case</h2>
+
+<p>Ahhhh good old &#8220;just in case&#8221;.  Nothing produces more mediocrity through compromise than &#8220;just in case&#8221;.  It&#8217;s up to you to use your head when it comes to deciding what is the best fit for the project but as long as all the stakeholders are aware of the constraints those choices put on the project then those &#8220;what if&#8221; scenarios can be dealt with later.  We need to stop treating &#8220;mobile&#8221; as if it was a technology decision.  Web vs Native is not the same as saying Entity Framework vs NHibernate.  It&#8217;s so much bigger than that.</p>
+
+<h2>Weighing up the options</h2>
+
+<p>So you got a killer mobile project and you want it to be awesome - just like all your projects.  Before we pull out the &#8220;Native, Hybrid or Web&#8221; question we need to know what is out there.  What tools, technologies or languages can we use to make the best solution we can?</p>
+
+<h2>Going Native</h2>
+
+<p>The problem with the native moniker is that people assume it means a different code base per mobile target and therefore crazy expensive, difficult to handle change, and very time consuming but that isn&#8217;t always the case.  It is entirely possible to produce truly native apps without having to have an expansive code base in every language possible.</p>
+
+<h3>Appcelerator Titanium</h3>
+
+<p><a href="http://www.appcelerator.com/">Appcelerator&#8217;s Titanium</a> is a good example of a platform that provides an abstract API via a common meta language (in it&#8217;s case JavaScript) that allows you to build directly to native apps for each target platform.  You write your code and send it off to the cloud for compilation (AFAIK there currently isn&#8217;t an in-house option for building but happy to be corrected).  So you&#8217;ve got a middleman that you have no control over. What happens if your app gets rejected due to some low level issue in the compiled code?  What if the cloud service goes down when you really really gotta build?  What if <a href="http://www.appcelerator.com/">Appcelerator</a> goes bust?  I dunno maybe that’s just mostly FUD but these are the questions that customers ask and they are difficult ones to answer.  I realise I&#8217;ve lambasted the use of too much &#8220;what if&#8221;s in decision making but I&#8217;ve come up against these ones and they directly affect the current solution rather than only the future scope.  They need addressing and that’s difficult.</p>
+
+<p>Having said the a brilliant example of <a href="http://www.appcelerator.com/">Appcelerators</a> usefulness is <a href="http://www.wunderlist.com/">Wunderlist</a> - available on a ton of mobile and desktop platforms and built with Titanium the whole project shares, AFAIK, a common code base.</p>
+
+<h3>MonoTouch, Monodroid etc.</h3>
+
+<p><a href="http://xamarin.com/monotouch">MonoTouch</a> and its ilk take a slightly different approach to the meta-language.  <a href="http://xamarin.com/monotouch">MonoTouch</a>, for example, isn&#8217;t, as many believe, a cross-platform tool for building native apps.  No, <a href="http://xamarin.com/monotouch">MonoTouch</a> simply compiles to native code through direct bindings to Objective-C code.  You are simply using the C# and the powerful features of the Mono/.NET Base Class Library.  In fact it&#8217;s even possible to bind to third party Objective-C code like Flurry, Three20 etc. (and many are made available by other developers).</p>
+
+<p>The ability to share a common codebase comes from the fact that the same platform is available in MonoDroid (C# and Android) and Silverlight (Windows Phone 7).  So sharing comes down to architecture.  You can share code provided your code doesn&#8217;t touch and platform specific code.  You can create your own abstraction layer and work it into your build process or you can use MonoMobile.Extensions which gives you a common API already.</p>
+
+<p>So in one way the <a href="http://xamarin.com/monotouch">MonoTouch</a> stuff is simply the same as writing Objective-C but simply doing it using C#.  This is nice for a number of reasons.</p>
+
+<ul>
+<li>Mono has some very nice features like LINQ and Parallel programming.</li>
+<li>Plenty of nice compatible frameworks - <a href="http://code.google.com/p/sqlite-net/">sqlite-net</a>, <a href="https://github.com/timscott/catnap">catnap</a>, <a href="http://restsharp.org/">restsharp</a> and plenty more.</li>
+<li>Syntax that is less noisy and easier to read</li>
+</ul>
+
+
+<p>There are of course issues.  Assuming most people who use <a href="http://xamarin.com/monotouch">MonoTouch</a> will come from a .NET background and want to use those skills - when you start you&#8217;ll realise just how nice Visual Studio is.  MonoDevelop isn&#8217;t terrible, it&#8217;s just fine, but it&#8217;s simply not on par with Visual Studio (would you expect it to be?).  With the way <a href="http://xamarin.com/monotouch">MonoTouch</a> works your are kind of stuck with MonoDevelop too.  Your average VS2010 developer might easily get frustrated with MonoDevelop.  An aesthetic concern but one that can put people off easily.  That said XCode is equally as infuriating at times (bugs and quirks abound!).</p>
+
+<p>It&#8217;s not all roses though.  What if Xamarin, the commercial sponsor of <a href="http://xamarin.com/monotouch">MonoTouch</a>, pull the plug?  What if Apple decide, as they tried to before, to ban the use of any intermediary language?  These are questions that people will ask but again the immediate and real advantages always trump theoretical risks.  One other thing worth thinking about - If you came from a Ruby background for example I&#8217;m not sure why you would use <a href="http://xamarin.com/monotouch">MonoTouch</a> over Obj-C.  Will this niche have an affect on Mono* in the long term?  Who knows.</p>
+
+<h2>Mixing It Up aka <em>(cough)</em>Hybrid<em>(cough)</em></h2>
+
+<p>So maybe you&#8217;re a web guru/ninja/hero/wizard type person and you want to make use of those powers/skills in your mobile development but you want to get market visibility by creating a presence in the app stores.  Perhaps you want to have some sort of reuse across platforms but aren&#8217;t a .NET dev and Titanium isn&#8217;t appealing.  There a number of options in this area already.</p>
+
+<h3>PhoneGap/Callback</h3>
+
+<p><a href="http://phonegap.com/">PhoneGap</a> is easily the most technology in the hybrid space.  It is exactly what you expect.  A fullscreen UIWebView in which resources embedded in the application package are executed.  These resources are given access to native device features such as device access etc. via a JavaScript API that hooks into native function calls.  There are wrappers for numerous platforms (iOS, Android, Bada, Blackberry, WP7 etc.) but your code calls the same adaptive API.  Things start to veer off course when you need to introduce custom plugins as these are native and so you need to target all your platforms.  Not much <a href="http://phonegap.com/">PhoneGap</a>  can do in that case of course but worth pointing out.</p>
+
+<p>With <a href="http://phonegap.com/">PhoneGap</a>  it is up to you to create the experience.  Even if you want a simple straight forward native look and feel you&#8217;ll need to simulate it.  Results may vary depending on how good you are at that sort of thing.  Of course something like Sencha Touch could be used to fake native but again what is native on one platform is weirdly alien on another and if you are targeting one platform only why not just man-up and learn that platform in the long term?  At least give yourself that option.</p>
+
+<h3>NimbleKit</h3>
+
+<p><a href="http://nimblekit.com/index.php">NimbleKit</a> is in some ways a bit like MonoTouch meets <a href="http://phonegap.com/">PhoneGap</a> .  You can use it as you would <a href="http://phonegap.com/">PhoneGap</a>  as a transparent API the bridges native and Web Technologies but you can also create real life native components such a Navigation Controllers and Tabs.  Currently iOS is the only supported platform (more support for iPhone than iPad) though an Android version does exist in beta.</p>
+
+<p>The interesting thing about <a href="http://nimblekit.com/index.php">NimbleKit</a> is that it allows you to make use of a range of technologies to create a really native application while at the same time making use of HTML5/CSS3 features to create a more compelling experience that becomes very difficult in native platforms (see my previous charting example in my last post).</p>
+
+<p>Plugins are extremely simple as well.  Just register the Obj-C class and call it from JavaScript.  Very nice, very simple.  This allows third party extensions to be bridged very easily too (Flurry for example).</p>
+
+<p>The slightly annoying thing about <a href="http://nimblekit.com/index.php">NimbleKit</a> is that it is currently very quiet.  There is still activity but it&#8217;s certainly not on par with the likes of PhoneGap.  There are also some issues around stability.  It&#8217;s not falling over all the time but there are somethings that need to be done in a certain order that aren&#8217;t properly documented.  There is some minor speculation that <a href="http://www.sencha.com/">Sencha</a> have acquired <a href="http://nimblekit.com/index.php">NimbleKit</a> and I&#8217;d welcome that with open arms because I like the philosophy around <a href="http://nimblekit.com/index.php">NimbleKit</a> and it could do with some money behind it.</p>
+
+<h2>Options for Using Web Technologies</h2>
+
+<p>Be it hybrid or simply a mobile targeted web site/app there are a ton of options out there.  An absolute TON!</p>
+
+<ul>
+<li>Native look and feel, ultra rich frameworks</li>
+<li>Truly cross-platform progressively enhancing frameworks</li>
+<li>Frameworks for creating structure in your apps like MVC, MVVM etc.</li>
+<li>Frameworks for offering responsive designs</li>
+</ul>
+
+
+<p>Mind boggling choices that change and evolve on a near hourly basis.  Here are just a few</p>
+
+<h3>Native Look and Feel - Sencha Touch</h3>
+
+<p><a href="http://www.sencha.com/products/touch/">Sencha Touch</a> targets high end iOS and Android devices and creates native-esque UIs (WebKit only).  It&#8217;s can be patchy on Android at times but the results you can get on iOS are very appealing.  Version 2.0 is seeing massive improvements in performance across the compatible platforms.  People who have experience in ExtJS will really feel at home here - other people will struggle with the short but steep learning curve (as with all <a href="http://www.sencha.com/">Sencha</a> frameworks).</p>
+
+<p>Bear in mind that <a href="http://www.sencha.com/products/touch/">Sencha Touch</a> is a framework not a product so there will be work involved in getting it to behave exactly how you want but the available architecture options such as the MVC approach and the Data Stores make it very powerful.</p>
+
+<h3>Cross Platform - jQuery Mobile</h3>
+
+<p><a href="http://jquerymobile.com/">jQuery Mobile</a> lives at the opposite end of the mobile framework spectrum.  It takes the philosophy of jQuery UI (Progressive Enhancement, accessibility, themeability etc.) and put it into a mobile framework.  So you construct a purely functional purely HTML application or site and with data annotations you let <a href="http://jquerymobile.com/">jQuery Mobile</a> make the site as rich and functional as it can.  This means provided your mobile device can render HTML the site or app will at least be functional.  Butt ugly but functional.</p>
+
+<p>This carries a penalty though.  Even when used on the top of the line device there are some trade offs that need to be made.  The experience is not as polished as it could be.  It is possible to tweak it yourself and cater to the high end devices only but there is extra work involved.  Again the result is still very nice and generally smooth but it is easy to nitpick little quirks in the navigation or styling.</p>
+
+<h3>MVC Frameworks - Backbone, Spine(Mobile), Sammy etc.</h3>
+
+<p>If you want to roll your own UI entirely but still need to create a scalable and proven foundation <a href="http://documentcloud.github.com/backbone/">Backbone</a> and <a href="http://spinejs.com/mobile/index">Spine</a> are two very interesting projects.  It&#8217;s worth noting that Sencha Touch has a powerful MVC architecture built into to and it is somewhat similar to these frameworks.</p>
+
+<p>These sort of frameworks offer base classes for your typical project structure - Controllers, Models and Views.  They provide the wiring between these abstract classes allowing the developers to focus on the important stuff.  The controllers allow you to specify custom routing in your single page apps, the models give you structured persistence and sometimes relationships and the views give you a nicer lifecycle around page components and custom event handling.</p>
+
+<p>It&#8217;s often said these frameworks take some time to &#8220;get&#8221; - some people can use them with ease while others just think they introduce unnecessary complexity.  I think they come into their own in the mobile app space but I do still struggle with the concepts at times.</p>
+
+<h3>Responsive Design - Skeleton</h3>
+
+<p>There are grid and UI toolkit frameworks out there that are aimed at creating a responsive design.  Got a large screen?  Make use of the better horizontal space and stack elements horizontally.  On a small mobile device with tiny viewport?  Stack the elements vertically.  <a href="http://getskeleton.com">Skeleton</a> is the perfect example of this using media queries to layout a grid system depending on available space.  It also has a few nice widgets like Tabs and Buttons.  Geared more around the web site rather than the app these frameworks are a handy addition.</p>
+
+<h2>Run out of things to say</h2>
+
+<p>I&#8217;ve covered a lot there but I wanted to get my thoughts out there in the world and hopefully educate and be educated.  My tools of choice right now?  Well RIGHT NOW I am tinkering with Obj-C and iOS as well as MonoTouch and did some NimbleKit hacking at the weekend.  To me this sort of understanding is important and that’s why I do it.  You may argue that it makes you a jack-of-all-trades but I don&#8217;t think so - this I merely trying to better understand the mobile ecosystem in the same way I try and grok the entire .NET ecosystem.</p>
+
+<p>To me if you want to embrace mobile you need to understand it properly.  If you&#8217;re just sticking with a particular stack because it&#8217;s familiar to you you are doing yourself and the project a dis-service.  As many articles before me have said - you are not the programming language you code in - you need to embrace the polyglot nature of a good developer and do what is right for that project.</p>
+
+<p>Hope you enjoyed this.  That’s me for December I think :).  I have other things to do.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[So this mobile stuff then... (Hybrid)]]></title>
+    <link href="http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then/"/>
+    <updated>2011-12-03T11:53:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then</id>
+    <content type="html"><![CDATA[<p>It&#8217;s fair to say over the past year or so I&#8217;ve dabbled in a bit of mobile development.  I&#8217;ve been involved in a number of  projects (from a technical perspective),</p>
+
+<ul>
+<li>Web Based, Tablet Focused Analytics Dashboard (Custom HTML and <a href="http://www.highcharts.com/">HighCharts</a>)</li>
+<li>Web Based, Tablet Focused Data Capture application (<a href="http://www.sencha.com/products/touch">Sencha Touch</a>)</li>
+<li>Hybrid application for a teleco (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
+<li>Mobile Hackathon (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a> and <a href="http://parse.com">Parse</a>)</li>
+<li>Hybrid Application for a Bank (<a href="http://www.sencha.com/products/touch">Sencha Touch</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
+<li>Various iPhone and iPad POCs for a health based project (<a href="http://xamarin.com/monotouch">MonoTouch</a>, XCode)</li>
+<li>Technology evaluations (Native Apple Development, <a href="http://parse.com">Parse</a>, <a href="http://www.sencha.com/products/touch">Sencha Touch</a>], <a href="http://phonegap.com">PhoneGap</a>, <a href="http://nimblekit.com/index.php">NimbleKit</a>, <a href="http://jquerymobile.com">jQuery Mobile</a>, <a href="http://documentcloud.github.com/backbone/">Backbone</a>, <a href="http://spinejs.com">Spine.js</a>, <a href="http://www.appcelerator.com/">Appcelerator</a>, <a href="http://xamarin.com/monotouch">MonoTouch</a>, <a href="http://android.xamarin.com/">Monodroid</a> and plenty more&#8230;)</li>
+<li>Consulted on various projects around the whole &#8220;native vs hybrid vs web&#8221; thing</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>That Hybrid Word</h2>
+
+<p>One thing I&#8217;ve found is that many clients are using the old &#8220;a web app will never be as polished as a native app&#8221; argument but TBH that really isn&#8217;t the case.  This is down to a lack of real understanding and abuse of the word in the industry.  A bit of hybridism can go along way in creating a rich experience.</p>
+
+<h3>A Rose By Any Other Name&#8230;</h3>
+
+<p>Many people break mobile applications into 3 VERY distinct areas,</p>
+
+<ol>
+<li><strong>Native</strong> - app installed on the device, written using the default toolkit for that platform.</li>
+<li><strong>Hybrid</strong> - consists of a transparent &#8220;native&#8221; layer and a Web View into which HTML, JavaScript and CSS is loaded (generally stored within the native package).  The nativelayer provides and API for the JavaScript model in the Web View to call.  Think PhoneGap.</li>
+<li><strong>Web</strong> - HTML, CSS, JavaScript assets hosted on the web and accessed from a mobile device.  Possibly some native-like features such as icons and removing the browser chrome.</li>
+</ol>
+
+
+<p>The problem with the hybrid definition there is that it is, well, wrong.  There isn&#8217;t a clear distinction between the native and hybrid and there shouldn&#8217;t be.  If I spun up a Silverlight app that put a Web View in the middle to display some HTML I wouldn&#8217;t call it hybrid.  If I wrote an Android app that used a library written in Scala it wouldn&#8217;t be hybrid.  Or even if I wrote a Monotouch app using some bindings to the <a href="http://www.flurry.com/">Flurry</a> framework - nope not hybrid.</p>
+
+<h3>The Charting Example</h3>
+
+<p>A good example of &#8220;hybrid&#8221; is charting.  There aren&#8217;t a great deal of nice flexible charting libraries for iOS, but there is for JavaScript/HTML5.  So some of our projects have made use of HighCharts and Sencha Charting inside a transparent UIWebView to render charts that are flexible and rich.  I wouldn&#8217;t bother pinning the hybrid tag to that app - it&#8217;s simply making use of whatever technologies helped us get the job done in the best way possible.</p>
+
+<p>I understand the use of hybrid in sales pitches or to simply convey meaning to people who are less technical but the problem is people are starting to develop opinions based on these words alone which is disatorous.  I&#8217;ve had customers tell me that they want native because that hybrid stuff is ugly.  True some hybrid apps are ugly as sin (Aer Lingus iPhone app for one) but then so are some native ones.  It&#8217;s unfair to collectively throw away and entire type of app because of poorly misunderstood words.</p>
+
+<h2>But, But, But&#8230; Reusability</h2>
+
+<p>People use the hybrid term to show that they have thought about portability.  Write once, run anywhere.  In that sense I guess using hybrid makes sense (but that sort of talk is really part of the sales talk right?).  But then it would be just as easy to say that &#8220;elements of the solution will be written in a platform agnostic language to minimise code rewrites on different devices&#8221; - or something like that.  In fact that would be better.  That way you cover off more than &#8220;hybrid&#8221;.  You&#8217;ve included the things like <a href="http://xamarin.com/monotouch">MonoTouch</a> or <a href="http://www.appcelerator.com/">Appcelerator</a> as well.  You&#8217;ve moved away from implementation specifics at the point where they shouldn&#8217;t matter anyway!  Thats got to be a good thing.</p>
+
+<h2>Ah ha but what about Skills?</h2>
+
+<p>People go &#8220;hybrid&#8221; for another good reason - because they have no experience in the native platform.  I used to be one of those people but I&#8217;m not convinced that this is a good reason on its own.  If you want to make a compelling experience your limitation should never be your lack of skill.  Get skilled.  Obj-C isn&#8217;t as scary as it seems - in fact I&#8217;d rather write Obj-C than Java.  Dig deep - thats what we&#8217;ve got the internet for - understanding and learning (well that and porn).</p>
+
+<h2>Awareness and Education</h2>
+
+<p>So what am I saying?  Well for a start I&#8217;m not saying we totally abandon the word hybrid and mock anyone who uses it.  Hells no.  It&#8217;s still useful as I&#8217;ve already mentioned above. All I ask is that you make sure you know what you are talking about and that the people you are talking to know what you are talking about.  That and don&#8217;t just take the easy route because it&#8217;s easier for you.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chutzpah 1.3 Released]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
+    <updated>2011-11-27T09:51:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released</id>
+    <content type="html"><![CDATA[<p>I missed the announcement last week the <a href="http://matthewmanela.com/blog/chutzpah-1-3-0-released/">Chutzpah 1.3 has been released</a>.  This is a big release as it brings support for <a href="http://pivotal.github.com/jasmine">Jasmine</a> - my BDD framework of choice for JavaScript.</p>
+
+<!-- more -->
+
+
+<p><a href="http://chutzpah.codeplex.com/">Chutzpah</a> is available as a plugin for Visual Studio but more importantly as a command line runner which allows us to integrate JavaScript testing into our continuious integration builds.  Excellent stuff!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Out with the old...]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/25/out-with-the-old-dot-dot-dot/"/>
+    <updated>2011-11-25T07:50:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/25/out-with-the-old-dot-dot-dot</id>
+    <content type="html"><![CDATA[<p>&#8230; in with the new.  So I&#8217;ve started rolling out my new site, expect somethings to be slightly broken as images and whatnot have been moved around.  Spent a day or two designing a new site that was similar to the old one but slightly better.  Eventually got frustrated at my inability to do any sort of graphical design and went the <a href="http://octopress.org">Octopress</a>.</p>
+
+<!-- more -->
+
+
+<p>Still a few things to tweak, possibly add a splash of colour around the place and give it a bit more life.  Also apologies to people who subscribe to my feed - looks like the new feed has pushed all the old posts out as new.  But hey they are worth reading twice!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012/"/>
+    <updated>2011-11-17T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012</id>
+    <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
+
+<p>So it&#8217;s been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it&#8217;s quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>
+
+<!--more-->
+
+
+<blockquote><h3>BDD and .NET</h3>
+
+<p>Behaviour Driven Design/Development is an interesting premise, but does it really work? What benefits does it offer and how can we successfully apply its principles in the .NET world? We can answer these questions by reviewing the principles around BDD and diving into the technologies that exist in the .NET world that support these principles.</p>
+
+<p>From low-level unit focused testing technologies all the way up to the more abstract integration and acceptance level suite of specifications, automated testing and continuous integration, we will see that .NET isn’t lacking in choice. As a bonus we will address the oft ignored testing of our JavaScript project components using tools such as Jasmine and QUnit.</p></blockquote>
+
+<p>The brief was written in haste and sounds a bit boilerplate but I will be giving it my all and really pull off an engaging session.  I&#8217;ve been at the attendee end of a few bad sessions and I will do my damnedest not to put anyone through that kind of ordeal.</p>
+
+<p>The <a href="http://www.devweek.com/sessions/">line-up for DevWeek</a> looks excellent and the pre/post conference workshops all look stellar - so much choice, I just need to find a way to clone myself.</p>
+
+<p>If you&#8217;re going - see you there, catch up with me and come throw tomatoes and/or abuse during my session.  If you&#8217;re not going, well sucks to be you then!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip/"/>
+    <updated>2011-11-16T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip</id>
+    <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;&gt;</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I have.  Ugly and noisy isn&#8217;t it!  <!--more--> OK you could make it <em>slightly</em> less noisy by using <code>var</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Or I suppose you could ahead and create yet another random type to abstract the implementation out of the way but thats just too much work for something internal to a class.</p>
+
+<p>Turns out you can make use of alises.  I&#8217;ve always known about using alises for namespaces to either resolve possible type conflicts or to make code a bit more understandable</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">CoreWeb</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="n">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CoreWeb</span><span class="p">.</span><span class="n">Request</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So this works with namespaces <strong>AND</strong> types.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">Cache</span> <span class="p">=</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This allows us to make the declaration above in a much nicer manner,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Cache</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Cache</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>OK so there are way to many uses of the word cache there but you get the gist.  Handy to know.  Never knew this until today #youlearnsomethingneweveryday</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Innovation Waffle]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/09/on-innovation/"/>
+    <updated>2011-11-09T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/09/on-innovation</id>
+    <content type="html"><![CDATA[<p>There has been a lot of internal chatter at my employer around innovation.  A recent internal Hackathon produced some interesting, innovative stuff for using a Kinect in one of our projects and piqued peoples interest.  Oddly enough my dad reminded me of a quote the other day.</p>
+
+<!--more-->
+
+
+<blockquote><p><em>&#8220;If I had asked my customers what they wanted they would have said a faster horse&#8221;</em> - Henry Ford</p></blockquote>
+
+<p>Creating a <em>faster horse</em> is considered <strong>sustaining innovation</strong> - you&#8217;re pushing boundaries but you aren&#8217;t breaking into new markets.  Instead, what Ford did was create the <a href="http://en.wikipedia.org/wiki/Ford_Model_T">Ford Model T</a>, the first affordable automobile.  This <strong>disruptive innovation</strong> changed everything, breaking into new markets and created value where once no value existed.</p>
+
+<p>To be truly innovative you need both a <strong>need</strong> and the <strong>technology</strong> to achieve it.  The <strong>need</strong> doesn&#8217;t even need to be particularly complex (in Fords case it was the need to go faster), the <strong>technology</strong> doesn&#8217;t even need to be revolutionary - just applied in a different manner (in my employers case the Kinect).</p>
+
+<p>But to really succeed in this innovation you need the ability to marry these with something.  That something is a <strong>vision</strong>.  Ford realised the need and he was capable of harnessing technology to address that need in such a way as to disrupt the market.  This wouldn&#8217;t have been possible without Fords vision.  In fact he didn&#8217;t even really need to understand the detailed nuances of what the public needed, all he needed to know was the basic premise.  Arguably, even if he wasn&#8217;t the engineer, he could have got someone else to manage the technology.  Admittedly this opens up another avenue of discussion - the whole nature vs nurture aspect of innovation - but with a strong enough <strong>vision</strong> I&#8217;m not sure that matters as much.</p>
+
+<h2>Vision is the Glue of Innovation</h2>
+
+<p>It&#8217;s great to have a <strong>need</strong> you want to address, it&#8217;s even better to be able to apply all sorts of <strong>technology</strong> to that need but odds are it will all come to nought without a strong <strong>vision</strong>.  <strong>Vision is the glue of innovation</strong>, while you need both need and technology they&#8217;ll never really stay together without that binding vision.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GiveCamp Northern Ireland 2012]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/03/givecampni/"/>
+    <updated>2011-11-03T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/03/givecampni</id>
+    <content type="html"><![CDATA[<p><img src="http://givecampni.org.uk/assets/img/givecamp-large-logo.png" alt="GiveCamp" /></p>
+
+<p><a href="http://givecampni.org.uk/">http://givecampni.org.uk/</a></p>
+
+<p>Aint no backing out now son!  In 2012 there is going to be a Northern Ireland based <a href="http://givecamp.org">GiveCamp</a>.  The &#8220;Register Your Interest&#8221; placeholder site is now live at <a href="http://givecampni.org.uk/">http://givecampni.org.uk/</a> so if everyone can start spreading the word and getting excited that would be super awesome.</p>
+
+<p>Any tips, advice or help at this point is also really welcome.</p>
+
+<p>Let the fun begin&#8230;.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
+    <link href="http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook/"/>
+    <updated>2011-11-01T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook</id>
+    <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
+
+<p>I needed to write a simple JSONP capable service recently and decided to run with <a href="http://nancyfx.org">Nancy</a>.  Turns out Nancy doesn&#8217;t give us a way to do JSONP so I set about creating something that fitted my use case.  The fruits of my very very short labour (thanks to the super-hyper-flexible-powerfulness of the Nancy Pipeline) can be seen here.  The full source is available in the <a href="https://github.com/kouphax/nancy-jsonp">Github repo</a> and hopefully we can get this pushed into the core of Nancy shortly (or at least part of the official repo one way or another) - just for the geek cred of course :)</p>
+
+<!--more-->
+
+
+<h2>Implementation Rundown</h2>
+
+<p>I took the same approach as the existing hooks (using the SassAndCoffee one as my implementation pattern) so created a static <code>Hooks</code> class with an <code>Enable</code> method that simply adds a new item to the end of the pipeline</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Enable JSONP support in the application</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;pipeline&quot;&gt;Application Pipeline to Hook into&lt;/param&gt;</span>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Enable</span><span class="p">(</span><span class="n">IApplicationPipelines</span> <span class="n">pipeline</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">pipeline</span><span class="p">.</span><span class="n">AfterRequest</span><span class="p">.</span><span class="n">AddItemToEndOfPipeline</span><span class="p">(</span><span class="n">PrepareJsonp</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The meat of the work lies in the <code>PrepareJsonp</code> method</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Transmogrify original response and apply JSONP Padding</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;context&quot;&gt;Current Nancy Context&lt;/param&gt;</span>
+</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">PrepareJsonp</span><span class="p">(</span><span class="n">NancyContext</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;&amp;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// grab original contents for running later</span>
+</span><span class='line'>        <span class="n">Action</span><span class="p">&lt;</span><span class="n">Stream</span><span class="p">&gt;</span> <span class="n">original</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">callback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// set content type to application/javascript so browsers can handle it by default</span>
+</span><span class='line'>        <span class="c1">// http://stackoverflow.com/questions/111302/best-content-type-to-serve-jsonp</span>
+</span><span class='line'>        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'>            <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'>            <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let me highlight a few of the key areas here.</p>
+
+<h3>Determine if Response need JSONP Padded</h3>
+
+<p>I decided to take a basic approach to determining if the request should return a JSONP response,</p>
+
+<ul>
+<li>If the content type of the current response is <code>application/json</code></li>
+<li>If there is a query string parameter called <code>callback</code></li>
+</ul>
+
+
+<p>Here is what we need to satisfy that,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;&amp;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am sure this could be refined and open to suggestion (perhaps more applicable content types or extra possible configuration for the callback parameter).  I wonder if it is a bit safer to restrict requests that are GET requests seeing as that is the only way to do JSONP? Hmmmm.</p>
+
+<p>Next thing I set the content type to <code>application/javascript</code> as that makes perfect sense</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally I wrap the original responses content in the JSONP &#8220;padding&#8221; (the callback function) and write everything out.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'>    <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So all in all very simple but damn I&#8217;m proud that I got off my arse and contributed to such a stellar community. hopefully someone finds this useful.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinyweb.FluentSecurity v0.1 Released]]></title>
+    <link href="http://kouphax.github.com/blog/2011/10/19/tinyweb-fluentsecurity-0-1-released/"/>
+    <updated>2011-10-19T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/10/19/tinyweb-fluentsecurity-0-1-released</id>
+    <content type="html"><![CDATA[<blockquote><p>Slight change here - FluentSecurity is now FluentAuth to avoid any confusion with a similarly named product of which there is some inspiration taken.  Anyway on with the original post&#8230;.</p></blockquote>
+
+<p><img src="http://yobriefca.se/projects/fluentauth/images/logo.png" style="float:right;height:150px;" /></p>
+
+<p>I have procrastinated long enough on this and it was blocking some of the other work I wanted to get on with.  I have just pushed v0.1 to Nuget and launched the <a href="http://yobriefca.se/projects/fluentauth/">site sans documentation</a>.</p>
+
+<!--more-->
+
+
+<p>Not a great deal has changed since my last announcement, well it has but it hasn&#8217;t been documented as it should be backwards compatible.  Just a few more configuration options that I&#8217;ll explain once I get the documentation rolled out.</p>
+
+<script type="text/javascript">
+    (function () {
+        var nb = document.createElement('script'); nb.type = 'text/javascript'; nb.async = true;
+        nb.src = 'http://s.prabir.me/nuget-button/0.2.1/nuget-button.min.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(nb, s);
+    })();
+</script>
+
+
+<pre class="nuget-button">Install-Package Tinyweb.FluentAuth</pre>
+
+
+<p>So go check it out and hopefully you&#8217;ll find it useful - plenty of plans for expansion to other frameworks and some more API changes coming too.  Now back to procrastinating.</p>
+]]></content>
+  </entry>
+  
+</feed>

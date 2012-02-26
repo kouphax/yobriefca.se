@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Razor View Engine - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Sorry for the poor syntax highlighting on the source code&#8230; not much support for Razor ATMI&rsquo;ve been holding off trying to form an opinion &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/11/18/the-razor-view-engine">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Razor View Engine</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-18T00:00:00+00:00" pubdate data-updated="true">Nov 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p><em>Sorry for the poor syntax highlighting on the source code&#8230; not much support for Razor ATM</em></p><p>I&rsquo;ve been holding off trying to form an opinion on this until we got the full  package so to speak.&nbsp; With MVC 3 RC1 being released last week I guess it&rsquo;s time  to share my thoughts on the <a href="http://blog.robertgreyling.com/2010/07/is-razor-just-wolf-in-sparks-clothing.html">mildly  contentious</a> view engine.&nbsp; First things first though &ndash; lets be extremely  superficial and compare a a bit of code.&nbsp; Specifically lets look a using a loop  to output a list of &ldquo;really useful&rdquo; list items.&nbsp; In the older WebForms view  engine you&rsquo;d do something like this.</p><p><script src="https://gist.github.com/705755.js"></script></p><p>Even for a very trivial example it does look a bit messy - lots of redundant  start and end markers etc.&nbsp; Lets look at the equivalent in Razor,</p><p><script src="https://gist.github.com/705756.js"></script></p><p>Now excuse me while I go off on a tiny bit of a tangent.&nbsp; There are two  things you probably notice about the equivalent Razor syntax,</p><ol><li>It&rsquo;s much cleaner because of some very clever parsing </li><li>It&rsquo;s still embedding code in a view.&nbsp; THE HORROR!!!! </li></ol><p>Yeah I know in this day and age when everyone is trying to eradicate every  suggestion of server code in a view Microsoft have went right ahead and actually  enabled you to do it in neat/cleaner manner.&nbsp; It works though &ndash; doesn&rsquo;t it?&nbsp; I  mean why abstract C# when your view is going to get compiled into C#?&nbsp; Why try  and mimic HTML/XML when technically speaking your custom markup is pretty much  meaningless?&nbsp; What&rsquo;s wrong with being able to see when server side syntax  finishes and front end syntax takes over?&nbsp; It makes a lot of sense to me  actually.</p><h2>The Truth Will Out</h2><p>I&rsquo;ve been holding off judgement on Razor for a while until it was more  &ldquo;complete&rdquo;.&nbsp; Truth be told for a long time I could have easily summed it up  as</p><blockquote><p><span style="color: #000000;">It&rsquo;s the WebForms View Engine with the &lt;% %&gt;  replaced with @</span></p></blockquote><p>In some ways thats true but at an extremely basic level.&nbsp; I misjudged it.&nbsp; I  was wrong.&nbsp; I actually kind of like it now.</p><h2>But what about Spark?</h2><p>I&rsquo;ve been an advocate of the <a>Spark View  Engine</a> for sometime in my company and I&rsquo;ve used it on a few projects very  successfully.&nbsp; It&rsquo;s a great engine but has suffered from a lack of tooling &ndash;  there are plenty of developers that simply reject or get a negative impression  of something because of the lack of tooling for the tech.&nbsp; Spark, especially in  comparison to Razor, has very limited tooling support in VS2010 &ndash; sure you have  SparkSense but it&rsquo;s currently not a patch on Razor support (which is still in  itself RC status) and I can&rsquo;t help but feel they&rsquo;ll always be playing catch-up  with in house developed/supported stuff.&nbsp; Would I have like to see Spark being  adopted by MS rather than them rolling their own view engine?&nbsp; Perhaps, but  variety is the spice of life and I&rsquo;m happy to have Razor around.</p><p>So what will I use on future projects?&nbsp; I&rsquo;m tending towards Razor for now but  perhaps that&rsquo;s because it&rsquo;s new and I&rsquo;m a technology magpie.&nbsp; Also it easier to  justify the use of a technology to a customer when they are provided pre-bundled  and supported by such a large entity.</p><p>&lt;/opinion piece&gt;</p><h2>Back On Track</h2><p>Now I&rsquo;ve had my little digression lets look at some of the features of  Razor.</p><h3>Syntax</h3><p>As I showed above the syntax is much more terse.&nbsp; The parser is clever enough  to detect when you mean server code and when you mean client code.&nbsp; This reduces  the need to use a lot of bulky delimiters like &lt;% and %&gt;.&nbsp; Also the parser  is able to determine if the @ you just wrote is a server side delimiter or just  plain text &ndash; most of the time.&nbsp; Alternatively you can fall back on the @@ syntax  to use a literal @.&nbsp;</p><p>The parser does choke sometimes when you don&rsquo;t wrap text in an appropriate  element or tag</p><p><script src="https://gist.github.com/705758.js"></script></p><p>fails whereas</p><p><script src="https://gist.github.com/705760.js"></script></p><p>is fine.&nbsp; If you really insist on not using an HTML element you can fall back  on one of two things.&nbsp; Using a &lt;text&gt; element that is a Razor tag for  marking an area for processing as plain text or a slightly shorter single line  equivalent of @:</p><p><script src="https://gist.github.com/705762.js"></script></p><h3>Layouts and Sections</h3><p>Razor (obviously) has support for master pages and rending content sections  including optional sections.&nbsp; Syntax for it is pretty simple, lets start with  our master page _Layout.cshtml</p><p><script src="https://gist.github.com/705766.js"></script></p><p>Couple of features worth mentioning,</p><ol><li>Use of RenderSection() to render named sections from the view, also able to  specify if the section is a required or optional section throught the use of the required argument (i.e. if it needs to or  doesn&rsquo;t need to be included in the view during render - if required is true and the section is missing you&#8217;ll get a runtime error when you attempt to access the page).&nbsp; Another option for  optional sections is to use the IsSectionDefined method e.g. <p><script src="https://gist.github.com/705769.js"></script><p><p>This way we can, as demonstrated, provide some sort of default as well.</p></li><li>RenderBody convenience method.&nbsp; This is used to render the body of the  view.&nbsp; Unlike WebForms view engine Razor doesn&rsquo;t require you to wrap the main  body in a content area &ndash; similar to Spark.&nbsp;</li></ol><p>So an appropriate view that this master layout can &ldquo;consume&rdquo; could look like  this</p><p><script src="https://gist.github.com/705776.js"></script></p><p>Notice I have left out the footer but that&rsquo;s not an issue as it has been  marked as optional.&nbsp; Also notice that the body is at the root level of the view  and sections are wrapped in a section marker.&nbsp; This all adds a more minimal look  and feel to the whole view.</p><h3>_ViewStart.cshtml</h3><p>Another leaf from the Spark world (and probably many other&nbsp;&ndash; sorry to  everyone else that supports/implements this sort of feature) is the ability to  provide a global place to put code that applies to every view.&nbsp; Using the  _ViewStart.cshtml file we could easily just put the Layout declaration from the  view code above into a single global location.&nbsp; We can also add helpers and  functions there too which I&rsquo;ll talk about now.</p><h2>Helpers</h2><p>Helpers enable use to provide context aware reusable HTML &ldquo;templates&rdquo; in our  views.&nbsp; Imagine a view that listed Top Selling, New and Top Rated products in 3  lists.&nbsp; The most basic way to implement this would be 3 loops like so</p><p><script src="https://gist.github.com/705778.js"></script></p><p>But that&rsquo;s not exactly DRY is it?&nbsp; Helpers can help us out here (hence the  name I guess :-P).&nbsp; Lets create a helper that does the repeatable stuff for  us,</p><p><script src="https://gist.github.com/705784.js"></script></p><p>And the rest of the view&hellip;</p><p><script src="https://gist.github.com/705788.js"></script></p><p>Much simpler, cleaner, whateverer.&nbsp; Again with the Spark similarities&nbsp;&ndash; these  are similar to macros.</p><h2>Functions</h2><p>Razor also makes it easier to embed arbitrary methods on your page which I  guess can be useful for formatting and things like that.&nbsp; This give us the power  to extend the Razor view engine and adapt it to suit our needs&nbsp;&ndash; powerful yes  but also open to abuse as you might guess.&nbsp; Here&rsquo;s a simple function in  action,</p><p><script src="https://gist.github.com/705790.js"></script></p><p>The function&nbsp;applies a highly technical string encryption&nbsp;technique to a  string value returning the result.</p><h2>Inline Templates</h2><p>One more feature before I head off to watch telly or sleep or something.&nbsp;  Razor allows you to pass little html nuggets or templates as arguments to  helpers and functions.&nbsp; There is a details blog post about this over at <a href="http://blog.andrewnurse.net/2010/08/02/InsideRazorPart3Templates.aspx">Vibrant  Code</a>&nbsp;and my example is heavily inspired/plagiarised from that.&nbsp; Lets see  what we can do,</p><p><script src="https://gist.github.com/705794.js"></script></p><p>Look at the second to last line see that little block of html preceded by the  Razor marker (@)?&nbsp; See how in our Times&nbsp;function the HTML block it is getting translated transparently as a  Func&lt;int, object&gt; the we can call and manipulate in the helper function anyway we want?&nbsp; Can  you see how powerful that could be in the&nbsp;right place?&nbsp; Me too.&nbsp; Me too.</p><h2>Done&nbsp;For Now</h2><p>There is more to Razor than all this stuff including the ability to use it  outside of the view context so it could simply be a&nbsp;templating language if needs  be.&nbsp; There is even more than that too but thats for another time.&nbsp; Imagine  though&hellip;. I started out this blog post more or less telling you I used to think  Razor was simply the WebForms view engine but with @&rsquo;s instead of &lt;% %&gt;&rsquo;s  and hopefully you can see why I was wrong and why I was happy to admit it.&nbsp; My  only gripe is that the Razor documentation could be a bit more available.&nbsp; There  isn&rsquo;t really a great deal out there ATM.&nbsp; However this has been promised for the  official release so I am looking forward to that.</p><p>Oh Misfits is about to start&hellip;&hellip;</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-18T00:00:00+00:00" pubdate data-updated="true">Nov 18<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-net-mvc/'>ASP.NET MVC</a>, <a class='category' href='/blog/categories/razor/'>Razor</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/11/18/the-razor-view-engine/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/11/18/the-razor-view-engine/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/11/12/underscore-js-the-javascript-utility-library/" title="Previous Post: Underscore.js: The JavaScript Utility Library">&laquo; Underscore.js: The JavaScript Utility Library</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/11/20/better-json-serialisation-for-asp-net-mvc/" title="next Post: Better JSON Serialisation for ASP.NET MVC">Better JSON Serialisation for ASP.NET MVC &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/11/18/the-razor-view-engine/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/11/18/the-razor-view-engine/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

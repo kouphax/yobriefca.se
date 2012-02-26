@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Move complete, more or less. Still a few broken images and stuff but like the unpacked boxes of a new house these will probably remain that way &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/page/7">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/16/the-first-day-of-the-rest-of-my-life/">The First Day of the Rest of My Life</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-16T00:00:00+01:00" pubdate data-updated="true">May 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Move complete, more or less.  Still a few broken images and stuff but like the unpacked boxes of a new house these will probably remain that way until about next year or so.  Decent enough weekend project all in.  For anyone who&#8217;s interested in what&#8217;s went on under the hood &#8211; read on.</p><h2>Abandoning Posterous</h2><p><a href="http://posterous.com">Posterous</a> is great as a simple blogging platform but in terms of giving me exactly what I wanted at any point in time <a href="http://posterous.com">Posterous</a> and most other platforms didn&#8217;t give me exactly what I wanted (I am quite a demanding character I guess).</p><p>I was doing some research on .<span class="caps">NET</span> Micro Web Frameworks and came across <a href="http://jessicafx.org">Jessica</a> which was created and maintained by <a href="http://tombell.org.uk">Tom Bell</a>.</p><h2>Jekyll</h2><p>Browsing Toms <a href="http://github.com/tombell">github repo</a> I discovered he prodced his site using <a href="https://github.com/mojombo/jekyll">Jekyll</a> a Ruby based static site generator and I knew I had to have it!  So I ripped off Toms nice design, uglified it with my own tweaks and what you see now is the finished site.  This site is also mirroed on <a href="http://kouphax.github.com">Github</a> but some of the functions (category pages) are missing due to some custom generators that the Github Jekyll instance doesn&#8217;t run.</p><p>There is more to be deployed but I&#8217;d rather polish what I have before pushing more stuff out.  I&#8217;ve tinkered with Project page generation, <a href="https://github.com/schacon/showoff">Showoff</a> for presentations and a few other things that will appear over time.</p><h2>Domain Name</h2><p>Seriously &#8211; how couldn&#8217;t I go for a shiny web 2.0 ultra elite domain name given the chance?  <a href="http://gandi.net">Gandi.net</a> was recommended to me and I must admit the set up was fairly painless and their admin panel stuff is very nice.</p><h2>Appharbor</h2><p>Currently my static site is hosted on <a href="http://appharbor.com">appharbor</a>.  Appharbor is awesome.  Typically I&#8217;ve used it to spin up quick demos and stuff and the simplicity of doing a <code>git push</code> to deploy your new version is like a dream (especially given the heavy handed approach of Azure).</p><h2>Thats It</h2><p>Not sure that anyone cares about this sort of stuff but I just want to take my new process for a spin anyway.  Any questions &#8211; let me know.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/14/on-the-move/">On the Move</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-14T00:00:00+01:00" pubdate data-updated="true">May 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>So I&#8217;ve decided to go ahead and move away from <a href="http://yobriefcase.posterous.com">Posterous</a> &#8211; the call of <a href="https://github.com/mojombo/jekyll">Jekyll</a> was just too much.  I&#8217;ve migrated a lot of my content but there is some dodgy formatting and plenty of missing images so I am in the process of sorting everything out.</p><p>Also thanks to <a href="http://tombell.org.uk">Tom Bell</a> for letting me use his template.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/">Providing a Foundation for .NET Projects Using NuGet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-06T00:00:00+01:00" pubdate data-updated="true">May 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>It&rsquo;s always good to have a foundation, right?&nbsp; I mean if you have a heap of projects going on or you work for a company that has a load of active or future projects then why not have a foundation?&nbsp; Foundations are good.&nbsp; I mean they promote DRY cross projects, reduce development time for many common tasks (logging, data access, etc.).&nbsp; Foundations can also provide a number of tools and technologies that are &ldquo;approved&rdquo; &mdash; that is they have been throughly researched and you aren&rsquo;t going to trip up over license issues, inexperience of the tech or shortcomings of the tech/tools.</p><p>The problem with foundations is that people start assuming they are some sort of magical framework that is supposed to do all the work.&nbsp; You wrong son!&nbsp; A foundation works best when it&#8217;s a pile of techs/lightweight solutions to common problems.&nbsp; They don&rsquo;t work too well when you just get a big monolithic DLL that acts as an abstraction for other technologies.&nbsp; Abstractions are good for certain things but not everything.&nbsp; A big dll is also harder to document.&nbsp; How do you know whats in it bar using Intellisense or reflector?&nbsp; OK OK OK there should also be some sort of associated documentation that comes with it but keeping these two things inline is extra work.&nbsp; Extra work that doesn&rsquo;t get done &mdash; it&rsquo;s not funded work so why bother? Eh?</p><p>In our company we use this approach and it works from a technology perspective but from a people perspective it could be better.&nbsp; There is a general lack awareness of what is contained within the magical 3 dlls that get generated and as such less stuff get pushed into the foundation as it probably could.&nbsp; The current process works like so,</p><p class="img-holder"><img src="http://farm3.static.flickr.com/2076/5719795098_ee9676646b_b.jpg"></p><ul><li>Create a new Subversion repository for the project</li><li>Branch the current Foundation (a Visual Studio Solution) repository for the current project</li><li>Tweak the build step of the Foundation solution to dump it&rsquo;s dlls into the lib folder of the project</li><li>Commit foundation changes to the project foundation branch</li><li>Review and selectively merge changes into the trunk of the Foundation repository</li></ul><p>Even writing the steps out and thinking about all the undocumented steps required to get this to work smoothly tells me that it is possibly more complicated than it has to be.&nbsp; In fact the merging back into the Foundation trunk doesn&rsquo;t happen as much as it should.&nbsp; In fact projects adding thing to their own branch of the foundation rarely happens cause it&rsquo;s a bit messy.</p><p>Another issue with this approach is that it only makes sense for bespoke code.&nbsp; I mean if you are building out a dll how do you tell people that &ldquo;actually JSON.NET is our preferred JSON Serialiser&rdquo;.&nbsp; It&rsquo;s not easy as the documenting and announcing of such things is in another document out in the ether.</p><h2>An Alternative Approach</h2><p>Modular.&nbsp; It&rsquo;s the future I tell thee!&nbsp; Discrete pieces of functionality that can run independently.&nbsp; This enables project to take the parts of the foundation they want and build a framework from it.&nbsp; Much like ender (<a href="http://ender.no.de/">http://ender.no.de/</a>) is doing in the JavaScript world currently being able to take micro-libraries and build a macro-framework that suits your needs and just that.&nbsp; No risk of featureitis, evolve your framework as you need and be in complete control doing it.</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3045/5719234363_1b5f04b781_z.jpg"></p><p>Thats the plan but how do we achieve it?&nbsp; HINT: The answer, a partial one anyway, is in the title of this post.&nbsp; Well, first things first we would need to take our current foundation and modularise it.&nbsp; Along with that we&rsquo;d probably need to ensure tests etc. are up to scratch (start on the right foot).&nbsp; Secondly we would need to change the delivery mechanism - no more branching and merging of codebases - too heavyweight.&nbsp; NuGet (<a href="http://nuget.codeplex.com">nuget.codeplex.com</a>) will help.&nbsp; With NuGet we could create packages from our modules, manage dependencies, document usage right in the package manifest, and expose these packages as a server and searchable package repository (a la <a href="http://www.nuget.org">nuget.org</a>).&nbsp; Into this repository we could push all our approved technologies (researched and vetted previously) as well as new versions of our bespoke code.&nbsp; As time goes on this repository can grow and more people can add to it.&nbsp; Heck we can even make the submission process as easy as we see on nuget.org.&nbsp; Wunderbar!</p><p>So how would this affect how projects operate on a daily basis?</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3532/5719234439_0171705928_z.jpg"></p><p>Well the mechanism for the typical usage is greatly simplified.&nbsp; The project pushes and pulls packages from a central package repo.&nbsp; People use the repo to search for things they need (JSON Serialiser, Micro-ORM etc) and if they don&rsquo;t find something they can then push a new package into the repo (or just suggest one).&nbsp; Self documenting use of 3rd party techs, all available all searchable.</p><p>Another advantage of this approach, and using NuGet in particular, allows us to bundle not just dlls but also transform files for configuration (web.xml etc.), javascript/css/other client side assets, project and solution wide tools (executable that can be run from the VS command prompt etc.) and even code samples and templates. &nbsp;This gives us a richer, more cohesive delivery mechanism for a foundation to a project.</p><p>Of course it&rsquo;s not all perfect.&nbsp; Urgent changes to bespoke code will need to be done the old fashioned way and pushed to the main server which is less than ideal but it&rsquo;s a bit of an edge case.</p><p>So whats not to like about this idea?&nbsp; Foundations not frameworks is the key here.&nbsp; Let the project create its own framework as that will work much better than imposing one upon them.</p><p>So this is a bit of a brain dump (some would say brain fart no doubt) as usual and I am open to suggestions and corrections.&nbsp; I&rsquo;ve likely missed a few glaring problems with the new approach so let the critics loose and I&rsquo;ll try my best to address their concerns.</p><p>Next step - setting up a simple POC to test the general workflow.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags/">Guerrilla Learning Experiment #2: FlashBags</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>So I kicked off another experiment in my war against ignorance in the IT industry.&nbsp; To make myself look cool I am using the term Guerrilla Learning.&nbsp; The experiment?&nbsp; Well I am calling it FlashBag*</p><blockquote>Flashbag (fuh-lash-bah-ag): A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization.</blockquote><p>The name itself is a portmanteau of Flash Mob (I assume you all know what this is by now) and Whitebag - a technology awareness session held during lunch - hence Whitebag (the one you bring your lunch in).</p><p>Anyway whats it all about then?&nbsp; Well a typical scenario would be this&#8230;..&nbsp;</p><ul><li>I am reading my tech blogs on a day and come across a new tech that seems really nice.&nbsp;</li><li>As usual I link it on yammer or twitter or whatever and continue to dive into it.</li><li>I&rsquo;m sold.&nbsp; This is something other people need to know about.</li><li>So I book a room for 1/2 hour at the last minute, post internally the room and the topic (say 12:00, Boardroom, Glimpse for .NET)</li><li>Once the party is assembled I do a very short talk, possibly demo (15 minutes tops) and thats it.</li></ul><p>So what would this achieve?&nbsp; Well I believe a lot of people throw links and stuff into a &ldquo;Read Later&rdquo; pile or have a quick look at the page and go &ldquo;Cool&rdquo;.&nbsp; Then they forget all about it.&nbsp; This quick interactive, community focused practical sessions forces them to actually think about whats going on (James Hughes PHd in Theoretical Theories and Things like that) and how they would apply it to their work.&nbsp; It&rsquo;s more in your face and creates a better connection in those peoples minds.&nbsp; The news then precipitates&nbsp; further - the people attending the FlashBag post on yammer/twitter and talk about it more rather than just little old me.</p><p>As always I record these things as a memento of my awesome presentation skills (#lies) and allowing other people to see what went on.</p><p>It&rsquo;s early days and I&rsquo;ve done one so far (posting shortly) - turn out was mediocre but perhaps that will change, perhaps it won&rsquo;t.&nbsp; Mediocre turn out is better than none I guess - perhaps people are busy, perhaps enthusiasm is waining among my colleagues, or perhaps they are sick of me spamming every sense they have on a daily basis!</p><p>Thoughts?</p><p>* After some internal discussion the name is up for debate.&nbsp; I like it but mostly because of my huge ego.&nbsp; Thoughts?</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/21/flashbag-glimpse/">Flashbag: Glimpse</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p><iframe src="http://player.vimeo.com/video/22708858?portrait=0" frameborder="0" height="400" width="100%"></iframe></p><p>Glimpse is an extensible client side debugging dev tool for server side stuff in any ASP.NET (WebForms) and ASP.NET MVC (RoR and PHP forthcoming). Think Firebug for your server and you have the gist of it. &nbsp;This presentation is a very brief introduction/overview/review.</p><p>Also the quality totally blows I promise it&#8217;ll be better next time.</p><p><span style="color: #888888;"><em><strong>Flashbag (fuh-lash-bah-ag)</strong>: A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization</em></span></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/19/crucible-code-review-guidelines/">Crucible Code Review Guidelines</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-19T00:00:00+01:00" pubdate data-updated="true">Apr 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>I&rsquo;ve been using Crucible on a number of projects for the last few months and I love it.&nbsp; So now comes the time we want to try and make a case for it to be rolled out to other projects in the company I work for.&nbsp; Along with the usual stuff such as cost of licenses, logistics, hardware need and so on I also need to consider education and best practise guidelines (oh I said &ldquo;best practise&rdquo; that term makes me feel slightly queasy) because after all &mdash; if people aren&rsquo;t using it right they probably wont see the benefit, stop using it and then we are back to square one with wasted time, money and effort.</p><p>Some of you may be thinking,</p><blockquote>&ldquo;But it&rsquo;s just a code review tool - what guidelines do you really need?&rdquo;</blockquote><p>But truth be told you do need some, and I learnt this the hard(ish) way.&nbsp; So here are some top tips to getting the most out of Crucible and at the same time possibly embettering (not a real word but should be) your development approach.</p><h2>Rule 1: Review Early, Review Often</h2><p>Don&rsquo;t wait for a whole week before committing 600 files as a single review &mdash; no ones going to actually do a proper review as they don&rsquo;t have time or patience.&nbsp; Generally speaking your work should be sufficiently broken down so that you can do a few hours of work, commit that code and submit that changeset as a review.&nbsp; Typically speaking a small review may only take about 5 minutes or so to review per person which is a lot easier than having to actually book time to read an entire books worth of code.&nbsp; Obviously don&rsquo;t be going insane on this.&nbsp; A code review should encompass a complete feature and not some arbitrary files that are only a small piece of the puzzle.&nbsp; Feel free to merge changesets where necessary too.</p><h2>Rule 2: Refrain from adding new content to old reviews</h2><p>I&rsquo;ve seen a few cases were a bunch of files have been added to a review and this review has been used over and over with people adding files and new versions until the whole thing had pretty much the entire codebase included.&nbsp; Needless to say that&rsquo;s wrong.&nbsp; Create a review and don&rsquo;t be adding new files or versions too it unless it&rsquo;s in the early stages of review and it is deemed necessary.&nbsp; Don&rsquo;t be afraid of kicking off more than one review - it&rsquo;s not a crime, in fact it&rsquo;s advised</p><h2>Rule 3: Don&rsquo;t be TOO iterative</h2><p>Another problem I&rsquo;ve experienced is that a review can run for a very long time.&nbsp; This is linked to Rule 2 in that, based on my review comments, people will make the changes and bring that file in that review up to date.&nbsp; This leads to further comments and the whole thing just consumes too much time.&nbsp; Crucible gives you the power to do this but you need a bit of discipline to simply know when to stop and when to start a new review.</p><p>In recent projects I have been performing a review, making comments etc. and completing the review (unless there is anything serious I want to make sure gets addressed ASAP).&nbsp; When changes are made they generally get picked up in the next set of reviews anyway and as I talk to my team all the time I can give a brief sanity review when the changes are made. &nbsp;</p><p>Making your submitted reviews lightweight helps with this.</p><h2>Rule 4: Keep reviews small</h2><p>Again similar to Rule 1 and 2.&nbsp; Don&rsquo;t be submitting hundreds of files for a review.&nbsp; If you need to make a big review considering breaking it down into smaller feature sets and describing this in the review.&nbsp; It makes it easier for reviewers to perform the review and for yourself to make the changes quickly (if any)</p><h2>Rule 5: Let everyone get involved</h2><p>Gone are the days when a single (supposedly) smart person performs all reviews.&nbsp; Social code reviews are and should be the future.&nbsp; Embrace this.&nbsp; Every single dev on my projects are added to reviews by default, even people with little to no experience of the technology.&nbsp; Not only does it help people spot things that others may miss but it also&nbsp;</p><ul><li>generates debate and discussion around coding style</li><li>helps people get an understanding of the coding practise in the project</li><li>acts as a learning tool for people</li><li>helps people feel more involved in the project and team</li></ul><h2>Conclusion (cause I can&rsquo;t think of a better word)</h2><p>Hopefully these guidelines give you a better understanding of how I work and how I get maximum benefit from Crucible.&nbsp; After all it is just a tool and therefore open to abuse.&nbsp; Honestly it&rsquo;s better than our previous approach (literally using Word documents) and I can&rsquo;t imagine anyone would prefer our old approach to this.&nbsp; Does anyone else have any recommendations around the use of Crucible?</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/16/powermockup-wireframe-toolkit-for-powerpoint/">PowerMockup â Wireframe Toolkit for PowerPoint</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-16T00:00:00+01:00" pubdate data-updated="true">Apr 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Link: <a href="http://www.powermockup.com/">http://www.powermockup.com/</a></p><blockquote>Disclosure Time:&nbsp; I approached the developer of this app offering to do a review in exchange for a review license.&nbsp; This isn&rsquo;t the sort of thing I usually blog about (except internally, a few times, in the company I work for) but I&rsquo;m all for supporting the people who deserve support and truth be told I would probably have written this blog post anyway (yep it&rsquo;ll be a positive one)</blockquote><p>Happy with that?&nbsp; Good lets crack on.</p><h2>The Past</h2><p>I&rsquo;ve written a fair number UI design documents over the last few years and for all of these I have used <a href="http://balsamiq.com">Balsamiq</a>.&nbsp; The problem with that is our companies standard/approved wire-framing solution is Visio (with the <a href="http://www.guuui.com/issues/02_07.php">GUUUI templates</a>).&nbsp; Why did I go against the grain? Well I am not a mad fan of Visio.&nbsp; It&rsquo;s not exactly lightweight, in fact it&rsquo;s extremely bloated (at least in the wire-framing sense), and that is easily the worst thing you can ask for when dealing with highly iterative, dynamic, interactive wire-framing.&nbsp; You need to work with the Visio rather than let Visio work for you and that is slightly too much fail for me most of the time.&nbsp; Admittedly there has been times I prefer the slicker, more professional, output of Visio (our customers come from the stiff collar world of finance and the like so it tends to sit better with them).&nbsp; But were I can I stick with Balsamiq.&nbsp; Until now&#8230;.</p><h2>The Present</h2><p>The problem I&rsquo;ve always faced with Balsamiq is that when I produce a first draft of a document with, say, 20 odd wireframes in it and something fundamental is changed by the customer then I have a hard slog ahead to fix all those images.&nbsp; Thankfully a colleague of mine, one much better at this wire-framing/UX stuff than me, pointed me towards PowerMockup.&nbsp; Rather than make a new standalone application that has it&rsquo;s own random UI features and offers little to on integration into the app we use day today PowerMockup is simply an extension/add-on to Powerpoint.&nbsp; So what does this mean?&nbsp; Well it means,</p><ul><li>The devs spent more time into the templates and stuff that matter</li><li>Fully integrated into the Office application stack (think ability to tweak results when embedded into Word)</li><li>Already makes use of the built in &ldquo;smart&rdquo; styling and other features that make Powerpoint actually a fairly decent app for quick templating and stuff.&nbsp; In fact take it a step further and you could make use of Powerpoint&rsquo;s animation stuff to demonstrate UI interactions.</li></ul><p>So given 5 minutes what could I do?&nbsp; And I do mean 5 minutes (possibly slightly less).&nbsp; Well I mocked up the website you are reading right now.&nbsp;</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3151/5720048084_8b4994da36_z.jpg"></p><p>Trippy eh?&nbsp; It&rsquo;s not my best work (far from it) but it did help me test drive PowerMockup and get a better feel of it.&nbsp; So I like it.&nbsp; I like it because of all the things I&rsquo;ve mentioned above (who wouldn&rsquo;t).&nbsp; I&rsquo;d use it, and will use it, as my wire-framing tool of choice (and not because I got a free license - my work would pay for it anyway cause they are total aces) from now on but it&rsquo;s not perfect.&nbsp; If I had to pick holes there are a few things that I&rsquo;d mention,</p><ul><li>My biggest peeve but it&rsquo;s not a show stopper is the location of the various shapes/widgets.&nbsp; Dropdowns are in &ldquo;Navigation&rdquo; and Text fields are in &ldquo;Text&rdquo; but 99% of the time I&rsquo;d want both of those when constructing a form.&nbsp; I&rsquo;d really like a &ldquo;Form&rdquo; collection with all of these things grouped.</li><li>If I drop a browser container on the page then drop a scrollbar on the page I need to resize said scrollbar to fit the browser container.&nbsp; Problem is, as the scrollbar is a grouped object, it will stretch the entire thing rather than extend the base rectangle.&nbsp; Again no show stopper but it is a bit of a pain.&nbsp; I guess offering the components as separate shapes might make it easier (just a suggestion).</li><li>There a plenty of icons but I&rsquo;d like to see a few more (&ldquo;comments&rdquo; icon, &ldquo;tags&rdquo; icon) - the equivalent famfamfam icon set would blow me away (and also a lot to ask).&nbsp; Possibly some more mobile shapes etc. would also be nice.</li></ul><h2>The Future</h2><p>So thats it for now I am very happy, not because I managed to blag a free license, but rather because the app/plugin/whatever fits into how I do things so seamlessly.&nbsp; Good work and I look forward to future updates - hopefully more people think the same.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/06/technically-non-technical-the-pomodoro-technique/">Technically Non-Technical: The Pomodoro Technique</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-06T00:00:00+01:00" pubdate data-updated="true">Apr 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p class="img-holder"><img src="http://farm4.static.flickr.com/3498/5720110114_ff737584c9_o.png"></p><p>I&rsquo;ve been going through a period recently of attempted self improvement.&nbsp; Trying new things to make myself a better more effective code monkey &mdash; iterative code reviews, todo lists, time management, pair programming, TDD, BDD, la dee dee&#8230;.&nbsp;</p><p>My old strategy was simple &mdash; get given or discover a piece of work, usually pretty large, and start coding.&nbsp; Once done do a bit of exploratory testing, read the spec to check I&rsquo;ve covered everything, commit the code and submit a bit of a code review.&nbsp; These sessions tend to last a number of days which leads to an eventual short term burnout.&nbsp; Now because I always write 100% flawless code first attempt that&rsquo;s generally fine but it doesn&rsquo;t really allow other people to learn from my excellence.&nbsp; Also being the smartest person on any project I am generally being pulled left and right answering queries and explaining my very clever designs &mdash; this creates regular context shifts and makes it harder for me to get my focus back on creating all the awesome!</p><p>One of the techniques I have found quite successful recently was the Pomodoro Technique.&nbsp; The name comes from the original kitchen timer used by the creator and the focus is squarely on a low tech approach.&nbsp; The premise behind it is simple but effective.&nbsp; You focus on your task for a 25 minute period (a pomodoro) ignoring all external interruptions (or you forfeit the pom), take 5 minute break, repeat. After 4 pomodoros you take a longer break (15-30 minutes).&nbsp; The rules are as follows,</p><ul><li>A Pomodoro Consists of 25 minutes Plus a Five-Minute Break.</li><li>After Every Four Pomodoros Comes a 15-30 Minute Break.&nbsp;</li><li>The Pomodoro Is Indivisible. There are no half or quarter Pomodoros.&nbsp;</li><li>If a Pomodoro Begins, It Has to Ring: &nbsp;   <ul><li>If a Pomodoro is interrupted definitively &ndash; i.e. the interruption isn&rsquo;t handled it&rsquo;s considered void, never begun, and it can&rsquo;t be recorded with an X.&nbsp;</li><li>If an activity is completed once a Pomodoro has already begun, continue reviewing the same activity until the Pomodoro rings.&nbsp;</li></ul></li><li>Protect the Pomodoro. Inform effectively, negotiate quickly to reschedule the interruption, call back the person who interrupted you as agreed.&nbsp;</li><li>If It Lasts More Than 5-7 Pomodoros, Break It Down. Complex&nbsp;</li><li>activities should be divided into several activities.&nbsp;</li><li>If It Lasts Less Than One Pomodoro, Add It Up. Simple tasks can be combined.&nbsp;</li></ul><h2>My Honest Opinion</h2><p>My previous development strategy was all kinds of broken.&nbsp; It worked provided I wasn&rsquo;t disturbed and I didn&rsquo;t really have a point at which I could turn round to someone and say&nbsp;</p><p><span style=""> <span style=""> </span></span>&ldquo;give me 5 minutes and I&rsquo;ll get back to you&rdquo;</p><p>The pom gives me that excuse and with the use of a simple widget I am able to know when I&rsquo;ll next be free (and so are other people).&nbsp; The hardest thing for me to accept was actually taking the 5 minute break post-pom. Initially (and sometimes still) I&rsquo;d just work over the 5 minutes &mdash; just one more line of code, just test it once more &mdash; excuses, excuses, excuses.&nbsp; Breaking old habits is hard!&nbsp; Some of the other benefits from the technique is that,&nbsp;</p><ul><li>it really helps you visualise your task up front and break it down much better</li><li>it helps you track work that you have done and how long tasks take. &nbsp;</li><li>some pomodoro software even integrates into popular task lists and calendars</li></ul><h2>Resources</h2><p>The Pomodoro Technique website is by far the best resource for this stuff and even has a free ebook on the technique and its background</p><ul><li>The site: <a href="http://www.pomodorotechnique.com/">http://www.pomodorotechnique.com/</a></li><li>The book: <a href="http://www.pomodorotechnique.com/products.html#pomodoropdf">http://www.pomodorotechnique.com/products.html#pomodoropdf</a></li></ul><p>Personally it&rsquo;s going to take me while longer to get into the right mentality 100% but I think the benefits will be worth it.&nbsp; One day I&rsquo;ll be so efficient the code will just stream out of my brain and into my IDE - but for now I&rsquo;ll stick the mortals way of doing things.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-04T00:00:00+01:00" pubdate data-updated="true">Apr 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>I&rsquo;ve had a big bad dirty secret for a while now.&nbsp; One I&rsquo;ve kept hidden from my friend and colleagues for years.&nbsp; But now its time to come clean&#8230;&#8230; here goes&#8230;.. hold onto your pants.</p><blockquote>&lt;pause for dramatic effect&gt;<br>I hardly ever write unit tests!<br>&lt;gasps&gt;</blockquote><p>I&rsquo;ve come clean and it feels good.&nbsp; Another reason why it feels good is that it is slowly but surely becoming a falsehood.&nbsp; I&rsquo;ve had my eyes opened recently to the art of BDD and discovered that I&rsquo;ve simply been doing it wrong - I was so busy writing code first and then tests to fit my, possibly incorrect, assumptions that tests failed to hold any worthwhile value &mdash; time wasted in my mind.&nbsp; Also when writing said tests I was too worried on the internal mechanics of the &ldquo;unit&rdquo; being tested and not about its intended behaviour &mdash; essentially missing the point and time wasted once more.&nbsp; Being a man that has no time for, well, time wasting I feel I have come full circle on why I didn&rsquo;t test.&nbsp; In the past at least&#8230;.</p><p>But I digress&#8230;. Where was I?&nbsp; Ah yes I&rsquo;ve had my eyes opened - I&rsquo;ve been doing it right.&nbsp; Yep I&rsquo;ve gone all TDD/BDD - write a failing test, write some code to make it work, make the test fail again and so on and so forth.&nbsp; Its been a good experience.&nbsp; I finally see the benefit in it.&nbsp; Yes, it takes slightly longer and it&rsquo;s hard to break old habits but the amount of times I&rsquo;ve been tripped up by assumptions and edge cases that would only normally be found during system testing after a frustrating debugging session with plenty of hair pulling and swearing.</p><p>Since the whole behaviour driven enlightenment I&rsquo;ve been trying to find a suitable set of technologies that allow me to perfect my new found approach and turn me into a fast and effective code cutting machine.&nbsp; NUnit is fine &mdash; it does the job but it&rsquo;s a task in itself to express what you want out of a test which slows things down.&nbsp; No if you&#8217;re going to do it right you want the best tools.&nbsp; So I have decided to jump in head first and discover what testing tools are the most effective.&nbsp; I&rsquo;ve been through a few already , including,</p><ul><li>SpecFlow (C#)</li><li>MSpec (Machine.Specifications) (C#)&nbsp;</li><li>JSpec&nbsp; (JavaScript)</li><li>Should/Should.Fluent (C#)</li></ul><p>Here are a few of my thoughts so far.&nbsp;</p><h2>SpecFlow (<a href="http://www.specflow.org/">http://www.specflow.org/</a>)</h2><p>SpecFlow is essentially the .NET equivalent of Cucumber (from the Ruby world).&nbsp; Offering natural language syntax for defining scenarios that make up the behaviour of a feature.&nbsp; Its better as an example,</p><p><script src="https://gist.github.com/900860.js"></script></p><p>So you see the test here is written in pretty much straight english.&nbsp; It&rsquo;s easy to understand and this means even domain experts (aka &ldquo;the business folk&rdquo;) can help write them.&nbsp; So how does this end up being turned into executable tests.&nbsp; Well, initially you need to do a bit of wiring up using Step Definitions.</p><p><script src="https://gist.github.com/900863.js"></script></p><p>As you can see we can match up each line of the feature file with an appropriate executable action.&nbsp; We even have the power of regular expressions at our disposal - allowing us to reuse steps and build up a decent library that comes with us across projects.&nbsp; Some very very powerful stuff here &mdash; we can get everyone involved in writing these things,</p><ul><li>Developers and business users during design</li><li>Developers during development</li><li>Testers during system test &mdash; in fact why not write a feature as the &ldquo;Steps to reproduce&rdquo;?&nbsp; Win, win!</li></ul><p>The thing is&#8230;&#8230; well&#8230;. Technically speaking SpecFlow isn&rsquo;t really aimed at the fine grained, unit test level of testing.&nbsp; It&rsquo;s more about the higher level integration testing.&nbsp; I mean it&rsquo;s useable but it does become a bit awkward to express things in a reusable manner.&nbsp; The problem with that is things start feeling quite heavy weight and you need to do a lot of extra work to get them to fit.&nbsp; No I think, while SpecFlow is great for many things (automated testing, integration testing, system testing etc.) it&rsquo;s not the best fit for what I am looking for in this article - unit testing tools.</p><h2>MSpec (<a href="https://github.com/machine/machine.specifications">https://github.com/machine/machine.specifications</a>)</h2><p>Machine.Specifications (MSpec for short) is a Context/Specification framework geared towards 	removing language noise and simplifying tests.&nbsp;</p><p>Thats the official intention and I must admit I was initially taken by it.&nbsp; Rather than having a single huge class filled with methods representing tests MSpec takes the approach that a single class represents a single scenario and uses lambda expressions to offer the BDD style syntax (Because/It/Subject etc.).&nbsp; So lets take the Tag scenario described above and convert it to MSpec format,</p><p><script src="https://gist.github.com/901245.js"></script></p><p>It&rsquo;s quite simple and it really forces you to ensure your tests are as simple as possible.&nbsp; To be honest having used it on a project I&rsquo;m not 100% sold.&nbsp; I think its down to my personal coding style.&nbsp; I honestly think while it reduces line count it doesn&rsquo;t necessarily reduce language noise.&nbsp; Also having used on a project I found it quite awkward to write &mdash; the style is different to what I am used to and I guess with training that would change.&nbsp; As I say this is a personal opinion and I am happy to be shown a better approach.</p><h2>JSpec (<a href="http://visionmedia.github.com/jspec/">http://visionmedia.github.com/jspec/</a>)</h2><p>JSpec is a clever little JavaScript testing framework.&nbsp; I&rsquo;s no longer supported by it&rsquo;s creators (booooo!) but honestly its stable enough to use anyway.&nbsp; JSpec takes the RSpec DSL (a decent subset at least) and is capable of converting it to JavaScript for execution in the browser.&nbsp; It&rsquo;s got a heap of stuff in it,</p><ul><li>Mock Ajax</li><li>Stubbing</li><li>Fake timers</li></ul><p>Lets take a look at a simple example,</p><p><script src="https://gist.github.com/901253.js"></script></p><p>People who have used RSpec before will feel right at home.&nbsp; People who haven&rsquo;t should be able to understand exactly what is going on.&nbsp; Pretty - right?&nbsp; I thought so.&nbsp; For the people who think &mdash; &ldquo;ugh we don&rsquo;t need another dialect/language&rdquo; - wise up!&nbsp; Out of all the testing techs I&rsquo;ve used recently this one has been the most successful and the output it generates is nice and clean.</p><h2>Should/Should.Fluent (<a href="http://should.codeplex.com/">http://should.codeplex.com/</a>)</h2><p>This little gem isn&rsquo;t a framework in itself and can be used with any framework you care to use.&nbsp; Should provides a more expressive way of stating assertions in your code by making the code closer to natural language using extensions methods and nicer method names.&nbsp; Example I hear you say?&nbsp; Why certainly sirs and madams,</p><p><script src="https://gist.github.com/901260.js"></script></p><p>I stole this one from the Should Codeplex site (linked above) and it makes use of the fluent syntax (optional).&nbsp; OK technically it doesn&rsquo;t do much but it really helps when trying to express assertions in your tests.&nbsp; Highly recommend this one.</p><h2>Conclusion</h2><p>Thats the first lot of technologies covered but there are still plenty out there.&nbsp; I think my next port of call is to actually spin up IronRuby and get RSpec involved.&nbsp; After all it is the marker by which I am comparing these things so why did I not jump on it first of all?&nbsp; Perhaps I like to build up suspense :-P</p><p>Also worth pointing out is that I haven&rsquo;t touched upon technologies for mocking and stubbing - that is for another time.</p><p>As always heap criticism my way and I&rsquo;ll happily fight my corner and stubbornly refuse to back down :-P (second smilie within a few paragraphs time to end this post).</p><p>UPDATE: &nbsp;I&#8217;ve pushed some of my code to GitHub and intend to expand on this using the various other technologies. &nbsp;The repository can be found on my <a href="https://github.com/kouphax/unit-testing">repo on GitHub</a></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/29/serialising-net-resources-to-json-for-web-apps/">Serialising .NET Resources to JSON for Web Apps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-29T00:00:00+01:00" pubdate data-updated="true">Mar 29<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Pop quiz hotshot &ndash; you are building one of them massive single page web apps  using something like Sencha where the vast majority of work is pushed into the  JavaScript realm and some crazy nut wants everything localised or at least  all text strings push to RESX files.  What do you do?  WHAT DO YOU DO?</p><h2>Option 1</h2><p>Well the most obvious option, and IMHO the most horrible, would be to convert  all those JavaScript files into aspx&rsquo;s or cshtml&rsquo;s or whatever and embed the  resource references directly into the files.</p><p><script src="https://gist.github.com/892038.js"></script></p><p>This is far from nice.  For one it kind of makes any static compression of  the files either impossible or at best annoyingly fiddly.  It also prevents any  sort of quick client side caching unless you use some sort of VaryByCulture  Output Caching strategy on the server side.  Blegh.</p><h2>Option 2</h2><p>The next option, and certainly much better would be to pull out the direct  &lt;%= %&gt; references and store them in another smaller file and reference  them through a global JS object</p><p><script src="https://gist.github.com/892054.js"></script></p><p><script src="https://gist.github.com/892048.js"></script></p><p>This is nicer because it means you can compress and cache the JavaScript file  globally without having to worry about different cultures etc.  It does leave  one annoyance though.  The Strings object above it essentially boiler plate.   The names are a 1:1 mapping of the resource file so we have introduced a layer  of abstraction we have to write manually leaving us open to make some mistakes.   Slightly less blegh, but still blegh.</p><h2>Option 3</h2><p>The solution I like the best is to provide a mechanism for serialising the  Resource file into the equivalent JSON object.  You get all the benefits of  option 2 while not having to worry about having to write the mapping file.  So  lets keep the JS file from the second option and change the ASPX file</p><p><script src="https://gist.github.com/892069.js"></script></p><p>Now lets look at the magic behind this option &ndash; the JSON Serialiser</p><p><script src="https://gist.github.com/891939.js"></script></p><p>Simple enough little class that is configurable by Culture etc. so you can  pull different translation out on demand if needs be.  Obviously it doesn&rsquo;t do  anything around caching - SRP and all that stuff you know :-P</p><p>Yeah so I&rsquo;ve used this on 2 projects already with great success so hopefully  someone else finds it useful.</p></div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/8/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/6/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/page/7/index.html';
+          var disqus_url = 'http://kouphax.github.com/blog/page/7/index.html';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

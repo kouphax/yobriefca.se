@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mobile Redirection for Web Applications in ASP.NET MVC - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Mobile redirection is simple stuff but what happens when you need to deep link into the mobile application?On a recent project we needed to produce &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mobile Redirection for Web Applications in ASP.NET MVC</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T00:00:00+00:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p><span style=""> </span>Mobile redirection is simple stuff but what happens when you need to deep link into the mobile application?</p><p>On a recent project we needed to produce mobile (iPad specifically)  equivalent.  The desktop app itself was developed using ExtJS (3.3.1) and had  three primary entry points,</p><ol><li>Logon Screen</li><li>Home Screen</li><li>Product Screen (New/View/Edit)</li></ol><p>Due to the way the project was implemented these became as 3 distinct  pages/controllers/actions.  Users could receive emails with links to a  particular product and they would go directly to that view (with a login  redirect if not previously authenticated).  The mobile solution, however,  written using Sencha Touch (consistent development experience, native-esque UI  with little effort) is a single page application.  This presents a problem when  the user is on a compatible mobile device and they receive a link to a  particular placement &ndash; how do we push that sort of deep linking into a single  page app.  Well on the client side frameworks such as Backbone.js, jQuery Mobile  and Sencha Touch [anyone got more please?] all offer history support using hash  navigation.  That&#8217;s the client side sorted but how do we translate, say,  /Product/Show/12345 into /Mobile#placement/12345?</p><h2>MobileRedirectAttribute</h2><p>Firstly I created an extension of the AuthorizationAttribute that will act as  an interim redirection and request parser between the mobile and desktop  solutions.  Here&rsquo;s the code (usage follows),</p><p><script src="https://gist.github.com/841958.js"></script></p><h2>Usage</h2><p>So for our 3 entry points into our application we attribute the controller  actions with the MobileRedirectAttribute and give it a client fragment.</p><p><script src="https://gist.github.com/841961.js"></script></p><p>The client fragment is capable of translating tokens embedded within it ( as  :&lt;token_name&gt;) and replacing the token with a matching route value or  request parameter.  The ProductController Index action is a good example of  this.  A request to /Product/Index/12345 on a mobile device would translate  to /Mobile/#product/12345</p><h2>How It Works</h2><p>Pretty simple really.</p><ul><li>The attribute checks if the device is a compatible/mobile device.</li><li>If it is the retrieves the client fragment and extracts the tokens &ndash;  :&lt;token_name&gt;</li><li>It attempts to match the token names against request parameters first</li><li>If there is no parameter it then looks into the route values (eg. :id in the  above url isn;t a parameter but rather a route value)</li><li>It replaces the token with the real value</li><li>It performs a redirect to /Mobile#&lt;client_fragment&gt; which cancels the  execution of the action.</li></ul><h2>Other Points</h2><ul><li>It&rsquo;s probably not the most robust solution in that more complex scenarios  may not work as expected but it&rsquo;s a decent base that can be extended. </li><li>I have hardcoded the mobile route as it fitted my needs so I think that  should be externalised as well.</li><li>The determination of whether a device is a compatible device is facilitated  through Browser.IsMobileDevice.  This is for demonstration purposes only.  In  the project we use a different solution but it is a bit more long winded to  explain here.</li><li>The &ldquo;redirect to logon&rdquo; handling is performed within the app itself so that  is why the Logon view&rsquo;s fragment is simply &ldquo;home&rdquo;.</li></ul><p><h2 style="font-size: 1.5em;">Demo</h2></p><p>I&#8217;ve pushed a very quick and dirty demo of this onto GitHub for anyone interested -&nbsp;<a href="https://github.com/kouphax/mobileredirect-mvc/">https://github.com/kouphax/mobileredirect-mvc/</a> . &nbsp;It uses a really quick UserAgent.Contains(&#8220;iPad&#8221;) check for &#8220;mobile&#8221; detection so use and iPad or set your User Agent to try it out.</p><ul></ul><p>Any use to anyone out there?  Any problems with it?  Let me know.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T00:00:00+00:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-net-mvc/'>ASP.NET MVC</a>, <a class='category' href='/blog/categories/mobile/'>Mobile</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/02/11/entity-framework-code-first-head-first/" title="Previous Post: Entity Framework: Code First - Head First">&laquo; Entity Framework: Code First - Head First</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/03/10/node-js-lightning-talk/" title="next Post: Node.js Lightning Talk">Node.js Lightning Talk &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc/';
+          var disqus_url = 'http://kouphax.github.com/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

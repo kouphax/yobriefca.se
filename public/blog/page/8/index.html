@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="This was written a long time ago when coffeescript was in early beta and I&rsquo;ve decided to push it into the public domain. I&rsquo;ve updated it &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/page/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/13/coffeescript-javascript-sans-bad-parts/">CoffeeScript: JavaScript Sans Bad Parts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-13T00:00:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote>This was written a long time ago when coffeescript was in early beta and I&rsquo;ve  decided to push it into the public domain.  I&rsquo;ve updated it a bit but I  apologise for any oversights.<p>Also worth mentioning that I am a lot more taken with it than I was at the time of the original blog. &nbsp;I will be revisiting this again soon.</p></blockquote><p>If I&rsquo;ve said it once, I&rsquo;ve said it a million times &ndash; JavaScript is  misunderstood.  Sure it&rsquo;s got it&rsquo;s bad parts (eval, ==, typed wrappers etc.) and  it&rsquo;s got it&rsquo;s VERY bad parts (global variables, scope, typeof etc) but it&rsquo;s also  got a lot of beautiful parts (functions as first class objects, object and array  literals, dynamic objects and prototypal inheritance etc.).  JSLint validates  your code against the good subset to ensure you aren&rsquo;t using all that nasty  stuff that is going to break your code eventually but can we take it a step  further?  What if we could take out the good subset and create a subset of the  language so we couldn&rsquo;t ever use the bad stuff?  Well turns out you can.</p><h2>Enter CoffeeScript</h2><p><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a> is a  full featured subset of JavaScript.  Essentially it is a meta-language that  compiles into JavaScript.  Its syntax is a bit different, more like Perl, Python  or Ruby and the JavaScript it generates only uses the &ldquo;good parts&rdquo; of JavaScript  and passes all strict JSLint tests.</p><h3>Syntax</h3><p>CoffeeScripts syntax is close to JavaScript and besides a few extra goodies  it is nearly a 1:1 mapping.  However it strips away a lot of the boilerplate  stuff to make the code you write slightly more succinct.  Another feature of the  syntax is that indentation is important (like Perl or Python, I can never  remember which) as there are no line ending tokens.  So lets look at a few  statements</p><p><span style=""><script src="https://gist.github.com/868206.js"></script></span></p><p>This simple example of variable creation and assignment demonstrates how  CoffeeScripts avoids one of the most common and potentially fatal mistakes made  by many JavaScript developers &ndash; Inadvertent global variable declaration.  In  plain old JavaScript leaving out a var statement on a variable declaration  results in the variable being declared (or overwritten &ndash;eek!) in the global  scope.  In CoffeeScript var is optional and all variable declarations are made  in the current scope (and pushed to the top of the scope as is the JavaScript  way).  Want global scope declaration for some random reason?  Use  window.variable name and then ask yourself why you are doing it wrong.</p><p><span style=""><script src="https://gist.github.com/868210.js"></script></span></p><p><span style=""><a href="http://gist.github.com/868210" title="http://gist.github.com/868210"></a></span><span style=""><script src="https://gist.github.com/868208.js"></script></span></p><p>Function declarations are a good example of how succinct CoffeeScript can be  in comparison to JavaScript.  In fact anyone keen on C#&rsquo;s lambdas or Groovys  syntax will find this quite familiar.  Gone are the bloating function and return  keywords ( &ndash;&gt; is the empty function &ndash; function() {})</p><p><span style=""><script src="https://gist.github.com/868212.js"></script></span></p><p><span style=""><a href="http://gist.github.com/868212" title="http://gist.github.com/868212"></a></span><span style=""><script src="https://gist.github.com/868215.js"></script></span></p><p>Existence is a nice feature as it keeps non-boolean falsy values nice and  strict and saves a lot of guessing.  That&rsquo;s the basics but as I mentioned  earlier there are some nice bonus features that can make some common tasks very  clean.</p><h3><strong>The Goodie Bag</strong></h3><h4>Array Comprehension</h4><h4><span style="font-weight: normal;"><script src="https://gist.github.com/868218.js"></script></span></h4><p>Array comprehension is quite a common task in many JavaScript solutions.   Simply put this is the Map part of any typical MapReduce situations (common in  many NoSQL style databases and Ajax situations).  MapReduce is essentially &ndash;  given an array of items,</p><ul><li>Map: Transform that list into what you want (SQLs SELECT) </li><li>Reduce: Based on that mapping remove unwanted items</li></ul><p>In the Ajax world you&rsquo;d probably need to do this when dealing with JSON or  XML responses which are quite often generally result sets.  The example above  shows just how easy it is to apply an arbitrary function over an array of  items.  Now I guess the equivalent JS could be written slightly better by hand  but would it not take longer and be harder to maintain?  Probably.  This being  quite a common task the less you have to write the better!</p><h4>Splats</h4><p>Splats are a convenient way to work with the arguments object in JavaScript  while clearly outlining required and optional arguments.  Lets take this  example.</p><p><script src="https://gist.github.com/868221.js"></script></p><p>Look familiar to you .NET people?  It should because for all intents and  purposes this is the same as the param keyword.  Implementing this sort of thing  in JavaScript is no easy task.  Again the generated JavaScript could be  simplified if written by a human bean but could you get it right first time  without seeing this generated code?</p><h4>Destructing Assignment</h4><p>Already part of the JavaScript spec but not present in all implementations  (see MDC article) destructing assignments allow the assigning of multiple values  in one fell swoop e.g.</p><p><script src="https://gist.github.com/868224.js"></script></p><p>I&rsquo;ve never really come across a massive need for something like this but I  guess it&rsquo;s another handy tool to have in the scripting world.</p><h3>Should We All Be Using It?</h3><p>If you think I am going to say &ldquo;Yes&rdquo; immediatley you are wrong.  And if you are now  asking yourself why I even bothered typing this&hellip;. lets just say train rides are  boring but not as boring as most of the TV shows my darling wife makes me sit  through EVERY FLIPPING NIGHT OF MY LIFE!!!!</p><p>The big reason I am not recommending it yet is that I am not 100% convinced  of the benefits of using it above plain old JavaScript.  It&rsquo;s a bit like  marmite.  Many node.js developers write in CoffeeScript, and ONLY CoffeeScript  but many still simply reject it.  I can understand both standpoints so until I  can say without faltering that one side has got it right I am not taking it  seriously. &nbsp;That said I prefer to form my own opinions anyway so I need to spend a lot more time with it before I can jump to any conclusions.</p><p>Oh and, honestly, who actually really wants to spend what limited time they  have trying new things, hacking around, experimenting, taking risks, getting  frustrated and making plenty of mistakes?  Anyone? Anyone at all? &nbsp;Nah I didn&#8217;t think so. &nbsp;Computers are just a 9-5 job for all of us ;-P</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/10/node-js-lightning-talk/">Node.js Lightning Talk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-10T00:00:00+00:00" pubdate data-updated="true">Mar 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p><p>So I held a lightning talk on <a href="http://nodejs.org/">node.js</a> the  other day.  A lightning talk is essentially a short (15 minute) talk about a  subject with a bit of discussion at the end of it.  There was a slight technical  hitch in that I forgot to record the session but I have made up for it by  sitting alone in a quiet room early this morning a re-recorded the session &ndash;  minus the actual discussion bit.</p><p>Obviously it&rsquo;s not as good as the original talk but thought it might be worth  putting out there anyway as it&rsquo;s better than the slides alone.  So here it is &ndash;  a very high level view of node.js.</p><h2>Video</h2><iframe src="http://player.vimeo.com/video/20868544?portrait=0" frameborder="0" height="283" width="500"></iframe><h2>Slides</h2><p><object height="417" width="500"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=node-lightning-talk-110310015300-phpapp02&stripped_title=nodejs-lightning-talk"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=node-lightning-talk-110310015300-phpapp02&stripped_title=nodejs-lightning-talk" allowfullscreen="true" type="application/x-shockwave-flash" allowscriptaccess="always" height="417" width="500"></object></p></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/24/mobile-redirection-for-web-applications-in-asp-net-mvc/">Mobile Redirection for Web Applications in ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T00:00:00+00:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p><span style=""> </span>Mobile redirection is simple stuff but what happens when you need to deep link into the mobile application?</p><p>On a recent project we needed to produce mobile (iPad specifically)  equivalent.  The desktop app itself was developed using ExtJS (3.3.1) and had  three primary entry points,</p><ol><li>Logon Screen</li><li>Home Screen</li><li>Product Screen (New/View/Edit)</li></ol><p>Due to the way the project was implemented these became as 3 distinct  pages/controllers/actions.  Users could receive emails with links to a  particular product and they would go directly to that view (with a login  redirect if not previously authenticated).  The mobile solution, however,  written using Sencha Touch (consistent development experience, native-esque UI  with little effort) is a single page application.  This presents a problem when  the user is on a compatible mobile device and they receive a link to a  particular placement &ndash; how do we push that sort of deep linking into a single  page app.  Well on the client side frameworks such as Backbone.js, jQuery Mobile  and Sencha Touch [anyone got more please?] all offer history support using hash  navigation.  That&#8217;s the client side sorted but how do we translate, say,  /Product/Show/12345 into /Mobile#placement/12345?</p><h2>MobileRedirectAttribute</h2><p>Firstly I created an extension of the AuthorizationAttribute that will act as  an interim redirection and request parser between the mobile and desktop  solutions.  Here&rsquo;s the code (usage follows),</p><p><script src="https://gist.github.com/841958.js"></script></p><h2>Usage</h2><p>So for our 3 entry points into our application we attribute the controller  actions with the MobileRedirectAttribute and give it a client fragment.</p><p><script src="https://gist.github.com/841961.js"></script></p><p>The client fragment is capable of translating tokens embedded within it ( as  :&lt;token_name&gt;) and replacing the token with a matching route value or  request parameter.  The ProductController Index action is a good example of  this.  A request to /Product/Index/12345 on a mobile device would translate  to /Mobile/#product/12345</p><h2>How It Works</h2><p>Pretty simple really.</p><ul><li>The attribute checks if the device is a compatible/mobile device.</li><li>If it is the retrieves the client fragment and extracts the tokens &ndash;  :&lt;token_name&gt;</li><li>It attempts to match the token names against request parameters first</li><li>If there is no parameter it then looks into the route values (eg. :id in the  above url isn;t a parameter but rather a route value)</li><li>It replaces the token with the real value</li><li>It performs a redirect to /Mobile#&lt;client_fragment&gt; which cancels the  execution of the action.</li></ul><h2>Other Points</h2><ul><li>It&rsquo;s probably not the most robust solution in that more complex scenarios  may not work as expected but it&rsquo;s a decent base that can be extended. </li><li>I have hardcoded the mobile route as it fitted my needs so I think that  should be externalised as well.</li><li>The determination of whether a device is a compatible device is facilitated  through Browser.IsMobileDevice.  This is for demonstration purposes only.  In  the project we use a different solution but it is a bit more long winded to  explain here.</li><li>The &ldquo;redirect to logon&rdquo; handling is performed within the app itself so that  is why the Logon view&rsquo;s fragment is simply &ldquo;home&rdquo;.</li></ul><p><h2 style="font-size: 1.5em;">Demo</h2></p><p>I&#8217;ve pushed a very quick and dirty demo of this onto GitHub for anyone interested -&nbsp;<a href="https://github.com/kouphax/mobileredirect-mvc/">https://github.com/kouphax/mobileredirect-mvc/</a> . &nbsp;It uses a really quick UserAgent.Contains(&#8220;iPad&#8221;) check for &#8220;mobile&#8221; detection so use and iPad or set your User Agent to try it out.</p><ul></ul><p>Any use to anyone out there?  Any problems with it?  Let me know.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/11/entity-framework-code-first-head-first/">Entity Framework: Code First - Head First</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-11T00:00:00+00:00" pubdate data-updated="true">Feb 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>I find the data access layer on most projects to be either overly complex or  fiddly with lots of XML mapping files that are difficult to debug so anything  that could make this layer more developer friendly I&rsquo;m all for it.&nbsp; Though I  also want to point out that I understand why the DAL is often complex &ndash; there is  a lot to consider and so I want to also understand if these &ldquo;friendlier&rdquo;  technologies can handle that sort of complexity or if they simply make the happy  path easier but making the more complex scenarios more difficult or even  impossible (which is obviously a blocker).</p><p>So I&rsquo;ve been tinkering with this new Entity Framework CTP5 release and the  &ldquo;Code First&rdquo; features recently.&nbsp; This comes after some time-out from EF due to  some really bad experiences with EF1. I was promised that there has been  significant changes/improvements since I last dabbled and it really seems there  have been.&nbsp; So I wanted to put it to the test and as one of my co-workers wanted  an &ldquo;Ideas&rdquo; app I thought it would be a fun [may not be anyone&#8217;s definition of  fun but my own] to throw an MVC app together using EF &ldquo;Code First&rdquo; to model my  domain entities.&nbsp; To make it all even more simple I went ahead and used SQL  Server CE 4 for persistence.&nbsp; So what did the solution need to do?&nbsp; The basic  requirements were,</p><ol><li>Use Windows Authentication for users </li><li>Allow users to submit an idea (Title, Description) </li><li>Allow users to tag an idea with a variable number of tags </li><li>Allow users to vote up or vote down ideas (but not their own) </li><li>Allow users to comment on ideas </li><li>Allow users to filter ideas by tags </li><li>Allow users to sort ideas by newest ideas or by most popular. </li></ol><p>Nothing too extreme involved &ndash; not unless you turn the whole thing into a  computer game style EXTREME speed run competition &ndash; man vs. machine &ndash; the  ULTIMATE [typing] battle&hellip;. with bathroom and snack breaks!&nbsp; Just to make it even  more INSANE I documented my steps and created a graphical timeline of the  session in a PRETTY timeline.&nbsp;</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2244/5720966217_edd48fc966_o.png' width='500'></p><p>Ammmm don&rsquo;t mean to be rude but your jaw&hellip;. we&rsquo;ll it&rsquo;s on the floor.&nbsp; Can you  pick it up please?&nbsp; 17:21 to 20:38 minus about an hour and a bit for bathroom,  snack and chat breaks &ndash; zero to datafied in less than 3 hours!&nbsp; Few points to  note,</p><ul><li>This experiment focused on the data model, EF CTP5 and the database. </li><li>There is a working UI (MVC3) it&rsquo;s just not exactly pretty </li><li>I had no EF &ldquo;Code First&rdquo; experience before hand </li><li>I could be doing a few things incorrectly </li><li>It&rsquo;ll probably take me longer to write this post than it did the app. </li></ul><p>So lets look at what I produced.&nbsp; The source is <a href="https://github.com/kouphax/ideas/">available on Github</a>* for  your&nbsp;fiddling pleasure.</p><p>I am not going to dive into the whole MVC part of it as the source is  available but I may touch on some of the interface points such as controllers  and binders.</p><h2>The Domain Models</h2><p>Lets take a high level look at our domain models.</p><p class='img-holder'><img src='http://farm4.static.flickr.com/3554/5721525430_5e527060d2_o.png' width='650'></p><h3>DomainEntity</h3><p>The abstract domain entity is used to prevent me having to repeat common  auditing and database related stuff across all my entities.&nbsp; It is not mandatory  or derived from anything related to Entity Framework&nbsp;&ndash; all these classes are  simple POCO&rsquo;s.&nbsp; DomainEntity sets up the entities primary key using the Key  attribute and also gold 2 audit related properties CreatedBy and  CreatedDate.</p><p><script src="https://gist.github.com/822204.js"></script></p><h3>Idea</h3><p>Idea is our principle class in our domain.&nbsp; As you can see there are various  associations set up between the other classes.&nbsp; 2 1-* mappings between Comment  and Vote and a *-* mapping between itself and tag (a tag can exist for any  number of ideas and an idea can have many tags).&nbsp; It also holds a number of  methods related to business logic&nbsp;&ndash; specifically calculating Votes, number of  Comments etc.</p><p><script src="https://gist.github.com/822219.js"></script></p><h3>Tag</h3><p>Tag is pretty simple.&nbsp; The only interesting thing about it is the use of  NormalisedName&nbsp;&ndash; essentially the name field lowercased and whitespace removed.&nbsp;  This is used when attempting to fetch potentially existing tags from the  database.</p><p><script src="https://gist.github.com/822220.js"></script></p><h3>Vote</h3><p>Rather than just store a calculated value against an idea the Vote object  represents a rich representation of a Vote (either up or down, whom by and  when).&nbsp; This allows us to provide extra validation when we need it.&nbsp; For example  people not allowed to vote on their own idea or vote on an idea in any  particular direction more than once.&nbsp; Having this rich association makes these  things much easier and we aren&rsquo;t forced to create custom objects to track this  sort of thing.</p><p><script src="https://gist.github.com/822226.js"></script></p><h3>Comment</h3><p>Nothing special here.&nbsp;</p><p><script src="https://gist.github.com/822228.js"></script></p><h2>The Database Context</h2><p>This is where all the EF magic happens.&nbsp; We use this class to provide an  entry point into our database.&nbsp; It&rsquo;s possible to configure entities here in  terms of mapping and associations as well as providing a means to seed the  database with initial data but I didn&rsquo;t need any of that.&nbsp; No I just defined my  sets and added a method for filtering/sorting ideas based on criteria.&nbsp; Simple  stuff yet again.&nbsp; It just extends the DbContext class from Entity Framework.</p><p><script src="https://gist.github.com/822229.js"></script></p><h2>Tag Model Binder</h2><p>This was an interesting thing I discovered.&nbsp; If you are using a *-*  relationship and are associating one side with an object that already exists you  are required to fetch this object before using it.&nbsp; For example when adding a  tag to an idea I need to attempt fetch that tag first of it exists.&nbsp; What I  can&rsquo;t do is create a new tag object and assign an existing Id to it&nbsp;&ndash; this will  be thrown away and saved as a new instance.&nbsp; To fix this problem I feel back  onto a Tag Model binder that attempts to fetch or create tags depending on their  normalised name.&nbsp; It won&rsquo;t save new tag&nbsp;&ndash; simply create them (this is why I use  a shared DbContext between the controller and the binder).&nbsp; The binder takes a  CSV styled string, breaks it apart, &ldquo;normalises&rdquo; the string and tries to fetch  tags based on their normalised name.&nbsp; If it finds one it pushes it into the  collection otherwise it creates a new tag object and pushes that in instead.&nbsp;  Probably a better way to do that and I am open to suggestions.&nbsp; But what I don&rsquo;t  want is saving tags that are then going to become orphaned if the other save  didn&rsquo;t go through for some reason.</p><p><script src="https://gist.github.com/822235.js"></script></p><h2>Other Things</h2><p>Not very much else worth mentioning right now as I more or less used the MVC  scaffolding to build the views (with some minor tweaking).&nbsp; Validation on the UI  is pushed from the domain object&nbsp;making things a lot more streamlined.&nbsp; The  controllers are still very light and could be made lighter by pushing stuff into  the IdeaRepository as well but that&rsquo;s for another day.</p><p>So there you go.&nbsp; A very quick and dirty intro into the world of Entity  Framework.&nbsp; There isn&rsquo;t anything complex going on here and I was worried that EF  would mask a lot of stuff that we would need access to but it seems there is  plenty of configuration points to hook into.&nbsp; It has come on leaps and bounds  since I last dipped my toes into EF and hopefully they keep up the same  momentum.&nbsp; There is still a lot of due diligence required before I&rsquo;d recommend  EF over any other&nbsp;data access layer that we are currently using but I am  certainly keen to dig deeper and push it to it&rsquo;s limits.</p><p>Once again the source for the solution is <a href="https://github.com/kouphax/ideas/">available on Github</a>*.&nbsp; Phew&hellip;..&nbsp;</p><p><em>* Expect bugs.</em></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/09/mvcconf2-post-conference-rubdown/">MvcConf2: Post Conference Rubdown</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>So MvcConf has been and gone.&nbsp; Lots of interesting talks though sadly I hit a  ton of technical issues with laggy video and eventually total audio/video loss.&nbsp;  To my ISP &ndash; shame on you!&nbsp; Luckily I did get to see most of the things I wanted  (or at least hear).&nbsp; Here&rsquo;s the final outlay of talk I attended (green for  attended, yellow for not attended),</p><p class='img-holder'><img src='http://farm4.static.flickr.com/3660/5720976997_50da11c786_o.png' style='width:100%;'></p><p>I kind&nbsp;of wanted to attend,</p><ul><li>Talks that I already had some experience in to see if my thoughts where  aligned with others, and, </li><li>Talks that I had not experience in but had an interest in. </li></ul><p>Problem was that in some of these talks I felt a bit out of my depth which  wasn&rsquo;t helped by the fact my video was busy drawing part of slides 4 and 5 when  the presenter was already on slide 7 :(.&nbsp; Other times I felt I had already dived  deeper than the talk was covering.&nbsp; I guess it happens!&nbsp; Anyway enough  complaining lets see what we covered,</p><h2>Real World Application Development with Mvc3 NHibernate, FluentNHibernate  and Castle Windsor</h2><p>Presenter: Chris Canal</p><p>I went into this talk wanting to get a quick glance at NHibernate  specifically.&nbsp; I&rsquo;ve had no exposure to any of these technologies (bar MVC3 of  course) and I think I suffered because of it.&nbsp; It was very Castle Windsor  focused and I think I would have been better jumping into a pure NHibernate talk  if there was one.&nbsp; That said I really should have a look at Castle Windsor.</p><h2>BDD in ASP.NET MVC using SpecFlow, WatiN and WatiN Test Helpers</h2><p>Presenter: Brandon Satrom</p><p>I recently attended a talk on using Cucumber to provide Automated UI testing  on our projects (held internally in our company) so I wanted to see what  SpecFlow brought to the table over running Ruby and Cucumber.&nbsp; I was very  impressed with what I seen.&nbsp; Nice explanation of the theory behind BDD.&nbsp; I like  the whole &ldquo;Working Software&rdquo; vs &ldquo;Working Software <strong>That Matters</strong>&rdquo;  comparison.</p><p>In terms of SpecFlow itself I like the tighter integration into .NET, the  ability to debug your steps is very nice and might help increase acceptance in a  team when compared to introducing Ruby.&nbsp; I can see the arguments for using  Ruby&nbsp;&ndash; Cucumber is a more mature, Ruby is faster to setup and tear down, using  the right tool for the right job etc. but I can also see the arguments against.&nbsp;  At least both farmeworks use the Gherkin language so writing the scenarios is  done in the same way.&nbsp; This is something I have to mull over a bit more.</p><h2>Quality Driven Web Acceptance Testing</h2><p>Presenter: Amir Barylko</p><p>I had a few audio and video problems during this presentation.&nbsp; It touched on  some theory behind Acceptance testing, Green Field vs Brown Field and things  like that then dropped into using Cucumber for some acceptance testing.&nbsp; Having  just attended the same type of talk a few days previous there wasn&rsquo;t anything  new here, and given the bad connection I skipped the rest of the talk.</p><h2>Keynote</h2><p>Presenter: Scott Guthrie</p><p>The Gu talking about stuff&nbsp;&ndash; nuff said.&nbsp; Nice to see him describing how cross  pollination of the three platforms (WebMatrix, WebForms, MVC) works (Razor from  WM, Routing from MVC etc.).&nbsp; Also nice to hear that we can expect an MVC release  on a near annual basis with plenty of preview releases inbetween!</p><h2>CQRS and Event Sourcing with MVC 3</h2><p>Presenter: Ashic Mahtab</p><p>Wow&nbsp;&ndash; CQRS is something I&rsquo;d heard of previously and it&rsquo;s a pretty big buzz  word in the Silverlight world at the minute so I wanted to check it out.&nbsp;  My&nbsp;head was thoroughly melted&nbsp;after this one.&nbsp; Quite fast paced and I could have  benefited from getting some prior reading in and around the CQRS concept.&nbsp; Will  revisit this once the video and slides are available.</p><p>One&nbsp;unexpected thing I got out of this talk was <a href="https://github.com/machine/machine.specifications">MSpec</a>.&nbsp; I always  wondered how things like cucumber and spec flow handled lower level unit testing  and it seems they aren&rsquo;t really suited to that sort of thing.&nbsp; <a href="https://github.com/machine/machine.specifications">MSpec</a>, as I have  discovered, is essentially a unit level focused BDD framework.&nbsp; Going to check  this out very soon.</p><h2>Deploy ASP.NET MVC with No Effort</h2><p>Presenter: Troels Thomsen</p><p>Honorable mention here as my connection was flat out dying on this room.&nbsp; I  couldn;t make out video or audio very well.&nbsp; I did spend a few hours a few days  ago looking at <a href="https://appharbor.com/">appharbor</a> and it looks like,  as the name says, &ldquo;Azure done right&rdquo;.&nbsp; Love the use of git as a deployment  framework, love the minimal interface, love the pricing model, just love the  whole thing&nbsp;&ndash; so I&rsquo;m sorry I had to miss the presentation.&nbsp; Another one to check  out later.</p><h2>Entity Framework &#8220;Code First&#8221;: Domain Driven CRUD</h2><p>Presenter: Chris Zavaleta</p><p>Having been playing with EF CTP5 recently I wanted this one to see if there  was anything worth expanding on.&nbsp; Turns out there is some nice stuff I didn&rsquo;t  see during my tinkering.&nbsp; Especially around the use of Configuration Categories  to break apart the OnModelCreating configuration and the Seeding stuff to  populate the DB with data.&nbsp; Again my audio was dropping off constantly and my  video was struggling so I had to drop out early on this one and throw in the  towel.</p><h2>Summing Up</h2><p>All in all a decent conference I could have done with reading up on some of  the subjects before hand.&nbsp; I will be visiting many of talks again when they come  online to get a better picture (pun intended) of the topics.&nbsp; Big thanks to all  involved.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/01/jquery-1-5-released/">jQuery 1.5 Released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-01T00:00:00+00:00" pubdate data-updated="true">Feb 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Official Post: <a href="http://blog.jquery.com/2011/01/31/jquery-15-released/">http://blog.jquery.com/2011/01/31/jquery-15-released/</a></p><p>Quick post just spread the word that jQuery 1.5 dropped today which is right  on time according the the schedule :) .&nbsp; I guess it&rsquo;s a bit pointless because  the people that care already know this, but humour me!</p><h2>New Stuff</h2><p>There isn&rsquo;t a&nbsp;heap&nbsp;of &ldquo;new to jQuery&rdquo; stuff in this release which I guess is  a good thing.&nbsp; The MS contributed plugins have stayed just that&nbsp;&ndash; plugins.&nbsp;  Previous talk of templating becoming absorbed into the jQuery core in 1.5 has  failed to bear fruit.&nbsp; Good stuff&nbsp;&ndash; not sure why it should have been a core  function&nbsp;&ndash; there is no one right templating strategy/engine and putting one in  the core is sure to annoy as many people as it will please others.&nbsp; So what&rsquo;s  new?</p><h3>Deferred Objects</h3><p>Deferred Objects are objects that return a contract that will be adhered to  regardless of when actions are bound to it.&nbsp; This forms the heart of the Ajax  rewrite which I&rsquo;ll touch on in a minute.&nbsp; This is essentially the <a href="http://en.wikipedia.org/wiki/Futures_and_promises">Promise</a>&nbsp;implementation  pattern.&nbsp; Basically when you execute a function that returns a Deferred object  you can keep attaching callbacks to that object and they will get executed even  if they are bound after the function completes whatever operation it has to do.&nbsp;  The jQuery example demonstrates this very well,</p><p><script src="https://gist.github.com/805626.js"></script></p><p>So basically at any point in time we can attach callbacks to the ajax  promise, pass it around our system, let other functions attach handlers etc and  it will all get resolved/executed when the call has completed.&nbsp; It&rsquo;s nice stuff  though it may not have a TON of uses.</p><h3>jQuery.sub()</h3><p>Similar in a way to the YUI3 sandboxing technique jQuery.sub() lets us create  a clone or subclass of the global jQuery object and&nbsp;hack it to bits for our own  needs without affecting the global jQuery object.&nbsp; Again limited uses but when  you need it it can be a godsend.&nbsp; Here is a very contrived example,</p><p><script src="https://gist.github.com/805630.js"></script></p><p>You see what I am doing?&nbsp; Say I wanted to perform some sort of unit test  involving calls to the Ajax method.&nbsp; I could, in isolation, make the Ajax method  return whatever I want without worrying about breaking other tests.&nbsp;</p><h2>Improved/Refactored Stuff</h2><h3>Ajax Rewrite</h3><p>The ajax module has been rewritten entirely.&nbsp; It will now return a special  jQuery based XHR object (rather than a plain XHR object).&nbsp; This object is a  deferred object that I spoke about above.&nbsp; This means we can pass the ajax  request around and let components or modules attach their own handlers when  they need to.&nbsp; We can also bind multiple callbacks via the jQuery chaining  pattern (see example above)</p><h3>Moar Speed</h3><p>As usual many of the DOM traversal methods have been given performance tweaks  - .children(), .prev(), and .next().&nbsp; The&nbsp;official post&nbsp;has shiny graphs and  such so hop on over there for a full run down.</p><h2>Conclusion</h2><p>I hate that word but I don&rsquo;t have another word I like better&hellip;. Yes so I  haven&rsquo;t played with this a great deal recently, just some superficial tinkering  but it&rsquo;s a solid release that adds some nice features (with limited uses for  most I suspect).&nbsp; I mean they could have kept deferred objects internal&nbsp;&ndash; they  were implemented for the Ajax stuff&nbsp;&ndash; but why not make it public&nbsp;&ndash;&nbsp;could be  useful to many people, and that is a good attitude.&nbsp;</p><p>Also good decisions were made to keep templating out of the core I think  (others may disagree but that&rsquo;s life!). &nbsp;Finally this is going to be the jQuery version used in jQuery Mobile when it hits shortly!</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/24/-net-web-technology-stack-in-2011-and-beyond-/">.NET Web Technology Stack in 2011 and Beyond&#8230;.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T00:00:00+00:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Change, or lack thereof is often an indication of how successful your  technology stack is.&nbsp; If you are constantly swapping out core technologies then  chances are you&rsquo;ll need to rethink your approach.&nbsp; If, on the other your stack  remains fairly stable save a few new additions or tweaks then odds are you made  the right choices at the start.&nbsp;</p><p>Last year, after careful consideration, I published an internal post that  detailed my recommendations for the standard Microsoft Web Technology stack.&nbsp;  Looking back on this I feel happy enough that my choices have proven  themselves.&nbsp; But time goes on and technologies change so perhaps it&rsquo;s time for  another look at the stack.&nbsp; Perhaps give it a bit of a refresh after all there  has been a number of great developments in the .NET world.&nbsp; Do I need to refresh  it?&nbsp; No not really &ndash; I could quite easily stick with my previous stack and truth  be told the changes are fairly minimal &ndash; mostly version bumps.&nbsp; But I also want  to look to the future, is there anything worth keeping an eye on (there is BTW),  is there anything we should be avoiding (probably) etc.</p><h2>Recap</h2><p>Lets take a very quick run through of the recommended stack from last year.</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2145/5720987951_2b7e6ccbd2_o.png'></p><p>The choice of client side technology really depended on the project  requirements.&nbsp; Essentially I suggested most projects use jQuery and some  jQueryUI stuff.&nbsp; If the UI required a higher degree of complexity/richness I  recommended moving towards Sencha and Silverlight with Silverlight being the  preferred option unless there was some project requirement that blocked the use  of browser plugins.&nbsp; That&rsquo;s the general gist anyway &ndash; I can elaborate if anyone  wants to hear more.</p><h2>Refresh</h2><p>So I&rsquo;m recommending a few minor tweaks in an attempt to keep the stack up to  date.&nbsp; After all .NET4 and Visual Studio 2010 have dropped since I last made my  recommendations.&nbsp; Here goes</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2312/5721546972_c2cfd6bf2a_o.png'></p><p>Not exactly a major overhaul and it shouldn&rsquo;t be.&nbsp; The stack is simple enough  to handle many types of project and has been fairly successful since it was put  forward.&nbsp; So I wanted to keep moving in that direction while bumping the  versions up to the latest and greatest.&nbsp; So lets attempt to justify some of  these changes.</p><h3>MVC3</h3><p>Look at the past posts on this blog and you will see I&rsquo;ve spent a lot of time  with MVC and, more recently MVC3 (Beta &ndash; RC &ndash; RTM).&nbsp; This blog doesn&rsquo;t cover  half the MVC hacking I do on a daily basis.&nbsp; So MVC3 is just released and that  might make some people nervous about using it as the primary basis for a web  stack. I&rsquo;m not - it&rsquo;s a quality release both in terms of features and  stability.&nbsp; MVC3, for the most part, should be considered more as a refinement  of MVC2 with a nice new shiny ViewEngine slapped on top.&nbsp; There really isn&rsquo;t  much there that couldn&rsquo;t be done in MVC2 with a bit of custom code.&nbsp; But that&rsquo;s  good it kind of hints that they were on the right path to begin with.&nbsp; But the  enhancements it does offer make development a much cleaner experience.&nbsp; I  already have a heap of blogs on the subject so if you want to know more about my  views on MVC3 have a look at these,</p><ul><li><a href="http://yobriefcase.posterous.com/aspnet-mvc-3-preview-1-first-look">ASP.NET  MVC3 Preview 1 First Look</a> </li><li><a href="http://yobriefcase.posterous.com/aspnet-mvc3s-jsonvalueproviderfactory" title="http://yobriefcase.posterous.com/aspnet-mvc3s-jsonvalueproviderfactory">ASP.NET  MVC3 JsonValueProvider</a> </li><li><a href="http://yobriefcase.posterous.com/remote-validation-in-aspnet-mvc-3-rc1">Remote  Validation in ASP.NET MVC3 RC1</a> </li><li><a href="http://yobriefcase.posterous.com/unobtrusive-javascript-in-mvc3" title="http://yobriefcase.posterous.com/unobtrusive-javascript-in-mvc3">Unobtrusive  JavaScript in MVC3</a> </li></ul><h3>Razor View Engine</h3><p>Razor is Microsoft&rsquo;s internally developed View Engine.&nbsp; It could be seen as a  successor to the old clunky WebForms View Engine.&nbsp; I am not going to get into  the syntax of Razor and how it is much cleaner than the WebForms syntax, no, if  you want to digest all that have a look at one of my earlier posts &ndash; <a href="http://yobriefcase.posterous.com/the-razor-view-engine">The Razor View  Engine</a>.&nbsp; In that post I also discuss the differences between Razor and Spark  &ndash; my previous View Engine recommendation.&nbsp; So what has changed?&nbsp; Why am I  recommending Razor over Spark now?&nbsp; Well as the previous post says it best with  these lines,</p><blockquote class="posterous_medium_quote"><p>[Spark is] a great engine but has suffered from a lack of tooling.</p><p>Spark, especially in comparison to Razor, has very limited tooling support in  VS2010 &ndash; sure you have SparkSense but it&rsquo;s currently not a patch on Razor  support (which is still in itself RC status) and I can&rsquo;t help but feel they&rsquo;ll  always be playing catch-up with in house developed/supported stuff.</p></blockquote><p>That view hasn&rsquo;t changed.&nbsp; Razor has a brighter future simply because of the  in-house support being offered by Microsoft.&nbsp; Also there isn&rsquo;t an official  release of Spark that works against MVC3 (still built against MVC2 dlls) &ndash; it is  possible to grab a branch off Github though.&nbsp; It&rsquo;s a shame though and I wish all  the best for Spark in the future &ndash; perhaps our paths will cross again?</p><p>The last thing I want to mention about view engine choice &ndash; or at least ask &ndash;  is does it matter?&nbsp; The answer, of course, is not really.&nbsp; Your views should be  very light and not have a lot of serverside logic built into them.&nbsp; So sticking  with one view engine isn&rsquo;t going to ruin anyone&#8217;s life.</p><h3>jQuery/jQueryUI</h3><p>OOTB integration with MVC is the most obvious reason for sticking with jQuery  here.&nbsp; Also the fact that it has proven popular in many of our previous projects  means it&rsquo;ll be sticking around for some time.&nbsp; The majority of&nbsp;our companies web  projects can be catered for by jQuery (and sometimes including jQueryUI for some  richer elements) as a decent base to write custom code.&nbsp; It may not be necessary  in all projects of course and shouldn&rsquo;t be abused but that will depend on the  project but I am confident enough to say 95% of our web based projects (not  including mobile which I will touch on shortly) will feature jQuery and a few  plugins to get the job done.&nbsp; All we need to do is bump the version up to the  latest and we are flying.</p><h3>Sencha (version 3)</h3><p>OK I am still recommending Sencha/ExtJS for the small niche of projects that  need a lot of richness but can&rsquo;t make the move to Silverlight.&nbsp; As before I am  caveating this (or covering my ass).&nbsp; Sencha is a complex beast it has a steep  learning curve and simply hacking away at it in a project is never going to be  the best approach.&nbsp; It&rsquo;s best to avoid it but if jQueryUI doesn&rsquo;t cut it and  Silverlight can&rsquo;t be deployed make sure the developers have plenty of time to  get up to speed, have a capable mentor and code is checked for any bad smells  early and often.&nbsp; Done right Sencha can produce brilliant results &ndash; but getting  it right can be tricky.</p><h2>Revolution</h2><p>As always on the Web front things are changing fast.&nbsp; There new techs and new  versions always round the corner.&nbsp; Some will be relevant, some just novelty.&nbsp;  Obviously to stay ahead of the game we want to be keeping an eye on the  technologies and applying some scientific rigour to determine if these should be  brought into the recommended web stack.&nbsp; Here is a very quick rundown of my  &ldquo;ones to watch in 2011&rdquo;.</p><h3>Knockout.js &amp; Backbone.js</h3><ul><li><a href="http://knockoutjs.com/">http://knockoutjs.com</a> </li><li><a href="http://documentcloud.github.com/backbone/">http://documentcloud.github.com/backbone/</a> </li></ul><p>Complex UI require a bit of structure or you&rsquo;ll end up with a lovely pile of  spaghetti, the bad kind not the tasty good kind.&nbsp; jQuery and jQueryUI don&rsquo;t  really offer anything in this area &ndash; sure you can get a collection of plugins to  solve this but the best approach is a single unified lightweight framework that  does one thing in a simple and consistent manner.&nbsp; Both Knockout and Backbone  provide this but in via different routes.&nbsp; Knockout.js offers an MVVM framework  similar to Silverlight/WPF data binding while Backbone offers a minimal MVC  framework.&nbsp; It&rsquo;s hard to say at this point which is better &ndash; both have their  pros and cons but that is for another post.</p><h3>jQuery 1.5</h3><ul><li><a href="http://blog.jquery.com/2011/01/14/jquery-1-5-beta-1-released/">http://blog.jquery.com/2011/01/14/jquery-1-5-beta-1-released/</a> </li></ul><p>Looks to be more betterness from the jQuery team (yes i know it&rsquo;s not a real  word).&nbsp; So far there has been a re-architecting of the Ajax component so that  you can bind callbacks at anytime (thanks the <a href="http://en.wikipedia.org/wiki/Promise_(programming)">Promise</a> pattern).&nbsp;  This pattern is likely to make it into the public API as well so your own can  make use of the promise construct.&nbsp; Another new feature appear to be subclassing  of the jQuery object.&nbsp; Similar to the YUI3 sandboxing approach subclassing  allows us to extend our own instance of the jQuery object without polluting the  global instance.&nbsp; These changes combined with a number of bug fixes and  performance improvements means jQuery vNext is looking&nbsp;good.&nbsp;</p><h3>Ext JS 4</h3><ul><li><a href="http://www.sencha.com/">http://www.sencha.com</a> </li></ul><p>Ext JS 4 promises to be a big improvement over the current versions.&nbsp; Many  things have been simplified and refactored which is good because often in  version 3+ you get the feeling that things are perhaps OVER-engineered and  needlessly complicated.&nbsp; Ext 2/3 also feels like it has massive functionality  holes &ndash; there are nice widgets but the data package and application architecture  always felt half baked.&nbsp; Not with 4 it seems.&nbsp; The data package is shaping up  very nicely and they have their own MVC based classes built right into the  framework.&nbsp; This could make large applications much easier to manage.</p><h3>jQuery Mobile &amp; Sencha Touch</h3><ul><li><a href="http://jquerymobile.com/">http://jquerymobile.com/</a> </li><li><a href="http://www.sencha.com/products/touch/">http://www.sencha.com/products/touch/</a> </li></ul><p>Mobile is still an immature area among big companies.&nbsp; Many of them have  native apps in various app stores etc. but they still don&rsquo;t really know how best  to manage them.&nbsp; Good web based mobile frameworks appeal to them more as it  gives them much greater control over the content &ndash; after all they own the  hosting servers etc.&nbsp; jQuery Mobile and Sencha Touch have address different  concerns &ndash; jQuery Mobile focuses on offering a consistent cross device  experience while Sencha Touch aims to provide a native look and feel on WebKit  based browsers (iPhone/iPad/Playbook/Android devices).&nbsp; I expect these  frameworks to come into their own this year as they move out of immaturity and  more people start experimenting.</p><h3>Nuget</h3><ul><li><a href="http://nuget.codeplex.com/">http://nuget.codeplex.com</a> </li></ul><p>A nice little package manager for the .NET world offering public and locally  hosted repositories.&nbsp; What makes it different to other is that a package could  be anything &ndash; not just DLL.&nbsp; I like this and one of the reasons why I like it  is that I can use it to distribute my JavaScript frameworks without have to  maintain a big list of files needed for each one.&nbsp; I just click jQuery Mobile  and it will pull in jQuery and the necessary CSS.&nbsp; I want Backbone and it will  pull down Underscore for me as well.&nbsp; Same goes for any .NET libraries.&nbsp; Combine  this with the ability to version packages etc. and it will make projects less of  a &ldquo;DLL Hell&rdquo;.</p><h3>WCF HTTP</h3><ul><li><a href="http://wcf.codeplex.com/wikipage?title=WCF%20HTTP">http://wcf.codeplex.com/wikipage?title=WCF%20HTTP</a> </li></ul><p>The new WCF HTTP stuff is looking really really nice.&nbsp; One of the big issues  with WCF is all the XML configuration and other blah that goes along with it.&nbsp;  Newer WCF has given us .svc-less services generated from pure code, better  configuration control and now some really nice improvements to the WCF  communication channel.&nbsp; You can have custom Media Processors that let you  control what is served to the client based on requested content types or actions  (JSON, XML, Images &ndash; anything you can think of).&nbsp; The cleaning up of  UriTemplates also mean that you can produce a very lightweight RESTful service  or MVC like architecture very very easily.</p><h2>Conclusion</h2><p>Another long ramble that&#8217;s taken me longer than expected to write up!&nbsp;  Obviously there is plenty there to think about and hopefully it will generate  some discussion.&nbsp; Hopefully I get a chance to flesh a lot of this out and offer  more low level justification on my tech choices.&nbsp; 2011 is shaping up to be a  great year in the tech world.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/17/using-coffeescript-in-net/">Using CoffeeScript in .NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p style="text-align: center;"><img src="http://posterous.com/getfile/files.posterous.com/temp-2011-01-17/GzcAkdBuuBhqnFqExtbBrpthjHwbqpFyslpzEnJEiIiwqmulsAjFgFAuciHJ/coffeescriptdotnet.png.scaled500.png" alt=""></p><p>I&rsquo;ve been playing with <a href="http://nodejs.org/">node.js</a> for a while  now and some of the things coming out of that community are simply amazing.&nbsp; One  of the interesting techs is <a href="http://coffeescript.org/">CoffeeScript</a>&nbsp;which is essentially a  JavaScript dialect that compiles into JavaScript.&nbsp; It&rsquo;s goal is to simplify the  JavaScript language by removing all those bad parts that can cause a lot of  grief&nbsp;and taking all those common tasks (array manipulation, scoping etc and  making them very very easy to achieve.&nbsp; I have an old post I have yet to publish  externally on the subject but I will get it out there ASAP.</p><p>CoffeeScript comes in 2 variations&nbsp;&ndash; a node.js specific version and a  &ldquo;standalone&rdquo; version that can be run in browser (pure JavaScript without any of  the node.js assumptions basically).&nbsp; Considering it&rsquo;s parsing one language into  another it&rsquo;s not recommended to be running the script client side every time so  if you want to use it you want to be doing the parsing server side and possibly  using some sort of caching to prevent redoing the parsing on every request.&nbsp;  This is the bad(ish) news for .NET folks because there really isn&rsquo;t any stable  JavaScript implementations that can run a script as complex a CoffeeScript (this  is essentially a compiler of sorts).&nbsp; Well at least not until now&hellip;.&nbsp; When i  first investigated this I tried using a number of JavaScript engines,</p><ul><li><a href="https://github.com/fholm/IronJS">IronJS</a>: Currently&nbsp;only a  partial implementation and&nbsp;doesn&rsquo;t appear to run the CoffeeScript  compiler&nbsp;fully.</li><li><a href="http://javascriptdotnet.codeplex.com/">JavaScript.NET</a>: Worked  for version 0.9 or so of CoffeeScript but there is a bug that causes version 1.0  to fall over and development appears to have ceased.</li><li>Command line JScript:&nbsp;Epic fail.&nbsp; Just wouldn&rsquo;t do what I needed it  to.</li></ul><p>Then along came&nbsp;yet another JavaScript engine for .NET so I gave it a shot.&nbsp;  On the surface <a href="http://jurassic.codeplex.com/">Jurassic</a>&nbsp;appeared to  offered everything I needed and upon diving a bit deeper I discovered that, yes,  it does indeed offer everything I needed&nbsp;&ndash; it runs the CoffeeScript compiler.&nbsp;  Sweet.</p><p>So lets write the compiler wrapper.&nbsp; Pretty basic really,</p><p><script src="https://gist.github.com/782874.js"></script></p><p>Few points worth noting here,</p><ul><li>I create a ThreadStatic instance of the Jurassic Engine and feed the  CoffeeScript compiler source into it once.&nbsp; The executions/evaluation of that  script is quite slow so I only wanted to take the hit once.&nbsp; Jurassic isn&rsquo;t  thread safe so I made the reference ThreadStatic.</li><li>Just to be extra safe I am locking during the execution of the compilation  task.</li><li>Any errors just return null.&nbsp; This is a bare bones implementation I have  stripped out custom logging and profiling code and an interface that means  little in this context.</li></ul><p>I have created a VS2010 MVC3 solution that makes use of this processor to generate JavaScript from a simple CoffeeScript example. &nbsp;Have fun.</p><p><a href="https://github.com/kouphax/coffeescript-dotnet">https://github.com/kouphax/coffeescript-dotnet</a></p><h2>What&rsquo;s Next?</h2><p>This is obviously only the start&nbsp;&ndash; if I wanted to use CoffeeScript in a .NET  environment I am going to need to consider how it is used.&nbsp; When should I be  compiling it?&nbsp; How should I be caching it etc?&nbsp; The usual things.&nbsp; Hopefully  I&rsquo;ll touch on these in a later post.</p><p>So right now this is kind of a request for comments, this was knocked up quite quickly and likely I have forgotten something or made a massive mistake. &nbsp;Anything you want to offer fire away.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/">VS2010/MVC JavaScript Intellisense HTML âHackâ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-07T00:00:00+00:00" pubdate data-updated="true">Jan 7<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>There is a problem with Visual Studio 2010 JavaScript Intellisense (using MVC in this case) and it is  this&nbsp;-&nbsp;If you are referencing JavaScript resources correctly (or Stylesheets for  that matter) as you all should be you&nbsp;wont actually&nbsp;get intellisense within an  SCRIPT blocks in HTML.&nbsp; So using this sort of script reference,</p><p><script src="https://gist.github.com/769312.js"></script></p><p>Will not give you intellisense.&nbsp; Sure you can use JavaScript files and make  use of the reference VSDOC tag (in fact maybe you should)</p><p><script src="https://gist.github.com/769313.js"></script></p><p>But this doesn&rsquo;t work (yet) within SCRIPT blocks.&nbsp; So what about those rare  times you actually want intellisense within your page?&nbsp; It&rsquo;s actually quite easy  though a bit hacky&nbsp;&ndash; stick it in a condition branch that never gets reached.&nbsp;  So,</p><p><script src="https://gist.github.com/769314.js"></script></p><p>The Intellisense parser doesn&rsquo;t really care about the fact that the code wont  ever get hit and you still get your typeahead and documentation etc. but it  won&rsquo;t ever get accidentally written to the generated output (as often happened  to me).&nbsp; I guess this seems kind of obvious or whatever but perhaps so obvious  some people may not have even though about it and hopefully it&rsquo;ll help someone  out somewhere at some point sometime, eventually&nbsp;&ndash; maybe.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/11/20/better-json-serialisation-for-asp-net-mvc/">Better JSON Serialisation for ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-20T00:00:00+00:00" pubdate data-updated="true">Nov 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p><p>The Json() method of controllers is a nice little convenience method for  serialising server side data into JSON for handy consumption on the client side  but it&rsquo;s not without it&rsquo;s issues.&nbsp; Firstly it just cant serialise dates in any  nice way due to no hard and fast standard in JSON for dates.</p><p><script src="https://gist.github.com/708168.js"></script></p><p>Simply gets spat back to the front end as a string like so,</p><p><script src="https://gist.github.com/708170.js"></script></p><p>Not exactly the most useful thing in the world. &nbsp;You are going to need to make use of JSON&#8217;s reviver callback to parse this accordingly.</p><p>Another issue is lack of configurability.&nbsp; C# coding standards recommend the  use of PascalCased property names whereas in JavaScript land the standard is  camelCase (and many frameworks assume this casing which can cause issues behind  the scenes *cough*ExtJS*cough*).&nbsp; You can fix this by adding DataContract and  DataMember attributes to your model object but it gets a bit messy and open to  error if an attribute is left out accidentally.&nbsp; Or what if you don&rsquo;t have  access to the model code?</p><h2>JSON.NET</h2><p><a href="http://json.codeplex.com/">Json.NET</a> is my JSON de/serialiser of  choice.&nbsp; It&rsquo;s fast and widely configurable plus it fixes the problems I&rsquo;ve  mentioned above (among many many other things).&nbsp; Not to mention some BSON  (Binary JSON) support which could come in handy in the future.</p><h2>JsonNetResult</h2><p>So lets fix things.&nbsp; Lets wrap Json.NET up in an ActionResult type and offer  a configurable entry point.</p><p><script src="https://gist.github.com/708173.js"></script></p><p>As you can see I have exposed the JsonSerializerSettings object allow  developers to tune the serialisation all they want.&nbsp; We can also make things  even simpler by providing a Controller extension method that we can call without  having to create the object directly,</p><p><script src="https://gist.github.com/708175.js"></script></p><p>Simple stuff but still pretty powerful, lets see it in action.</p><h2>The Date Problem</h2><p>We can fix the date problem in a number of ways via converters.&nbsp; Converters  give us a custom way to convert values of objects and Json.NET provides a number  of converters out of the box &ndash; IsoDateTimeConverter, JavaScriptDateTimeConverter  and an abstract base DateTimeConverter to roll your own.&nbsp; Lets use the  JavaScriptDateTimeConverter for this example,</p><p><script src="https://gist.github.com/708176.js"></script></p><p>The resultant JSON object will generate a JSON object with a JavaScript Date  constructor</p><p><script src="https://gist.github.com/708178.js"></script></p><p>While not strictly valid JSON native JSON parsers and JSON2 handle it  fine.</p><h2>The Casing Issue</h2><p>We can use Json.NET&rsquo;s contract resolver to automagically convert PascalCased  property names of C# to camelCased property names of JavaScript.</p><p><script src="https://gist.github.com/708179.js"></script></p><p>Which gives us a response like so,</p><p><script src="https://gist.github.com/708183.js"></script></p><p>Fixed.</p><h2>Wrap Up</h2><p>So we have managed to create a much more powerful JSON serialisation  technique without having to sacrifice too much of the convenience of the Json()  method in the controller.&nbsp; Anyone got any recommendations/enhancements they are  willing to share? &nbsp;</p></p></div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/page/8/index.html';
+          var disqus_url = 'http://kouphax.github.com/blog/page/8/index.html';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

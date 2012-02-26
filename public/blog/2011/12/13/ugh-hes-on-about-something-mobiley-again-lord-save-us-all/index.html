@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ugh. He's on about something mobiley again. Lord save us all! - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Good timing right? Fresh of the wave of my &#8220;lets have a natter about mobile&#8221; blog posts HP went and did something good (for a change, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ugh. He's on About Something Mobiley Again. Lord Save Us All!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-13T17:39:00+00:00" pubdate data-updated="true">Dec 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Good timing right?  Fresh of the wave of my &#8220;lets have a natter about mobile&#8221; blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
+
+<p>On the other hand Enyo is a very nice little framework and in the hands of the Open Source community could be a real winner.  I&#8217;ve had a chance to tinker with over the last few days and thought I&#8217;d help get the word out by outlining how to write the obligatory by law ToDo app.  It is currently somewhat similar to the official <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">FeedReader tutorial</a> but it could be easily extended to add more features.  I recommend you look at the original <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">tutorial</a> for more info about how the project is structured as there are certain conventions that may seem odd to your typical web framework.</p>
+
+<p>The entire application, which looks like this (yeah yeah it&#8217;s not the most beautiful thing on the planet - I suck at design).</p>
+
+<p><img src="/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
+
+<p>Was knocked together with the following bit of code</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">enyo</span><span class="p">.</span><span class="nx">kind</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;TodoApp&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">kind</span><span class="o">:</span> <span class="nx">enyo</span><span class="p">.</span><span class="nx">VFlexBox</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;PageHeader&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VFlexBox&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span><span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;Todos&quot;</span><span class="p">}</span> <span class="p">]},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">]},</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;RowGroup&quot;</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;newTask&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="nx">hint</span><span class="o">:</span> <span class="s2">&quot;Enter new ToDo here...&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Add&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;addTask&quot;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">]},</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>          <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>            <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>            <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>          <span class="p">]}</span>
+</span><span class='line'>        <span class="p">]}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">addTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">task</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">newTask</span><span class="p">.</span><span class="nx">getValue</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">description</span><span class="o">:</span> <span class="nx">task</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">completeTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">evt</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fetchRowIndex</span><span class="p">()].</span><span class="nx">done</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">getChecked</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">clearComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">done</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">buffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Those of you with some experience in Sencha Touchwill notice that the declarative syntax is quite similar to STs except slightly simpler.  So lets break out some of the features that brought this example together.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="nx">caption</span><span class="o">:</span> <span class="s2">&quot;Clear Complete&quot;</span><span class="p">,</span> <span class="nx">onclick</span><span class="o">:</span> <span class="s2">&quot;clearComplete&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is one of the component declarations that make up the suite of components that form the &#8220;kind&#8221; (Enyo speak for component or object).  This is somewhat similar to the DOM (COM anyone?  Component Object Model) except in JSON form.  You can specify a component type (kind) and apply properties (which may or may not do something depending on the kind).  Events are also declared inline (see onclick) and map to function names within the main kind declaration.  Obviously if this declaration started getting too big and bloated I could decompose it into smaller components all handling their own stuff.</p>
+
+<p>One other thing not highlighted in my demo is that backend service calls can also be defined within this component model and then called programatically.  While this felt alien to me initially it is pretty similar to the way inline stores are declared in Sencha - except slightly less engineered.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Scroller&quot;</span><span class="p">,</span>  <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;VirtualRepeater&quot;</span><span class="p">,</span> <span class="nx">onSetupRow</span><span class="o">:</span> <span class="s2">&quot;getTask&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span><span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="nx">layoutKind</span><span class="o">:</span> <span class="s2">&quot;HFlexLayout&quot;</span><span class="p">,</span> <span class="nx">align</span><span class="o">:</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="nx">components</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskStatus&quot;</span><span class="p">,</span> <span class="nx">kind</span><span class="o">:</span> <span class="s2">&quot;CheckBox&quot;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-right:10px;&quot;</span><span class="p">,</span> <span class="nx">onChange</span><span class="o">:</span> <span class="s2">&quot;completeTask&quot;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;taskDescription&quot;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">]}</span>
+</span><span class='line'>    <span class="p">]}</span>
+</span><span class='line'><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The scroller definition above has a few nice features.  The use of &#8220;flex&#8221; to manage different screen sizes or viewport resizes and create very nice flexible layout.  The VirtualRepeater which is a templated control that generates items from a collection based on the defined template.  The Virtual part is useful for large lists and ensures that only the minimum amount of items are rendered (just before they are needed).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create is essentially our component constructor and allows us to set some things up in advance.  Notice the use of the <code>inherited()</code> method - this ensures the superclasses <code>create</code> method is also called (inheritence chaining)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>this.$</code> is a handy property.  It is essentially a hash of all the named components that are direct and indirect children of the defined component.  This makes it very easy to access a certain component if you want to manipulate it.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">getTask</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">idx</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">taskDescription</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">description</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>getTask</code> is the method responsible for populating an Item template in the repeater for each row.  This is where I bind the values of the current collection to the Item kind.</p>
+
+<p>There you have it - yet another ToDo app spat out into the world!  Just what we needed :)</p>
+
+<h2>It not all Unicorns and Rainbows</h2>
+
+<p>Yeah Enyo isn&#8217;t perfect (shock horror).  There are some quite annoying and some serious bugs that I have noticed in my hacking.</p>
+
+<h3>Data Association</h3>
+
+<p>When rendering the Repeater I can&#8217;t see a way to easily attach data items to that item instance.  I worked it out eventually by using <code>this.$.list.fetchRowIndex()</code> but I think you would need to then manage your own data association.  Not a big issue but it didn&#8217;t feel right to me at the time.</p>
+
+<h3>iPad/iPhone issues</h3>
+
+<p>The one big issue I had with the iPad was that text fields often didn&#8217;t bring the keyboard up (more often than not).  Obviously this could be a bit of a deal breaker but there could be a simple fix.  Some other minor quirks included scrolling issues when multiple scroll areas existed and choppy animations in the kitchen sink style demo (Sampler).</p>
+
+<p>The example apps display and work on the iPhone but they are super tiny.  I am not sure if this is just a lack of correct formatting within my HTML or if Enyo is purely designed for larger screens.</p>
+
+<h3>Events</h3>
+
+<p>At one point I wanted to bind to an event of a component programatically (rather than declaring it inline).  I still can;t find a way to do this and I wonder if this could be a bit of hindrence when you get into a truly dynamic application.  Thought this could be me being a bit stupid as usual.</p>
+
+<h2>Conclusion</h2>
+
+<p>Enyo v1.0 is still young in the hands of the OSS community but it&#8217;s started out strong and could well be a strong competitor to something like Sencha Touch if it keeps up this pace.  Hopefully the community embraces it and allows it to grow.  It could well be great.</p>
+
+<p>So yes, so far I like it but I&#8217;ve only been hacking a few days.  Hopefully I get to spend more time with it over the next few weeks.</p>
+
+<p>The sample project is available on my <a href="https://bitbucket.org/kouphax/enyo-todos">BitBucket Repo</a> if you want to tinker.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-13T17:39:00+00:00" pubdate data-updated="true">Dec 13<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/enyo/'>Enyo</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/mobile/'>Mobile</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/" title="Previous Post: Rolling Your Own PhoneGap with MonoTouch">&laquo; Rolling Your Own PhoneGap with MonoTouch</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/27/code-coverage-and-the-forces-of-good/" title="next Post: Code Coverage and the Forces of Good">Code Coverage and the Forces of Good &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/';
+        var disqus_url = 'http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

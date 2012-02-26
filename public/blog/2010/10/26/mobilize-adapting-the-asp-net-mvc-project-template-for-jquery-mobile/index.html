@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mobilize! Adapting the ASP.NET MVC Project Template for jQuery Mobile - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Image courtesy of the awesome ThreadlessHaving tinkered with jQuery Mobile and MVC a bit recently but I wanted to do a bit more.&nbsp; The first app &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mobilize! Adapting the ASP.NET MVC Project Template for jQuery Mobile</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-26T00:00:00+01:00" pubdate data-updated="true">Oct 26<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p class='img-holder'><img src="http://farm3.static.flickr.com/2413/5721975436_fb47349a04_o.png" alt=""></p><p style="text-align: right;"><em><span style="font-size: xx-small;"><span style="font-size: xx-small;">Image</span> courtesy of the  awesome </span></em><em><span style="font-size: xx-small;"><a href="http://www.threadless.com/">Threadless</a></span></em></p><p>Having tinkered with <a href="http://yobriefcase.posterous.com/practical-jquery-mobile-with-aspnet-mvc">jQuery  Mobile and MVC</a> a bit recently but I wanted to do a bit more.&nbsp; The first app  I wrote was read only which is actually pretty easy to accomplish regardless of  technology/framework.&nbsp; So I wanted to try a little something different,  something a kin to a real application.&nbsp; However time and coders block left me  with little inspiration for creating the worlds next amazing mobile app.&nbsp;  Sitting there with a new ASP.NET MVC project open in Visual Studio I couldn&rsquo;t  think of what to write.&nbsp; Then it struck me&hellip; don&rsquo;t write anything.&nbsp; The MVC  starter skeleton project was sitting right there why not just mobilise it?&nbsp; So I  did.&nbsp; Without modifying any server side code and only tweaking the views I found  I was able to create a fully jquery-mobilified version of the template.&nbsp; Here&rsquo;s  what I did.</p><h2>Clean House</h2><p>We need to strip some of the dead weight out of our project including some of  the mark up and resources,</p><h3>Resources</h3><p>First things first I dropped the current bundle of scripts (MS Ajax, jQuery  1.4.1, Validate etc.) and the Site.css.&nbsp; Next I added the jQuery Mobile  assets,</p><ul><li>jQuery 1.4.3 (jquery-1.4.3.js)</li><li>jQuery Mobile 1.0a1 (jquery.mobile-1.0a1.js)</li><li>jQuery Mobile CSS (jquery.mobile-1.0a1.css)</li><li>jQuery Mobile images</li></ul><p>In the following project structure</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2696/5721416507_18861d0ae1_o.png'></p><h3>Site.Master</h3><p>Next I&nbsp;cut down the Site.Master to it&rsquo;s bare minimum and add the HTML5  DocType and the references to jQuery Mobile ,</p><p><script src="https://gist.github.com/646750.js"></script></p><p>I could have included the basic markup for a full page but I wanted to keep  it as flexible for now.&nbsp; I also removed the LogOnUserControl for now as I want  to just push it into the main page.</p><h2>Marking Up</h2><p>The next step was to tweak the markup of the pages so they comply with jQuery  Mobile and can be mobilised correctly.&nbsp; Most pages are marked up in the same way  so rather than list them all I&rsquo;ll just list the highlights.</p><h3>Home.aspx</h3><p><script src="https://gist.github.com/646756.js"></script></p><p>I have a top toolbar button for Login/Log Off (depending on context) and the  View.Message from the old page is included as the content of the page.</p><h3>Logon.aspx</h3><p><script src="https://gist.github.com/646757.js"></script></p><p>Gives us the login form and a link to the Register screen.&nbsp; I marked the  Register screen as a Dialog just to be a wee bit different.&nbsp; The Register screen  itself is marked up as a normal page (the framework handles the displaying of a  dialog automagically).&nbsp; I also added a different theme to the login button and a  &ldquo;pop&rdquo; transition to the Register dialog through the data- attributes.</p><p>One other thing I had to do was add a &ldquo;fieldcontain&rdquo; wrapper to the field  blocks as there was some layout issues.&nbsp; This is documented in the jQuery Mobile  docs.</p><h3>Register.aspx</h3><p><script src="https://gist.github.com/646760.js"></script></p><p>The most complex screen in the app.&nbsp; Nothing special added only some  different markup.</p><h2>Running It</h2><p>That was it.&nbsp; After adapting the rest of the pages (via manipulating markup)&nbsp;  I was left with a mobilized version of the MVC project template.&nbsp; Again I didn&rsquo;t  have to make any code changes&nbsp;&ndash; validation still worked, forms still worked,  login, register, change password&nbsp;&ndash; all worked as expected (screen shots&nbsp;from Chrome which has a few issues with rounded corners on fields in jQuery Mobile).</p><p class='img-holder'>  <img src='http://farm4.static.flickr.com/3502/5721975554_272b823481_o.png' width='200' style='border:1px solid #000;'>  <img src='http://farm3.static.flickr.com/2756/5721416629_4b4e7ebaed_o.png' width='200' style='border:1px solid #000;'>  <img src='http://farm3.static.flickr.com/2510/5721416689_20e25e2983_o.png' width='200' style='border:1px solid #000;'></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-26T00:00:00+01:00" pubdate data-updated="true">Oct 26<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-net-mvc/'>ASP.NET MVC</a>, <a class='category' href='/blog/categories/web/'>Web</a>, <a class='category' href='/blog/categories/jquery/'>jQuery</a>, <a class='category' href='/blog/categories/jquery-mobile/'>jQuery Mobile</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/24/validateinputattribute-changes-in-mvc3-beta-2-/" title="Previous Post: ValidateInputAttribute Changes in MVC3 (Beta 2)">&laquo; ValidateInputAttribute Changes in MVC3 (Beta 2)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/11/09/all-change-validateinputattribute-and-skiprequestvalidation/" title="next Post: All Change! ValidateInputAttribute and SkipRequestValidation">All Change! ValidateInputAttribute and SkipRequestValidation &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

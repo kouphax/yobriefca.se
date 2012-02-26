@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CSS | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CSS Hacks for IE - Unnecessary]]></title>
+    <link href="http://kouphax.github.com/blog/2010/01/13/css-hacks-for-ie-unnecessary/"/>
+    <updated>2010-01-13T00:00:00+00:00</updated>
+    <id>http://kouphax.github.com/blog/2010/01/13/css-hacks-for-ie-unnecessary</id>
+    <content type="html"><![CDATA[<p>  <p>There are lots of CSS tricks floating aroud to accomodate IE quirks and more specifically in most cases IE6 the problem is these hacks &ndash; which is exactly what they are &ndash; invalidate your CSS and break future-proofing (what if a another browser learns to understand this hack with different rendering effects?). These things are parsed by every browser that comes across them &ndash; the browser then has to attempt to parse it, fail and then carry on &ndash; not exactly the most performant styling mechanism! They are useful and often quite nice but aren&rsquo;t exactly self explanatory making them a maintenance nightmare if someone doesn;t understand that order can be very important in these cases.</p><p>So &ndash; Why hack when a system already exists?</p><p>Hello&nbsp;<a href="http://www.quirksmode.org/css/condcom.html">Conditional Comments</a>.</p><p>Conditional Comments are a feature implemented in IE (though other browsers COULD implement them if they wanted to but none have). It&rsquo;s a specially marked up HTML comment node (so you include it in your HTML not CSS) that is only parsed by IE. A few examples are below&hellip;.</p><p><script src="https://gist.github.com/636072.js"></script></p><p>So basically you have you all normal CSS link tag then you can include a conditional comment to cater for specifics to IE or some specific version or rnge of versions. OK you would still need hacks for the other browsers but NIWater only had to use IE6 conditional comments (no hacks for other browsers) and looks fine in Chrome/Safari/FF &ndash; plus it means you CSS is valid and IE specific CSS is only pulled down by IE slightly reducing page weight (very slightly most likely!!!).</p></p>
+]]></content>
+  </entry>
+  
+</feed>

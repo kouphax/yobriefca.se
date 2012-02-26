@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Modernizr & RequireJS - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="I&rsquo;ve been pulling a lot of JavaScript libraries and utilities together to build up a NuPack server as it&rsquo;s by far one of the best ways &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/14/modernizr-requirejs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Modernizr & RequireJS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-14T00:00:00+01:00" pubdate data-updated="true">Oct 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>I&rsquo;ve been pulling a lot of JavaScript libraries and utilities together to build up a NuPack server as it&rsquo;s by far one of the best ways to distribute client side resources during development.&nbsp; Some of these libraries I have used myself and thought it might be worth mentioning some of them.</p><h2>Modernizr</h2><p>Modernizr is a feature detection library that allows us to test the existence of certain HTML5 features within the browser.&nbsp; This is not only useful when constructing a page and applying styling of JS widgets but also for detecting things such as WebWorkers, Web DB, application cache etc.&nbsp; It supports many things,</p><blockquote class="posterous_medium_quote"><p>@font-face, Canvas, Canvas Text, HTML5 Audio, HTML5 Video, rgba(), hsla(), border-image:, border-radius:, box-shadow:, opacity:, Multiple backgrounds, CSS Animations, CSS Columns, CSS Gradients, CSS Reflections, CSS 2D Transforms, CSS 3D Transforms, CSS Transitions, Geolocation API, localStorage, sessionStorage, SVG, SMIL, SVG Clipping, Drag and Drop, hashchange, X-window Messaging, History Management, applicationCache, Web Sockets, Web Workers, Web SQL Database, IndexedDB, Input Types, Input Attributes</p></blockquote><p>In most cases native support for a feature is always better than an alternative CSS hack or JS script.&nbsp; Rounded Corners are a good example of this.&nbsp; A lot of, but not all, browsers already support rounded corners natively but in a world where people think a site should be <a href="http://dowebsitesneedtolookexactlythesameineverybrowser.com/">identical</a> in all browsers it is often necessary to provide your own solution.&nbsp; This means adding extra work for all browsers.&nbsp; This is where Modernizr comes in.&nbsp; Rather than applying non-native rounded corners to browsers that support them nativley we can do this,</p><script src="http://gist.github.com/628427.js?file=gistfile1.html"></script><p>That way we can always defer to the browser and remove unnecessary processing.&nbsp; But lets take it step further.&nbsp; Obviously for the majority of browsers pulling down a rounded corner plugin is completely pointless as it will never be used.&nbsp; What can we do about that?</p><h2>Require.JS</h2><p>Require.JS is one of many module/script loaders available but the good thing about Require.JS is that is extremely simple.&nbsp; Essentially it injects a script file into the head of the document and fires a callback when ready (there is a bit more configurability held within but that&#8217;s the gist of it).&nbsp; So lets take the above example and see what we can do about it.&nbsp; We don&#8217;t want to load scripts unnecessarily (lets leave that up to ASP.NET WebForms, ugh&hellip;. ) so lets only load the rounded corner script when needed,</p><script src="http://gist.github.com/628343.js?file=modernizr.html"></script><p>So basically we only get the extra script pulled down in the few browsers that don&rsquo;t support rounded corners, less processing, less traffic (as long as require.js file size &lt; total size of optional scripts).&nbsp;</p><p>Nice.</p><p>Obviously you need to be a bit more strategic about where you place this code as you can get FOUC if placed after document has fully loaded.&nbsp; Another issue is that Require.JS intentionally doesn&rsquo;t support CSS as there is no guaranteed way to ensure it has loaded across all browser.&nbsp; Thats an easy fix though,</p><script src="http://gist.github.com/628300.js?file=loadcss.js"></script><p>As always I&rsquo;ve put together a nice wee demo app that makes use of these technologies&hellip;. coming to a NuPack server near you too.</p><p><a href="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr" title="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr">svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr</a></p><p>Let me know if that works as it uses NuPack (but I don&rsquo;t think that is a requirement to open the project).</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-14T00:00:00+01:00" pubdate data-updated="true">Oct 14<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/modernizr/'>Modernizr</a>, <a class='category' href='/blog/categories/require-js/'>require.js</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/14/modernizr-requirejs/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/14/modernizr-requirejs/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/12/outside-events-jquery-plugin/" title="Previous Post: Outside Events jQuery Plugin">&laquo; Outside Events jQuery Plugin</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/16/jquery-1-4-3-jquery-mobile-released/" title="next Post: jQuery 1.4.3 & jQuery Mobile Released">jQuery 1.4.3 & jQuery Mobile Released &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/14/modernizr-requirejs/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/14/modernizr-requirejs/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Agility.js | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/agility-js/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Agility: Honorable Mentions]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/02/tinkering-with-agility-honorable-mentions/"/>
+    <updated>2011-09-02T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/02/tinkering-with-agility-honorable-mentions</id>
+    <content type="html"><![CDATA[<p>In the process of <a href="/blog/2011/09/01/tinkering-with-agility/">researching Agility</a> I needed to throw together a quick serverside stack to accept the RESTful calls from Agility.  I went with my current framework de jour <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and I must admit it was a great call.  For more basic info on Tinyweb check out my <a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb/">blog post</a></p>
+
+<p>Agility by default routes the RESTful requests to <code>api/model/{id}</code> and Tinyweb let me create a handler associated with this sort of url by way of areas.</p>
+
+<h2>Areas</h2>
+
+<p>Tinyweb has a feature I wasn;t aware of before.  It is possible to register a handlers namespace as an "area" (if you have experience with ASP.NET MVC you'll know what that means).</p>
+
+<pre><code>Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
+</code></pre>
+
+<p>This means that even though my handler is call <code>TodoHandler</code> the url would map to the one above without having to sacrifice naming style of the handler or force us to create a custom route variable in each handler that had to map to this area.  Flippin clever stuff</p>
+
+<h2>WebActivator</h2>
+
+<p>Another excellent Nuget package is the <a href="http://nuget.org/List/Packages/WebActivator">WebActivator</a> and I have been charmed by it's slickness recently.  WebActivator allows you to attribute a class/namespace and specify what code should be run when the application starts.  So rather than having to put in a load of lines for configuring different aspects of your stack into <code>Global.asax.cs</code> you can break them into distinct classes and avoid breaking <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">SRP</a> more than you have too.  Here is the example I used in the Agility.js source</p>
+
+<pre><code>[assembly: WebActivator.PostApplicationStartMethod(typeof(TinywebActivator), "Activate")]
+namespace Agility.Tinkerings.Web.Activators
+{
+    public class TinywebActivator
+    {
+        public static void Activate()
+        {
+            Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
+            Tinyweb.Init();
+        }
+    }
+} 
+</code></pre>
+
+<p> I don't even have a <code>Global.asax</code> defined at all.</p>
+
+<p> Feel free to poke around the source to get a better picture of how I threw the backend together.  Thanks go to <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and <a href="http://twitter.com/#!/martinrue">@martinrue</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Agility]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/01/tinkering-with-agility/"/>
+    <updated>2011-09-01T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/01/tinkering-with-agility</id>
+    <content type="html"><![CDATA[<p>Having spent a few days tinkering with <a href="http://agilityjs.com/">agility.js</a> I have come to the following conclusions</p>
+
+<ol>
+<li>It's a bit buggy in places (it is currently on v0.1 so this is to be expected)</li>
+<li>At first glance code written against <a href="http://agilityjs.com/">agility.js</a> looks like a total mess though it appears to be a weird optical illusion because once you grasp the <a href="http://agilityjs.com/">agility.js</a> approach the code makes total sense</li>
+<li><a href="http://agilityjs.com/">Agility</a> would fit well into an existing codebase as much as into a new one.  Certainly more so that some of the other frameworks.  And finally,</li>
+<li>I like it</li>
+</ol>
+
+
+<p>You could almost class <a href="http://agilityjs.com/">agility.js</a> as a micro MVC framework (and we all know how I like them).  I say that because it takes an incredibly simple approach to MVC as well as offering a very small but (IMHO) complete feature set.  Unlike <a href="http://knockoutjs.com/">knockout</a>, which also makes use of the <code>data-</code> attributes for model binding (and more), <a href="http://agilityjs.com/">agility.js</a> uses the <code>data-bind</code> attribute for model binding and thats it.</p>
+
+<p>With Agility you have that ability to compose UI's from discrete little self-contained, and/or nested agility objects that behave as standalone MVC implementations.  This is <em>kind of</em> different to the standard appraoch of other MVC-like JS frameworks which generally go for the create a single large MVC architecture and manage components within that architecture.  I am not saying this appraoch is forbidden or impossible in the other frameworks - it's just not how a noob would go about things.  At least I never did when I first started looking at them.</p>
+
+<p>To play with agility I went ahead and created "yet another Todo app" (<a href="https://bitbucket.org/kouphax/agility-tinkering">source</a>) complete with server side persistence and some responsive UI elements (Complete button will vanish when a Todo is completed - wow).  I'll not break the entire thing down here but here are some choice cuts (in CoffeeScript cause I am THAT cool)</p>
+
+<pre><code>todo = $$ 
+  model: {}, 
+  view:
+    format: '''
+      &lt;li&gt;
+        &lt;span data-bind="description"/&gt;
+        &lt;button class="complete-task"&gt;Complete&lt;/button&gt;
+        &lt;button class="delete-task"&gt;Delete&lt;/button&gt;
+      &lt;/li&gt;
+    ''',
+  controller: 
+    'create': -&gt; 
+      @view.$().toggleClass "task-done", @model.get("complete")
+    'change:complete': -&gt; 
+      @view.$().addClass "task-done"
+    'click .complete-task': -&gt;  
+      @model.set "complete": true
+      @persist $$.adapter.restful, collection:'todos'
+      @save()
+    'click .delete-task': -&gt;  
+      @persist $$.adapter.restful, collection:'todos'
+      @erase()
+</code></pre>
+
+<p>The code above shows the creation of a Todo entity i.e. a single entry in the list.  <code>$$</code> is the Agility factory method and will create an MVC based entity out of the object passed in.  I have decalred a view, a model (albeit empty) and a controller with an assortment of tasks for the entity.</p>
+
+<p>This will give you two-way model binding, event wiring up and even custom events totally for free plus a very simple way to react to events.  The controller is essentially the event handler so things like <code>click .delete-task</code> will bind the handler to the click event of the element with the <code>delete-task</code> class (the typical full range of selectors are available thanks to jQuery, Zepto integration forthcoming too).  Events like <code>create</code> and <code>change:complete</code> are custom events given to us by agility and allow us to listen to key points in the lifecycle of the object.  In fact <code>change:complete</code> is a demonstration of something truly awesome (IMHO as usual).  The <code>change</code> event will fire when model properties are changed - the <code>change:&lt;property_name&gt;</code> will only fire when the <code>complete</code> property changes.  Noice!</p>
+
+<p>My Todo list object then creates instances of the <code>todo</code> object above after pulling the info from the server.  It uses agility's inheritance strategy to to create them from the <code>todo</code> prototype I pass in</p>
+
+<pre><code>todos = $$
+  model: {},
+  view: 
+    format: '''
+      &lt;div&gt;
+        &lt;input type="text" id="newItem" /&gt;
+        &lt;button class="add-task"&gt;Add&lt;/button&gt;
+        &lt;ol/&gt;
+      &lt;/div&gt;
+    '''
+  controller:
+    'click .add-task': -&gt; 
+      item = @view.$('#newItem').val()
+      if item isnt ""               
+        newTodo = $$ todo, description: item
+        newTodo.persist $$.adapter.restful, collection:'todos'
+        newTodo.save()
+        @empty()
+        @gather todo, 'append', 'ol'
+</code></pre>
+
+<p>Next I append the <code>todos</code> object to the document (which renders it and wires things up)</p>
+
+<pre><code>$$.document.append todos
+</code></pre>
+
+<p>Persistance is provided as a plugin of sorts with ability to provide your own adapters.  You get a RESTful ajax adapter with Agility.  I use this to provide persistence methods on my objects and let agility set that up.</p>
+
+<pre><code>todo.persist $$.adapter.restful, collection:'todos'
+todos.persist()
+</code></pre>
+
+<p>There does seem to be a bug with the factory method and persitance enabled object forcing me to call <code>persist</code> prior to any sort of persitence operation but hopefully we will see that resolved soon.</p>
+
+<p>Finally I fetch from the server and wipe the awesome sauce from my lips and beard.</p>
+
+<pre><code>todos.gather todo, 'append', 'ol'
+</code></pre>
+
+<p>I've went on more than I wanted to but hey it's worth it.  Hopefully this has helped clarify agility to a few people or at least got people intrigued.  Feel free to pull down the <a href="https://bitbucket.org/kouphax/agility-tinkering">source</a> and have a go yourself otherwise pop on over to the <a href="http://agilityjs.com/">Agility.js</a> site and read the excellent docs.</p>
+]]></content>
+  </entry>
+  
+</feed>

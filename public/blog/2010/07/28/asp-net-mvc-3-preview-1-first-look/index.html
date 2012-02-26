@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ASP.NET MVC 3 Preview 1 First Look - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="[[posterous-content:6xLmqhke9CMHGNqiaUG7]]&nbsp;A much better read than the ramblings below:http://weblogs.asp.net/scottgu/archive/2010/07/27/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ASP.NET MVC 3 Preview 1 First Look</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-28T00:00:00+01:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p style="margin-right: 0cm; margin-bottom: 16.5pt; margin-left: 0cm; line-height: 16.5pt; vertical-align: baseline;"><span style="font-size: 11.5pt; font-family: Georgia,serif; color: #333333;">[[posterous-content:6xLmqhke9CMHGNqiaUG7]]</span><span style="font-size: 11.5pt; font-family: Georgia,serif; color: #333333;">&nbsp;</span></p><p>A much better read than the ramblings below:<br><a href="http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx">http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx</a></p><p>So I had a chance to take ASP.NET MVC 3 Preview 1 out for a test drive today to see what was new and interesting.&nbsp; For a Preview release it seems fairly solid &ndash; there is a lot of low level stuff introduced (new Interfaces etc) which is, I assume, going be used to add new features in Preview 2, 3, 4 whatever.&nbsp; There is nothing MASSIVE per say in fact it really feels like the next logical step in the MVC roadmap rather than some crazy reimagining.&nbsp; That&rsquo;s good by the way &ndash; backwards compatibility maintained and life goes on as normal.&nbsp; The most obvious &ldquo;issue&rdquo; I have with this release is that it&rsquo;s NET4/VS2010 only which means if it came out tomorrow we&rsquo;d probably not have the choice of making use of it due to the snails pace of the &ldquo;enterprise&rdquo;.&nbsp; Anyways enough preamble, down to the juicy stuff &ndash; what&rsquo;s this release giving us?</p><h2>Razor</h2><p>Preview 1 introduces Microsofts new ViewEngine, Razor, to the MVC world (WebMatrix aside).&nbsp; Currently there is no syntax highlighting/intellisense for it but it&rsquo;ll still compile and generate views just fine.&nbsp; I don&rsquo;t want to dive into Razor in this post but it&rsquo;s a weird syntax.&nbsp; It&rsquo;s certainly feels much neater than the WebForms View Engine and for a weird reason it felt quite natural to use it &ndash; want to embed some serverside code?&nbsp; Just type @ and you drop into serverside mode but with the advantage of actually still being able to embed HTML content without having to escape it.&nbsp; The render just knows.&nbsp; It&rsquo;s strange but good.</p><p><script src="https://gist.github.com/630232.js"></script></p><p>Read more here: <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx</a></p><p>On a side note when you create&nbsp; a new view MVC 3 and VS2010 detects installed view engines so you can EASILY pick and choose which is very nice &ndash; though no ViewEngine currently supports this e.g.</p><p>[[posterous-content:Ryck0mqEkX92dSBGu1n4]]</p><p>Model Validation</p><p>There is some nice stuff in this area.&nbsp; In MVC you where restricted to validating properties of a model (by default using data annotations) and if you wanted to validate entire models or perform validation in model scope (e.g. compare 2 fields) you had to write custom code.</p><p>MVC3 provides model-level validation in 2 ways,</p><p class="MsoListParagraph" style=""><span style="">1.<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Using Validation Attributes</p><p class="MsoListParagraph" style=""><span style="">2.<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Using the new data annotations interface IValidateObject</p><p>Validation attributes are the same attributes that the default validation strategy currently uses except you now have access to the model and ValidationResult has been tweaked to allow broken rules to be bound to multiple fields e.g.</p><p><script src="https://gist.github.com/630234.js"></script></p><p>IValidateObject interface is the new way to provide validation of a Model object across all MS technologies (EntityFramework, DynamicData, Silverlight and ADO Data Services) and it behaves much better than the decoupled attribute stuff &ndash; at least in the preview.</p><p>If model implement the IValidateObject interface they are expected to implement the validate(ValidationContext context) method which returns an enumerable of ValidationResults.&nbsp; The Person model in my sample app gives an example of this,</p><p><script src="https://gist.github.com/630235.js"></script></p><h2>Global Filters</h2><p>More of a convenience than anything, global filters allow you to apply the same Action Filters to EVERY controller action within an application.&nbsp; Useful for all tha AOP style stuff like logging etc.&nbsp; Taking the new KDF Action Logger we can log every action invocation by pushing the attribute type into the global filters via global.asax like so,</p><p><script src="https://gist.github.com/630236.js"></script></p><p>Thats it really.&nbsp; Nice and convenient.</p><h2>Json Model Binding</h2><p>Typically model bindng is done through creating an new instance of the model and attempting to bind up properties against the names of the values submitted by the client.&nbsp; This doesn&rsquo;t really work in the Ajax world because the body of a POST request is generally a single unnamed parameter which represents a JSON encoded string of the client request data.&nbsp; In MVC2 we had to write custom binders to parse the string and bind to a model but in MVC3 this is provided automatically.&nbsp; Again another nice to have.</p><h2>Other stuff</h2><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Dynamic ViewModel&nbsp; &ndash; Simply a dynamic bag allowing us to use ViewModel.SomeProperty vs ViewData[&ldquo;SomeProperty&rdquo;]</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New hooks for IoC/Dependency Injection through the lifecycle</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New ways to expose Client Validation and Model Metadata which &ldquo;should&rdquo; allow an easier way to create a single point of validation that can be used across both client and server</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New view results &ndash; HttpStatusCodeResult and Permanent Redirects</p><h2>Summing up</h2><p>MVC3 Preview 1 is a solid enough release but ultimately it seems to be a foundation, albeit a solid one.&nbsp; Given the previous release schedule I expect another release within the next few months.&nbsp; What can we expect for future releases?&nbsp; See&nbsp;<a href="http://aspnet.codeplex.com/wikipage?title=Road%20Map&amp;referringTitle=MVC">here</a>.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-28T00:00:00+01:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-net-mvc/'>ASP.NET MVC</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/01/13/css-hacks-for-ie-unnecessary/" title="Previous Post: CSS Hacks for IE - Unnecessary">&laquo; CSS Hacks for IE - Unnecessary</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/12/outside-events-jquery-plugin/" title="next Post: Outside Events jQuery Plugin">Outside Events jQuery Plugin &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

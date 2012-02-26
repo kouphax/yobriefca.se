@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Mobile Quick Look - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="jQuery Mobile was released over the weekend or at least the alpha version of it was (full release scheduled for some time on 2011).&nbsp;So what is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/18/jquery-mobile-quick-look">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">jQuery Mobile Quick Look</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>jQuery Mobile was <span style="color: #1f497d;"><a href="http://jquerymobile.com/2010/10/jquery-mobile-alpha-1-released/">released</a></span> over the weekend or at least the alpha version of it was (full release scheduled for some time on 2011).&nbsp;</p><p>So what is it like?&nbsp; Well first things first it&#8217;s early days, there are certainly more than few rough edges but given the development timeline (~2 months) it is quite an impressive effort put in by the <span style="color: #1f497d;"><a href="http://www.filamentgroup.com/">Filament Group</a></span> and others.</p><h2>iThings</h2><p>The first question most people will ask (or the first thing they will try and do) will probably be</p><blockquote><p style="padding-left: 30px;">So how does it look on the various iThings (iPad, iPhone, iPhone 4)?&nbsp;</p></blockquote><p>Well it looks good for the most part.&nbsp; There are some issues around page transitions and displaying dialogs (especially on the iPad) - things like page flickering, hidden content becoming visible after the page has loaded etc. and while they are a bit annoying they don&#8217;t &#8220;break&#8221; anything.</p><p>As the framework isn&#8217;t targeting iOS specifically there are some behaviours that would wouldn&#8217;t necessarily expect if you used this as a native app (using PhoneGap or whatever).&nbsp; Toolbars aren&#8217;t explicitly fixed and when they are fixed disappear on scroll and repositioned after scrolling has finished.&nbsp; Select boxes don&#8217;t display the normal pickers found in native iOS but instead use a custom dialog for selection.&nbsp; Again these aren&#8217;t criticisms, they work well, but I have heard people already complaining because they expect the framework to produce a fully native looking app.</p><h2>Sencha Touch</h2><p>When comparing frameworks many peoples first thoughts will be</p><blockquote><p style="padding-left: 30px;">How does it compare to <span style="color: #1f497d;"><a href="http://www.sencha.com/products/touch/">Sencha Touch</a></span>&nbsp;</p></blockquote><p>To be honest&nbsp; the comparison is like comparing apples to oranges, or jQueryUI to ExtJS.&nbsp; Both projects have also different goals.&nbsp; While Sencha currently aims to provide a rich native like experience on a small subset of mobile browsers (specifically iOS and Android), jQuery Mobile aims to create a consistent, mobile/touch capable experience across a much <span style="color: #1f497d;"><a href="http://jquerymobile.com/gbs/Touch">wider range of mobile browsers</a></span>.&nbsp; This is by no means easy.&nbsp; An interaction style one device may not be suitable for another.</p><h2>FOUC</h2><p>One of the goals of jQuery Mobile is to progressively enhance the base page to become more mobile capable.&nbsp; Because of this the base page is very basic with jQuery Mobile specific stylers applied when the DOM is ready.&nbsp; This can lead to some initial FOUC (Flash of Unstyled Content).&nbsp; We can get around this by applying some of the basic jQuery Mobile styles to begin with and I suspect we will see this tactic being used on future releases.</p><p>[[posterous-content:EeHJJwvCqFJrzcdxeEEb]]</p><h2>Accessibility</h2><p>One thing I never really though of in a Mobile Framework is accessibility.&nbsp; This is just short sightedness on my part as it is as relevant in the mobile world as it is in the desktop world.&nbsp; jQuery Mobile aiming to be fully accessible through it&#8217;s use of ARIA roles and progressive enhancement.</p><h2>The Technicals</h2><p>From a technical/developer stand point jQuery Mobile is quite nice.&nbsp; Lets look at a few of the highlights,</p><h3>Pages</h3><p>Sites can be built as a single page with sub sections being marked as &#8220;pages&#8221; that jQuery Mobile can navigate.&nbsp; External pages are load using ajax (rather than simply navigating to them), this give jQuery Mobile better control over transitions, and history management.&nbsp; A simple page looks like this,</p><p><script src="https://gist.github.com/631896.js"></script></p><p>So lets break this down and pick out the interesting parts,</p><p><script src="https://gist.github.com/631897.js"></script></p><p>HTML5 DocType which older browsers can handle gracefully</p><p><script src="https://gist.github.com/631899.js"></script></p><p>Scripts and styles included.&nbsp; Now from a mobile perspective this is still quite a bit of script especially over some flaky 3G connections but in comparison to some of the frameworks out there it is still quite small.</p><p><script src="https://gist.github.com/631900.js"></script></p><p>This section describes 2 pages.&nbsp; A page is marked as a page by its `data-role` attribute and can contain 3 elements marking a header, the page content and the footer.&nbsp; Unless stipulated the first page will be first page in the DOM.&nbsp; Navigation between pages is handled using location.hash changes (page 1s button links to Page 2 in the example).</p><h3>Themeing</h3><p>Themeroller will see an overhaul on the official release which will allow you to create custom themes a la jQueryUI.&nbsp; Currently jQuery Mobile comes with 2 themes both of which have a number of swtaches.&nbsp; This is intended to create contrast between UI elements (e.g. for marking mandatory fields, or highlight primary buttons on a form etc.)</p><h3>Dialogs</h3><p>Dialogs in jQuery Mobile are simply pages with a `data-rel=&#8221;dialog&#8221;` added to them so the same rules apply as above.</p><h3>Form Elements</h3><p>Forms in jQuery Mobile are plain old HTML(5) forms which is actually a VERY nice feature.&nbsp; Sencha/ExtJS forms are nice but when using SELECTs etc. can become a real pain to manage.&nbsp; jQuery Mobile uses a much lighter approach.&nbsp; Some screenshots (iPhone 4)</p><p>[[posterous-content:qipBwFyayBhuztrHFpJI]] So thats a very quick overview of jQuery Mobile.  I encourage you to play around with and get those bugs filed. &nbsp;As I&#8217;ve said it&#8217;s early days but it&#8217;s a big goal they are aiming for and they are currently well on track to produce a very nice framework come the official release.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jquery/'>jQuery</a>, <a class='category' href='/blog/categories/jquery-mobile/'>jQuery Mobile</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/18/jquery-mobile-quick-look/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/18/jquery-mobile-quick-look/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/" title="Previous Post: Microsoft's Trio of jQuery Plugins">&laquo; Microsoft's Trio of jQuery Plugins</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/18/multi-touch-reactive-extensions/" title="next Post: Multi-Touch Reactive Extensions">Multi-Touch Reactive Extensions &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/18/jquery-mobile-quick-look/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/18/jquery-mobile-quick-look/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

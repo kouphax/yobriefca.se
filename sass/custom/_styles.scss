@@ -1,0 +1,91 @@
+// ----------------------------------------------------------------------------
+// Screencast Page Stylings
+// ----------------------------------------------------------------------------
+.screencasts {
+
+  margin-top: -25px;
+
+  .screencast-entry {
+    float:left;
+    width: 200px;
+    margin: 0px 10px 10px 10px;
+    text-align: center;
+    font-size: 80%;
+
+      a{
+          text-decoration: none;
+      }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Projects Page Stylings
+// ----------------------------------------------------------------------------
+.projects {
+
+  width: 100%;
+  margin-top: -25px;
+
+  .projects-entry {
+
+    img {
+      border: none;
+      border-radius:none;
+      box-shadow:none;
+      width: 400px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    td {
+      padding: 20px;
+      vertical-align:top;
+    }
+  }
+}
+
+.talks {
+  width: 100%;
+  margin-top: -25px;
+
+  .talks-entry {
+
+    img {
+      width: 200px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    td {
+      padding: 20px;
+      vertical-align:top;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Aside Stylings
+// ----------------------------------------------------------------------------
+.allmythings {
+  a {
+    text-decoration: none;
+    line-height:32px;
+  }
+
+  img {
+    float:left;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Theme Overrides
+// ----------------------------------------------------------------------------
+body > nav {
+    background-image: none;
+    background-color: #CCC;
+}
+

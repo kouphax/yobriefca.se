@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Multi-Touch Reactive Extensions - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Link:&nbsp;Reactive Extensions for .NETIt&rsquo;s been a while since I&rsquo;ve played with MultiTouch functionality so I decided it was time to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2010/10/18/multi-touch-reactive-extensions">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Multi-Touch Reactive Extensions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">  <p>Link:&nbsp;<a href="http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx">Reactive Extensions for .NET</a></p><p>It&rsquo;s been a while since I&rsquo;ve played with MultiTouch functionality so I decided it was time to dust off the old TouchSmart and put it to good use.&nbsp;&nbsp;The purpose wasn&rsquo;t to play with MultiTouch functionality but more to see how we could simplify managing isolated events using <a href="http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx">RX</a>.&nbsp; The MultiTouch API is good for this because by its very nature MultiTouch requires us to collect multiple events simultaneously and wire them up to create gestures.&nbsp; Unfortunately the current iteration of MultiTouch API wrappers for Silverlight and WPF (<a href="http://touch.codeplex.com/">touch</a>, <a href="http://miria.codeplex.com/">MIRIA</a>&nbsp;etc) are quite basic and when working with custom gestures you are forced to introduce a lot of global code such as flags etc.&nbsp; Not pretty!</p><p>Imagine the following scenario.</p><ul><li>2 touch points on screen (let call them HoldRight and HoldLeft).&nbsp; Both expose 2 events Hold and Release</li><li>When a person presses and hold a finger over BOTH points trigger an event</li><li>If only one is being pressed and held do not fire the event</li><li>If the user lifts their finger or fingers off the points and repeats the process the event should fire again.</li></ul><p>This is a fairly simple example but actually wiring this up requires the use of nasty global variables and a bit of repetition.&nbsp; Here is a very quick implementation of this.</p><p><script src="https://gist.github.com/632785.js"></script></p><p>As you can see I have made use of 2 global variables a DoCheck method that checks if the 2 canvases are currently in a &ldquo;held&rdquo; state and fires the event if they are.&nbsp; All the event handlers do nearly the same thing.&nbsp; Sure I could refactor this to use maybe 2 event handlers and inspect the sender but that starts getting messy.</p><h2>Reactive Extensions to the Rescue!</h2><p>Reactive extensions let us &ldquo;compose&rdquo; events so we can pass them around and filter them like first class citizens.&nbsp; Because of this we can actually create custom events by combining.&nbsp; Tackling the same issue as above we can achieve the same functionality without the need for dodgy global vars and boilerplate code.&nbsp; Lets look at the code first.</p><p><script src="https://gist.github.com/632781.js"></script></p><p>First things first for some random reason the implementers of MIRIA decided to create en event the actually passed NO event args &ndash; this is not normal and could easily be considered and anti-pattern.&nbsp; Because of this I had to use the long winded Observable.FromEvent which is created as a helper method.</p><p>So what are we doing here?</p><ol><li>Compose our events into first class citizens &ndash; Observables</li><li>Zip left and right hold events.&nbsp; Zipping basically combines 2 Observables and publishes or emits a value when both observables have emitted a value.&nbsp; The second argument in Zip is the transform function that converts the 2 emitted values into 1 value.&nbsp; We don&rsquo;t care about this value so just return some arbitrary value.</li><li>Take the Zip generated observable and keep publishing it&rsquo;s values until Either the left or right release events are triggers (Amb = most ambitious &ndash; publishes first value to appear)</li><li>Subscribe to this super composed event.&nbsp; When this happens we can fire our event</li></ol><p>What actually happens on the front end is irrelevant (the solution looks like this and will spin when the two Thumb areas are pressed and held)</p><p>[[posterous-content:ECxarBiHmvIvJutnbJaJ]]</p><p>But the fact we have managed to combine 4 isolated events without having to use boilerplate is very nice.&nbsp; This gives us a lot of power to create and control complex gestures &ndash; not limited to MultiTouch but any sort of UI interactions (Mouse events, Web service calls etc).</p><p><em>* I&rsquo;ll keep saying this.&nbsp; RX doesn&rsquo;t do anything new or solve any unsolvable problems but what it does do is allow us to do things in a neater way.&nbsp; Now there is a bit of learning curve in it &ndash; you really need to start thinking in RX but once you wrap your head around RX is a nice tool to have on your tool belt.&nbsp; No it&rsquo;s not complexity for complexity&rsquo;s sake &ndash; I honestly believe the code above, when used in the real world, will hep reduce complexity and make maintenance easier.</em></p><p>Good Fortune Awaits!</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rx/'>RX</a>, <a class='category' href='/blog/categories/silverlight/'>Silverlight</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2010/10/18/multi-touch-reactive-extensions/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2010/10/18/multi-touch-reactive-extensions/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/18/jquery-mobile-quick-look/" title="Previous Post: jQuery Mobile Quick Look">&laquo; jQuery Mobile Quick Look</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/18/strong-typing-vs-magic-strings-part-ii-/" title="next Post: Strong Typing vs. Magic Strings (Part II)">Strong Typing vs. Magic Strings (Part II) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        if(window.dis_inpost){
+          var disqus_identifier = 'http://kouphax.github.com/blog/2010/10/18/multi-touch-reactive-extensions/';
+          var disqus_url = 'http://kouphax.github.com/blog/2010/10/18/multi-touch-reactive-extensions/';
+          var disqus_script = 'embed.js';
+        }else{
+          var disqus_script = 'count.js';
+        }
+
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

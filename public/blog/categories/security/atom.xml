@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Security | Yo Briefcase!]]></title>
+  <link href="http://kouphax.github.com/blog/categories/security/atom.xml" rel="self"/>
+  <link href="http://kouphax.github.com/"/>
+  <updated>2012-02-26T17:34:24+00:00</updated>
+  <id>http://kouphax.github.com/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tinyweb Fluent Security]]></title>
+    <link href="http://kouphax.github.com/blog/2011/09/26/tinyweb-fluentsecurity/"/>
+    <updated>2011-09-26T00:00:00+01:00</updated>
+    <id>http://kouphax.github.com/blog/2011/09/26/tinyweb-fluentsecurity</id>
+    <content type="html"><![CDATA[<p>I've been working on a little project recently that is using Tinyweb.  It's a typical little CRUDdy app and makes use of typical security features in a web app.  Tinyweb itself doesn't provide any sort of custom security features out of the box but as it sits on top of ASP.NET you can avail of all the normal membership stuff.  Problem is though - the default membership stuff, when working directly with it, is a bit cumbersome.  I recently tinkered with a project for ASP.NET MVC called <a href="http://www.fluentsecurity.net/">FluentSecurity</a> that added a fluent syntax to configuring security for ASP.NET MVC applications.  Taking a healthy dose of inspiration from this project I rolled a lightweight Tinyweb version of my own.  I figure this might be useful to someone else so I have now created a new project specifically for this.  It's probably totally broken in areas but the areas I've written tests around appear to work.</p>
+
+<p>The source is available in a <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity">BitBucket repository</a> so feel free to critique.  Once I get it tested better, documents written up and generally applied a bit of sipt and polish I'll push it to Nuget and the fun can really begin.</p>
+
+<h1>Tinyweb.FluentSecurity</h1>
+
+<p>FluentSecurity comes as a 2 part solution</p>
+
+<ol>
+<li>The <code>Security</code> class is the main entry point for configuring FluentSecurity and authenticating users</li>
+<li>The <code>SecurityFilter</code> class is a Tinyweb filter that performs auth tests on the current request</li>
+</ol>
+
+
+<h2>Security</h2>
+
+<p>The <code>Security</code> class provides a central location to configure FluentSecurity.  <code>Security</code> is also responsible for executing the auth tests you pass to it.</p>
+
+<h3>Security.Configure(Action<Configurator> configurator)</h3>
+
+<p><code>Configure</code> lets you define the configuration for you module.  It accepts an Action that can be used to define rules for each handler.  For example</p>
+
+<pre><code>Security.Configure(c =&gt;
+{
+    c.For&lt;RootHandler&gt;().DenyAnonymousAccess();
+    c.For&lt;AdminHandler&gt;().RequireRoles("Admin");
+    c.For&lt;UserHandler&gt;().DenyRoles("Admin");
+    c.For&lt;SecretHandler&gt;().AllowVerbs(Security.AllowedVerbs.GET | Security.AllowedVerbs.POST);
+});
+
+Tinyweb.Init();
+</code></pre>
+
+<p>We call <code>Security.Configure</code> just before we Init Tinyweb (though it can be done at anytime realistically speaking).  The configuration block shows off most of the ways you can configure handlers e.g.</p>
+
+<ol>
+<li><code>DenyAnonymousAccess</code> will prevent, as the name suggests, all anonymous users from accessing this handler</li>
+<li><code>RequireRoles</code> specifes 1..N roles that are required to access this handler</li>
+<li><code>DenyRoles</code> specifies 1..N roles that aren't permitted to access this handler</li>
+<li><code>AllowVerbs</code> restricts the HTTP Verbs that can be used to access this handler (PUT, POST, GET etc.)</li>
+<li><code>WithCustomRule</code> (not listed) allows you to specify a function that can be used to apply a custom rule to each request</li>
+</ol>
+
+
+<p>Each method returns the configuration object so it is possible to chain the calls to create more complex rules.</p>
+
+<pre><code>Security.Configure(c =&gt;
+    c.For&lt;EditHandler&gt;()
+        .DenyAnonymousAccess()
+        .RequireRoles("Author")
+        .DenyRoles("Reader")
+        .AllowVerbs(Security.AllowedVerbs.POST);
+</code></pre>
+
+<p>Obviously some combinations will not make sense, in fact AllowedVerbs needs to be tweaked as it may only apply to certain roles (so the combinations don't make sense right now).  Currently FluentSecurity doesn't care and it probably never will if you try and create illogical combinations.</p>
+
+<h3>bool Security.Test(RequestContext req, HandlerData d)</h3>
+
+<p>This will run all pre-configured rules against the current request to determine if the request is authorised to continue.  It will return a true/false result depengin on whether the rules pass or not.</p>
+
+<pre><code>bool granted = Security.Test(context, data);
+</code></pre>
+
+<h3>IResult Security.Validate(RequestContext req, HandlerData d)</h3>
+
+<p>Implements the typical SecurityFilter use case.  This function will call the <code>Test</code> method and returns <code>Result.None()</code> if the test passes (may be configurable in the future) otherwise it executes the <code>Security.OnAccessDenied</code> function and returns the <code>IResult</code>.  If no <code>OnAccessDenied</code> is defined <code>Result.None()</code> will be returned.</p>
+
+<pre><code>IResult result = Security.Validate(context, data);
+</code></pre>
+
+<p>This is simply shorthand for now but may be expanded with some custom logic in the near future.</p>
+
+<h3>Security.OnAccessDenied</h3>
+
+<p>This property is used to define a function that can be used to return a result should access been denied.  This is done lazily as it allows you access to the <code>RequestContext</code> and <code>HandlerData</code> so you could implement per-request handling of the Result (redirects or return URLs etc.)</p>
+
+<pre><code>Security.OnAccessDenied = (c, d) =&gt; Result.Redirect&lt;AccessDeniedHandler&gt;();
+</code></pre>
+
+<h2>SecurityFilter</h2>
+
+<p>The <code>SecurityFilter</code> class is simply a Tinyweb filter that performs the request validation for authentication.  Nothing special here move along now.</p>
+
+<h1>For Now and Up Next</h1>
+
+<p>So thats all there is for now.  Code is, as I've said, available at the <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity">BitBucket repository</a>.  I'm starting to build up some docs and stuff now and maybe tweak and add useful features.  If there is anything you would like to see raise it as an <a href="https://bitbucket.org/kouphax/tinyweb-fluentsecurity/issues?status=new&amp;status=open">issue</a> and I'll get around to it.</p>
+]]></content>
+  </entry>
+  
+</feed>

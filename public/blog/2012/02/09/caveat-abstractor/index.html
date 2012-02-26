@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Caveat Abstractor - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  
+  <meta name="description" content="Ramblings from 30,000ft. The word abstraction is starting to sound odd. Every time you create an abstraction there is a very good chance you&#8217;ve &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kouphax.github.com/blog/2012/02/09/caveat-abstractor">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Yo Briefcase!</a></h1>
+  
+    <h2>All the codez!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/screencasts">Screencasts</a></li>
+    <li><a href="/talks">Talks</a></li>
+    <!--
+    <li><a href="/cv">CV</a></li>
+    -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Caveat Abstractor</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-09T08:37:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
+
+<p>Every time you create an abstraction there is a very good chance you&#8217;ve introduced unnecessary complexity into a solution.  It should never be done alone - it should be a team decision.  The goal of an abstraction is to simplify but in its untamed natural form an abstraction will only add complexity.</p>
+
+<!-- more -->
+
+
+<p>As programmers it&#8217;s easy to fall into the trap whereby we want the code that we write to be the last time anyone ever has to write that code again.  We dream of creating reusable works of art that ever other developer will use and never be concerned with the low level implementation ever again.</p>
+
+<p>This is wrong and impossible.  An anti-pattern even!</p>
+
+<p>It baffles me that anyone would create an abstraction that they didn&#8217;t have a need for at the time. It&#8217;s wasteful and degrades the readability, grokability and all those other good &#8220;ilities&#8221; we use.  Of course I say this like i don&#8217;t do it myself but I&#8217;d be lying to you and myself.</p>
+
+<p>An abstraction, by definition, is an intentional hiding of implementation and knowledge but surely understanding of these things will lead to a higher chance of success in a project?  The person that created the abstraction has that understanding but it&#8217;s like they dont want anyone else to know how it works.  They&#8217;re ready to take that secret to their grave.</p>
+
+<p>When you start to abstract you need to remind yourself you are building a specific solution and not a framework (unless you are of course).  Abstractions should be done only within the scope of the project and you should have a strong case to back up its creation (make the decision a team effort).  This may sound like overhead but if you find it difficult to justify the creation odds are the abstraction is unnecessary.</p>
+
+<p>Abstractions should not be grand, they should be light and convey their intent clearly by other people (pair programming and peer review will help weed out any verbose abstractions).</p>
+
+<p>If you are creating an abstraction for anything other than DRY, odds are youre probably creating it for YAGNI.  You&#8217;ll start considering irrelevant use cases and having to cater for insane edge cases.  This will happen even if you are taking a strong test driven approach - you&#8217;ll concern youself with the workings of the abstraction rather then the problem you are solving and begin creating endless &#8220;what if&#8221; tests to cater for all those &#8220;0.00000001% chance of happening&#8221; edge cases. When this happens youre going to end up in mediocrity.  Mediocre abstractions attract more abstraction.  Even in a shared codebase bad abstractions create a certain amount of implied ownership to the person that created it. Inevitably someone will come along and create an abstraction around your abstraction (even if they have access to the original source).  This in turn will likely become YAMA (Yet Another Mediocre Abstraction) attracting yet more abstraction&#8230;. You can guess where I am going with that one&#8230; Its abstractions all the way down and everytime you abstract you&#8217;ve decreased system comphension and likely destroyed another future developers soul.</p>
+
+<p>In the same way guns dont kill people, people do - Abstraction dont kill projects, developers do.  You&#8217;ve only got yourself to blame (been there done that, will be again).  A nice simple abstraction, at the right time (e.g. When needed) can be expressive and helpful but too often we put the abstraction before the need.</p>
+
+<p>So consider abstractions as “guilty until proven innocent” not the other way around.  Solve YOUR problem - not every other problem, not until you need to.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Hughes</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-09T08:37:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/miscellaneous/'>Miscellaneous</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/" data-via="kouphax" data-counturl="http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/31/on-craftmanship/" title="Previous Post: On Craftmanship and Understanding, I Guess">&laquo; On Craftmanship and Understanding, I Guess</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/02/12/the-estimation-4x4/" title="next Post: The Estimation 4x4">The Estimation 4x4 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>All my thingz!</h1>
+  <ul class="allmythings">
+    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
+    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
+    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
+    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
+    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("kouphax", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Hughes -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/';
+        var disqus_url = 'http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
