@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: WP7 | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/wp7/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/wp7/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
-    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
     <updated>2012-01-05T13:59:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
 <p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>

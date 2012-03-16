@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: .NET | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/-net/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/-net/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
-    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
     <updated>2012-01-05T13:59:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
 <p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
@@ -101,9 +101,9 @@
   
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip/"/>
+    <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
     <updated>2011-11-16T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip</id>
+    <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -146,9 +146,9 @@
   
   <entry>
     <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook/"/>
+    <link href="http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook/"/>
     <updated>2011-11-01T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook</id>
+    <id>http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook</id>
     <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
 
 <p>I needed to write a simple JSONP capable service recently and decided to run with <a href="http://nancyfx.org">Nancy</a>.  Turns out Nancy doesn't give us a way to do JSONP so I set about creating something that fitted my use case.  The fruits of my very very short labour (thanks to the super-hyper-flexible-powerfulness of the Nancy Pipeline) can be seen here.  The full source is available in the <a href="https://github.com/kouphax/nancy-jsonp">Github repo</a> and hopefully we can get this pushed into the core of Nancy shortly (or at least part of the official repo one way or another) - just for the geek cred of course :)</p>
@@ -332,9 +332,9 @@
   
   <entry>
     <title type="html"><![CDATA[DDDNorth Retrospective]]></title>
-    <link href="http://kouphax.github.com/blog/2011/10/09/ddd-north-retrospective/"/>
+    <link href="http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective/"/>
     <updated>2011-10-09T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/10/09/ddd-north-retrospective</id>
+    <id>http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective</id>
     <content type="html"><![CDATA[<p>So its the day after DDD North and I'm more or less getting packed and ready to do the long boring travel bit home, which is really less travelling and more waiting around.  Anyway DDD North was pretty special.  Excellent turn out, great location and above all some great talks.  My talk (refORM: Death to ORMs in .NET) had a technical problem with the projector which meant the live demo section I wove in since last weeks talk had to be abandoned, shit happens.  It also went very fast, the talk was over in about 35 minutes but at least there was plenty of banter and questions - so at least the people seemed to be engaged.  Enough about my woes.  I'll have the slides and the (super secret) demo code available as soon as get back home.</p>
 
 <!-- more -->
@@ -380,9 +380,9 @@
   
   <entry>
     <title type="html"><![CDATA[DDDBelfast Retrospective]]></title>
-    <link href="http://kouphax.github.com/blog/2011/10/03/dddbelfast-retrospective/"/>
+    <link href="http://yobriefca.se/blog/2011/10/03/dddbelfast-retrospective/"/>
     <updated>2011-10-03T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/10/03/dddbelfast-retrospective</id>
+    <id>http://yobriefca.se/blog/2011/10/03/dddbelfast-retrospective</id>
     <content type="html"><![CDATA[<p>So I'm no longer a conference speaker virgin.  It was so good I did it twice in the same day.  How'd it go?  Went good I guess.  From a conference stand point it seemed to fly by.  There was a kind of laid back atmosphere about the whole thing and the numbers, while lower than expected were high enough to make all the talks feel comfortably occupied.  I skipped the first block to get my talk prepared but managed to pull in a few talks after I got my first one over.</p>
 
 <!-- more -->

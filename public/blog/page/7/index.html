@@ -9,7 +9,7 @@
   <meta name="author" content="James Hughes">
 
   
-  <meta name="description" content="Move complete, more or less. Still a few broken images and stuff but like the unpacked boxes of a new house these will probably remain that way &hellip;">
+  <meta name="description" content="This post is the is part of series of posts covering the various micro web frameworks in the .NET world. The frameworks I intend to cover will be &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kouphax.github.com/blog/page/7">
+  <link rel="canonical" href="http://yobriefca.se/blog/page/7">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -60,7 +60,7 @@
 </ul>
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input type="hidden" name="q" value="site:yobriefca.se" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +80,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Micro Web Frameworks in .NET 101: Jessica</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-19T00:00:00+01:00" pubdate data-updated="true">May 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various <em>micro web frameworks</em> in the .<span class="caps">NET</span> world.  The frameworks I intend to cover will be linked as the series progresses.  For further discussion on the use of micro web framework in .<span class="caps">NET</span> please see my <a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">previous post</a> The current series line up:<ul>	<li><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Jessica</a></li>	<li><a href="/blog/2011/05/23/micro-web-frameworks-101-nancy/">Nancy</a></li>	<li><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Anna</a></li>	<li><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb//">Tinyweb</a><br></li></ul></blockquote><blockquote><p>The following post relates to version 0.8 of Jessica so some features may change in future releases</p></blockquote><p>Now I have got the <a href=":./blog/2011/05/18/why-use-micro-web-frameworks-in-net/">opinion piece</a> out of the way I can start the bit I like &#8211; dissecting the various technologies that could be classed as <em>micro web frameworks</em>.  First on the table is <a href=":http://jessicafx.org">Jessica</a>.</p><h2>Getting Started &#8211; Hello World</h2><p>Getting a simple Hello World set up in <a href=":http://jessicafx.org">Jessica</a> involves (optionally) taking more out than you put in.  <a href=":http://jessicafx.org">Jessica</a> requires very little configuration so creating a new web project, deleting all the extra files and folders, trimming the <code>web.config</code> and emptying the <code>Global.asax.cs</code> makes for a nice blank canvas to start with.</p><p class="img-holder"><img src="/media/images/blog/project-before-and-after.png" alt=""></p><p>Next step is pretty difficult :-).  Within the <a href="http://nuget.org">NuGet</a> Package Manager Console just install the Jessica package</p><p class="minimal-gist"><script src="https://gist.github.com/979313.js?file=InstallJessica.ps"></script></p><p>Once installed be need to tell Jess to initialise/bootstrap itself when the application starts by calling the initialise method in the <code>Application_Start</code> method of the <code>Global.asax.cs</code></p><script src="https://gist.github.com/979324.js?file=Global.asax.cs"></script><p>At this point it&#8217;s also possible to supply a number of configuration options but we will touch on this later along with the optional configuration <span class="caps">XML</span>.  Now that Jess is setup to configure itself all we need to do now is define the module that will handle our complex Hello World output.</p><p>Modules form the basis of Jessica each one holding a number of routes (based on URL&#8217;s and <span class="caps">HTTP</span> verbs) and associated actions.  Our app will have a single module,</p><script src="https://gist.github.com/979345.js?file=MainModule.cs"></script><p>This simple module defines a single route that will match any standard <code>GET</code> request for the root of the app. And that&#8217;s it.  When you run the app Jess will inspect the assembly and find all the modules and wire up the routes.</p><h2>The Rest of the Pie</h2><p>Obviously serving plain bits of text is a bit useless so there are plenty of things that Jessica offers that makes it, well, actually useful.</p><h3>Configuration</h3><p>Jessica can be configured programatically or via <span class="caps">XML</span> config.  A number of things you can currently set include,</p><ul>	<li>Environment &#8211; the environment you build in e.g. <code>development</code>, <code>test</code>, <code>release</code>.  Default <code>development</code></li>	<li>Public Directory &#8211; The directory to be used to server static content (html, js, css, images) that require no preprocessing. Default <code>public</code></li>	<li>Views Directory &#8211; The directory to be used to serve views that can be dynamically rendered (Razor, Textile, Markdown, Liquid etc.).  Default <code>views</code></li></ul><p>The <span class="caps">XML</span> config is outlined below but each of these properties can be set in the <code>Global.asax.cs</code> programatically as well via the <code>Jess.Configuration</code> properties.</p><script src="https://gist.github.com/979475.js?file=Web.config.xml"></script><h3>Routes and Actions</h3><p>Routes may be defined as a literal path such as <code>/users</code> or <code>/store/toys</code> or with variable segments such as <code>/user/:id</code> or <code>/blog/:year/:month/:day</code>.  Variable segments are then parsed out of the route url and the values added to the action argument.</p><p class="minimal-gist"><script src="https://gist.github.com/980298.js?file=Routes.cs"></script></p><p>That seems to be about the extent of the route manipulation for now.  Would be nice to see the other Sinatra stuff included such as <a href="http://www.sinatrarb.com/intro#Routes">splats</a>, <a href="http://www.sinatrarb.com/intro#Routes">regular expressions</a> and <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.</p><p>Actions are fairly simple they take a dynamic object and are expected to return a Jessica <code>Response</code> object.  The dynamic object passed in contains a number of things such as route parameters, querystring parameters and the current HttpContext.  As an added niceness the Jessica <code>Response</code> object has a number of <a href="http://msdn.microsoft.com/en-us/library/z5z9kes2(v=vs.71).aspx">implicit</a> type conversions that allow us to return simpler objects</p><script src="https://gist.github.com/980308.js?file=ImplicitTypes.cs"></script><h3>Static Content</h3><p>Jessica allows us to return static content simply.  First of all all routes are first checked for the existence of a file at that <span class="caps">URL</span>.  If a file is found it is served, if not then Jessica goes to the route table and works it&#8217;s magic.  Putting resources in the <code>publicDir</code> allows Jessica to serve static content from the route actions and the <code>Response</code> object comes with a number of nice helpers to help make your static actions neater.</p><script src="https://gist.github.com/980313.js?file=JessicaResponse.cs"></script><h3>Views</h3><p>What web technology would be complete without the ability to serve non-static views?  Oddly enough Jessica, out of the box at least, comes with no view engines.  I suspect this is because dynamic view rendering isn&#8217;t technically something that should form the basis of a web framework &#8211; thats the job of the view engines.  Jessica does however come with an extension point of adding X amount of view engines &#8211; <code>Jess.ViewEngines</code>.  There is also a healthy volume of view engines available for Jessica,</p><ul>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Razor">Razor</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Spark">Spark</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-DotLiquid">DotLiquid</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Markdown">Markdown</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Textile">Textile</a></li></ul><p>Rendering a view from an action is also very simple</p><script src="https://gist.github.com/980288.js?file=ViewJessica.cs"></script><p>The first option renders a simple view called index while the second takes a model object that is pushed into the scope of the view and can be used to build the view.  Jessica will loop through it&#8217;s <code>ViewEngines</code> collection and attempt to resolve the view name to a file in the specified <code>viewsDir</code> folder.  If it finds a matching view it will render it.</p><p>I am going to take the lead from Jessica itself and not dive into the various view choices for now.  They are pretty self explanatory anyway.</p><h2>Summing Up</h2><p>So thats the 101, the skinny, the lowdown, the starter for 10, the basics and other random statements of <a href=":http://jessicafx.org">Jessica</a>. Hopefully this covers the vast majority of what v0.83 of Jessica offers.  It&#8217;s a nice minimla framework that attempts to stick to Sinatra&#8217;s philosophy.  It would be nice to see a few more of Sinatras features creeping in especially route <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.  There is also some nice high level error handling being introduced (for v0.9 I assume) for handling application wide errors and 404&#8217;s.  I plan on talking about these when they make an appearance.</p><p>Corrections, comments and criticisms below please.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">Why Would You Use Micro Web Frameworks in .NET?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <blockquote><p><span class="caps">UPDATE</span>: Oh dear James &lt;shakeshead/&gt;.  So it seems someone was paying attention to my post and noticed my benchmarks were <strong>hideously</strong> flawed.  I have removed them because I don&#8217;t like looking like a total fool but I will be replacing the with <strong>honest, real and unstupified</strong> results as soon as I can.  Apologies for any distress this may have caused.  <acronym title="Fear Uncertainty Doubt"><span class="caps">FUD</span></acronym> is a powerful thing in the wrong hands but ignorance is worse.</p></blockquote><p>I&#8217;ve been doing a bit of research into micro web frameworks in the.<span class="caps">NET</span> world recently and I was posed a question by a colleague.</p><blockquote><p>Whats the point of a micro web framework?</p></blockquote><p>I gave the usual response &#8211; more lightweight, smaller foot print blah blah blah. To be honest I was barely convincing myself.  I suspected I had fallen into the trap of latching on to something because it was novel to me rather than any real reason.  I am not saying they don&#8217;t have a place in solutions technology stack, quite the opposite in fact, what I am saying is that I didn&#8217;t have sufficient justification for bothering with them.</p><p>So I&#8217;ve spent a bit more time looking at the background of these microframeworks rather than the techs themselves and hopefully the next time someone asks I can give a more convincing reply.</p><h2>What Is A Micro Web Framework</h2><p>Pretty much a micro web framework is a framework that provides the absolute minimum feature set required to create a web application.  Extra features can be added via extensions etc. but the sole purpose of a microframework is to allow the app to handle requests to certain URLs (routing) with a bit of basic error handling for 404&#8217;s etc. (possibly).  No feature creep, no bloated deployments just ultra-lean request/response handling.</p><p>The most famous microframework, and the one that started it all, comes from the Ruby world &#8211; <a href="http://www.sinatrarb.com/">Sinatra</a> and it&#8217;s &#8220;Hello World&#8221; example really highlights the ease of creating an app.</p><script src="https://gist.github.com/976291.js?file=Sinatra.rb"></script><p>Run this and navigate to <code>/hi</code> to see the amazing response of <code>Hello World</code>.</p><h2>Micro Web Frameworks in the .<span class="caps">NET</span> World</h2><p>So how does this compare to similar technologies in the .<span class="caps">NET</span> world.  Most .<span class="caps">NET</span> solutions take a lot of inspiration from <a href="http://www.sinatrarb.com/">Sinatra</a> (and why not it&#8217;s pretty much the blueprints for the microframeworks) and this one is written using <a href="http://jessicafx.org">Jessica</a>.</p><script src="https://gist.github.com/976293.js?file=JessicaModule.cs"></script><p>OK so there is a bit of extra language noise but this is to be expected when moving from Ruby to C# but it&#8217;s just as readable.  <a href="http://jessicafx.org">Jessica</a> isn&#8217;t the only microframework in the .<span class="caps">NET</span> world but it does seem to be one of the better ones (based on a very superficial amount of research &#8211; no offence meant to other frameworks &#8211; happy to be proven wrong).  The other frameworks considered &#8220;micro&#8221; include,</p><ul>	<li><a href="http://github.com/thecodejunkie/Nancy">Nancy</a></li>	<li><a href="http://github.com/martinrue/Tinyweb">Tinyweb</a></li>	<li><a href="http://github.com/jondot/nina">Nina</a></li>	<li><a href="http://github.com/carlhoerberg/NSinatra">NSinatra</a></li></ul><h2>What Makes Micro Frameworks Worthwhile?</h2><p>So lets expand on my original argument of <cite>&#8220;more lightweight, smaller foot print blah blah blah&#8221;</cite>.  The most obvious is that a microframework by design is going to be a lot more lightweight than a normal framework.  It&#8217;s lifecycle for a request is going to be greatly simplified and ultimately this should help increase performance per request (I currently have no figures to back this up yet but I am working on it).  As well as performance and increased throughput this lightweight approach should greatly reduce the memory footprint which will help your app scale a bit better<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.</p><p>Another reason to consider a microframework is that you are in control of everything and that is good in my book.  It&#8217;s one of my arguments for choosing <span class="caps">MVC</span> over WebForms.  No unnecessary injection of client side code or script managers or any of that sort of thing.  No overly complex view properties being populated for no reason.  Nothing but the stuff you put in.</p><p>Not exactly within the bounds of a microframework by definition but still worth mentioning is hosting.  <a href="http://nancyfx.org">Nancy</a> has a number of hosting options</p><ul>	<li>Standalone</li>	<li>In a web app</li>	<li>In a <span class="caps">WCF</span> Service</li></ul><p>This sort of swappable hosting greatly increases portability of your app.  Now this is <a href="http://nancyfx.org">Nancy</a> specific but the effort required to create this sort of functionality with another microframework is trivial in comparison to the what it would be in <span class="caps">MVC</span> or WebForms.</p><p>Also many of the microframeworks have some sort of support for <a href="http://owin.org/"><span class="caps">OWIN</span></a> which is essentially a web abstraction that would allow your app to run on any <span class="caps">OWIN</span> supported server<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>.  This sort of support would take longer to roll out across the larger frameworks which generally stick to <span class="caps">IIS</span>.  I&#8217;m not saying it won&#8217;t happen but the bigger your framework the slower change is going to happen.</p><p>That brings me to my final point &#8211; evolution.  <span class="caps">ASP</span>.<span class="caps">NET</span> <span class="caps">MVC</span> has evolved very fast since v1.0 and there is no sign of that progress abating any time soon.  Still it&#8217;s speed is hindered by it&#8217;s size. These microframeworks introduce new features (some experimental for the brave among us) much faster because of the fact they are small.  Extending these frameworks don&#8217;t require the creation of numerous classes to do simple things &#8211; there is generally a common extension point with a very small set of requirements.</p><h2>Conclusion</h2><p>I hope this has helped my colleagues get a better picture of why I think microframeworks are worthy of our time and why I am keen to do a bit of research on them.  I also hope this has broadened a few minds in terms of solution architectures in the .<span class="caps">NET</span> world.  Not everything needs to be some configurable, Enterprise ready, heavyweight application sometimes the simplest solution is all you need.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> Provided you don&#8217;t do something stupid!</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> As a friend pointed out it&#8217;s easy to write a fast Hello World server so take these results with a healthy does of skepticism</p><p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> It&#8217;s early days for <span class="caps">OWIN</span> but still worth mentioning.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/17/further-adventures-in-unit-testing/">Further Adventures in Unit Testing Technologies</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>This post is a follow up to <a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a>.  Information about the project repository can be found on my <a href="/projects/unit-testing">projects page</a>.</p><p>I&#8217;ve finally managed to slog through the long and slightly tedious process of re-writing the same suite of tests in a number of C# and JavaScript unit testing technologies &#8211; the results of which can be seen on the <a href="http://github.com/kouphax/unit-testing">project GitHub page</a>.  My conclusion, especially in the .<span class="caps">NET</span> world, is that it doesn&#8217;t really matter that much.  I know it&#8217;s not that much of a brilliant ending but what did you expect?  Fireworks?</p><p>Anyways before I start amazing you all with more awe inspiring revelations let me run through the remaining technologies (until such times as more are added at least) and summarise their good and bad points.  The other technologies I brought on board include,</p><ul>	<li><a href="http://www.nunit.org/">NUnit</a></li>	<li><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></li>	<li><a href="http://nspec.org/">NSpec</a></li>	<li><a href="https://github.com/robconery/Quixote">Quixote</a></li>	<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>	<li><a href="http://docs.jquery.com/Qunit">QUnit</a></li></ul><p>Some obvious ones there just to round out the comparisons and a few JavaScript based ones.</p><h2><a href="http://www.nunit.org/">NUnit</a></h2><p>Good old <a href="http://www.nunit.org/">NUnit</a>.  Whats not to love?  Mark a class as a fixture and mark your methods as a test.</p><script src="https://gist.github.com/974990.js?file=NUnitTest.cs"></script><p>No point in mentioning too much about NUnit as most people will know the ins and outs of it already.  It has VS integration (via <a href="http://testdriven.net/">TestDriven</a>) and a nice NUnit runner capable of watching changes to DLL&#8217;s and automatically rerunning the test contained within.  One caveat around that is often NUnit hangs on to the <span class="caps">DLL</span> reference and requires a restart so Visual Studio can rebuild the <span class="caps">DLL</span> which kind of misses the point &#8211; but it doesn&#8217;t happen too often.</p><p>The framework itself would lend itself to a bit of betterification through sugar such as <a href="http://should.codeplex.com/">Should and Should.Fluent</a> but it does what it says on the tin.</p><h2><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></h2><p>Another staple for many people.  I&#8217;d never really used it too much prior to doing this post because of the general negative opinion of it.  I must admit I kind of agree with some of these things.  It&#8217;s pretty much the MS equivalent of NUnit (in terms of features and look and feel)</p><script src="https://gist.github.com/975043.js?file=MSTestTest.cs"></script><p>So why do so many people prefer NUnit over MSTest?  Well I think the main problem is that it is <a href="http://www.richard-banks.org/2010/03/mstest-sucks-for-unit-tests.html">quite slow</a> in comparison (from Visual Studio at least) but my main gripe is the amount of <a href="http://en.wiktionary.org/wiki/flob">flob</a> it generates for each test run and configuration.  It even produces solution folders for holding test runs and other files. If I want you to create those I&#8217;ll ask you &#8211; don&#8217;t force it on me.  It also has a very limited set of Assertion methods much like NUnit.</p><p>Enough moaning &#8211; surely it must have some benefits?  Well yes it does of course.  The main benefit <span class="caps">IMHO</span> is that it has very nice integration into Visual Studio which offers some very clean feedback.  This is something that requires <a href="http://testdriven.net/">TestDriven</a> for NUNit and the other frameworks which may or may not be free depending on your situation.</p><h2><a href="http://nspec.org/">NSpec</a></h2><p>Not to be confused with the <a href="http://nspec.tigris.org/">first hit on Google</a> which seems to be pretty much a dead project <a href="http://nspec.org">NSpec</a> (.org) is an attempt to bring <a href="http://rspec.info">RSpec</a> into the .<span class="caps">NET</span> world.</p><script src="https://gist.github.com/975150.js?file=NSpecTest.cs"></script><p>This is somewhat similar to <a href="https://github.com/machine/machine.specifications">MSpec</a> I mentioned in the last post.  My bugbear with MSpec however was that it didn&#8217;t feel natural to me.  The equivalent MSpec test for the above looks like this,</p><script src="https://gist.github.com/975159.js?file=MSpecTest.cs"></script><p>Maybe it&#8217;s just me but it doesn&#8217;t read as well as the NSpec version.  I even found it easier to write the NSpec version &#8211; more natural.</p><p>NSpec also has a lot of extra goodies.  Currently there is no integration into Visual Studio yet but the runner is simple to enough to spin up from the NuGet Package Manager Console and it has an added bonus of a file watcher.  <a href="http://nspec.org/continuoustesting">SpecWatchr</a> is similar to NUnit it can watch for changes and automatically run the specs.  It differs from NUnit in that it watches changes to the code files rather than the <span class="caps">DLL</span> &#8211; so need to wait for builds to happen etc.  Nice.</p><p>One minor gripe with it (bar the lack of VS support &#8211; even TestDriven support would be good) is the <code>should</code> syntax. I prefer the Should.Fluent style syntax <code>Should.Be()</code> rather than the current <code>should_be</code> syntax.  It&#8217;s not Ruby and we should accept that :-P.</p><p>It&#8217;s still quite early for NSpec and hopefully it keeps it&#8217;s momentum as it would be one of my frameworks of choice.</p><h2><a href="https://github.com/robconery/Quixote">Quixote</a></h2><p>Quixote by Rob Conery follows on from his current slew of ultra lightweight solutions to common problems (like <a href="https://github.com/robconery/Massive">Massive</a> and <a href="https://github.com/robconery/Sugar">Sugar</a>).  Quixote blends the <span class="caps">HTML</span> reporting directly with the framework and you write tests right in a Razor file.  This is the definition of lightweight.</p><script src="https://gist.github.com/975180.js?file=QuixoteTest.cshtml"></script><p>The obvious problem with this is that you don&#8217;t get continuous integration or build support.  There is no need to rebuild anything just refresh your page and the tests re-run.  Still CI/Build integration would be nice for a framework.</p><h2><a href="http://pivotal.github.com/jasmine/">Jasmine</a></h2><p>Ah Jasmine.  Jasmine is what I wanted out of a JavaScript testing framework.  Rather than going the JSpec route of creating a preprocessed <acronym title="Domain Specific Language"><span class="caps">DSL</span></acronym> Jasmine makes use of JavaScripts dynamic nature and &#8220;functions as 1st class citizens&#8221; feature to create framework that behaves like RSpec but embraces JavaScript.</p><script src="https://gist.github.com/975187.js?file=Tag.spec.js"></script><p>Out of the box you get an extensible framework (custom matchers etc), mocking and asynchronous support.  Ajax faking isn&#8217;t directly available but I recommend using <a href="http://sinonjs.org">Sinon</a> for this as it has an amazing FakeServer object that is fully configurable.</p><p>Another big advantage of Jasmine is it&#8217;s build integration.  Be it node.js, Java or Ruby you can integrate Jasmine specs into your build process.  .<span class="caps">NET</span> integration isn&#8217;t available yet but <a href="http://jurassic.codeplex.com">Jurassic</a> would be a suitable host if anyone wants to make it happen (hint, hint :-P).</p><h2><a href="http://docs.jquery.com/Qunit">QUnit</a></h2><p>And finally QUnit.  QUnit is the NUnit/JUnit equivalent for the JavaScript world.  Well known and mature project with some very nice <span class="caps">HTML</span> output.</p><script src="https://gist.github.com/975220.js?file=Tag.test.js"></script><p>Not much else to say on this one right now&#8230;. must be running out of steam.</p><h2>Summing Up</h2><p>And there you have it.  The first real post since the move and it&#8217;s a bit of a waffly long one.  Anyways what would be my recommendations?  Well for .<span class="caps">NET</span> I&#8217;m torn.  Currently I&#8217;d say NUnit with Should.Fluent extensions.  This is a nice combo for creating simple tests that people can execute from within Visual Studio.  However NSpec has potential &#8211; I&#8217;d like to see it grow a bit more and I&#8217;ll keep watching it.  Visual Studio integration would be aces though.  JavaScript on the other hand I have a clear cut winner.  Jasmine is awesome.  It&#8217;s boosted my code quality and productivity no end on recent projects and with the help of <a href="http://sinonjs.org">Sinon</a> for mocking and controlling Ajax it&#8217;ll be a long time before I am this happy with a .<span class="caps">NET</span> equivalent tech.  Fingers crossed for NSpec on that front.</p></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -326,111 +431,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/06/technically-non-technical-the-pomodoro-technique/">Technically Non-Technical: The Pomodoro Technique</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-06T00:00:00+01:00" pubdate data-updated="true">Apr 6<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p class="img-holder"><img src="http://farm4.static.flickr.com/3498/5720110114_ff737584c9_o.png"></p><p>I&rsquo;ve been going through a period recently of attempted self improvement.&nbsp; Trying new things to make myself a better more effective code monkey &mdash; iterative code reviews, todo lists, time management, pair programming, TDD, BDD, la dee dee&#8230;.&nbsp;</p><p>My old strategy was simple &mdash; get given or discover a piece of work, usually pretty large, and start coding.&nbsp; Once done do a bit of exploratory testing, read the spec to check I&rsquo;ve covered everything, commit the code and submit a bit of a code review.&nbsp; These sessions tend to last a number of days which leads to an eventual short term burnout.&nbsp; Now because I always write 100% flawless code first attempt that&rsquo;s generally fine but it doesn&rsquo;t really allow other people to learn from my excellence.&nbsp; Also being the smartest person on any project I am generally being pulled left and right answering queries and explaining my very clever designs &mdash; this creates regular context shifts and makes it harder for me to get my focus back on creating all the awesome!</p><p>One of the techniques I have found quite successful recently was the Pomodoro Technique.&nbsp; The name comes from the original kitchen timer used by the creator and the focus is squarely on a low tech approach.&nbsp; The premise behind it is simple but effective.&nbsp; You focus on your task for a 25 minute period (a pomodoro) ignoring all external interruptions (or you forfeit the pom), take 5 minute break, repeat. After 4 pomodoros you take a longer break (15-30 minutes).&nbsp; The rules are as follows,</p><ul><li>A Pomodoro Consists of 25 minutes Plus a Five-Minute Break.</li><li>After Every Four Pomodoros Comes a 15-30 Minute Break.&nbsp;</li><li>The Pomodoro Is Indivisible. There are no half or quarter Pomodoros.&nbsp;</li><li>If a Pomodoro Begins, It Has to Ring: &nbsp;   <ul><li>If a Pomodoro is interrupted definitively &ndash; i.e. the interruption isn&rsquo;t handled it&rsquo;s considered void, never begun, and it can&rsquo;t be recorded with an X.&nbsp;</li><li>If an activity is completed once a Pomodoro has already begun, continue reviewing the same activity until the Pomodoro rings.&nbsp;</li></ul></li><li>Protect the Pomodoro. Inform effectively, negotiate quickly to reschedule the interruption, call back the person who interrupted you as agreed.&nbsp;</li><li>If It Lasts More Than 5-7 Pomodoros, Break It Down. Complex&nbsp;</li><li>activities should be divided into several activities.&nbsp;</li><li>If It Lasts Less Than One Pomodoro, Add It Up. Simple tasks can be combined.&nbsp;</li></ul><h2>My Honest Opinion</h2><p>My previous development strategy was all kinds of broken.&nbsp; It worked provided I wasn&rsquo;t disturbed and I didn&rsquo;t really have a point at which I could turn round to someone and say&nbsp;</p><p><span style=""> <span style=""> </span></span>&ldquo;give me 5 minutes and I&rsquo;ll get back to you&rdquo;</p><p>The pom gives me that excuse and with the use of a simple widget I am able to know when I&rsquo;ll next be free (and so are other people).&nbsp; The hardest thing for me to accept was actually taking the 5 minute break post-pom. Initially (and sometimes still) I&rsquo;d just work over the 5 minutes &mdash; just one more line of code, just test it once more &mdash; excuses, excuses, excuses.&nbsp; Breaking old habits is hard!&nbsp; Some of the other benefits from the technique is that,&nbsp;</p><ul><li>it really helps you visualise your task up front and break it down much better</li><li>it helps you track work that you have done and how long tasks take. &nbsp;</li><li>some pomodoro software even integrates into popular task lists and calendars</li></ul><h2>Resources</h2><p>The Pomodoro Technique website is by far the best resource for this stuff and even has a free ebook on the technique and its background</p><ul><li>The site: <a href="http://www.pomodorotechnique.com/">http://www.pomodorotechnique.com/</a></li><li>The book: <a href="http://www.pomodorotechnique.com/products.html#pomodoropdf">http://www.pomodorotechnique.com/products.html#pomodoropdf</a></li></ul><p>Personally it&rsquo;s going to take me while longer to get into the right mentality 100% but I think the benefits will be worth it.&nbsp; One day I&rsquo;ll be so efficient the code will just stream out of my brain and into my IDE - but for now I&rsquo;ll stick the mortals way of doing things.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-04T00:00:00+01:00" pubdate data-updated="true">Apr 4<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>I&rsquo;ve had a big bad dirty secret for a while now.&nbsp; One I&rsquo;ve kept hidden from my friend and colleagues for years.&nbsp; But now its time to come clean&#8230;&#8230; here goes&#8230;.. hold onto your pants.</p><blockquote>&lt;pause for dramatic effect&gt;<br>I hardly ever write unit tests!<br>&lt;gasps&gt;</blockquote><p>I&rsquo;ve come clean and it feels good.&nbsp; Another reason why it feels good is that it is slowly but surely becoming a falsehood.&nbsp; I&rsquo;ve had my eyes opened recently to the art of BDD and discovered that I&rsquo;ve simply been doing it wrong - I was so busy writing code first and then tests to fit my, possibly incorrect, assumptions that tests failed to hold any worthwhile value &mdash; time wasted in my mind.&nbsp; Also when writing said tests I was too worried on the internal mechanics of the &ldquo;unit&rdquo; being tested and not about its intended behaviour &mdash; essentially missing the point and time wasted once more.&nbsp; Being a man that has no time for, well, time wasting I feel I have come full circle on why I didn&rsquo;t test.&nbsp; In the past at least&#8230;.</p><p>But I digress&#8230;. Where was I?&nbsp; Ah yes I&rsquo;ve had my eyes opened - I&rsquo;ve been doing it right.&nbsp; Yep I&rsquo;ve gone all TDD/BDD - write a failing test, write some code to make it work, make the test fail again and so on and so forth.&nbsp; Its been a good experience.&nbsp; I finally see the benefit in it.&nbsp; Yes, it takes slightly longer and it&rsquo;s hard to break old habits but the amount of times I&rsquo;ve been tripped up by assumptions and edge cases that would only normally be found during system testing after a frustrating debugging session with plenty of hair pulling and swearing.</p><p>Since the whole behaviour driven enlightenment I&rsquo;ve been trying to find a suitable set of technologies that allow me to perfect my new found approach and turn me into a fast and effective code cutting machine.&nbsp; NUnit is fine &mdash; it does the job but it&rsquo;s a task in itself to express what you want out of a test which slows things down.&nbsp; No if you&#8217;re going to do it right you want the best tools.&nbsp; So I have decided to jump in head first and discover what testing tools are the most effective.&nbsp; I&rsquo;ve been through a few already , including,</p><ul><li>SpecFlow (C#)</li><li>MSpec (Machine.Specifications) (C#)&nbsp;</li><li>JSpec&nbsp; (JavaScript)</li><li>Should/Should.Fluent (C#)</li></ul><p>Here are a few of my thoughts so far.&nbsp;</p><h2>SpecFlow (<a href="http://www.specflow.org/">http://www.specflow.org/</a>)</h2><p>SpecFlow is essentially the .NET equivalent of Cucumber (from the Ruby world).&nbsp; Offering natural language syntax for defining scenarios that make up the behaviour of a feature.&nbsp; Its better as an example,</p><p><script src="https://gist.github.com/900860.js"></script></p><p>So you see the test here is written in pretty much straight english.&nbsp; It&rsquo;s easy to understand and this means even domain experts (aka &ldquo;the business folk&rdquo;) can help write them.&nbsp; So how does this end up being turned into executable tests.&nbsp; Well, initially you need to do a bit of wiring up using Step Definitions.</p><p><script src="https://gist.github.com/900863.js"></script></p><p>As you can see we can match up each line of the feature file with an appropriate executable action.&nbsp; We even have the power of regular expressions at our disposal - allowing us to reuse steps and build up a decent library that comes with us across projects.&nbsp; Some very very powerful stuff here &mdash; we can get everyone involved in writing these things,</p><ul><li>Developers and business users during design</li><li>Developers during development</li><li>Testers during system test &mdash; in fact why not write a feature as the &ldquo;Steps to reproduce&rdquo;?&nbsp; Win, win!</li></ul><p>The thing is&#8230;&#8230; well&#8230;. Technically speaking SpecFlow isn&rsquo;t really aimed at the fine grained, unit test level of testing.&nbsp; It&rsquo;s more about the higher level integration testing.&nbsp; I mean it&rsquo;s useable but it does become a bit awkward to express things in a reusable manner.&nbsp; The problem with that is things start feeling quite heavy weight and you need to do a lot of extra work to get them to fit.&nbsp; No I think, while SpecFlow is great for many things (automated testing, integration testing, system testing etc.) it&rsquo;s not the best fit for what I am looking for in this article - unit testing tools.</p><h2>MSpec (<a href="https://github.com/machine/machine.specifications">https://github.com/machine/machine.specifications</a>)</h2><p>Machine.Specifications (MSpec for short) is a Context/Specification framework geared towards 	removing language noise and simplifying tests.&nbsp;</p><p>Thats the official intention and I must admit I was initially taken by it.&nbsp; Rather than having a single huge class filled with methods representing tests MSpec takes the approach that a single class represents a single scenario and uses lambda expressions to offer the BDD style syntax (Because/It/Subject etc.).&nbsp; So lets take the Tag scenario described above and convert it to MSpec format,</p><p><script src="https://gist.github.com/901245.js"></script></p><p>It&rsquo;s quite simple and it really forces you to ensure your tests are as simple as possible.&nbsp; To be honest having used it on a project I&rsquo;m not 100% sold.&nbsp; I think its down to my personal coding style.&nbsp; I honestly think while it reduces line count it doesn&rsquo;t necessarily reduce language noise.&nbsp; Also having used on a project I found it quite awkward to write &mdash; the style is different to what I am used to and I guess with training that would change.&nbsp; As I say this is a personal opinion and I am happy to be shown a better approach.</p><h2>JSpec (<a href="http://visionmedia.github.com/jspec/">http://visionmedia.github.com/jspec/</a>)</h2><p>JSpec is a clever little JavaScript testing framework.&nbsp; I&rsquo;s no longer supported by it&rsquo;s creators (booooo!) but honestly its stable enough to use anyway.&nbsp; JSpec takes the RSpec DSL (a decent subset at least) and is capable of converting it to JavaScript for execution in the browser.&nbsp; It&rsquo;s got a heap of stuff in it,</p><ul><li>Mock Ajax</li><li>Stubbing</li><li>Fake timers</li></ul><p>Lets take a look at a simple example,</p><p><script src="https://gist.github.com/901253.js"></script></p><p>People who have used RSpec before will feel right at home.&nbsp; People who haven&rsquo;t should be able to understand exactly what is going on.&nbsp; Pretty - right?&nbsp; I thought so.&nbsp; For the people who think &mdash; &ldquo;ugh we don&rsquo;t need another dialect/language&rdquo; - wise up!&nbsp; Out of all the testing techs I&rsquo;ve used recently this one has been the most successful and the output it generates is nice and clean.</p><h2>Should/Should.Fluent (<a href="http://should.codeplex.com/">http://should.codeplex.com/</a>)</h2><p>This little gem isn&rsquo;t a framework in itself and can be used with any framework you care to use.&nbsp; Should provides a more expressive way of stating assertions in your code by making the code closer to natural language using extensions methods and nicer method names.&nbsp; Example I hear you say?&nbsp; Why certainly sirs and madams,</p><p><script src="https://gist.github.com/901260.js"></script></p><p>I stole this one from the Should Codeplex site (linked above) and it makes use of the fluent syntax (optional).&nbsp; OK technically it doesn&rsquo;t do much but it really helps when trying to express assertions in your tests.&nbsp; Highly recommend this one.</p><h2>Conclusion</h2><p>Thats the first lot of technologies covered but there are still plenty out there.&nbsp; I think my next port of call is to actually spin up IronRuby and get RSpec involved.&nbsp; After all it is the marker by which I am comparing these things so why did I not jump on it first of all?&nbsp; Perhaps I like to build up suspense :-P</p><p>Also worth pointing out is that I haven&rsquo;t touched upon technologies for mocking and stubbing - that is for another time.</p><p>As always heap criticism my way and I&rsquo;ll happily fight my corner and stubbornly refuse to back down :-P (second smilie within a few paragraphs time to end this post).</p><p>UPDATE: &nbsp;I&#8217;ve pushed some of my code to GitHub and intend to expand on this using the various other technologies. &nbsp;The repository can be found on my <a href="https://github.com/kouphax/unit-testing">repo on GitHub</a></p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/03/29/serialising-net-resources-to-json-for-web-apps/">Serialising .NET Resources to JSON for Web Apps</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-29T00:00:00+01:00" pubdate data-updated="true">Mar 29<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Pop quiz hotshot &ndash; you are building one of them massive single page web apps  using something like Sencha where the vast majority of work is pushed into the  JavaScript realm and some crazy nut wants everything localised or at least  all text strings push to RESX files.  What do you do?  WHAT DO YOU DO?</p><h2>Option 1</h2><p>Well the most obvious option, and IMHO the most horrible, would be to convert  all those JavaScript files into aspx&rsquo;s or cshtml&rsquo;s or whatever and embed the  resource references directly into the files.</p><p><script src="https://gist.github.com/892038.js"></script></p><p>This is far from nice.  For one it kind of makes any static compression of  the files either impossible or at best annoyingly fiddly.  It also prevents any  sort of quick client side caching unless you use some sort of VaryByCulture  Output Caching strategy on the server side.  Blegh.</p><h2>Option 2</h2><p>The next option, and certainly much better would be to pull out the direct  &lt;%= %&gt; references and store them in another smaller file and reference  them through a global JS object</p><p><script src="https://gist.github.com/892054.js"></script></p><p><script src="https://gist.github.com/892048.js"></script></p><p>This is nicer because it means you can compress and cache the JavaScript file  globally without having to worry about different cultures etc.  It does leave  one annoyance though.  The Strings object above it essentially boiler plate.   The names are a 1:1 mapping of the resource file so we have introduced a layer  of abstraction we have to write manually leaving us open to make some mistakes.   Slightly less blegh, but still blegh.</p><h2>Option 3</h2><p>The solution I like the best is to provide a mechanism for serialising the  Resource file into the equivalent JSON object.  You get all the benefits of  option 2 while not having to worry about having to write the mapping file.  So  lets keep the JS file from the second option and change the ASPX file</p><p><script src="https://gist.github.com/892069.js"></script></p><p>Now lets look at the magic behind this option &ndash; the JSON Serialiser</p><p><script src="https://gist.github.com/891939.js"></script></p><p>Simple enough little class that is configurable by Culture etc. so you can  pull different translation out on demand if needs be.  Obviously it doesn&rsquo;t do  anything around caching - SRP and all that stuff you know :-P</p><p>Yeah so I&rsquo;ve used this on 2 projects already with great success so hopefully  someone else finds it useful.</p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -457,23 +457,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
       </li>
     
       <li class="post">
         <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
       </li>
     
   </ul>
@@ -514,8 +514,8 @@
       
         
         if(window.dis_inpost){
-          var disqus_identifier = 'http://kouphax.github.com/blog/page/7/index.html';
-          var disqus_url = 'http://kouphax.github.com/blog/page/7/index.html';
+          var disqus_identifier = 'http://yobriefca.se/blog/page/7/index.html';
+          var disqus_url = 'http://yobriefca.se/blog/page/7/index.html';
           var disqus_script = 'embed.js';
         }else{
           var disqus_script = 'count.js';

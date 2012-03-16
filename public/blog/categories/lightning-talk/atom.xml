@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Lightning Talk | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/lightning-talk/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/lightning-talk/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Node.js Lightning Talk]]></title>
-    <link href="http://kouphax.github.com/blog/2011/03/10/node-js-lightning-talk/"/>
+    <link href="http://yobriefca.se/blog/2011/03/10/node-js-lightning-talk/"/>
     <updated>2011-03-10T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/03/10/node-js-lightning-talk</id>
+    <id>http://yobriefca.se/blog/2011/03/10/node-js-lightning-talk</id>
     <content type="html"><![CDATA[<p>  <p><p>So I held a lightning talk on <a href="http://nodejs.org/">node.js</a> the  other day.  A lightning talk is essentially a short (15 minute) talk about a  subject with a bit of discussion at the end of it.  There was a slight technical  hitch in that I forgot to record the session but I have made up for it by  sitting alone in a quiet room early this morning a re-recorded the session &ndash;  minus the actual discussion bit.</p><p>Obviously it&rsquo;s not as good as the original talk but thought it might be worth  putting out there anyway as it&rsquo;s better than the slides alone.  So here it is &ndash;  a very high level view of node.js.</p><h2>Video</h2><iframe src="http://player.vimeo.com/video/20868544?portrait=0" frameborder="0" height="283" width="500"></iframe><h2>Slides</h2><p><object height="417" width="500"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=node-lightning-talk-110310015300-phpapp02&stripped_title=nodejs-lightning-talk"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=node-lightning-talk-110310015300-phpapp02&stripped_title=nodejs-lightning-talk" allowfullscreen="true" type="application/x-shockwave-flash" allowscriptaccess="always" height="417" width="500"></object></p></p></p>
 ]]></content>
   </entry>

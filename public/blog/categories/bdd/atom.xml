@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: BDD | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/bdd/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/bdd/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012/"/>
+    <link href="http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012/"/>
     <updated>2011-11-17T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012</id>
+    <id>http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012</id>
     <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
 
 <p>So it's been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it's quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>

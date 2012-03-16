@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Conference | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/conference/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/conference/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Talking at DDD North and Belfast]]></title>
-    <link href="http://kouphax.github.com/blog/2011/09/20/talking-at-ddd-north-and-belfast/"/>
+    <link href="http://yobriefca.se/blog/2011/09/20/talking-at-ddd-north-and-belfast/"/>
     <updated>2011-09-20T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/09/20/talking-at-ddd-north-and-belfast</id>
+    <id>http://yobriefca.se/blog/2011/09/20/talking-at-ddd-north-and-belfast</id>
     <content type="html"><![CDATA[<p>The start of October is going to be a busy time for me - in a good way.  The first weekend I'll be doing two talks at <a href="http://developerdeveloperdeveloper.com/dddie11/Schedule.aspx">DeveloperDeveloperDeveloper in Belfast</a> and the following week I'll be skipping over to Sunderland (first time there) do do another talk for <a href="http://developerdeveloperdeveloper.com/north/Schedule.aspx">DeveloperDeveloperDeveloper North</a>.  I've been lucky enough to land the same presentation for both DDD Belfast and DD North which means I have slightly less to prepare.  Not that it will be a drop in quality in anyway - no siree.</p>
 
 <p>For the interested folk the two talks are outlined below.  The titles and synopsis are fairly childish/over-sensationalised (delete as you see fit) but thats the way I roll.  My opinion enjoys being passed around and so my talks will feature a heavy dose of it - with all necessary disclaimers attached.</p>

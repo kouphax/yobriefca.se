@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/feed/index.html" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/feed/index.html" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -14,10 +14,223 @@
 
   
   <entry>
+    <title type="html"><![CDATA[sentimentalizer: A Ruby port of Sentan]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/"/>
+    <updated>2012-03-12T19:22:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/12/sentamentalizer</id>
+    <content type="html"><![CDATA[<p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>&#8217;s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
+
+<ol>
+<li>I wanted something fairly meaty to actually port over to Ruby in an effort to get a more-than-superficial feel for the language</li>
+<li>I might have a need for such a service in an upcoming hackathon (though the original .NET version would have been fine too)</li>
+</ol>
+
+
+<p>This is in no way some sort of new project or intended for some production environment.</p>
+
+<p>So what is it?  <a href="https://github.com/kouphax/sentimentalizer/">sentamentalizer</a> is a quick and dirty <a href="http://en.wikipedia.org/wiki/Sentiment_analysis">sentiment analysis</a> tool.  With it you can loosley class statements as either positive or negative (and get a breakdown of how that classification was derived).  You &#8220;train&#8221; it with datasets for both negative and positive control statements and then feed it sentences you want analysed.  At the minute the engine sits behind a super super super, did I say super already?, simple sinatra app that you submit statements to and it returns a simple JSON response with the sentiment result (negative, positive, neutral) and probability.  If you want to train the bitch you&#8217;ve got to change the <code>api.rb</code> file or update the files in the <code>data\positive</code> and <code>data\negative</code> folders.</p>
+
+<p>Plans? Yeah I might poke around some more, make into more of a standalone learning service or something (again another feature I might need soon anyway).  But for now - feel free to review my shitey code Rubyists (I assume there are better ways to do things, standard appraoches that I&#8217;m not using etc.) and offer suggestions.</p>
+
+<p>Once again thanks to <a href="https://twitter.com/#!/martinrue">@martinrue</a> for doing all the hard-work on <a href="https://github.com/martinrue/Sentan">Sentan</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with minion.js]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js/"/>
+    <updated>2012-03-08T13:13:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js</id>
+    <content type="html"><![CDATA[<p>Yay a technical post&#8230;</p>
+
+<p><a href="https://github.com/gigafied/minion">minion.js</a> is a micro framework providing classical inheritance strategy for JavaScript plus many other goodies.  It can be used in both browsers and <a href="http://nodejs.org">node.js</a>.<!-- more -->  Now I don&#8217;t want to get caught up in any of this classical inheritance for JavaScript is an anti-pattern stuff so just take this framework for what it is - a decent way to define both client and server side models for you JavaScripts!</p>
+
+<p>I&#8217;ve already said it has a host of goodies that can be useful for creating a nice flexible set of models and associated helpers.  This includes,</p>
+
+<ul>
+<li>Class and inheritance support</li>
+<li>Modularity</li>
+<li>A cross model pub/sub mechanism</li>
+<li>Statics, Singletons, static methods and properties</li>
+<li>Dependency management</li>
+<li>Some other stuff I&#8217;ve yet to touch upon&#8230;</li>
+</ul>
+
+
+<p>The code will more or less speak for itself here so lets dive in (the full suite of tests and sample node.js/express implementation can be found on my <a href="https://github.com/kouphax/minion-tinkering">GitHub thingy</a>).</p>
+
+<h2>Classes</h2>
+
+<p>One of the first things I did was try out the whole inheritence thing.  I create a Fruit base class and provided a Strawberry implementation on top of it.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Fruit</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">isInSeason</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inSeason</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Strawberry</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;fruit.Fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">inSeason</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the Strawberry class is pretty damn simple.  First thing you need to do is a one off simple configuration of minion,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">classPath</span> <span class="o">:</span> <span class="s2">&quot;js&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This just tells minions dependency manager where to start looking for your class implementations.  We can then start using the Strawberry class easily using minions <code>require</code> method</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fruit.Strawberry&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">be</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Static Objects</h2>
+
+<p>Static objects are pre-initialised Singletons in minion.js and that makes a lot of sense.  I created a Grocer static by simply extending another minion type <code>Static</code>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Grocer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Static&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buy</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">sell</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">--</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">++</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">checkLevels</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty unsuprising but minion will new up a shared instance of this class the first time it is called.  You&#8217;ll see a little hint of the pub/sub mechanism in the <code>init</code> method as well so lets jump on that.</p>
+
+<h2>Pub/Sub</h2>
+
+<p>So minion has a nice little pub/sub mechanism built right into the classes as well.  So lets say a customer buys stuff from the grocer by publishing his/her request - sure beats just taking it without asking!!!</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Customer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Minion once again handles all the internal wiring up of this stuff and it just works.  Nice.</p>
+
+<h2>The Rest</h2>
+
+<p>There is more to minion.js, I&#8217;ve just given you a very high level view but you should dive a bit deeper by looking at the <a href="https://github.com/gigafied/minion/blob/master/docs/getting_started.md">official docs</a>.  There is a few bits of handy sugar sprinkled on the minion types (proxy, scoped setTimeout and setInterval).  The pub/sub also goes a bit further provinding <code>Notifications</code> that allow a sort of async callback/response mechanism which can be handy.</p>
+
+<p>Now I&#8217;ve never been a fan of these sorts of Class frameworks - I&#8217;ve never really seen the need but I must admit minion appeared at about the right time.  I&#8217;ve been playing with a nice way of structuring <a href="mongoosejs.com">mongoose</a> Schemas/Classes and I think minion here might be a nice fit.</p>
+
+<p>Anyway check it out.  Yay a technical blog with more to come!</p>
+
+<p><a href="https://github.com/gigafied/minion">minion.js</a></p>
+
+<p><a href="https://github.com/kouphax/minion-tinkering">Sample Code</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Taking the Stairs]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
+    <updated>2012-03-06T23:22:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
+    <content type="html"><![CDATA[<p>Ya&#8217;ll about ready for another silly analogy?  I sure am&#8230;.</p>
+
+<p>I work on the 6th floor and recently decided to start taking the stairs.  Mostly because I&#8217;ve let myself go and I really need to drop a few pounds and those stairs are a bit of a hard slog.  But it&#8217;s worth it.  <!-- more --> It&#8217;s funny how much of a better understanding of the building layout I get by just putting in the extra effort and going up the stairs.  The stairwell itself is pretty bland but I see extra doors, and I now know were many of doors could lead.</p>
+
+<p>So the analogy&#8230; Taking the stairs is a bit like the whole software craftsmanship thing.  Sure I could just take the prescribed route, the default stack so to speak, and as with the stairs I&#8217;d probably get where I was going for a lot of the time.  But you know what?  I&#8217;d not know much more than the average person.  What if that lift was over capacity, out of order or just smelling of urine - I&#8217;d be able to manage just fine without getting stranded on a random floor wondering what to do next, if that door I never tried went were I wanted.  Imagine the stress involved if I was already late for a meeting.  Crickey!</p>
+
+<p>So I put the extra effort in to understand things, and it&#8217;s already given me a better perspective on things.  It&#8217;s shown me other options, the ability to decide if the what I am doing is a good approach or perhaps there is a quicker, better, healthier route.</p>
+
+<p>How does that grab you?</p>
+
+<p>I really need to get off this analogy trip I&#8217;m on FFS!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[The Estimation 4x4]]></title>
-    <link href="http://kouphax.github.com/blog/2012/02/12/the-estimation-4x4/"/>
+    <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
     <updated>2012-02-12T19:36:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/02/12/the-estimation-4x4</id>
+    <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
     <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I&#8217;ve ever had the pleasure to work with.</p></blockquote>
 
 <p>I&#8217;m of the opinion that the moment you start trying to apply complex mathematical rigour and time to estimation you&#8217;ve entered into a broken system. <!-- more --> You&#8217;re wasting time trying to protect yourself from finger pointing managers or getting a kicking from old school &#8220;us or them&#8221; lawyer types. None of that adds anything to the project except a big stick to beat people with and make sure they work themselves to death based a a random stab in the dark that is somehow made more realistic by the application if science. Ultimately though if the initial guesswork is wrong, and it&#8217;s seldom on the nose, the science means sweet FA. So why bother? You&#8217;re pleasing the wrong people. But then those people hold a lot of power.  So as long as we can keep them happy with the minimum of effort life should be sweet.</p>
@@ -44,9 +257,9 @@
   
   <entry>
     <title type="html"><![CDATA[Caveat Abstractor]]></title>
-    <link href="http://kouphax.github.com/blog/2012/02/09/caveat-abstractor/"/>
+    <link href="http://yobriefca.se/blog/2012/02/09/caveat-abstractor/"/>
     <updated>2012-02-09T08:37:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/02/09/caveat-abstractor</id>
+    <id>http://yobriefca.se/blog/2012/02/09/caveat-abstractor</id>
     <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
 
 <p>Every time you create an abstraction there is a very good chance you&#8217;ve introduced unnecessary complexity into a solution.  It should never be done alone - it should be a team decision.  The goal of an abstraction is to simplify but in its untamed natural form an abstraction will only add complexity.</p>
@@ -76,18 +289,18 @@
   
   <entry>
     <title type="html"><![CDATA[On Craftmanship and Understanding, I Guess]]></title>
-    <link href="http://kouphax.github.com/blog/2012/01/31/on-craftmanship/"/>
+    <link href="http://yobriefca.se/blog/2012/01/31/on-craftmanship/"/>
     <updated>2012-01-31T16:53:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/01/31/on-craftmanship</id>
+    <id>http://yobriefca.se/blog/2012/01/31/on-craftmanship</id>
     <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It&#8217;s the one that&#8217;s always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you&#8217;ll have better stories to tell when you get there.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Enterprise Scale]]></title>
-    <link href="http://kouphax.github.com/blog/2012/01/26/enterprise-scale/"/>
+    <link href="http://yobriefca.se/blog/2012/01/26/enterprise-scale/"/>
     <updated>2012-01-26T09:54:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/01/26/enterprise-scale</id>
+    <id>http://yobriefca.se/blog/2012/01/26/enterprise-scale</id>
     <content type="html"><![CDATA[<p>Enterprise.  What a broken, misued term.  Its meant to sound big, huge even. I guess many years ago it used to mean big, huge, big business serious work.</p>
 
 <p>But when you think about it, its none of those things really, not any more. <!-- more --> Even the biggest multi-nationals entire enterprise backbone throughput is probably a small fraction of Lady Gagas Twitter feed. Enterprise is just that - one enterprise. Social is global, its all of us at anytime and that is so much bigger than some old enterprise. So if you try and pimp out your CV by using the term enterprise - the only people who are probably going to care are the managers and execs that think their little boring legacy system is unique and special&#8230; Do you really want to be sold that sort of job?  All bytes are equal, some are more equal than others - Pah!  Some are more mired in unnecessary abstraction, contracts and unread, out-of-date doucmentation but they are still bytes.</p>
@@ -96,9 +309,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
-    <link href="http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
+    <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
     <updated>2012-01-05T13:59:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2012/01/05/using-parse-in-net-and-wp7</id>
+    <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn&#8217;t the current build wont run in WP7.  So another item on the list is a version that doesn&#8217;t rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
 <p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
@@ -183,9 +396,9 @@
   
   <entry>
     <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
+    <link href="http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
     <updated>2011-12-30T20:46:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
+    <id>http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
     <content type="html"><![CDATA[<p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I&#8217;d have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later&#8230;</p>
 
 <!-- more -->
@@ -350,9 +563,9 @@
   
   <entry>
     <title type="html"><![CDATA[Standing at the cusp of 2011... WTF?]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/30/2011-and-2012-review/"/>
+    <link href="http://yobriefca.se/blog/2011/12/30/2011-and-2012-review/"/>
     <updated>2011-12-30T19:51:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/30/2011-and-2012-review</id>
+    <id>http://yobriefca.se/blog/2011/12/30/2011-and-2012-review</id>
     <content type="html"><![CDATA[<p>I&#8217;m not sure where this post is going to go in terms of content.  I&#8217;m thinking a bit of full disclosure might be quite cathartic but at the same time do you really want to know the ins and out of my somewhat awful 2011?  Compromise - I&#8217;ll keep it short.  Possibly.</p>
 
 <!-- more -->
@@ -464,9 +677,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Code Coverage and the Forces of Good]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/27/code-coverage-and-the-forces-of-good/"/>
+    <link href="http://yobriefca.se/blog/2011/12/27/code-coverage-and-the-forces-of-good/"/>
     <updated>2011-12-27T09:23:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/27/code-coverage-and-the-forces-of-good</id>
+    <id>http://yobriefca.se/blog/2011/12/27/code-coverage-and-the-forces-of-good</id>
     <content type="html"><![CDATA[<p>Code coverage often does more harm than good.  It removes the focus from testing the expected behaviour of the code to just writing tests to make sure all your code is hit (gamifiying the process to its own detriment).  People will bend tests, often in a way that no typical use case could, just to make them run as they want.  This is unrealistic and paints a false picture of the behaviour of your code.</p>
 
 <!-- more -->
@@ -484,16 +697,16 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
+    <link href="http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
     <updated>2011-12-13T17:39:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
+    <id>http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
     <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my &#8220;lets have a natter about mobile&#8221; blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
 
 <p>On the other hand Enyo is a very nice little framework and in the hands of the Open Source community could be a real winner.  I&#8217;ve had a chance to tinker with over the last few days and thought I&#8217;d help get the word out by outlining how to write the obligatory by law ToDo app.  It is currently somewhat similar to the official <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">FeedReader tutorial</a> but it could be easily extended to add more features.  I recommend you look at the original <a href="https://developer.palm.com/content/api/dev-guide/enyo/tutorial.html">tutorial</a> for more info about how the project is structured as there are certain conventions that may seem odd to your typical web framework.</p>
 
 <p>The entire application, which looks like this (yeah yeah it&#8217;s not the most beautiful thing on the planet - I suck at design).</p>
 
-<p><img src="http://kouphax.github.com/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
+<p><img src="http://yobriefca.se/images/blog/enyo/todo.png" alt="Sample Output for Web View" /></p>
 
 <p>Was knocked together with the following bit of code</p>
 
@@ -713,9 +926,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Rolling Your Own PhoneGap with MonoTouch]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
+    <link href="http://yobriefca.se/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
     <updated>2011-12-05T20:11:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
+    <id>http://yobriefca.se/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
     <content type="html"><![CDATA[<p><a href="http://phonegap.com/">PhoneGap</a> is a clever little idea.  Take a transparent native wrapper for a mobile platform, stretch a 100% x 100% web view and provide a JavaScript API that acts as a bridge to native methods that control the device features such as cameras, GPS and Contacts.  It brings all those lovely web people into the mobile space.  Truth be told PhoneGap isn&#8217;t powered by flaked unicorn and rainbow essence - it&#8217;s fairly simple to achieve yourself.</p>
 
 <!-- more -->
@@ -828,7 +1041,7 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 
 <p>Running this gives us what we would expect (I hope you expect this otherwise I&#8217;d be worried).</p>
 
-<p><img src="http://kouphax.github.com/images/blog/monotouch-phonegap/capture1.png" alt="Sample Output for Web View" /></p>
+<p><img src="http://yobriefca.se/images/blog/monotouch-phonegap/capture1.png" alt="Sample Output for Web View" /></p>
 
 <p>Webside more or less spiked for now.  Next up the nativeside.</p>
 
@@ -948,7 +1161,7 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 
 <p>Running this once again reveals that all is sweet&#8230;</p>
 
-<p><img src="http://kouphax.github.com/images/blog/monotouch-phonegap/capture2.png" alt="Sample Output for Web View with Nativeside call" /></p>
+<p><img src="http://yobriefca.se/images/blog/monotouch-phonegap/capture2.png" alt="Sample Output for Web View with Nativeside call" /></p>
 
 <h2>Now What?</h2>
 
@@ -968,9 +1181,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[So This Mobile Stuff Then... (Techologies)]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability/"/>
+    <link href="http://yobriefca.se/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability/"/>
     <updated>2011-12-05T13:50:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability</id>
+    <id>http://yobriefca.se/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability</id>
     <content type="html"><![CDATA[<p>Do you have your mobile strategy yet?  Do you have your &#8220;one true way&#8221; to cater for every mobile application need?  If not, the world will suddenly end and you&#8217;ll never get anywhere in the mobile market.  Seriously.  Well not seriously.  Obviously that’s a pile of sheep.</p>
 
 <!-- more -->
@@ -1085,9 +1298,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[So this mobile stuff then... (Hybrid)]]></title>
-    <link href="http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then/"/>
+    <link href="http://yobriefca.se/blog/2011/12/03/so-this-mobile-stuff-then/"/>
     <updated>2011-12-03T11:53:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/12/03/so-this-mobile-stuff-then</id>
+    <id>http://yobriefca.se/blog/2011/12/03/so-this-mobile-stuff-then</id>
     <content type="html"><![CDATA[<p>It&#8217;s fair to say over the past year or so I&#8217;ve dabbled in a bit of mobile development.  I&#8217;ve been involved in a number of  projects (from a technical perspective),</p>
 
 <ul>
@@ -1144,9 +1357,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Chutzpah 1.3 Released]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
+    <link href="http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
     <updated>2011-11-27T09:51:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/27/chutzpah-1-dot-3-released</id>
+    <id>http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released</id>
     <content type="html"><![CDATA[<p>I missed the announcement last week the <a href="http://matthewmanela.com/blog/chutzpah-1-3-0-released/">Chutzpah 1.3 has been released</a>.  This is a big release as it brings support for <a href="http://pivotal.github.com/jasmine">Jasmine</a> - my BDD framework of choice for JavaScript.</p>
 
 <!-- more -->
@@ -1158,9 +1371,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Out with the old...]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/25/out-with-the-old-dot-dot-dot/"/>
+    <link href="http://yobriefca.se/blog/2011/11/25/out-with-the-old-dot-dot-dot/"/>
     <updated>2011-11-25T07:50:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/25/out-with-the-old-dot-dot-dot</id>
+    <id>http://yobriefca.se/blog/2011/11/25/out-with-the-old-dot-dot-dot</id>
     <content type="html"><![CDATA[<p>&#8230; in with the new.  So I&#8217;ve started rolling out my new site, expect somethings to be slightly broken as images and whatnot have been moved around.  Spent a day or two designing a new site that was similar to the old one but slightly better.  Eventually got frustrated at my inability to do any sort of graphical design and went the <a href="http://octopress.org">Octopress</a>.</p>
 
 <!-- more -->
@@ -1172,9 +1385,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012/"/>
+    <link href="http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012/"/>
     <updated>2011-11-17T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/17/speaking-at-devweek-2012</id>
+    <id>http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012</id>
     <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
 
 <p>So it&#8217;s been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it&#8217;s quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>
@@ -1198,9 +1411,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip/"/>
+    <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
     <updated>2011-11-16T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip</id>
+    <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1248,9 +1461,9 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
   
   <entry>
     <title type="html"><![CDATA[Innovation Waffle]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/09/on-innovation/"/>
+    <link href="http://yobriefca.se/blog/2011/11/09/on-innovation/"/>
     <updated>2011-11-09T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/09/on-innovation</id>
+    <id>http://yobriefca.se/blog/2011/11/09/on-innovation</id>
     <content type="html"><![CDATA[<p>There has been a lot of internal chatter at my employer around innovation.  A recent internal Hackathon produced some interesting, innovative stuff for using a Kinect in one of our projects and piqued peoples interest.  Oddly enough my dad reminded me of a quote the other day.</p>
 
 <!--more-->
@@ -1267,228 +1480,6 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 <h2>Vision is the Glue of Innovation</h2>
 
 <p>It&#8217;s great to have a <strong>need</strong> you want to address, it&#8217;s even better to be able to apply all sorts of <strong>technology</strong> to that need but odds are it will all come to nought without a strong <strong>vision</strong>.  <strong>Vision is the glue of innovation</strong>, while you need both need and technology they&#8217;ll never really stay together without that binding vision.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[GiveCamp Northern Ireland 2012]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/03/givecampni/"/>
-    <updated>2011-11-03T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/03/givecampni</id>
-    <content type="html"><![CDATA[<p><img src="http://givecampni.org.uk/assets/img/givecamp-large-logo.png" alt="GiveCamp" /></p>
-
-<p><a href="http://givecampni.org.uk/">http://givecampni.org.uk/</a></p>
-
-<p>Aint no backing out now son!  In 2012 there is going to be a Northern Ireland based <a href="http://givecamp.org">GiveCamp</a>.  The &#8220;Register Your Interest&#8221; placeholder site is now live at <a href="http://givecampni.org.uk/">http://givecampni.org.uk/</a> so if everyone can start spreading the word and getting excited that would be super awesome.</p>
-
-<p>Any tips, advice or help at this point is also really welcome.</p>
-
-<p>Let the fun begin&#8230;.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook/"/>
-    <updated>2011-11-01T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/01/nancy-jsonp-hook</id>
-    <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
-
-<p>I needed to write a simple JSONP capable service recently and decided to run with <a href="http://nancyfx.org">Nancy</a>.  Turns out Nancy doesn&#8217;t give us a way to do JSONP so I set about creating something that fitted my use case.  The fruits of my very very short labour (thanks to the super-hyper-flexible-powerfulness of the Nancy Pipeline) can be seen here.  The full source is available in the <a href="https://github.com/kouphax/nancy-jsonp">Github repo</a> and hopefully we can get this pushed into the core of Nancy shortly (or at least part of the official repo one way or another) - just for the geek cred of course :)</p>
-
-<!--more-->
-
-
-<h2>Implementation Rundown</h2>
-
-<p>I took the same approach as the existing hooks (using the SassAndCoffee one as my implementation pattern) so created a static <code>Hooks</code> class with an <code>Enable</code> method that simply adds a new item to the end of the pipeline</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
-</span><span class='line'><span class="c1">/// Enable JSONP support in the application</span>
-</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
-</span><span class='line'><span class="c1">/// &lt;param name=&quot;pipeline&quot;&gt;Application Pipeline to Hook into&lt;/param&gt;</span>
-</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Enable</span><span class="p">(</span><span class="n">IApplicationPipelines</span> <span class="n">pipeline</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">pipeline</span><span class="p">.</span><span class="n">AfterRequest</span><span class="p">.</span><span class="n">AddItemToEndOfPipeline</span><span class="p">(</span><span class="n">PrepareJsonp</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The meat of the work lies in the <code>PrepareJsonp</code> method</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
-</span><span class='line'><span class="c1">/// Transmogrify original response and apply JSONP Padding</span>
-</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
-</span><span class='line'><span class="c1">/// &lt;param name=&quot;context&quot;&gt;Current Nancy Context&lt;/param&gt;</span>
-</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">PrepareJsonp</span><span class="p">(</span><span class="n">NancyContext</span> <span class="n">context</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;&amp;</span> <span class="n">hasCallback</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// grab original contents for running later</span>
-</span><span class='line'>        <span class="n">Action</span><span class="p">&lt;</span><span class="n">Stream</span><span class="p">&gt;</span> <span class="n">original</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">callback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">Value</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// set content type to application/javascript so browsers can handle it by default</span>
-</span><span class='line'>        <span class="c1">// http://stackoverflow.com/questions/111302/best-content-type-to-serve-jsonp</span>
-</span><span class='line'>        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="c1">// disposing of stream is handled elsewhere</span>
-</span><span class='line'>            <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
-</span><span class='line'>            <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
-</span><span class='line'>            <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
-</span><span class='line'>            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Let me highlight a few of the key areas here.</p>
-
-<h3>Determine if Response need JSONP Padded</h3>
-
-<p>I decided to take a basic approach to determining if the request should return a JSONP response,</p>
-
-<ul>
-<li>If the content type of the current response is <code>application/json</code></li>
-<li>If there is a query string parameter called <code>callback</code></li>
-</ul>
-
-
-<p>Here is what we need to satisfy that,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;&amp;</span> <span class="n">hasCallback</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I am sure this could be refined and open to suggestion (perhaps more applicable content types or extra possible configuration for the callback parameter).  I wonder if it is a bit safer to restrict requests that are GET requests seeing as that is the only way to do JSONP? Hmmmm.</p>
-
-<p>Next thing I set the content type to <code>application/javascript</code> as that makes perfect sense</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Finally I wrap the original responses content in the JSONP &#8220;padding&#8221; (the callback function) and write everything out.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// disposing of stream is handled elsewhere</span>
-</span><span class='line'>    <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So all in all very simple but damn I&#8217;m proud that I got off my arse and contributed to such a stellar community. hopefully someone finds this useful.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tinyweb.FluentSecurity v0.1 Released]]></title>
-    <link href="http://kouphax.github.com/blog/2011/10/19/tinyweb-fluentsecurity-0-1-released/"/>
-    <updated>2011-10-19T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/10/19/tinyweb-fluentsecurity-0-1-released</id>
-    <content type="html"><![CDATA[<blockquote><p>Slight change here - FluentSecurity is now FluentAuth to avoid any confusion with a similarly named product of which there is some inspiration taken.  Anyway on with the original post&#8230;.</p></blockquote>
-
-<p><img src="http://yobriefca.se/projects/fluentauth/images/logo.png" style="float:right;height:150px;" /></p>
-
-<p>I have procrastinated long enough on this and it was blocking some of the other work I wanted to get on with.  I have just pushed v0.1 to Nuget and launched the <a href="http://yobriefca.se/projects/fluentauth/">site sans documentation</a>.</p>
-
-<!--more-->
-
-
-<p>Not a great deal has changed since my last announcement, well it has but it hasn&#8217;t been documented as it should be backwards compatible.  Just a few more configuration options that I&#8217;ll explain once I get the documentation rolled out.</p>
-
-<script type="text/javascript">
-    (function () {
-        var nb = document.createElement('script'); nb.type = 'text/javascript'; nb.async = true;
-        nb.src = 'http://s.prabir.me/nuget-button/0.2.1/nuget-button.min.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(nb, s);
-    })();
-</script>
-
-
-<pre class="nuget-button">Install-Package Tinyweb.FluentAuth</pre>
-
-
-<p>So go check it out and hopefully you&#8217;ll find it useful - plenty of plans for expansion to other frameworks and some more API changes coming too.  Now back to procrastinating.</p>
 ]]></content>
   </entry>
   

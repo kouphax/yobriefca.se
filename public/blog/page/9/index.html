@@ -9,7 +9,7 @@
   <meta name="author" content="James Hughes">
 
   
-  <meta name="description" content="Sorry for the poor syntax highlighting on the source code&#8230; not much support for Razor ATMI&rsquo;ve been holding off trying to form an opinion &hellip;">
+  <meta name="description" content="I&rsquo;ve been playing with node.js for a while now and some of the things coming out of that community are simply amazing.&nbsp; One of the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kouphax.github.com/blog/page/9">
+  <link rel="canonical" href="http://yobriefca.se/blog/page/9">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -60,7 +60,7 @@
 </ul>
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input type="hidden" name="q" value="site:yobriefca.se" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +80,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/17/using-coffeescript-in-net/">Using CoffeeScript in .NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p style="text-align: center;"><img src="http://posterous.com/getfile/files.posterous.com/temp-2011-01-17/GzcAkdBuuBhqnFqExtbBrpthjHwbqpFyslpzEnJEiIiwqmulsAjFgFAuciHJ/coffeescriptdotnet.png.scaled500.png" alt=""></p><p>I&rsquo;ve been playing with <a href="http://nodejs.org/">node.js</a> for a while  now and some of the things coming out of that community are simply amazing.&nbsp; One  of the interesting techs is <a href="http://coffeescript.org/">CoffeeScript</a>&nbsp;which is essentially a  JavaScript dialect that compiles into JavaScript.&nbsp; It&rsquo;s goal is to simplify the  JavaScript language by removing all those bad parts that can cause a lot of  grief&nbsp;and taking all those common tasks (array manipulation, scoping etc and  making them very very easy to achieve.&nbsp; I have an old post I have yet to publish  externally on the subject but I will get it out there ASAP.</p><p>CoffeeScript comes in 2 variations&nbsp;&ndash; a node.js specific version and a  &ldquo;standalone&rdquo; version that can be run in browser (pure JavaScript without any of  the node.js assumptions basically).&nbsp; Considering it&rsquo;s parsing one language into  another it&rsquo;s not recommended to be running the script client side every time so  if you want to use it you want to be doing the parsing server side and possibly  using some sort of caching to prevent redoing the parsing on every request.&nbsp;  This is the bad(ish) news for .NET folks because there really isn&rsquo;t any stable  JavaScript implementations that can run a script as complex a CoffeeScript (this  is essentially a compiler of sorts).&nbsp; Well at least not until now&hellip;.&nbsp; When i  first investigated this I tried using a number of JavaScript engines,</p><ul><li><a href="https://github.com/fholm/IronJS">IronJS</a>: Currently&nbsp;only a  partial implementation and&nbsp;doesn&rsquo;t appear to run the CoffeeScript  compiler&nbsp;fully.</li><li><a href="http://javascriptdotnet.codeplex.com/">JavaScript.NET</a>: Worked  for version 0.9 or so of CoffeeScript but there is a bug that causes version 1.0  to fall over and development appears to have ceased.</li><li>Command line JScript:&nbsp;Epic fail.&nbsp; Just wouldn&rsquo;t do what I needed it  to.</li></ul><p>Then along came&nbsp;yet another JavaScript engine for .NET so I gave it a shot.&nbsp;  On the surface <a href="http://jurassic.codeplex.com/">Jurassic</a>&nbsp;appeared to  offered everything I needed and upon diving a bit deeper I discovered that, yes,  it does indeed offer everything I needed&nbsp;&ndash; it runs the CoffeeScript compiler.&nbsp;  Sweet.</p><p>So lets write the compiler wrapper.&nbsp; Pretty basic really,</p><p><script src="https://gist.github.com/782874.js"></script></p><p>Few points worth noting here,</p><ul><li>I create a ThreadStatic instance of the Jurassic Engine and feed the  CoffeeScript compiler source into it once.&nbsp; The executions/evaluation of that  script is quite slow so I only wanted to take the hit once.&nbsp; Jurassic isn&rsquo;t  thread safe so I made the reference ThreadStatic.</li><li>Just to be extra safe I am locking during the execution of the compilation  task.</li><li>Any errors just return null.&nbsp; This is a bare bones implementation I have  stripped out custom logging and profiling code and an interface that means  little in this context.</li></ul><p>I have created a VS2010 MVC3 solution that makes use of this processor to generate JavaScript from a simple CoffeeScript example. &nbsp;Have fun.</p><p><a href="https://github.com/kouphax/coffeescript-dotnet">https://github.com/kouphax/coffeescript-dotnet</a></p><h2>What&rsquo;s Next?</h2><p>This is obviously only the start&nbsp;&ndash; if I wanted to use CoffeeScript in a .NET  environment I am going to need to consider how it is used.&nbsp; When should I be  compiling it?&nbsp; How should I be caching it etc?&nbsp; The usual things.&nbsp; Hopefully  I&rsquo;ll touch on these in a later post.</p><p>So right now this is kind of a request for comments, this was knocked up quite quickly and likely I have forgotten something or made a massive mistake. &nbsp;Anything you want to offer fire away.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/">VS2010/MVC JavaScript Intellisense HTML âHackâ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-07T00:00:00+00:00" pubdate data-updated="true">Jan 7<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>There is a problem with Visual Studio 2010 JavaScript Intellisense (using MVC in this case) and it is  this&nbsp;-&nbsp;If you are referencing JavaScript resources correctly (or Stylesheets for  that matter) as you all should be you&nbsp;wont actually&nbsp;get intellisense within an  SCRIPT blocks in HTML.&nbsp; So using this sort of script reference,</p><p><script src="https://gist.github.com/769312.js"></script></p><p>Will not give you intellisense.&nbsp; Sure you can use JavaScript files and make  use of the reference VSDOC tag (in fact maybe you should)</p><p><script src="https://gist.github.com/769313.js"></script></p><p>But this doesn&rsquo;t work (yet) within SCRIPT blocks.&nbsp; So what about those rare  times you actually want intellisense within your page?&nbsp; It&rsquo;s actually quite easy  though a bit hacky&nbsp;&ndash; stick it in a condition branch that never gets reached.&nbsp;  So,</p><p><script src="https://gist.github.com/769314.js"></script></p><p>The Intellisense parser doesn&rsquo;t really care about the fact that the code wont  ever get hit and you still get your typeahead and documentation etc. but it  won&rsquo;t ever get accidentally written to the generated output (as often happened  to me).&nbsp; I guess this seems kind of obvious or whatever but perhaps so obvious  some people may not have even though about it and hopefully it&rsquo;ll help someone  out somewhere at some point sometime, eventually&nbsp;&ndash; maybe.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/11/20/better-json-serialisation-for-asp-net-mvc/">Better JSON Serialisation for ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-20T00:00:00+00:00" pubdate data-updated="true">Nov 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p><p>The Json() method of controllers is a nice little convenience method for  serialising server side data into JSON for handy consumption on the client side  but it&rsquo;s not without it&rsquo;s issues.&nbsp; Firstly it just cant serialise dates in any  nice way due to no hard and fast standard in JSON for dates.</p><p><script src="https://gist.github.com/708168.js"></script></p><p>Simply gets spat back to the front end as a string like so,</p><p><script src="https://gist.github.com/708170.js"></script></p><p>Not exactly the most useful thing in the world. &nbsp;You are going to need to make use of JSON&#8217;s reviver callback to parse this accordingly.</p><p>Another issue is lack of configurability.&nbsp; C# coding standards recommend the  use of PascalCased property names whereas in JavaScript land the standard is  camelCase (and many frameworks assume this casing which can cause issues behind  the scenes *cough*ExtJS*cough*).&nbsp; You can fix this by adding DataContract and  DataMember attributes to your model object but it gets a bit messy and open to  error if an attribute is left out accidentally.&nbsp; Or what if you don&rsquo;t have  access to the model code?</p><h2>JSON.NET</h2><p><a href="http://json.codeplex.com/">Json.NET</a> is my JSON de/serialiser of  choice.&nbsp; It&rsquo;s fast and widely configurable plus it fixes the problems I&rsquo;ve  mentioned above (among many many other things).&nbsp; Not to mention some BSON  (Binary JSON) support which could come in handy in the future.</p><h2>JsonNetResult</h2><p>So lets fix things.&nbsp; Lets wrap Json.NET up in an ActionResult type and offer  a configurable entry point.</p><p><script src="https://gist.github.com/708173.js"></script></p><p>As you can see I have exposed the JsonSerializerSettings object allow  developers to tune the serialisation all they want.&nbsp; We can also make things  even simpler by providing a Controller extension method that we can call without  having to create the object directly,</p><p><script src="https://gist.github.com/708175.js"></script></p><p>Simple stuff but still pretty powerful, lets see it in action.</p><h2>The Date Problem</h2><p>We can fix the date problem in a number of ways via converters.&nbsp; Converters  give us a custom way to convert values of objects and Json.NET provides a number  of converters out of the box &ndash; IsoDateTimeConverter, JavaScriptDateTimeConverter  and an abstract base DateTimeConverter to roll your own.&nbsp; Lets use the  JavaScriptDateTimeConverter for this example,</p><p><script src="https://gist.github.com/708176.js"></script></p><p>The resultant JSON object will generate a JSON object with a JavaScript Date  constructor</p><p><script src="https://gist.github.com/708178.js"></script></p><p>While not strictly valid JSON native JSON parsers and JSON2 handle it  fine.</p><h2>The Casing Issue</h2><p>We can use Json.NET&rsquo;s contract resolver to automagically convert PascalCased  property names of C# to camelCased property names of JavaScript.</p><p><script src="https://gist.github.com/708179.js"></script></p><p>Which gives us a response like so,</p><p><script src="https://gist.github.com/708183.js"></script></p><p>Fixed.</p><h2>Wrap Up</h2><p>So we have managed to create a much more powerful JSON serialisation  technique without having to sacrifice too much of the convenience of the Json()  method in the controller.&nbsp; Anyone got any recommendations/enhancements they are  willing to share? &nbsp;</p></p></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -326,111 +431,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/22/practical-jquery-mobile-with-asp-net-mvc/">Practical jQuery Mobile With ASP.NET MVC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-22T00:00:00+01:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>That&#8217;s a bit of a mouthful.&nbsp; I wanted to write a post about creating a basic  jQuery Mobile app but as I started putting the code together MVC became more and  more involved so I combined the 2.</p><p>The end solution?&nbsp; Lets create a phone directory with 2 main views,</p><ol><li>A filterable list of all people with quick info (telephone extension and  name) that is grouped and sorted alphabetically, and,</li><li>A disclosure view of a selected person showing more details including a  photo</li></ol><p>[[posterous-content:FddxCHuIgArIuezHEbcn]]</p><h2>MVC (The Server Side)</h2><p>jQuery Mobile works by progressive enhancement and uses Ajax to load and  parse external links so it has more control over page transitions and Ajax  history.&nbsp; This means that we create a plain old website that will work without  jQuery Mobile, Ajax or any JavaScript.&nbsp; So I started with the ASP.NET MVC 2 Web  Application Visual Studio Template and ripped out everything bar the Home  Controller and the 2 views.&nbsp; I also stripped the Site.Master down to the bare  bones.</p><p>Next I created my model with data access methods,</p><p><script src="https://gist.github.com/640270.js"></script></p><p>You can implement your own data access there or just hard code some values.&nbsp;  Next I updated the HomeController to return the right models&nbsp; to the views</p><p><script src="https://gist.github.com/640281.js"></script></p><p>I updated the views to&nbsp;display the information in a straightforward way.&nbsp;</p><p>Index.aspx</p><p><script src="https://gist.github.com/640303.js"></script></p><p>About.aspx</p><p><script src="https://gist.github.com/640304.js"></script></p><p>This leaves us with a normal, not so pretty but fully functioning site.&nbsp;</p><p>[[posterous-content:DblJukiumuFlvvqlHokq]]</p><p>Now lets inject some mobile niceness into it,</p><h2>jQuery Mobile</h2><p>First things first lets put reference to jQuery and jQuery Mobile&nbsp; (script  and css) into our site master and update our DOCTYPE to the HTML5 DOCTYPE  leaving us with,</p><p><script src="https://gist.github.com/640308.js"></script></p><p>Now we need to tell jQuery Mobile how to layout the pages and mobilise.&nbsp; This  isn&rsquo;t necessarily done in script as you might think.&nbsp; jQuery Mobile makes use of  HTML5&rsquo;s data- attributes to identify how the page should be laid out and mark  areas to specific roles.</p><p>Index.aspx</p><p><script src="https://gist.github.com/640312.js"></script></p><p>About.aspx</p><p><script src="https://gist.github.com/640313.js"></script></p><p>So what have we added here?&nbsp;</p><ul><li>data-roles&nbsp;&ndash; telling jQuery Mobile what each div actually represents e.g.     <ul><li>page&nbsp;&ndash; a single view (a single html page can have multiple views)</li><li>header&nbsp;&ndash; the header of a page</li><li>content&nbsp;&ndash; the pages content</li><li>footer&nbsp;&ndash; the footer of a page</li><li>list-view&nbsp;&ndash; a special&nbsp;role to&nbsp;specifying &nbsp;that the content is a list</li><li>list-divider&nbsp;&ndash; a divide for a list that doesn&rsquo;t do anything but look  different</li></ul></li><li>data-filter&nbsp;&ndash; telling jQuery Mobile that&nbsp;it should provide filtering on this  view</li><li>ui-li-aside class identifies that this is some aside information for this  list item</li></ul><p>And that is it.&nbsp; We have taken a static site and without writing any code  (bar markup) created a mobile app.&nbsp; Probably might be a good idea to include an  application cache manifest file as well so there is some semblance of offline  capability provided.&nbsp; But that&#8217;s for another day.</p><p>[[posterous-content:pJHwwsHHmrfAkJIJFkrp]]</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/21/asp-net-mvc3-jsonvalueproviderfactory/">ASP.NET MVC3 JsonValueProviderFactory</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-21T00:00:00+01:00" pubdate data-updated="true">Oct 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><a href="http://www.asp.net/mvc/mvc3" target="_blank">ASP.NET MVC 3</a></p><p>Anyone who&rsquo;s been involved in an&nbsp;ASP.NET MVC project that is quite Ajax heavy  will probably have noticed that something was always missing.&nbsp; Imagine this  front end scenario,</p><p><script src="https://gist.github.com/639171.js"></script></p><p>Which posts to the following action</p><p><script src="https://gist.github.com/639226.js"></script></p><p>We have a login screen that is submitted via ajax.&nbsp; Now this is quite a  contrived example (ideally you&rsquo;d be&nbsp;performing a normal post via ajax in  this&nbsp;situation) but there are many instances where this sort practise would  apply (ExtJS&rsquo; RESTful DataWriters for example).&nbsp;</p><h2>MVC 2</h2><p>In MVC 2 this wouldn&rsquo;t work immediately.&nbsp; The default model binder in MVC 2  uses Request parameters to bind&nbsp;to model properties but in this case there are  none as the ajax content is the body of the request.</p><p>To accommodate this sort of request in MVC 2 we had to provide a custom model  binder that knows how to deal with JSON requests,</p><p><script src="https://gist.github.com/639234.js"></script></p><p>And attribute our actions model argument telling it to use this binder,</p><p><script src="https://gist.github.com/639242.js"></script></p><p>It&rsquo;ll do the job but it&rsquo;s incredibly messy.&nbsp;</p><h2>MVC 3</h2><p>MCV3 fills this gap thanks to the JsonValueProviderFactory.&nbsp; The JVPF  operates at a higher level than a model binder.&nbsp; Basically what it does when a  JSON request is received is that it pulls the values&nbsp;out of the JSON body&nbsp;as key  value pairs which means they are available to the model binders including the  default model binder.&nbsp; No special wiring required, no custom model binders  (unless of course you want one) just out-of-the-box workingness!</p><p><script src="https://gist.github.com/639226.js"></script></p><p>I know most of this post was taken up by MVC2 specific implementation but  isn&rsquo;t that really the point?&nbsp; MVC3 is a nice refinement of MVC2 there isn&rsquo;t  anything new exactly but the core stuff that is there has been made easier and  more configurable.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/19/javascript-proxy-pattern/">JavaScript Proxy Pattern</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><p>More often than not when using 3rd party Javascript widgets/plugins/frameworks is that they don&rsquo;t behave in exactly the way that you want forcing you to change tactics, write some horribly messy boilerplate code, hack the original code or look for alternatives. The proxy pattern is a useful pattern that provides a sort of AOP-lite technique that can be used to transparently manage 3rd party code without having to make breaking changes or repeating horrible code from a single point in the code.</p><p>Functions are 1st class objects in JavaScript and this is the feature that powers this pattern. Imagine the setup below,</p><p><script src="https://gist.github.com/634816.js"></script></p><p>Now imagine there are a set of URLs that require some sort of authentication token passed along with the request. How do we deal with that? Well some people would just hack the internal functions but that&rsquo;s a bad idea as it probably breaks other parts of the system. Another way to do it would be to write your own Ajax framework for the new calls you want to make but that&rsquo;s overkill. The proxy pattern can help here.</p><p><script src="https://gist.github.com/634818.js"></script></p><p>So basically if the URL is a secured URL (present in the XHR.securedURLs array) then there will be a bit of pre-processing done to the URL before the function is called. Otherwise the normal function is called. That is the primary aim of the proxy pattern &ndash; to enhance existing functionality &ndash; at the very least the proxied function should fall back to the original function otherwise other parts of the system could be come affected (unless you know what you are doing of course &ndash; cancelling illegal calls etc).</p></p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -457,23 +457,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
       </li>
     
       <li class="post">
         <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
       </li>
     
   </ul>
@@ -514,8 +514,8 @@
       
         
         if(window.dis_inpost){
-          var disqus_identifier = 'http://kouphax.github.com/blog/page/9/index.html';
-          var disqus_url = 'http://kouphax.github.com/blog/page/9/index.html';
+          var disqus_identifier = 'http://yobriefca.se/blog/page/9/index.html';
+          var disqus_url = 'http://yobriefca.se/blog/page/9/index.html';
           var disqus_script = 'embed.js';
         }else{
           var disqus_script = 'count.js';

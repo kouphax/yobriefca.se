@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Windows | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/windows/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Windows 8]]></title>
-    <link href="http://kouphax.github.com/blog/2011/09/14/windows-8/"/>
+    <link href="http://yobriefca.se/blog/2011/09/14/windows-8/"/>
     <updated>2011-09-14T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/09/14/windows-8</id>
+    <id>http://yobriefca.se/blog/2011/09/14/windows-8</id>
     <content type="html"><![CDATA[<p>Where WebForms was an attempt to bring the desktop paradigm to web development Windows 8 attempts to do the exact opposite by bringing web to the desktop. More so in fact Windows 8 appears to be effectivley deprecating the desktop idea over time. It's a bold move but trying to cater to every platform is surely a recipe for disaster but you know what I can't help but like it.</p>
 
 <p>I'm not convinced by the Vista v2 arguments either but then I do most of my "poweruser" stuff via a command prompt and thats not going to change - when I hit the desktop I am looking for a nice experience and I feel, so far, I get that with Windows 8.</p>

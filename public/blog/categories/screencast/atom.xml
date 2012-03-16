@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Screencast | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/screencast/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/screencast/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,45 +15,45 @@
   
   <entry>
     <title type="html"><![CDATA[Micro Web Frameworks in .NET Screencast: Nancy #1 - Hello World]]></title>
-    <link href="http://kouphax.github.com/blog/2011/05/23/nancy-1-screencast/"/>
+    <link href="http://yobriefca.se/blog/2011/05/23/nancy-1-screencast/"/>
     <updated>2011-05-23T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/05/23/nancy-1-screencast</id>
+    <id>http://yobriefca.se/blog/2011/05/23/nancy-1-screencast</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/24114023?byline=0&amp;portrait=0" width="601" height="428" frameborder="0"></iframe><p><a href="http://vimeo.com/24114023">Nancy #1 &#8211; Hello World</a> from <a href="http://vimeo.com/user7151248">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p><p>Part of my Micro Web Frameworks in .<span class="caps">NET</span> series.  This time looking at Hello World in Nancy (http://nancyfx.org)</p></p></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro Web Frameworks in .NET Screencast: Jessica #4 - Views]]></title>
-    <link href="http://kouphax.github.com/blog/2011/05/20/jessica-4-screencast/"/>
+    <link href="http://yobriefca.se/blog/2011/05/20/jessica-4-screencast/"/>
     <updated>2011-05-20T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/05/20/jessica-4-screencast</id>
+    <id>http://yobriefca.se/blog/2011/05/20/jessica-4-screencast</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/24014537?byline=0&amp;portrait=0" width="601" height="428" frameborder="0"></iframe><p><a href="http://vimeo.com/24014537">Jessica #4 &#8211; Views</a> from <a href="http://vimeo.com/user7151248">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p><p>The four part of a series covering the various micro web frameworks in .<span class="caps">NET</span>.  This part shows you how to serve dynamic views with Jessica (http://jessicafx.org).</p></p></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro Web Frameworks in .NET Screencast: Jessica #3 - Configuration]]></title>
-    <link href="http://kouphax.github.com/blog/2011/05/20/jessica-3-screencast/"/>
+    <link href="http://yobriefca.se/blog/2011/05/20/jessica-3-screencast/"/>
     <updated>2011-05-20T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/05/20/jessica-3-screencast</id>
+    <id>http://yobriefca.se/blog/2011/05/20/jessica-3-screencast</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/24014440?byline=0&amp;portrait=0" width="601" height="428" frameborder="0"></iframe><p><a href="http://vimeo.com/24014440">Jessica #3 &#8211; Configuration</a> from <a href="http://vimeo.com/user7151248">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p><p>The third part of a series covering the various micro web frameworks in .<span class="caps">NET</span>.  This part shows you how to configure  Jessica (http://jessicafx.org).</p></p></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro Web Frameworks in .NET Screencast: Jessica #2 - Static Content]]></title>
-    <link href="http://kouphax.github.com/blog/2011/05/20/jessica-2-screencast/"/>
+    <link href="http://yobriefca.se/blog/2011/05/20/jessica-2-screencast/"/>
     <updated>2011-05-20T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/05/20/jessica-2-screencast</id>
+    <id>http://yobriefca.se/blog/2011/05/20/jessica-2-screencast</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/24014389?byline=0&amp;portrait=0" width="601" height="428" frameborder="0"></iframe><p><a href="http://vimeo.com/24014389">Jessica #2 &#8211; Static Content</a> from <a href="http://vimeo.com/user7151248">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p><p>The second part of a series covering the various micro web frameworks in .<span class="caps">NET</span>.  This part shows you how to serve static files through Jessica (http://jessicafx.org).</p></p></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro Web Frameworks in .NET Screencast - Jessica #1 - Hello World]]></title>
-    <link href="http://kouphax.github.com/blog/2011/05/20/jessica-1-screencast/"/>
+    <link href="http://yobriefca.se/blog/2011/05/20/jessica-1-screencast/"/>
     <updated>2011-05-20T00:00:00+01:00</updated>
-    <id>http://kouphax.github.com/blog/2011/05/20/jessica-1-screencast</id>
+    <id>http://yobriefca.se/blog/2011/05/20/jessica-1-screencast</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/24014199?byline=0&amp;portrait=0" width="601" height="428" frameborder="0"></iframe><br><p><br>  <a href="http://vimeo.com/24014199">Jessica #1 &#8211; Hello World</a> from <a href="http://vimeo.com/user7151248">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p><p>The first part of a series covering the various micro web frameworks in .<span class="caps">NET</span>.  This part shows you how to implement Hello World using Jessica (http://jessicafx.org).</p></p>
 ]]></content>
   </entry>

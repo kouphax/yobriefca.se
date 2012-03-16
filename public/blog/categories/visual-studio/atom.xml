@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Visual Studio | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/visual-studio/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/visual-studio/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[VS2010/MVC JavaScript Intellisense HTML âHackâ]]></title>
-    <link href="http://kouphax.github.com/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/"/>
+    <link href="http://yobriefca.se/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/"/>
     <updated>2011-01-07T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-</id>
+    <id>http://yobriefca.se/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-</id>
     <content type="html"><![CDATA[<p>  <p>There is a problem with Visual Studio 2010 JavaScript Intellisense (using MVC in this case) and it is  this&nbsp;-&nbsp;If you are referencing JavaScript resources correctly (or Stylesheets for  that matter) as you all should be you&nbsp;wont actually&nbsp;get intellisense within an  SCRIPT blocks in HTML.&nbsp; So using this sort of script reference,</p><p><script src="https://gist.github.com/769312.js"></script></p><p>Will not give you intellisense.&nbsp; Sure you can use JavaScript files and make  use of the reference VSDOC tag (in fact maybe you should)</p><p><script src="https://gist.github.com/769313.js"></script></p><p>But this doesn&rsquo;t work (yet) within SCRIPT blocks.&nbsp; So what about those rare  times you actually want intellisense within your page?&nbsp; It&rsquo;s actually quite easy  though a bit hacky&nbsp;&ndash; stick it in a condition branch that never gets reached.&nbsp;  So,</p><p><script src="https://gist.github.com/769314.js"></script></p><p>The Intellisense parser doesn&rsquo;t really care about the fact that the code wont  ever get hit and you still get your typeahead and documentation etc. but it  won&rsquo;t ever get accidentally written to the generated output (as often happened  to me).&nbsp; I guess this seems kind of obvious or whatever but perhaps so obvious  some people may not have even though about it and hopefully it&rsquo;ll help someone  out somewhere at some point sometime, eventually&nbsp;&ndash; maybe.</p></p>
 ]]></content>
   </entry>

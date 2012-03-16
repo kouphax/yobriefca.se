@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: C# | Yo Briefcase!]]></title>
-  <link href="http://kouphax.github.com/blog/categories/c-/atom.xml" rel="self"/>
-  <link href="http://kouphax.github.com/"/>
-  <updated>2012-02-26T20:14:52+00:00</updated>
-  <id>http://kouphax.github.com/</id>
+  <link href="http://yobriefca.se/blog/categories/c-/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-03-12T19:38:56+00:00</updated>
+  <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
-    <link href="http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip/"/>
+    <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
     <updated>2011-11-16T00:00:00+00:00</updated>
-    <id>http://kouphax.github.com/blog/2011/11/16/wednesday-.net-tip</id>
+    <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

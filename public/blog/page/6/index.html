@@ -9,7 +9,7 @@
   <meta name="author" content="James Hughes">
 
   
-  <meta name="description" content="Nancy #1 &#8211; Hello World from James Hughes on Vimeo.Part of my Micro Web Frameworks in .NET series. This time looking at Hello World in Nancy ( &hellip;">
+  <meta name="description" content="I&#8217;ve just pushed the first draft of the new shiny Baler web site into the various tubes that form the basis of the interwebs. I am still &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kouphax.github.com/blog/page/6">
+  <link rel="canonical" href="http://yobriefca.se/blog/page/6">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -60,7 +60,7 @@
 </ul>
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input type="hidden" name="q" value="site:yobriefca.se" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +80,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/06/baler-site-live/">Baler Site Now Live(ish)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-06T00:00:00+01:00" pubdate data-updated="true">Jun 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>I&#8217;ve just pushed the first draft of the new shiny Baler web site into the various tubes that form the basis of the interwebs.  I am still missing a logo but why let that hold me back?  Anyway feel free to check it out while I add more tests to the project and generally polish things.</p><p><a href="http://yobriefca.se/projects/baler">Baler Project Site</a></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/31/announcing-baler/">Announcing Baler</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-31T00:00:00+01:00" pubdate data-updated="true">May 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>It&#8217;s very early days (with regards to both code and documentation) but I though I amy as well put it out there.</p><blockquote><p><a href="http://yobriefca.se/projects/baler/">Baler</a> is a .<span class="caps">NET</span> Web Resource Bundler. Capable of concatenating and transforming <span class="caps">CSS</span> and JavaScript files to lower request count and bandwidth requirements. It works with any .<span class="caps">NET</span> Web Framework/View Engine capable of running C# in the view</p></blockquote><p>What differentiates <a href="http://yobriefca.se/projects/baler/">Baler</a> from other resource bundlers out there is that it aims to provided a bare bones, minimum feature set for building bales (or resource bundle).  The core <a href="http://nuget.org/List/Packages/CodeSlice.Web.Baler">Baler package</a> offers the ability to concatenate, render and cache JavaScript and <span class="caps">CSS</span> bales.  Thats it.  No minification nor fancy processing nothing.  However <a href="http://yobriefca.se/projects/baler/">Baler</a> does have 2 main extensibility hooks though (<code>Before</code> and <code>After</code>) which can be leveraged to control how bundles are manipulated.  There are currently 3 extensions for Baler but more are on their way,</p><ol>	<li><a href="http://nuget.org/List/Packages/CodeSlice.Web.Baler.Extensions.CoffeeScript">CoffeeScript</a> &#8211; Transforms <a href="http://coffeescript.org">CoffeeScript</a> files into JavaScript</li>	<li><a href="http://nuget.org/List/Packages/CodeSlice.Web.Baler.Extensions.Less">.<span class="caps">LESS</span></a> &#8211; Transforms <a href="http://www.dotlesscss.org/">.<span class="caps">LESS</span></a> files into <span class="caps">CSS</span></li>	<li><a href="http://nuget.org/List/Packages/CodeSlice.Web.Baler.Extensions.AjaxMinifier">Ajax Minifier</a> &#8211; Allows for minification of JavaScript and <span class="caps">CSS</span> using Microsofts Ajax Minifier</li></ol><h2>Quick Example</h2><script src="https://gist.github.com/998778.js?file=BalerExample.aspx"></script><p>This example will take 3 source files concatenate them into a random script file and output the necessary <code>&lt;script src='1jdk2ds.js' type='text/javascript'&gt;&lt;/script&gt;</code>.  Subsequent calls that match this bales signature (the order and contents of the bale) will use the cached script tag and not perform that concatenation again.</p><p>As I say it&#8217;s early days.  I really need to get the docs up to snuff, write plenty of test and add a few more features before I start shouting from the rooftops but at least it&#8217;s out now and there is no going back :-).</p><p>Baler v0.1 is available on <a href="http://nuget.org/List/Packages/CodeSlice.Web.Baler">Nuget</a> and <a href="https://github.com/kouphax/baler.git">Github</a> and the annotated source code is available <a href="http://kouphax.github.com/baler/CodeSlice.Web.Baler/CodeSlice.Web.Baler/Baler.html" title="Core">here</a>, <a href="http://kouphax.github.com/baler/CodeSlice.Web.Baler/CodeSlice.Web.Baler.Extensions.AjaxMinifier/MinificationExtensions.html" title="AjaxMin Extensions">here</a>, <a href="http://kouphax.github.com/baler/CodeSlice.Web.Baler/CodeSlice.Web.Baler.Extensions.CoffeeScript/CoffeeScriptExtensions.html" title="CoffeeScript Extensions">here</a> and <a href="http://kouphax.github.com/baler/CodeSlice.Web.Baler/CodeSlice.Web.Baler.Extensions.Less/LessExtensions.html" title=".LESS Extensions">here</a></p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/26/turns-out-im-not-doing-my-job-very-well-aka-sucks-to-be-me/">Turns Out I&#8217;m Not Doing My Job Very Well Aka Sucks to Be Me</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-26T00:00:00+01:00" pubdate data-updated="true">May 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Soooooo anyway I had the day off today and you know what they say &#8211; the devil makes work for idle hands.  And boy did that devil dude really go to town on me.  Earlier this morning I came across a tweet.  The sort of tweet that I like.  A highly polarising tweet that makes geeks stand up and cheer and makes everyone else feel like we are laughing at them.  Anyway heres the tweet,</p><blockquote><p><cite>&#8220;pragmaticpat: adults are &#8220;pro homework&#8221; for children, yet frequently do not study their craft outside of m-f, 9-5 #leadbyexample ?&quot;</cite></p></blockquote><p>So anyway I thought, as I was waiting in the car for the wife to finishing shopping or whatever she was doing at the time, I would throw this tweet up to our <a href="http://yammer.com">Yammer</a> community and stir up a bit of debate.  Things got a bit heated, more than even I would have liked.  In fact I think I offended people<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.</p><p>Lets say just I am beyond passionate about my job almost obsessively so in some respects.  Being that type of person I often expect everyone else to be just like me and therefore measure people against what I do.  I also tend to make statements as if there were 2 types of people in the world.  People like me, who go home and do a bit of extra work/research and people who do their 9-5 allocated work and don&#8217;t care about anything.  But hey there&#8217;s a twist here &#8211; I&#8217;m not actually stupid &#8211; I know the world isn&#8217;t black and white, us and them, all or nothing.  I&#8217;m also not as horribly snobby or elitist as I make out (I am a bit but thats just the nature of a technology fanboy &#8211; defensive about their passions &#8211; suck it).</p><p>Anyways enough of the woe is me schtick, it&#8217;s boring.  I just want to say that I understand there are people out there who do their 9-5 and go home and actually have a life beyond the keyboard.  I was never implying people need to work 24/7 or they are coasting.  I realise I have a bit of a reputation of being an elitist uber-geek and therefore many people may have assumed that was what I was getting at.  However I know that in the 9-5 block a lot of people are contributing more that just their time to a single project and are going out of their way to do something decent rather than mediocre.  I&#8217;m happy for someone to say <cite>&#8220;I&#8217;m happy with were I am&#8221;</cite> &#8211; hell I am sure they&#8217;ve worked hard to get were they are so why not?  What I&#8217;m not happy with is someone who <strong>expect</strong> the same kudos as people who go above and beyond just because they show their face everyday.  When I retweeted that tweet and even went as far as yamming it I was stating an opinion, an opinion that wasn&#8217;t directed at any particular people or any particular company for that matter, it was just a blanket statement.</p><p>On a similar note I&#8217;ve had the pleasure of seeing plenty of CV&#8217;s over the last few years as well as interviewing people and I must say the industry has it&#8217;s fair share of people who are guru&#8217;s on paper but ask them a question about something that they haven&#8217;t encountered due to work on a project and they are flummoxed.  It&#8217;s a sad state of affairs to get into that shape.  It&#8217;s a bit like a morbidly obese fitness instructor &#8211; they can do their job but neglected to look after themselves &#8211; who would want to hire that sort of person?  Not many people I&#8217;d bet.</p><p>So yeah I accept that there are many different types of people.  People who want to better the industry as well as themselves.  People who want to better themselves and the company they work for.  People who just want to better themselves.  People who just want to do a super job with the role they are given and finally people who just want to get by<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>. But I refuse to accept that everyone should be treated equally in all respects and as long as people can respect that then we can all get along.</p><p>So whats the point of all this?  I know I have high standards but I also need to learn that not everyone wants the same thing out of life.  Or more to the point that other people actually <span class="caps">HAVE</span> a life outside of IT.  In the past I&#8217;ve had shed loads of opportunity to shine, but I&#8217;ve also been on some long boring pressured projects so I need to realise other people are going through that too.  I need to be a bit smarter about this.  It&#8217;s even part of my job description to mentor others so I suck at my job (hence the title).  Perhaps I should pull my finger out and ensure people are given opportunities to shine?  Yeah thats sounds about right&#8230;.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> For what it&#8217;s worth I wasn&#8217;t asked, request or ordered to write this.  As always I am doing this for my own reasons.</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> I&#8217;m sure you could break it down more.</p></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -326,111 +431,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Micro Web Frameworks in .NET 101: Jessica</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-19T00:00:00+01:00" pubdate data-updated="true">May 19<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various <em>micro web frameworks</em> in the .<span class="caps">NET</span> world.  The frameworks I intend to cover will be linked as the series progresses.  For further discussion on the use of micro web framework in .<span class="caps">NET</span> please see my <a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">previous post</a> The current series line up:<ul>	<li><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Jessica</a></li>	<li><a href="/blog/2011/05/23/micro-web-frameworks-101-nancy/">Nancy</a></li>	<li><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Anna</a></li>	<li><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb//">Tinyweb</a><br></li></ul></blockquote><blockquote><p>The following post relates to version 0.8 of Jessica so some features may change in future releases</p></blockquote><p>Now I have got the <a href=":./blog/2011/05/18/why-use-micro-web-frameworks-in-net/">opinion piece</a> out of the way I can start the bit I like &#8211; dissecting the various technologies that could be classed as <em>micro web frameworks</em>.  First on the table is <a href=":http://jessicafx.org">Jessica</a>.</p><h2>Getting Started &#8211; Hello World</h2><p>Getting a simple Hello World set up in <a href=":http://jessicafx.org">Jessica</a> involves (optionally) taking more out than you put in.  <a href=":http://jessicafx.org">Jessica</a> requires very little configuration so creating a new web project, deleting all the extra files and folders, trimming the <code>web.config</code> and emptying the <code>Global.asax.cs</code> makes for a nice blank canvas to start with.</p><p class="img-holder"><img src="/media/images/blog/project-before-and-after.png" alt=""></p><p>Next step is pretty difficult :-).  Within the <a href="http://nuget.org">NuGet</a> Package Manager Console just install the Jessica package</p><p class="minimal-gist"><script src="https://gist.github.com/979313.js?file=InstallJessica.ps"></script></p><p>Once installed be need to tell Jess to initialise/bootstrap itself when the application starts by calling the initialise method in the <code>Application_Start</code> method of the <code>Global.asax.cs</code></p><script src="https://gist.github.com/979324.js?file=Global.asax.cs"></script><p>At this point it&#8217;s also possible to supply a number of configuration options but we will touch on this later along with the optional configuration <span class="caps">XML</span>.  Now that Jess is setup to configure itself all we need to do now is define the module that will handle our complex Hello World output.</p><p>Modules form the basis of Jessica each one holding a number of routes (based on URL&#8217;s and <span class="caps">HTTP</span> verbs) and associated actions.  Our app will have a single module,</p><script src="https://gist.github.com/979345.js?file=MainModule.cs"></script><p>This simple module defines a single route that will match any standard <code>GET</code> request for the root of the app. And that&#8217;s it.  When you run the app Jess will inspect the assembly and find all the modules and wire up the routes.</p><h2>The Rest of the Pie</h2><p>Obviously serving plain bits of text is a bit useless so there are plenty of things that Jessica offers that makes it, well, actually useful.</p><h3>Configuration</h3><p>Jessica can be configured programatically or via <span class="caps">XML</span> config.  A number of things you can currently set include,</p><ul>	<li>Environment &#8211; the environment you build in e.g. <code>development</code>, <code>test</code>, <code>release</code>.  Default <code>development</code></li>	<li>Public Directory &#8211; The directory to be used to server static content (html, js, css, images) that require no preprocessing. Default <code>public</code></li>	<li>Views Directory &#8211; The directory to be used to serve views that can be dynamically rendered (Razor, Textile, Markdown, Liquid etc.).  Default <code>views</code></li></ul><p>The <span class="caps">XML</span> config is outlined below but each of these properties can be set in the <code>Global.asax.cs</code> programatically as well via the <code>Jess.Configuration</code> properties.</p><script src="https://gist.github.com/979475.js?file=Web.config.xml"></script><h3>Routes and Actions</h3><p>Routes may be defined as a literal path such as <code>/users</code> or <code>/store/toys</code> or with variable segments such as <code>/user/:id</code> or <code>/blog/:year/:month/:day</code>.  Variable segments are then parsed out of the route url and the values added to the action argument.</p><p class="minimal-gist"><script src="https://gist.github.com/980298.js?file=Routes.cs"></script></p><p>That seems to be about the extent of the route manipulation for now.  Would be nice to see the other Sinatra stuff included such as <a href="http://www.sinatrarb.com/intro#Routes">splats</a>, <a href="http://www.sinatrarb.com/intro#Routes">regular expressions</a> and <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.</p><p>Actions are fairly simple they take a dynamic object and are expected to return a Jessica <code>Response</code> object.  The dynamic object passed in contains a number of things such as route parameters, querystring parameters and the current HttpContext.  As an added niceness the Jessica <code>Response</code> object has a number of <a href="http://msdn.microsoft.com/en-us/library/z5z9kes2(v=vs.71).aspx">implicit</a> type conversions that allow us to return simpler objects</p><script src="https://gist.github.com/980308.js?file=ImplicitTypes.cs"></script><h3>Static Content</h3><p>Jessica allows us to return static content simply.  First of all all routes are first checked for the existence of a file at that <span class="caps">URL</span>.  If a file is found it is served, if not then Jessica goes to the route table and works it&#8217;s magic.  Putting resources in the <code>publicDir</code> allows Jessica to serve static content from the route actions and the <code>Response</code> object comes with a number of nice helpers to help make your static actions neater.</p><script src="https://gist.github.com/980313.js?file=JessicaResponse.cs"></script><h3>Views</h3><p>What web technology would be complete without the ability to serve non-static views?  Oddly enough Jessica, out of the box at least, comes with no view engines.  I suspect this is because dynamic view rendering isn&#8217;t technically something that should form the basis of a web framework &#8211; thats the job of the view engines.  Jessica does however come with an extension point of adding X amount of view engines &#8211; <code>Jess.ViewEngines</code>.  There is also a healthy volume of view engines available for Jessica,</p><ul>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Razor">Razor</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Spark">Spark</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-DotLiquid">DotLiquid</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Markdown">Markdown</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Textile">Textile</a></li></ul><p>Rendering a view from an action is also very simple</p><script src="https://gist.github.com/980288.js?file=ViewJessica.cs"></script><p>The first option renders a simple view called index while the second takes a model object that is pushed into the scope of the view and can be used to build the view.  Jessica will loop through it&#8217;s <code>ViewEngines</code> collection and attempt to resolve the view name to a file in the specified <code>viewsDir</code> folder.  If it finds a matching view it will render it.</p><p>I am going to take the lead from Jessica itself and not dive into the various view choices for now.  They are pretty self explanatory anyway.</p><h2>Summing Up</h2><p>So thats the 101, the skinny, the lowdown, the starter for 10, the basics and other random statements of <a href=":http://jessicafx.org">Jessica</a>. Hopefully this covers the vast majority of what v0.83 of Jessica offers.  It&#8217;s a nice minimla framework that attempts to stick to Sinatra&#8217;s philosophy.  It would be nice to see a few more of Sinatras features creeping in especially route <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.  There is also some nice high level error handling being introduced (for v0.9 I assume) for handling application wide errors and 404&#8217;s.  I plan on talking about these when they make an appearance.</p><p>Corrections, comments and criticisms below please.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">Why Would You Use Micro Web Frameworks in .NET?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <blockquote><p><span class="caps">UPDATE</span>: Oh dear James &lt;shakeshead/&gt;.  So it seems someone was paying attention to my post and noticed my benchmarks were <strong>hideously</strong> flawed.  I have removed them because I don&#8217;t like looking like a total fool but I will be replacing the with <strong>honest, real and unstupified</strong> results as soon as I can.  Apologies for any distress this may have caused.  <acronym title="Fear Uncertainty Doubt"><span class="caps">FUD</span></acronym> is a powerful thing in the wrong hands but ignorance is worse.</p></blockquote><p>I&#8217;ve been doing a bit of research into micro web frameworks in the.<span class="caps">NET</span> world recently and I was posed a question by a colleague.</p><blockquote><p>Whats the point of a micro web framework?</p></blockquote><p>I gave the usual response &#8211; more lightweight, smaller foot print blah blah blah. To be honest I was barely convincing myself.  I suspected I had fallen into the trap of latching on to something because it was novel to me rather than any real reason.  I am not saying they don&#8217;t have a place in solutions technology stack, quite the opposite in fact, what I am saying is that I didn&#8217;t have sufficient justification for bothering with them.</p><p>So I&#8217;ve spent a bit more time looking at the background of these microframeworks rather than the techs themselves and hopefully the next time someone asks I can give a more convincing reply.</p><h2>What Is A Micro Web Framework</h2><p>Pretty much a micro web framework is a framework that provides the absolute minimum feature set required to create a web application.  Extra features can be added via extensions etc. but the sole purpose of a microframework is to allow the app to handle requests to certain URLs (routing) with a bit of basic error handling for 404&#8217;s etc. (possibly).  No feature creep, no bloated deployments just ultra-lean request/response handling.</p><p>The most famous microframework, and the one that started it all, comes from the Ruby world &#8211; <a href="http://www.sinatrarb.com/">Sinatra</a> and it&#8217;s &#8220;Hello World&#8221; example really highlights the ease of creating an app.</p><script src="https://gist.github.com/976291.js?file=Sinatra.rb"></script><p>Run this and navigate to <code>/hi</code> to see the amazing response of <code>Hello World</code>.</p><h2>Micro Web Frameworks in the .<span class="caps">NET</span> World</h2><p>So how does this compare to similar technologies in the .<span class="caps">NET</span> world.  Most .<span class="caps">NET</span> solutions take a lot of inspiration from <a href="http://www.sinatrarb.com/">Sinatra</a> (and why not it&#8217;s pretty much the blueprints for the microframeworks) and this one is written using <a href="http://jessicafx.org">Jessica</a>.</p><script src="https://gist.github.com/976293.js?file=JessicaModule.cs"></script><p>OK so there is a bit of extra language noise but this is to be expected when moving from Ruby to C# but it&#8217;s just as readable.  <a href="http://jessicafx.org">Jessica</a> isn&#8217;t the only microframework in the .<span class="caps">NET</span> world but it does seem to be one of the better ones (based on a very superficial amount of research &#8211; no offence meant to other frameworks &#8211; happy to be proven wrong).  The other frameworks considered &#8220;micro&#8221; include,</p><ul>	<li><a href="http://github.com/thecodejunkie/Nancy">Nancy</a></li>	<li><a href="http://github.com/martinrue/Tinyweb">Tinyweb</a></li>	<li><a href="http://github.com/jondot/nina">Nina</a></li>	<li><a href="http://github.com/carlhoerberg/NSinatra">NSinatra</a></li></ul><h2>What Makes Micro Frameworks Worthwhile?</h2><p>So lets expand on my original argument of <cite>&#8220;more lightweight, smaller foot print blah blah blah&#8221;</cite>.  The most obvious is that a microframework by design is going to be a lot more lightweight than a normal framework.  It&#8217;s lifecycle for a request is going to be greatly simplified and ultimately this should help increase performance per request (I currently have no figures to back this up yet but I am working on it).  As well as performance and increased throughput this lightweight approach should greatly reduce the memory footprint which will help your app scale a bit better<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.</p><p>Another reason to consider a microframework is that you are in control of everything and that is good in my book.  It&#8217;s one of my arguments for choosing <span class="caps">MVC</span> over WebForms.  No unnecessary injection of client side code or script managers or any of that sort of thing.  No overly complex view properties being populated for no reason.  Nothing but the stuff you put in.</p><p>Not exactly within the bounds of a microframework by definition but still worth mentioning is hosting.  <a href="http://nancyfx.org">Nancy</a> has a number of hosting options</p><ul>	<li>Standalone</li>	<li>In a web app</li>	<li>In a <span class="caps">WCF</span> Service</li></ul><p>This sort of swappable hosting greatly increases portability of your app.  Now this is <a href="http://nancyfx.org">Nancy</a> specific but the effort required to create this sort of functionality with another microframework is trivial in comparison to the what it would be in <span class="caps">MVC</span> or WebForms.</p><p>Also many of the microframeworks have some sort of support for <a href="http://owin.org/"><span class="caps">OWIN</span></a> which is essentially a web abstraction that would allow your app to run on any <span class="caps">OWIN</span> supported server<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>.  This sort of support would take longer to roll out across the larger frameworks which generally stick to <span class="caps">IIS</span>.  I&#8217;m not saying it won&#8217;t happen but the bigger your framework the slower change is going to happen.</p><p>That brings me to my final point &#8211; evolution.  <span class="caps">ASP</span>.<span class="caps">NET</span> <span class="caps">MVC</span> has evolved very fast since v1.0 and there is no sign of that progress abating any time soon.  Still it&#8217;s speed is hindered by it&#8217;s size. These microframeworks introduce new features (some experimental for the brave among us) much faster because of the fact they are small.  Extending these frameworks don&#8217;t require the creation of numerous classes to do simple things &#8211; there is generally a common extension point with a very small set of requirements.</p><h2>Conclusion</h2><p>I hope this has helped my colleagues get a better picture of why I think microframeworks are worthy of our time and why I am keen to do a bit of research on them.  I also hope this has broadened a few minds in terms of solution architectures in the .<span class="caps">NET</span> world.  Not everything needs to be some configurable, Enterprise ready, heavyweight application sometimes the simplest solution is all you need.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> Provided you don&#8217;t do something stupid!</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> As a friend pointed out it&#8217;s easy to write a fast Hello World server so take these results with a healthy does of skepticism</p><p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> It&#8217;s early days for <span class="caps">OWIN</span> but still worth mentioning.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/17/further-adventures-in-unit-testing/">Further Adventures in Unit Testing Technologies</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>This post is a follow up to <a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a>.  Information about the project repository can be found on my <a href="/projects/unit-testing">projects page</a>.</p><p>I&#8217;ve finally managed to slog through the long and slightly tedious process of re-writing the same suite of tests in a number of C# and JavaScript unit testing technologies &#8211; the results of which can be seen on the <a href="http://github.com/kouphax/unit-testing">project GitHub page</a>.  My conclusion, especially in the .<span class="caps">NET</span> world, is that it doesn&#8217;t really matter that much.  I know it&#8217;s not that much of a brilliant ending but what did you expect?  Fireworks?</p><p>Anyways before I start amazing you all with more awe inspiring revelations let me run through the remaining technologies (until such times as more are added at least) and summarise their good and bad points.  The other technologies I brought on board include,</p><ul>	<li><a href="http://www.nunit.org/">NUnit</a></li>	<li><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></li>	<li><a href="http://nspec.org/">NSpec</a></li>	<li><a href="https://github.com/robconery/Quixote">Quixote</a></li>	<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>	<li><a href="http://docs.jquery.com/Qunit">QUnit</a></li></ul><p>Some obvious ones there just to round out the comparisons and a few JavaScript based ones.</p><h2><a href="http://www.nunit.org/">NUnit</a></h2><p>Good old <a href="http://www.nunit.org/">NUnit</a>.  Whats not to love?  Mark a class as a fixture and mark your methods as a test.</p><script src="https://gist.github.com/974990.js?file=NUnitTest.cs"></script><p>No point in mentioning too much about NUnit as most people will know the ins and outs of it already.  It has VS integration (via <a href="http://testdriven.net/">TestDriven</a>) and a nice NUnit runner capable of watching changes to DLL&#8217;s and automatically rerunning the test contained within.  One caveat around that is often NUnit hangs on to the <span class="caps">DLL</span> reference and requires a restart so Visual Studio can rebuild the <span class="caps">DLL</span> which kind of misses the point &#8211; but it doesn&#8217;t happen too often.</p><p>The framework itself would lend itself to a bit of betterification through sugar such as <a href="http://should.codeplex.com/">Should and Should.Fluent</a> but it does what it says on the tin.</p><h2><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></h2><p>Another staple for many people.  I&#8217;d never really used it too much prior to doing this post because of the general negative opinion of it.  I must admit I kind of agree with some of these things.  It&#8217;s pretty much the MS equivalent of NUnit (in terms of features and look and feel)</p><script src="https://gist.github.com/975043.js?file=MSTestTest.cs"></script><p>So why do so many people prefer NUnit over MSTest?  Well I think the main problem is that it is <a href="http://www.richard-banks.org/2010/03/mstest-sucks-for-unit-tests.html">quite slow</a> in comparison (from Visual Studio at least) but my main gripe is the amount of <a href="http://en.wiktionary.org/wiki/flob">flob</a> it generates for each test run and configuration.  It even produces solution folders for holding test runs and other files. If I want you to create those I&#8217;ll ask you &#8211; don&#8217;t force it on me.  It also has a very limited set of Assertion methods much like NUnit.</p><p>Enough moaning &#8211; surely it must have some benefits?  Well yes it does of course.  The main benefit <span class="caps">IMHO</span> is that it has very nice integration into Visual Studio which offers some very clean feedback.  This is something that requires <a href="http://testdriven.net/">TestDriven</a> for NUNit and the other frameworks which may or may not be free depending on your situation.</p><h2><a href="http://nspec.org/">NSpec</a></h2><p>Not to be confused with the <a href="http://nspec.tigris.org/">first hit on Google</a> which seems to be pretty much a dead project <a href="http://nspec.org">NSpec</a> (.org) is an attempt to bring <a href="http://rspec.info">RSpec</a> into the .<span class="caps">NET</span> world.</p><script src="https://gist.github.com/975150.js?file=NSpecTest.cs"></script><p>This is somewhat similar to <a href="https://github.com/machine/machine.specifications">MSpec</a> I mentioned in the last post.  My bugbear with MSpec however was that it didn&#8217;t feel natural to me.  The equivalent MSpec test for the above looks like this,</p><script src="https://gist.github.com/975159.js?file=MSpecTest.cs"></script><p>Maybe it&#8217;s just me but it doesn&#8217;t read as well as the NSpec version.  I even found it easier to write the NSpec version &#8211; more natural.</p><p>NSpec also has a lot of extra goodies.  Currently there is no integration into Visual Studio yet but the runner is simple to enough to spin up from the NuGet Package Manager Console and it has an added bonus of a file watcher.  <a href="http://nspec.org/continuoustesting">SpecWatchr</a> is similar to NUnit it can watch for changes and automatically run the specs.  It differs from NUnit in that it watches changes to the code files rather than the <span class="caps">DLL</span> &#8211; so need to wait for builds to happen etc.  Nice.</p><p>One minor gripe with it (bar the lack of VS support &#8211; even TestDriven support would be good) is the <code>should</code> syntax. I prefer the Should.Fluent style syntax <code>Should.Be()</code> rather than the current <code>should_be</code> syntax.  It&#8217;s not Ruby and we should accept that :-P.</p><p>It&#8217;s still quite early for NSpec and hopefully it keeps it&#8217;s momentum as it would be one of my frameworks of choice.</p><h2><a href="https://github.com/robconery/Quixote">Quixote</a></h2><p>Quixote by Rob Conery follows on from his current slew of ultra lightweight solutions to common problems (like <a href="https://github.com/robconery/Massive">Massive</a> and <a href="https://github.com/robconery/Sugar">Sugar</a>).  Quixote blends the <span class="caps">HTML</span> reporting directly with the framework and you write tests right in a Razor file.  This is the definition of lightweight.</p><script src="https://gist.github.com/975180.js?file=QuixoteTest.cshtml"></script><p>The obvious problem with this is that you don&#8217;t get continuous integration or build support.  There is no need to rebuild anything just refresh your page and the tests re-run.  Still CI/Build integration would be nice for a framework.</p><h2><a href="http://pivotal.github.com/jasmine/">Jasmine</a></h2><p>Ah Jasmine.  Jasmine is what I wanted out of a JavaScript testing framework.  Rather than going the JSpec route of creating a preprocessed <acronym title="Domain Specific Language"><span class="caps">DSL</span></acronym> Jasmine makes use of JavaScripts dynamic nature and &#8220;functions as 1st class citizens&#8221; feature to create framework that behaves like RSpec but embraces JavaScript.</p><script src="https://gist.github.com/975187.js?file=Tag.spec.js"></script><p>Out of the box you get an extensible framework (custom matchers etc), mocking and asynchronous support.  Ajax faking isn&#8217;t directly available but I recommend using <a href="http://sinonjs.org">Sinon</a> for this as it has an amazing FakeServer object that is fully configurable.</p><p>Another big advantage of Jasmine is it&#8217;s build integration.  Be it node.js, Java or Ruby you can integrate Jasmine specs into your build process.  .<span class="caps">NET</span> integration isn&#8217;t available yet but <a href="http://jurassic.codeplex.com">Jurassic</a> would be a suitable host if anyone wants to make it happen (hint, hint :-P).</p><h2><a href="http://docs.jquery.com/Qunit">QUnit</a></h2><p>And finally QUnit.  QUnit is the NUnit/JUnit equivalent for the JavaScript world.  Well known and mature project with some very nice <span class="caps">HTML</span> output.</p><script src="https://gist.github.com/975220.js?file=Tag.test.js"></script><p>Not much else to say on this one right now&#8230;. must be running out of steam.</p><h2>Summing Up</h2><p>And there you have it.  The first real post since the move and it&#8217;s a bit of a waffly long one.  Anyways what would be my recommendations?  Well for .<span class="caps">NET</span> I&#8217;m torn.  Currently I&#8217;d say NUnit with Should.Fluent extensions.  This is a nice combo for creating simple tests that people can execute from within Visual Studio.  However NSpec has potential &#8211; I&#8217;d like to see it grow a bit more and I&#8217;ll keep watching it.  Visual Studio integration would be aces though.  JavaScript on the other hand I have a clear cut winner.  Jasmine is awesome.  It&#8217;s boosted my code quality and productivity no end on recent projects and with the help of <a href="http://sinonjs.org">Sinon</a> for mocking and controlling Ajax it&#8217;ll be a long time before I am this happy with a .<span class="caps">NET</span> equivalent tech.  Fingers crossed for NSpec on that front.</p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -457,23 +457,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
       </li>
     
       <li class="post">
         <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
       </li>
     
   </ul>
@@ -514,8 +514,8 @@
       
         
         if(window.dis_inpost){
-          var disqus_identifier = 'http://kouphax.github.com/blog/page/6/index.html';
-          var disqus_url = 'http://kouphax.github.com/blog/page/6/index.html';
+          var disqus_identifier = 'http://yobriefca.se/blog/page/6/index.html';
+          var disqus_url = 'http://yobriefca.se/blog/page/6/index.html';
           var disqus_script = 'embed.js';
         }else{
           var disqus_script = 'count.js';

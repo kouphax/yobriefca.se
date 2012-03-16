@@ -9,7 +9,7 @@
   <meta name="author" content="James Hughes">
 
   
-  <meta name="description" content="Outside Event Plugin doesn&rsquo;t have a great deal of uses but it does solve one very important issue in client side code &ndash; Diminishing &hellip;">
+  <meta name="description" content="Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kouphax.github.com/blog/page/11">
+  <link rel="canonical" href="http://yobriefca.se/blog/page/11">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -60,7 +60,7 @@
 </ul>
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:kouphax.github.com" />
+    <input type="hidden" name="q" value="site:yobriefca.se" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -80,6 +80,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/">Microsoft&#8217;s Trio of jQuery Plugins</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets have a quick look at what they provide.</p><p>There are a ton of blog posts and documentation out there describing what these plugins do,</p><ul><li><a href="http://blog.jquery.com/2010/10/04/new-official-jquery-plugins-provide-templating-data-linking-and-globalization/">Official Post</a> </li><li><a href="http://weblogs.asp.net/scottgu/archive/2010/10/04/jquery-templates-data-link-and-globalization-accepted-as-official-jquery-plugins.aspx">Scottgu&rsquo;s Annoucement</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Template Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Data Link Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-global">Globalisation Git Repo</a> </li></ul><p>I am going to ignore Globalisation for now as it takes too long to put a worthwhile demo together and it&rsquo;s alreaqdy heavily explained on the GitHub page linked above.&nbsp; So lets take the other plugins and use them to create &ldquo;the best todo app evar&rdquo;</p><h2>ToDo App</h2><p>Lets take a simple to do app the you can add Tasks to (along with associated comments) then save them to the server.&nbsp; Simple design like so,</p><p>[[posterous-content:iesdxxncdohkDnbunIad]]</p><h2>HTML</h2><p>So first things first lets get the HTML out of the way,</p><script src="http://gist.github.com/629833.js?file=gistfile1.html"></script><h2>JavaScript</h2><p>Next up is the interesting part &ndash; JavaScript,</p><script src="http://gist.github.com/629836.js?file=gistfile1.js"></script><p>That&rsquo;s it.&nbsp; So lets break it down and see exactly what is happening.</p><h3>Variable Declarations</h3><script src="http://gist.github.com/629839.js?file=gistfile1.js"></script><p>First thing we do is declare a model object.&nbsp; Simply an empty object for our purposes but could be pre-populated with data that can be bound.</p><h3>Model Linking</h3><p>Model linking is effectively 2 way data binding between a data context and a form (1 way optional and configurable mappings possible see API).&nbsp;</p><script src="http://gist.github.com/629840.js?file=gistfile1.js"></script><p>We just want simple 2 way binding so that is all we need.&nbsp; This sets up the 2 form inputs so they are bound to our model object so any changes will be reflected accordingly.</p><h3>Add Functionality</h3><script src="http://gist.github.com/629841.js?file=gistfile1.js"></script><p>First things first we need to take a clone of the current object as this is bound/linked to the form and if we don&rsquo;t clone it we will be referencing the same object over and over.&nbsp; This wont affect the UI but templating has some nice data centric features to pull back our data later and we need this.</p><p>Next we create a very simple template passing the cloned model into the template call.&nbsp; Finally we append this new LI to the UL list.&nbsp;</p><h3>Save Functionality</h3><p>The interesting part of the save functionality is how we actually pull back the list of data to be sent to the server.</p><script src="http://gist.github.com/629842.js?file=gistfile1.js"></script><p>Templates are data centric.&nbsp; That is, when they are created the original data that was used to generate them is stored in the jQuery data cache and can be retrieved using tmplItem.&nbsp; So rather than having to scrape the data back from UI (<em>where are you going to get the comment value from?</em>) you can simply ask for the elements data context.</p><h2>So&hellip;</h2><p>That&rsquo;s it.&nbsp; Some very nice data centric (3rd time in as many paragraphs) plugins.&nbsp; Sure you can do this stuff without these plugins but it would certainly not be as elegant.&nbsp; This is only skimming the surface of the data linking and templating plugins, there is a heap of stuff that I didn&rsquo;t cover,</p><ul><li>One way binding</li><li>Value converters for binding</li><li>Programatically change data values</li><li>Adding custom linking behaviour</li><li>Generate templats from embedded script templates</li><li>Complex and nested templating</li><li>Statically define a reusable template</li></ul></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/16/jquery-1-4-3-jquery-mobile-released/">jQuery 1.4.3 & jQuery Mobile Released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>As expected jQuery 1.4.3 and jQuery Mobile (alpha) have dropped today. The official announcements are here</p><ul><li><a href="http://blog.jquery.com/2010/10/16/jquery-143-released/">jQuery 1.4.3</a></li><li><a href="http://jquerymobile.com/2010/10/jquery-mobile-alpha-1-released/">jQuery Mobile</a></li></ul><p>Having had the chance to play around with these already here are a few of the highlights that I think are worth mentioning.&nbsp; This first post will talk about jQuery Core as I need a bit more time with jQuery Mobile to get a better feel for it.</p><h2>jQuery 1.4.3</h2><h3>.data()</h3><p>One of the first cool things that 1.4.3 brings with it is a tweak to the .data() method to allow it to work with not only DOM objects but plain old JavaScript objects as well. So what? Well it opens the doors for the recently announced <a href="http://github.com/jquery/jquery-datalink">Data Linking</a> plugin from Microsoft (<a href="http://yobriefcase.posterous.com/microsofts-trio-of-jquery-plugins">blogged about it before</a>) until now ran on a patched version of jQuery Core. Essentially this give us the ability to perform data binding between UI elements and a model object. This will be familiar to people who use binding in Silverlight. This is all made possible via the newly introduced changeData event that will get fired when .data() is used to modify a data value.</p><p><script src="https://gist.github.com/630059.js"></script></p><p>Another nice new feature rolled into .data() is that all HTML data attributes are automatically parsed as data on initial selection of the element(s). This behaviour is similar to the metadata plugin that has been around for some time. In fact data values are coerced into the applicable types (&ldquo;true&rdquo; becomes Boolean, &ldquo;{o:1}&rdquo; becomes a JavaScript object etc.). This is a nice feature to have but I wonder how resilient it is to weird strings.</p><p>So for,</p><p><script src="https://gist.github.com/630053.js"></script></p><p>The following will be true</p><p><script src="https://gist.github.com/630056.js"></script></p><p>This is going to play very nice with the Unobtrusive JavaScript/Ajax features of the ASP.NET MVC3 (which already employs something similar)</p><h3>Modularity</h3><p>One of the issues many people had with jQuery was it was &ldquo;all or nothing&rdquo;.&nbsp; This was fine at the start but as the file size started to grow people felt that they should be able to only use a small part of jQuery without having to pull the whole thing down.&nbsp; This release sees a fairly big refactoring to try and make this wish a reality.&nbsp; jQuery Core has been broken up into a number of sub modules which gives us the ability to load modules on demand (see <a href="http://yobriefcase.posterous.com/30487860">Modernizr and Require.JS</a>) or simply use the modules we need.</p><h3>jQuery.type()</h3><p>There are plenty of little cross browser differences in the typeof operator and as such it&rsquo;s not always reliable.&nbsp; The jQuery type method abstracts out all those little quirks to correctly determine arrays etc.</p><p><script src="https://gist.github.com/630195.js"></script></p><h3>And The Rest</h3><p>There are a load more improvements and tweaks in 1.4.3 that are fully explained in the original announcement including,</p><ul><li>Performance tweaks across CSS and Traversal modules</li><li>Tweak to allow pausing the DOM Ready event until explicitly specified</li><li>Event helpers can now be passed data objects</li></ul><p>Now onto jQuery Mobile&hellip;.</p></div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/14/modernizr-requirejs/">Modernizr & RequireJS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-14T00:00:00+01:00" pubdate data-updated="true">Oct 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">  <p>I&rsquo;ve been pulling a lot of JavaScript libraries and utilities together to build up a NuPack server as it&rsquo;s by far one of the best ways to distribute client side resources during development.&nbsp; Some of these libraries I have used myself and thought it might be worth mentioning some of them.</p><h2>Modernizr</h2><p>Modernizr is a feature detection library that allows us to test the existence of certain HTML5 features within the browser.&nbsp; This is not only useful when constructing a page and applying styling of JS widgets but also for detecting things such as WebWorkers, Web DB, application cache etc.&nbsp; It supports many things,</p><blockquote class="posterous_medium_quote"><p>@font-face, Canvas, Canvas Text, HTML5 Audio, HTML5 Video, rgba(), hsla(), border-image:, border-radius:, box-shadow:, opacity:, Multiple backgrounds, CSS Animations, CSS Columns, CSS Gradients, CSS Reflections, CSS 2D Transforms, CSS 3D Transforms, CSS Transitions, Geolocation API, localStorage, sessionStorage, SVG, SMIL, SVG Clipping, Drag and Drop, hashchange, X-window Messaging, History Management, applicationCache, Web Sockets, Web Workers, Web SQL Database, IndexedDB, Input Types, Input Attributes</p></blockquote><p>In most cases native support for a feature is always better than an alternative CSS hack or JS script.&nbsp; Rounded Corners are a good example of this.&nbsp; A lot of, but not all, browsers already support rounded corners natively but in a world where people think a site should be <a href="http://dowebsitesneedtolookexactlythesameineverybrowser.com/">identical</a> in all browsers it is often necessary to provide your own solution.&nbsp; This means adding extra work for all browsers.&nbsp; This is where Modernizr comes in.&nbsp; Rather than applying non-native rounded corners to browsers that support them nativley we can do this,</p><script src="http://gist.github.com/628427.js?file=gistfile1.html"></script><p>That way we can always defer to the browser and remove unnecessary processing.&nbsp; But lets take it step further.&nbsp; Obviously for the majority of browsers pulling down a rounded corner plugin is completely pointless as it will never be used.&nbsp; What can we do about that?</p><h2>Require.JS</h2><p>Require.JS is one of many module/script loaders available but the good thing about Require.JS is that is extremely simple.&nbsp; Essentially it injects a script file into the head of the document and fires a callback when ready (there is a bit more configurability held within but that&#8217;s the gist of it).&nbsp; So lets take the above example and see what we can do about it.&nbsp; We don&#8217;t want to load scripts unnecessarily (lets leave that up to ASP.NET WebForms, ugh&hellip;. ) so lets only load the rounded corner script when needed,</p><script src="http://gist.github.com/628343.js?file=modernizr.html"></script><p>So basically we only get the extra script pulled down in the few browsers that don&rsquo;t support rounded corners, less processing, less traffic (as long as require.js file size &lt; total size of optional scripts).&nbsp;</p><p>Nice.</p><p>Obviously you need to be a bit more strategic about where you place this code as you can get FOUC if placed after document has fully loaded.&nbsp; Another issue is that Require.JS intentionally doesn&rsquo;t support CSS as there is no guaranteed way to ensure it has loaded across all browser.&nbsp; Thats an easy fix though,</p><script src="http://gist.github.com/628300.js?file=loadcss.js"></script><p>As always I&rsquo;ve put together a nice wee demo app that makes use of these technologies&hellip;. coming to a NuPack server near you too.</p><p><a href="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr" title="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr">svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr</a></p><p>Let me know if that works as it uses NuPack (but I don&rsquo;t think that is a requirement to open the project).</p></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -326,42 +431,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/15/updatepanels-alternatives/">UpdatePanels & Alternatives</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-15T00:00:00+01:00" pubdate data-updated="true">Apr 15<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><p>I&rsquo;m not sold on ASP.NET UpdatePanels. Conceptually they are quite nice but their implementation is nasty. So much so I&rsquo;d be happy to say the should be considered an anti-pattern. My reasons? Well&hellip;</p><ul><li>They generate too much JavaScript</li><li>It&rsquo;s too &ldquo;development focused&rdquo; &ndash; it puts saving time ahead of a clean performant solution</li><li>Ajax calls should be data focused (returning XML, JSON etc), UpdatePanels are content focused</li><li>Generates a massive amount of network traffic in comparison to alternative solutions (including ViewState and markup)</li><li>UpdatePanels use innerHTML to replace contents which orphans bound events (leakage) that need to be rebound each time (extra work).</li></ul><p>But what are the alternatives? Page Methods and Scripted Services are a good starting point. The good things about these alternatives is that they are lightweight &ndash; they send JSON data to and from the server so your network traffic is greatly reduced. Here is a simple example of using a page method &ndash; I&rsquo;ll not cover Scripted Services as they are very similar and you can find info about them on the net.</p><p>In your code behind you can add a [WebMethod] attributed method</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632988.js"></script></span></span></div><p>And turn on EnablePageMethods attribute of the pages ScriptManager</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632990.js"></script></span></span></div><p>What happens next is that when the page is rendered a JavaScript Proxy Class will be generated called PageMethods that contains a function call GetCurrentDateAndTime. It&rsquo;ll look something like this.</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632991.js"></script></span></span></div><p>Now all we have to do is use it. This is easy&hellip;</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632994.js"></script></span></span></div><p>That wasn&rsquo;t too difficult now was it? But we aren&rsquo;t done yet. Sure this solution works but there is still one problem &ndash; We are including the ScriptManager in our page which means event though all we are doing is getting a date back from the server we are still required to pull down at least 160k (in it&rsquo;s most compressed &amp; gzipped form) of framework 90% of which we aren&rsquo;t even going to use.</p><h3>Calling PageMethods and ScriptedServices using jQuery</h3><p>Obviously a request from client to server is always done through HTTP it doesn&rsquo;t actually matter how it is handled on the client. So it&rsquo;s easy to swap out the ASP.NET Ajax framework for jQuery. You&rsquo;ll probably be asking why? Well the long and short of it is that regardless of what the requirements say you (or someone else on the project) WILL end up writing Javascript and jQuery is the better choice&hellip;</p><ul><li>It&rsquo;s a better, smaller, compact and faster framework</li><li>It&rsquo;s much better documented and easier to learn</li><li>It&rsquo;s extensible via plugins so you don&rsquo;t need the whole &ldquo;kitchen sink&rdquo; to do simple things</li><li>It can do everything ASP.NET Ajax can do</li><li>It&rsquo;s technology agnostic so you can jump to a Java project and use the same solutions</li></ul><p>I could go on, honestly I could, but that&rsquo;s not what this post is about. There are a few nuances in calling PageMethods and ScriptedServices, namely</p><ul><li>The request content-type must be&nbsp;<code>application/json; charset=utf-8</code></li><li>The request must be a POST request</li><li>Data sent to the server must be encoded as a JSON string or &ldquo;{}&rdquo; if empty</li><li>Standard ASP.NET JSON serialization doesn&rsquo;t convert DateTime to a proper JSON date</li><li>The JSON data in the request must map directly to arguments of the function</li></ul><p>Failure to comply with any of the above will result in either a security error or, usually, the entire page being rendered back to the response. So calling the above PageMethod using jQuery is as simple as this&hellip;.</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632996.js"></script></span></span></div><p>Not bad, but there is a lot of boiler plate code there. Thankfully it&rsquo;s easy to write a jQuery plugin to abstract out most of this and make the calls simple.&nbsp;So all in all even with the 2 plugins (JSON and .Net Services) and the jQuery framework we are only forced to pull down 60k of scripts (minified but NOT gzipped) so you could see this reduced to 25-30k all in with gzipping turned on.</p></p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/12/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -385,23 +457,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
       </li>
     
       <li class="post">
         <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/31/on-craftmanship/">On Craftmanship and Understanding, I Guess</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/enterprise-scale/">Enterprise Scale</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/05/using-parse-in-net-and-wp7/">Using Parse in .NET and WP7</a>
       </li>
     
   </ul>
@@ -442,8 +514,8 @@
       
         
         if(window.dis_inpost){
-          var disqus_identifier = 'http://kouphax.github.com/blog/page/11/index.html';
-          var disqus_url = 'http://kouphax.github.com/blog/page/11/index.html';
+          var disqus_identifier = 'http://yobriefca.se/blog/page/11/index.html';
+          var disqus_url = 'http://yobriefca.se/blog/page/11/index.html';
           var disqus_script = 'embed.js';
         }else{
           var disqus_script = 'count.js';
