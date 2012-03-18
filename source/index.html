@@ -5,11 +5,15 @@ layout: page
 
 <header>
       <span style="float:right">
-      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
-      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
-      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
     </span>
     <h1 class="entry-title">yobriefca.se</h1>
+    
+      <span class="label label-important" id="commitmessage">Fixed unnecessary bug.
+      </span>
+    
   </header>
 <div id="blog-archives">
 {% for post in paginator.posts reverse %}

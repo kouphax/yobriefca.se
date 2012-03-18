@@ -143,7 +143,7 @@ module Jekyll
     def category_links(categories)
       dir = @context.registers[:site].config['category_dir']
       categories = categories.sort!.map do |item|
-        "<a href='/#{dir}/#{item.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase}/' style='text-decoration:none;'><span class='label label-info'>#{item}</span></a>"
+        "<a href='/#{dir}/#{item.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase}/' style='text-decoration:none;'><span class='label label-info'>#{item.downcase}</span></a>"
       end
 
       case categories.length
