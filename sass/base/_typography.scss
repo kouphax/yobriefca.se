@@ -1,8 +1,8 @@
 $blockquote: $type-border !default;
-$sans: "PT Sans", "Helvetica Neue", Arial, sans-serif !default;
-$serif: "PT Serif", Georgia, Times, "Times New Roman", serif !default;
-$mono: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !default;
-$heading-font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif !default;
+$sans: "Palatino Linotype", "Book Antiqua", Palatino, serif !default;
+$serif: 'PT Serif', serif  !default;
+$mono: Inconsolata, Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !default;
+$heading-font-family: 'Port Lligat Slab',serif !default;
 $header-title-font-family: $heading-font-family !default;
 
 // Fonts
@@ -11,7 +11,19 @@ $header-title-font-family: $heading-font-family !default;
 }
 .sans { font-family: $sans; }
 .serif { font-family: $serif; }
-.mono { font-family: $mono; }
+.mono { font-family: $mono;  }
+
+h1,h2,h3,h4,h5,h6 {
+  color: #003F51!important;
+}
+
+time, .month, .year, .day {
+  font-family: $heading-font-family!important; 
+}
+
+p.meta {
+  font-family: $heading-font-family;
+}
 
 body > header h1 {
   font-size: 2.2em;
@@ -32,10 +44,6 @@ h1 {
   line-height: 1.2em;
 }
 
-@media only screen and (min-width: 992px) {
-  body { font-size: 1.15em; }
-  h1 { font-size: 2.6em; line-height: 1.2em; }
-}
 
 #{headings()}{
   @extend .heading;

@@ -8,8 +8,12 @@
   <title>Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
   
-  <meta name="description" content="This post is the is part of series of posts covering the various micro web frameworks in the .NET world. The frameworks I intend to cover will be &hellip;">
+  <meta name="description" content="yobriefca.se 2011 Micro Web Frameworks in .NET 101: Jessica
+May 19 2011 .NET Jessica Micro Web Frameworks in .NET 101 Series Web Why Would You Use &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,467 +50,201 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Yo Briefcase!</a></h1>
-  
-    <h2>All the codez!</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yobriefca.se" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/screencasts">Screencasts</a></li>
-    <li><a href="/talks">Talks</a></li>
-    <!--
-    <li><a href="/cv">CV</a></li>
-    -->
-</ul>
-
-</nav>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Micro Web Frameworks in .NET 101: Jessica</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-19T00:00:00+01:00" pubdate data-updated="true">May 19<span>th</span>, 2011</time>
-        
-      </p>
-    
+      <span style="float:right">
+      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
+      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
+      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+    </span>
+    <h1 class="entry-title">yobriefca.se</h1>
   </header>
-
-
-  <div class="entry-content">  <blockquote class="announce">This post is the is part of series of posts covering the various <em>micro web frameworks</em> in the .<span class="caps">NET</span> world.  The frameworks I intend to cover will be linked as the series progresses.  For further discussion on the use of micro web framework in .<span class="caps">NET</span> please see my <a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">previous post</a> The current series line up:<ul>	<li><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Jessica</a></li>	<li><a href="/blog/2011/05/23/micro-web-frameworks-101-nancy/">Nancy</a></li>	<li><a href="/blog/2011/06/22/micro-web-frameworks-101-anna/">Anna</a></li>	<li><a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb//">Tinyweb</a><br></li></ul></blockquote><blockquote><p>The following post relates to version 0.8 of Jessica so some features may change in future releases</p></blockquote><p>Now I have got the <a href=":./blog/2011/05/18/why-use-micro-web-frameworks-in-net/">opinion piece</a> out of the way I can start the bit I like &#8211; dissecting the various technologies that could be classed as <em>micro web frameworks</em>.  First on the table is <a href=":http://jessicafx.org">Jessica</a>.</p><h2>Getting Started &#8211; Hello World</h2><p>Getting a simple Hello World set up in <a href=":http://jessicafx.org">Jessica</a> involves (optionally) taking more out than you put in.  <a href=":http://jessicafx.org">Jessica</a> requires very little configuration so creating a new web project, deleting all the extra files and folders, trimming the <code>web.config</code> and emptying the <code>Global.asax.cs</code> makes for a nice blank canvas to start with.</p><p class="img-holder"><img src="/media/images/blog/project-before-and-after.png" alt=""></p><p>Next step is pretty difficult :-).  Within the <a href="http://nuget.org">NuGet</a> Package Manager Console just install the Jessica package</p><p class="minimal-gist"><script src="https://gist.github.com/979313.js?file=InstallJessica.ps"></script></p><p>Once installed be need to tell Jess to initialise/bootstrap itself when the application starts by calling the initialise method in the <code>Application_Start</code> method of the <code>Global.asax.cs</code></p><script src="https://gist.github.com/979324.js?file=Global.asax.cs"></script><p>At this point it&#8217;s also possible to supply a number of configuration options but we will touch on this later along with the optional configuration <span class="caps">XML</span>.  Now that Jess is setup to configure itself all we need to do now is define the module that will handle our complex Hello World output.</p><p>Modules form the basis of Jessica each one holding a number of routes (based on URL&#8217;s and <span class="caps">HTTP</span> verbs) and associated actions.  Our app will have a single module,</p><script src="https://gist.github.com/979345.js?file=MainModule.cs"></script><p>This simple module defines a single route that will match any standard <code>GET</code> request for the root of the app. And that&#8217;s it.  When you run the app Jess will inspect the assembly and find all the modules and wire up the routes.</p><h2>The Rest of the Pie</h2><p>Obviously serving plain bits of text is a bit useless so there are plenty of things that Jessica offers that makes it, well, actually useful.</p><h3>Configuration</h3><p>Jessica can be configured programatically or via <span class="caps">XML</span> config.  A number of things you can currently set include,</p><ul>	<li>Environment &#8211; the environment you build in e.g. <code>development</code>, <code>test</code>, <code>release</code>.  Default <code>development</code></li>	<li>Public Directory &#8211; The directory to be used to server static content (html, js, css, images) that require no preprocessing. Default <code>public</code></li>	<li>Views Directory &#8211; The directory to be used to serve views that can be dynamically rendered (Razor, Textile, Markdown, Liquid etc.).  Default <code>views</code></li></ul><p>The <span class="caps">XML</span> config is outlined below but each of these properties can be set in the <code>Global.asax.cs</code> programatically as well via the <code>Jess.Configuration</code> properties.</p><script src="https://gist.github.com/979475.js?file=Web.config.xml"></script><h3>Routes and Actions</h3><p>Routes may be defined as a literal path such as <code>/users</code> or <code>/store/toys</code> or with variable segments such as <code>/user/:id</code> or <code>/blog/:year/:month/:day</code>.  Variable segments are then parsed out of the route url and the values added to the action argument.</p><p class="minimal-gist"><script src="https://gist.github.com/980298.js?file=Routes.cs"></script></p><p>That seems to be about the extent of the route manipulation for now.  Would be nice to see the other Sinatra stuff included such as <a href="http://www.sinatrarb.com/intro#Routes">splats</a>, <a href="http://www.sinatrarb.com/intro#Routes">regular expressions</a> and <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.</p><p>Actions are fairly simple they take a dynamic object and are expected to return a Jessica <code>Response</code> object.  The dynamic object passed in contains a number of things such as route parameters, querystring parameters and the current HttpContext.  As an added niceness the Jessica <code>Response</code> object has a number of <a href="http://msdn.microsoft.com/en-us/library/z5z9kes2(v=vs.71).aspx">implicit</a> type conversions that allow us to return simpler objects</p><script src="https://gist.github.com/980308.js?file=ImplicitTypes.cs"></script><h3>Static Content</h3><p>Jessica allows us to return static content simply.  First of all all routes are first checked for the existence of a file at that <span class="caps">URL</span>.  If a file is found it is served, if not then Jessica goes to the route table and works it&#8217;s magic.  Putting resources in the <code>publicDir</code> allows Jessica to serve static content from the route actions and the <code>Response</code> object comes with a number of nice helpers to help make your static actions neater.</p><script src="https://gist.github.com/980313.js?file=JessicaResponse.cs"></script><h3>Views</h3><p>What web technology would be complete without the ability to serve non-static views?  Oddly enough Jessica, out of the box at least, comes with no view engines.  I suspect this is because dynamic view rendering isn&#8217;t technically something that should form the basis of a web framework &#8211; thats the job of the view engines.  Jessica does however come with an extension point of adding X amount of view engines &#8211; <code>Jess.ViewEngines</code>.  There is also a healthy volume of view engines available for Jessica,</p><ul>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Razor">Razor</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Spark">Spark</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-DotLiquid">DotLiquid</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Markdown">Markdown</a></li>	<li><a href="http://nuget.org/List/Packages/Jessica-ViewEngine-Textile">Textile</a></li></ul><p>Rendering a view from an action is also very simple</p><script src="https://gist.github.com/980288.js?file=ViewJessica.cs"></script><p>The first option renders a simple view called index while the second takes a model object that is pushed into the scope of the view and can be used to build the view.  Jessica will loop through it&#8217;s <code>ViewEngines</code> collection and attempt to resolve the view name to a file in the specified <code>viewsDir</code> folder.  If it finds a matching view it will render it.</p><p>I am going to take the lead from Jessica itself and not dive into the various view choices for now.  They are pretty self explanatory anyway.</p><h2>Summing Up</h2><p>So thats the 101, the skinny, the lowdown, the starter for 10, the basics and other random statements of <a href=":http://jessicafx.org">Jessica</a>. Hopefully this covers the vast majority of what v0.83 of Jessica offers.  It&#8217;s a nice minimla framework that attempts to stick to Sinatra&#8217;s philosophy.  It would be nice to see a few more of Sinatras features creeping in especially route <a href="http://www.sinatrarb.com/intro#Conditions">conditions</a>.  There is also some nice high level error handling being introduced (for v0.9 I assume) for handling application wide errors and 404&#8217;s.  I plan on talking about these when they make an appearance.</p><p>Corrections, comments and criticisms below please.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">Why Would You Use Micro Web Frameworks in .NET?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+<div id="blog-archives">
 
 
 
   
+  <h2>2011</h2>
 
-
-<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <blockquote><p><span class="caps">UPDATE</span>: Oh dear James &lt;shakeshead/&gt;.  So it seems someone was paying attention to my post and noticed my benchmarks were <strong>hideously</strong> flawed.  I have removed them because I don&#8217;t like looking like a total fool but I will be replacing the with <strong>honest, real and unstupified</strong> results as soon as I can.  Apologies for any distress this may have caused.  <acronym title="Fear Uncertainty Doubt"><span class="caps">FUD</span></acronym> is a powerful thing in the wrong hands but ignorance is worse.</p></blockquote><p>I&#8217;ve been doing a bit of research into micro web frameworks in the.<span class="caps">NET</span> world recently and I was posed a question by a colleague.</p><blockquote><p>Whats the point of a micro web framework?</p></blockquote><p>I gave the usual response &#8211; more lightweight, smaller foot print blah blah blah. To be honest I was barely convincing myself.  I suspected I had fallen into the trap of latching on to something because it was novel to me rather than any real reason.  I am not saying they don&#8217;t have a place in solutions technology stack, quite the opposite in fact, what I am saying is that I didn&#8217;t have sufficient justification for bothering with them.</p><p>So I&#8217;ve spent a bit more time looking at the background of these microframeworks rather than the techs themselves and hopefully the next time someone asks I can give a more convincing reply.</p><h2>What Is A Micro Web Framework</h2><p>Pretty much a micro web framework is a framework that provides the absolute minimum feature set required to create a web application.  Extra features can be added via extensions etc. but the sole purpose of a microframework is to allow the app to handle requests to certain URLs (routing) with a bit of basic error handling for 404&#8217;s etc. (possibly).  No feature creep, no bloated deployments just ultra-lean request/response handling.</p><p>The most famous microframework, and the one that started it all, comes from the Ruby world &#8211; <a href="http://www.sinatrarb.com/">Sinatra</a> and it&#8217;s &#8220;Hello World&#8221; example really highlights the ease of creating an app.</p><script src="https://gist.github.com/976291.js?file=Sinatra.rb"></script><p>Run this and navigate to <code>/hi</code> to see the amazing response of <code>Hello World</code>.</p><h2>Micro Web Frameworks in the .<span class="caps">NET</span> World</h2><p>So how does this compare to similar technologies in the .<span class="caps">NET</span> world.  Most .<span class="caps">NET</span> solutions take a lot of inspiration from <a href="http://www.sinatrarb.com/">Sinatra</a> (and why not it&#8217;s pretty much the blueprints for the microframeworks) and this one is written using <a href="http://jessicafx.org">Jessica</a>.</p><script src="https://gist.github.com/976293.js?file=JessicaModule.cs"></script><p>OK so there is a bit of extra language noise but this is to be expected when moving from Ruby to C# but it&#8217;s just as readable.  <a href="http://jessicafx.org">Jessica</a> isn&#8217;t the only microframework in the .<span class="caps">NET</span> world but it does seem to be one of the better ones (based on a very superficial amount of research &#8211; no offence meant to other frameworks &#8211; happy to be proven wrong).  The other frameworks considered &#8220;micro&#8221; include,</p><ul>	<li><a href="http://github.com/thecodejunkie/Nancy">Nancy</a></li>	<li><a href="http://github.com/martinrue/Tinyweb">Tinyweb</a></li>	<li><a href="http://github.com/jondot/nina">Nina</a></li>	<li><a href="http://github.com/carlhoerberg/NSinatra">NSinatra</a></li></ul><h2>What Makes Micro Frameworks Worthwhile?</h2><p>So lets expand on my original argument of <cite>&#8220;more lightweight, smaller foot print blah blah blah&#8221;</cite>.  The most obvious is that a microframework by design is going to be a lot more lightweight than a normal framework.  It&#8217;s lifecycle for a request is going to be greatly simplified and ultimately this should help increase performance per request (I currently have no figures to back this up yet but I am working on it).  As well as performance and increased throughput this lightweight approach should greatly reduce the memory footprint which will help your app scale a bit better<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.</p><p>Another reason to consider a microframework is that you are in control of everything and that is good in my book.  It&#8217;s one of my arguments for choosing <span class="caps">MVC</span> over WebForms.  No unnecessary injection of client side code or script managers or any of that sort of thing.  No overly complex view properties being populated for no reason.  Nothing but the stuff you put in.</p><p>Not exactly within the bounds of a microframework by definition but still worth mentioning is hosting.  <a href="http://nancyfx.org">Nancy</a> has a number of hosting options</p><ul>	<li>Standalone</li>	<li>In a web app</li>	<li>In a <span class="caps">WCF</span> Service</li></ul><p>This sort of swappable hosting greatly increases portability of your app.  Now this is <a href="http://nancyfx.org">Nancy</a> specific but the effort required to create this sort of functionality with another microframework is trivial in comparison to the what it would be in <span class="caps">MVC</span> or WebForms.</p><p>Also many of the microframeworks have some sort of support for <a href="http://owin.org/"><span class="caps">OWIN</span></a> which is essentially a web abstraction that would allow your app to run on any <span class="caps">OWIN</span> supported server<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>.  This sort of support would take longer to roll out across the larger frameworks which generally stick to <span class="caps">IIS</span>.  I&#8217;m not saying it won&#8217;t happen but the bigger your framework the slower change is going to happen.</p><p>That brings me to my final point &#8211; evolution.  <span class="caps">ASP</span>.<span class="caps">NET</span> <span class="caps">MVC</span> has evolved very fast since v1.0 and there is no sign of that progress abating any time soon.  Still it&#8217;s speed is hindered by it&#8217;s size. These microframeworks introduce new features (some experimental for the brave among us) much faster because of the fact they are small.  Extending these frameworks don&#8217;t require the creation of numerous classes to do simple things &#8211; there is generally a common extension point with a very small set of requirements.</p><h2>Conclusion</h2><p>I hope this has helped my colleagues get a better picture of why I think microframeworks are worthy of our time and why I am keen to do a bit of research on them.  I also hope this has broadened a few minds in terms of solution architectures in the .<span class="caps">NET</span> world.  Not everything needs to be some configurable, Enterprise ready, heavyweight application sometimes the simplest solution is all you need.</p><p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> Provided you don&#8217;t do something stupid!</p><p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> As a friend pointed out it&#8217;s easy to write a fast Hello World server so take these results with a healthy does of skepticism</p><p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> It&#8217;s early days for <span class="caps">OWIN</span> but still worth mentioning.</p></div>
+<article>
   
+<h1><a href="/blog/2011/05/19/micro-web-frameworks-101-jessica/">Micro Web Frameworks in .NET 101: Jessica</a></h1>
+<time datetime="2011-05-19T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>19</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/jessica/' style='text-decoration:none;'><span class='label label-info'>Jessica</span></a> <a href='/blog/categories/micro-web-frameworks-in-net-101-series/' style='text-decoration:none;'><span class='label label-info'>Micro Web Frameworks in .NET 101 Series</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>Web</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2011/05/18/why-use-micro-web-frameworks-in-net/">Why Would You Use Micro Web Frameworks in .NET?</a></h1>
+<time datetime="2011-05-18T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>18</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/jessica/' style='text-decoration:none;'><span class='label label-info'>Jessica</span></a> <a href='/blog/categories/nancy/' style='text-decoration:none;'><span class='label label-info'>Nancy</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>Web</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2011/05/17/further-adventures-in-unit-testing/">Further Adventures in Unit Testing Technologies</a></h1>
+<time datetime="2011-05-17T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>17</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/jasmine/' style='text-decoration:none;'><span class='label label-info'>Jasmine</span></a> <a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a> <a href='/blog/categories/mstest/' style='text-decoration:none;'><span class='label label-info'>MSTest</span></a> <a href='/blog/categories/nspec/' style='text-decoration:none;'><span class='label label-info'>NSpec</span></a> <a href='/blog/categories/nunit/' style='text-decoration:none;'><span class='label label-info'>NUnit</span></a> <a href='/blog/categories/qunit/' style='text-decoration:none;'><span class='label label-info'>QUnit</span></a> <a href='/blog/categories/quixote/' style='text-decoration:none;'><span class='label label-info'>Quixote</span></a> <a href='/blog/categories/unit-testing/' style='text-decoration:none;'><span class='label label-info'>Unit Testing</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/17/further-adventures-in-unit-testing/">Further Adventures in Unit Testing Technologies</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2011/05/16/the-first-day-of-the-rest-of-my-life/">The First Day of the Rest of My Life</a></h1>
+<time datetime="2011-05-16T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>16</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/appharbor/' style='text-decoration:none;'><span class='label label-info'>AppHarbor</span></a> <a href='/blog/categories/jekyll/' style='text-decoration:none;'><span class='label label-info'>Jekyll</span></a> <a href='/blog/categories/miscellaneous/' style='text-decoration:none;'><span class='label label-info'>Miscellaneous</span></a> <a href='/blog/categories/ruby/' style='text-decoration:none;'><span class='label label-info'>Ruby</span></a> <a href='/blog/categories/showoff/' style='text-decoration:none;'><span class='label label-info'>Showoff</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2011/05/14/on-the-move/">On The Move</a></h1>
+<time datetime="2011-05-14T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>14</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/miscellaneous/' style='text-decoration:none;'><span class='label label-info'>Miscellaneous</span></a></span>
+</footer>
 
 
-<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
+</article>
 
 
-  <div class="entry-content">  <p>This post is a follow up to <a href="/blog/2011/04/04/a-tale-of-unit-testing-technologies/">A Tale of Unit Testing Technologies</a>.  Information about the project repository can be found on my <a href="/projects/unit-testing">projects page</a>.</p><p>I&#8217;ve finally managed to slog through the long and slightly tedious process of re-writing the same suite of tests in a number of C# and JavaScript unit testing technologies &#8211; the results of which can be seen on the <a href="http://github.com/kouphax/unit-testing">project GitHub page</a>.  My conclusion, especially in the .<span class="caps">NET</span> world, is that it doesn&#8217;t really matter that much.  I know it&#8217;s not that much of a brilliant ending but what did you expect?  Fireworks?</p><p>Anyways before I start amazing you all with more awe inspiring revelations let me run through the remaining technologies (until such times as more are added at least) and summarise their good and bad points.  The other technologies I brought on board include,</p><ul>	<li><a href="http://www.nunit.org/">NUnit</a></li>	<li><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></li>	<li><a href="http://nspec.org/">NSpec</a></li>	<li><a href="https://github.com/robconery/Quixote">Quixote</a></li>	<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>	<li><a href="http://docs.jquery.com/Qunit">QUnit</a></li></ul><p>Some obvious ones there just to round out the comparisons and a few JavaScript based ones.</p><h2><a href="http://www.nunit.org/">NUnit</a></h2><p>Good old <a href="http://www.nunit.org/">NUnit</a>.  Whats not to love?  Mark a class as a fixture and mark your methods as a test.</p><script src="https://gist.github.com/974990.js?file=NUnitTest.cs"></script><p>No point in mentioning too much about NUnit as most people will know the ins and outs of it already.  It has VS integration (via <a href="http://testdriven.net/">TestDriven</a>) and a nice NUnit runner capable of watching changes to DLL&#8217;s and automatically rerunning the test contained within.  One caveat around that is often NUnit hangs on to the <span class="caps">DLL</span> reference and requires a restart so Visual Studio can rebuild the <span class="caps">DLL</span> which kind of misses the point &#8211; but it doesn&#8217;t happen too often.</p><p>The framework itself would lend itself to a bit of betterification through sugar such as <a href="http://should.codeplex.com/">Should and Should.Fluent</a> but it does what it says on the tin.</p><h2><a href="http://msdn.microsoft.com/en-us/library/ms182486.aspx">MSTest</a></h2><p>Another staple for many people.  I&#8217;d never really used it too much prior to doing this post because of the general negative opinion of it.  I must admit I kind of agree with some of these things.  It&#8217;s pretty much the MS equivalent of NUnit (in terms of features and look and feel)</p><script src="https://gist.github.com/975043.js?file=MSTestTest.cs"></script><p>So why do so many people prefer NUnit over MSTest?  Well I think the main problem is that it is <a href="http://www.richard-banks.org/2010/03/mstest-sucks-for-unit-tests.html">quite slow</a> in comparison (from Visual Studio at least) but my main gripe is the amount of <a href="http://en.wiktionary.org/wiki/flob">flob</a> it generates for each test run and configuration.  It even produces solution folders for holding test runs and other files. If I want you to create those I&#8217;ll ask you &#8211; don&#8217;t force it on me.  It also has a very limited set of Assertion methods much like NUnit.</p><p>Enough moaning &#8211; surely it must have some benefits?  Well yes it does of course.  The main benefit <span class="caps">IMHO</span> is that it has very nice integration into Visual Studio which offers some very clean feedback.  This is something that requires <a href="http://testdriven.net/">TestDriven</a> for NUNit and the other frameworks which may or may not be free depending on your situation.</p><h2><a href="http://nspec.org/">NSpec</a></h2><p>Not to be confused with the <a href="http://nspec.tigris.org/">first hit on Google</a> which seems to be pretty much a dead project <a href="http://nspec.org">NSpec</a> (.org) is an attempt to bring <a href="http://rspec.info">RSpec</a> into the .<span class="caps">NET</span> world.</p><script src="https://gist.github.com/975150.js?file=NSpecTest.cs"></script><p>This is somewhat similar to <a href="https://github.com/machine/machine.specifications">MSpec</a> I mentioned in the last post.  My bugbear with MSpec however was that it didn&#8217;t feel natural to me.  The equivalent MSpec test for the above looks like this,</p><script src="https://gist.github.com/975159.js?file=MSpecTest.cs"></script><p>Maybe it&#8217;s just me but it doesn&#8217;t read as well as the NSpec version.  I even found it easier to write the NSpec version &#8211; more natural.</p><p>NSpec also has a lot of extra goodies.  Currently there is no integration into Visual Studio yet but the runner is simple to enough to spin up from the NuGet Package Manager Console and it has an added bonus of a file watcher.  <a href="http://nspec.org/continuoustesting">SpecWatchr</a> is similar to NUnit it can watch for changes and automatically run the specs.  It differs from NUnit in that it watches changes to the code files rather than the <span class="caps">DLL</span> &#8211; so need to wait for builds to happen etc.  Nice.</p><p>One minor gripe with it (bar the lack of VS support &#8211; even TestDriven support would be good) is the <code>should</code> syntax. I prefer the Should.Fluent style syntax <code>Should.Be()</code> rather than the current <code>should_be</code> syntax.  It&#8217;s not Ruby and we should accept that :-P.</p><p>It&#8217;s still quite early for NSpec and hopefully it keeps it&#8217;s momentum as it would be one of my frameworks of choice.</p><h2><a href="https://github.com/robconery/Quixote">Quixote</a></h2><p>Quixote by Rob Conery follows on from his current slew of ultra lightweight solutions to common problems (like <a href="https://github.com/robconery/Massive">Massive</a> and <a href="https://github.com/robconery/Sugar">Sugar</a>).  Quixote blends the <span class="caps">HTML</span> reporting directly with the framework and you write tests right in a Razor file.  This is the definition of lightweight.</p><script src="https://gist.github.com/975180.js?file=QuixoteTest.cshtml"></script><p>The obvious problem with this is that you don&#8217;t get continuous integration or build support.  There is no need to rebuild anything just refresh your page and the tests re-run.  Still CI/Build integration would be nice for a framework.</p><h2><a href="http://pivotal.github.com/jasmine/">Jasmine</a></h2><p>Ah Jasmine.  Jasmine is what I wanted out of a JavaScript testing framework.  Rather than going the JSpec route of creating a preprocessed <acronym title="Domain Specific Language"><span class="caps">DSL</span></acronym> Jasmine makes use of JavaScripts dynamic nature and &#8220;functions as 1st class citizens&#8221; feature to create framework that behaves like RSpec but embraces JavaScript.</p><script src="https://gist.github.com/975187.js?file=Tag.spec.js"></script><p>Out of the box you get an extensible framework (custom matchers etc), mocking and asynchronous support.  Ajax faking isn&#8217;t directly available but I recommend using <a href="http://sinonjs.org">Sinon</a> for this as it has an amazing FakeServer object that is fully configurable.</p><p>Another big advantage of Jasmine is it&#8217;s build integration.  Be it node.js, Java or Ruby you can integrate Jasmine specs into your build process.  .<span class="caps">NET</span> integration isn&#8217;t available yet but <a href="http://jurassic.codeplex.com">Jurassic</a> would be a suitable host if anyone wants to make it happen (hint, hint :-P).</p><h2><a href="http://docs.jquery.com/Qunit">QUnit</a></h2><p>And finally QUnit.  QUnit is the NUnit/JUnit equivalent for the JavaScript world.  Well known and mature project with some very nice <span class="caps">HTML</span> output.</p><script src="https://gist.github.com/975220.js?file=Tag.test.js"></script><p>Not much else to say on this one right now&#8230;. must be running out of steam.</p><h2>Summing Up</h2><p>And there you have it.  The first real post since the move and it&#8217;s a bit of a waffly long one.  Anyways what would be my recommendations?  Well for .<span class="caps">NET</span> I&#8217;m torn.  Currently I&#8217;d say NUnit with Should.Fluent extensions.  This is a nice combo for creating simple tests that people can execute from within Visual Studio.  However NSpec has potential &#8211; I&#8217;d like to see it grow a bit more and I&#8217;ll keep watching it.  Visual Studio integration would be aces though.  JavaScript on the other hand I have a clear cut winner.  Jasmine is awesome.  It&#8217;s boosted my code quality and productivity no end on recent projects and with the help of <a href="http://sinonjs.org">Sinon</a> for mocking and controlling Ajax it&#8217;ll be a long time before I am this happy with a .<span class="caps">NET</span> equivalent tech.  Fingers crossed for NSpec on that front.</p></div>
+
+<article>
   
+<h1><a href="/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/">Providing a Foundation for .NET Projects using NuGet</a></h1>
+<time datetime="2011-05-06T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>06</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/nuget/' style='text-decoration:none;'><span class='label label-info'>NuGet</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags/">Guerrilla Learning Experiment #2: FlashBags</a></h1>
+<time datetime="2011-04-21T00:00:00+01:00" pubdate><span class='month'>Apr</span> <span class='day'>21</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/education/' style='text-decoration:none;'><span class='label label-info'>Education</span></a> <a href='/blog/categories/flashbag/' style='text-decoration:none;'><span class='label label-info'>FlashBag</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2011/04/21/flashbag-glimpse/">Flashbag: Glimpse</a></h1>
+<time datetime="2011-04-21T00:00:00+01:00" pubdate><span class='month'>Apr</span> <span class='day'>21</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/flashbag/' style='text-decoration:none;'><span class='label label-info'>FlashBag</span></a> <a href='/blog/categories/glimpse/' style='text-decoration:none;'><span class='label label-info'>Glimpse</span></a> <a href='/blog/categories/screencast/' style='text-decoration:none;'><span class='label label-info'>Screencast</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/16/the-first-day-of-the-rest-of-my-life/">The First Day of the Rest of My Life</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2011/04/19/crucible-code-review-guidelines/">Crucible Code Review Guidelines</a></h1>
+<time datetime="2011-04-19T00:00:00+01:00" pubdate><span class='month'>Apr</span> <span class='day'>19</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/crucible/' style='text-decoration:none;'><span class='label label-info'>Crucible</span></a> <a href='/blog/categories/education/' style='text-decoration:none;'><span class='label label-info'>Education</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2011/04/16/powermockup-wireframe-toolkit-for-powerpoint/">PowerMockup â Wireframe Toolkit for PowerPoint</a></h1>
+<time datetime="2011-04-16T00:00:00+01:00" pubdate><span class='month'>Apr</span> <span class='day'>16</span> <span class='year'>2011</span></time>
 
+<footer>
+  <span class="categories"><a href='/blog/categories/design/' style='text-decoration:none;'><span class='label label-info'>Design</span></a> <a href='/blog/categories/powermockup/' style='text-decoration:none;'><span class='label label-info'>PowerMockup</span></a></span>
+</footer>
 
-<time datetime="2011-05-16T00:00:00+01:00" pubdate data-updated="true">May 16<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
 
+</article>
 
-  <div class="entry-content">  <p>Move complete, more or less.  Still a few broken images and stuff but like the unpacked boxes of a new house these will probably remain that way until about next year or so.  Decent enough weekend project all in.  For anyone who&#8217;s interested in what&#8217;s went on under the hood &#8211; read on.</p><h2>Abandoning Posterous</h2><p><a href="http://posterous.com">Posterous</a> is great as a simple blogging platform but in terms of giving me exactly what I wanted at any point in time <a href="http://posterous.com">Posterous</a> and most other platforms didn&#8217;t give me exactly what I wanted (I am quite a demanding character I guess).</p><p>I was doing some research on .<span class="caps">NET</span> Micro Web Frameworks and came across <a href="http://jessicafx.org">Jessica</a> which was created and maintained by <a href="http://tombell.org.uk">Tom Bell</a>.</p><h2>Jekyll</h2><p>Browsing Toms <a href="http://github.com/tombell">github repo</a> I discovered he prodced his site using <a href="https://github.com/mojombo/jekyll">Jekyll</a> a Ruby based static site generator and I knew I had to have it!  So I ripped off Toms nice design, uglified it with my own tweaks and what you see now is the finished site.  This site is also mirroed on <a href="http://kouphax.github.com">Github</a> but some of the functions (category pages) are missing due to some custom generators that the Github Jekyll instance doesn&#8217;t run.</p><p>There is more to be deployed but I&#8217;d rather polish what I have before pushing more stuff out.  I&#8217;ve tinkered with Project page generation, <a href="https://github.com/schacon/showoff">Showoff</a> for presentations and a few other things that will appear over time.</p><h2>Domain Name</h2><p>Seriously &#8211; how couldn&#8217;t I go for a shiny web 2.0 ultra elite domain name given the chance?  <a href="http://gandi.net">Gandi.net</a> was recommended to me and I must admit the set up was fairly painless and their admin panel stuff is very nice.</p><h2>Appharbor</h2><p>Currently my static site is hosted on <a href="http://appharbor.com">appharbor</a>.  Appharbor is awesome.  Typically I&#8217;ve used it to spin up quick demos and stuff and the simplicity of doing a <code>git push</code> to deploy your new version is like a dream (especially given the heavy handed approach of Azure).</p><h2>Thats It</h2><p>Not sure that anyone cares about this sort of stuff but I just want to take my new process for a spin anyway.  Any questions &#8211; let me know.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/14/on-the-move/">On the Move</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-14T00:00:00+01:00" pubdate data-updated="true">May 14<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>So I&#8217;ve decided to go ahead and move away from <a href="http://yobriefcase.posterous.com">Posterous</a> &#8211; the call of <a href="https://github.com/mojombo/jekyll">Jekyll</a> was just too much.  I&#8217;ve migrated a lot of my content but there is some dodgy formatting and plenty of missing images so I am in the process of sorting everything out.</p><p>Also thanks to <a href="http://tombell.org.uk">Tom Bell</a> for letting me use his template.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/06/build-me-up-buttercup-providing-a-foundation-for-net-projects-using-nuget/">Providing a Foundation for .NET Projects Using NuGet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-06T00:00:00+01:00" pubdate data-updated="true">May 6<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>It&rsquo;s always good to have a foundation, right?&nbsp; I mean if you have a heap of projects going on or you work for a company that has a load of active or future projects then why not have a foundation?&nbsp; Foundations are good.&nbsp; I mean they promote DRY cross projects, reduce development time for many common tasks (logging, data access, etc.).&nbsp; Foundations can also provide a number of tools and technologies that are &ldquo;approved&rdquo; &mdash; that is they have been throughly researched and you aren&rsquo;t going to trip up over license issues, inexperience of the tech or shortcomings of the tech/tools.</p><p>The problem with foundations is that people start assuming they are some sort of magical framework that is supposed to do all the work.&nbsp; You wrong son!&nbsp; A foundation works best when it&#8217;s a pile of techs/lightweight solutions to common problems.&nbsp; They don&rsquo;t work too well when you just get a big monolithic DLL that acts as an abstraction for other technologies.&nbsp; Abstractions are good for certain things but not everything.&nbsp; A big dll is also harder to document.&nbsp; How do you know whats in it bar using Intellisense or reflector?&nbsp; OK OK OK there should also be some sort of associated documentation that comes with it but keeping these two things inline is extra work.&nbsp; Extra work that doesn&rsquo;t get done &mdash; it&rsquo;s not funded work so why bother? Eh?</p><p>In our company we use this approach and it works from a technology perspective but from a people perspective it could be better.&nbsp; There is a general lack awareness of what is contained within the magical 3 dlls that get generated and as such less stuff get pushed into the foundation as it probably could.&nbsp; The current process works like so,</p><p class="img-holder"><img src="http://farm3.static.flickr.com/2076/5719795098_ee9676646b_b.jpg"></p><ul><li>Create a new Subversion repository for the project</li><li>Branch the current Foundation (a Visual Studio Solution) repository for the current project</li><li>Tweak the build step of the Foundation solution to dump it&rsquo;s dlls into the lib folder of the project</li><li>Commit foundation changes to the project foundation branch</li><li>Review and selectively merge changes into the trunk of the Foundation repository</li></ul><p>Even writing the steps out and thinking about all the undocumented steps required to get this to work smoothly tells me that it is possibly more complicated than it has to be.&nbsp; In fact the merging back into the Foundation trunk doesn&rsquo;t happen as much as it should.&nbsp; In fact projects adding thing to their own branch of the foundation rarely happens cause it&rsquo;s a bit messy.</p><p>Another issue with this approach is that it only makes sense for bespoke code.&nbsp; I mean if you are building out a dll how do you tell people that &ldquo;actually JSON.NET is our preferred JSON Serialiser&rdquo;.&nbsp; It&rsquo;s not easy as the documenting and announcing of such things is in another document out in the ether.</p><h2>An Alternative Approach</h2><p>Modular.&nbsp; It&rsquo;s the future I tell thee!&nbsp; Discrete pieces of functionality that can run independently.&nbsp; This enables project to take the parts of the foundation they want and build a framework from it.&nbsp; Much like ender (<a href="http://ender.no.de/">http://ender.no.de/</a>) is doing in the JavaScript world currently being able to take micro-libraries and build a macro-framework that suits your needs and just that.&nbsp; No risk of featureitis, evolve your framework as you need and be in complete control doing it.</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3045/5719234363_1b5f04b781_z.jpg"></p><p>Thats the plan but how do we achieve it?&nbsp; HINT: The answer, a partial one anyway, is in the title of this post.&nbsp; Well, first things first we would need to take our current foundation and modularise it.&nbsp; Along with that we&rsquo;d probably need to ensure tests etc. are up to scratch (start on the right foot).&nbsp; Secondly we would need to change the delivery mechanism - no more branching and merging of codebases - too heavyweight.&nbsp; NuGet (<a href="http://nuget.codeplex.com">nuget.codeplex.com</a>) will help.&nbsp; With NuGet we could create packages from our modules, manage dependencies, document usage right in the package manifest, and expose these packages as a server and searchable package repository (a la <a href="http://www.nuget.org">nuget.org</a>).&nbsp; Into this repository we could push all our approved technologies (researched and vetted previously) as well as new versions of our bespoke code.&nbsp; As time goes on this repository can grow and more people can add to it.&nbsp; Heck we can even make the submission process as easy as we see on nuget.org.&nbsp; Wunderbar!</p><p>So how would this affect how projects operate on a daily basis?</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3532/5719234439_0171705928_z.jpg"></p><p>Well the mechanism for the typical usage is greatly simplified.&nbsp; The project pushes and pulls packages from a central package repo.&nbsp; People use the repo to search for things they need (JSON Serialiser, Micro-ORM etc) and if they don&rsquo;t find something they can then push a new package into the repo (or just suggest one).&nbsp; Self documenting use of 3rd party techs, all available all searchable.</p><p>Another advantage of this approach, and using NuGet in particular, allows us to bundle not just dlls but also transform files for configuration (web.xml etc.), javascript/css/other client side assets, project and solution wide tools (executable that can be run from the VS command prompt etc.) and even code samples and templates. &nbsp;This gives us a richer, more cohesive delivery mechanism for a foundation to a project.</p><p>Of course it&rsquo;s not all perfect.&nbsp; Urgent changes to bespoke code will need to be done the old fashioned way and pushed to the main server which is less than ideal but it&rsquo;s a bit of an edge case.</p><p>So whats not to like about this idea?&nbsp; Foundations not frameworks is the key here.&nbsp; Let the project create its own framework as that will work much better than imposing one upon them.</p><p>So this is a bit of a brain dump (some would say brain fart no doubt) as usual and I am open to suggestions and corrections.&nbsp; I&rsquo;ve likely missed a few glaring problems with the new approach so let the critics loose and I&rsquo;ll try my best to address their concerns.</p><p>Next step - setting up a simple POC to test the general workflow.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags/">Guerrilla Learning Experiment #2: FlashBags</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>So I kicked off another experiment in my war against ignorance in the IT industry.&nbsp; To make myself look cool I am using the term Guerrilla Learning.&nbsp; The experiment?&nbsp; Well I am calling it FlashBag*</p><blockquote>Flashbag (fuh-lash-bah-ag): A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization.</blockquote><p>The name itself is a portmanteau of Flash Mob (I assume you all know what this is by now) and Whitebag - a technology awareness session held during lunch - hence Whitebag (the one you bring your lunch in).</p><p>Anyway whats it all about then?&nbsp; Well a typical scenario would be this&#8230;..&nbsp;</p><ul><li>I am reading my tech blogs on a day and come across a new tech that seems really nice.&nbsp;</li><li>As usual I link it on yammer or twitter or whatever and continue to dive into it.</li><li>I&rsquo;m sold.&nbsp; This is something other people need to know about.</li><li>So I book a room for 1/2 hour at the last minute, post internally the room and the topic (say 12:00, Boardroom, Glimpse for .NET)</li><li>Once the party is assembled I do a very short talk, possibly demo (15 minutes tops) and thats it.</li></ul><p>So what would this achieve?&nbsp; Well I believe a lot of people throw links and stuff into a &ldquo;Read Later&rdquo; pile or have a quick look at the page and go &ldquo;Cool&rdquo;.&nbsp; Then they forget all about it.&nbsp; This quick interactive, community focused practical sessions forces them to actually think about whats going on (James Hughes PHd in Theoretical Theories and Things like that) and how they would apply it to their work.&nbsp; It&rsquo;s more in your face and creates a better connection in those peoples minds.&nbsp; The news then precipitates&nbsp; further - the people attending the FlashBag post on yammer/twitter and talk about it more rather than just little old me.</p><p>As always I record these things as a memento of my awesome presentation skills (#lies) and allowing other people to see what went on.</p><p>It&rsquo;s early days and I&rsquo;ve done one so far (posting shortly) - turn out was mediocre but perhaps that will change, perhaps it won&rsquo;t.&nbsp; Mediocre turn out is better than none I guess - perhaps people are busy, perhaps enthusiasm is waining among my colleagues, or perhaps they are sick of me spamming every sense they have on a daily basis!</p><p>Thoughts?</p><p>* After some internal discussion the name is up for debate.&nbsp; I like it but mostly because of my huge ego.&nbsp; Thoughts?</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/21/flashbag-glimpse/">Flashbag: Glimpse</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-21T00:00:00+01:00" pubdate data-updated="true">Apr 21<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><iframe src="http://player.vimeo.com/video/22708858?portrait=0" frameborder="0" height="400" width="100%"></iframe></p><p>Glimpse is an extensible client side debugging dev tool for server side stuff in any ASP.NET (WebForms) and ASP.NET MVC (RoR and PHP forthcoming). Think Firebug for your server and you have the gist of it. &nbsp;This presentation is a very brief introduction/overview/review.</p><p>Also the quality totally blows I promise it&#8217;ll be better next time.</p><p><span style="color: #888888;"><em><strong>Flashbag (fuh-lash-bah-ag)</strong>: A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization</em></span></p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/19/crucible-code-review-guidelines/">Crucible Code Review Guidelines</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-19T00:00:00+01:00" pubdate data-updated="true">Apr 19<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>I&rsquo;ve been using Crucible on a number of projects for the last few months and I love it.&nbsp; So now comes the time we want to try and make a case for it to be rolled out to other projects in the company I work for.&nbsp; Along with the usual stuff such as cost of licenses, logistics, hardware need and so on I also need to consider education and best practise guidelines (oh I said &ldquo;best practise&rdquo; that term makes me feel slightly queasy) because after all &mdash; if people aren&rsquo;t using it right they probably wont see the benefit, stop using it and then we are back to square one with wasted time, money and effort.</p><p>Some of you may be thinking,</p><blockquote>&ldquo;But it&rsquo;s just a code review tool - what guidelines do you really need?&rdquo;</blockquote><p>But truth be told you do need some, and I learnt this the hard(ish) way.&nbsp; So here are some top tips to getting the most out of Crucible and at the same time possibly embettering (not a real word but should be) your development approach.</p><h2>Rule 1: Review Early, Review Often</h2><p>Don&rsquo;t wait for a whole week before committing 600 files as a single review &mdash; no ones going to actually do a proper review as they don&rsquo;t have time or patience.&nbsp; Generally speaking your work should be sufficiently broken down so that you can do a few hours of work, commit that code and submit that changeset as a review.&nbsp; Typically speaking a small review may only take about 5 minutes or so to review per person which is a lot easier than having to actually book time to read an entire books worth of code.&nbsp; Obviously don&rsquo;t be going insane on this.&nbsp; A code review should encompass a complete feature and not some arbitrary files that are only a small piece of the puzzle.&nbsp; Feel free to merge changesets where necessary too.</p><h2>Rule 2: Refrain from adding new content to old reviews</h2><p>I&rsquo;ve seen a few cases were a bunch of files have been added to a review and this review has been used over and over with people adding files and new versions until the whole thing had pretty much the entire codebase included.&nbsp; Needless to say that&rsquo;s wrong.&nbsp; Create a review and don&rsquo;t be adding new files or versions too it unless it&rsquo;s in the early stages of review and it is deemed necessary.&nbsp; Don&rsquo;t be afraid of kicking off more than one review - it&rsquo;s not a crime, in fact it&rsquo;s advised</p><h2>Rule 3: Don&rsquo;t be TOO iterative</h2><p>Another problem I&rsquo;ve experienced is that a review can run for a very long time.&nbsp; This is linked to Rule 2 in that, based on my review comments, people will make the changes and bring that file in that review up to date.&nbsp; This leads to further comments and the whole thing just consumes too much time.&nbsp; Crucible gives you the power to do this but you need a bit of discipline to simply know when to stop and when to start a new review.</p><p>In recent projects I have been performing a review, making comments etc. and completing the review (unless there is anything serious I want to make sure gets addressed ASAP).&nbsp; When changes are made they generally get picked up in the next set of reviews anyway and as I talk to my team all the time I can give a brief sanity review when the changes are made. &nbsp;</p><p>Making your submitted reviews lightweight helps with this.</p><h2>Rule 4: Keep reviews small</h2><p>Again similar to Rule 1 and 2.&nbsp; Don&rsquo;t be submitting hundreds of files for a review.&nbsp; If you need to make a big review considering breaking it down into smaller feature sets and describing this in the review.&nbsp; It makes it easier for reviewers to perform the review and for yourself to make the changes quickly (if any)</p><h2>Rule 5: Let everyone get involved</h2><p>Gone are the days when a single (supposedly) smart person performs all reviews.&nbsp; Social code reviews are and should be the future.&nbsp; Embrace this.&nbsp; Every single dev on my projects are added to reviews by default, even people with little to no experience of the technology.&nbsp; Not only does it help people spot things that others may miss but it also&nbsp;</p><ul><li>generates debate and discussion around coding style</li><li>helps people get an understanding of the coding practise in the project</li><li>acts as a learning tool for people</li><li>helps people feel more involved in the project and team</li></ul><h2>Conclusion (cause I can&rsquo;t think of a better word)</h2><p>Hopefully these guidelines give you a better understanding of how I work and how I get maximum benefit from Crucible.&nbsp; After all it is just a tool and therefore open to abuse.&nbsp; Honestly it&rsquo;s better than our previous approach (literally using Word documents) and I can&rsquo;t imagine anyone would prefer our old approach to this.&nbsp; Does anyone else have any recommendations around the use of Crucible?</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/16/powermockup-wireframe-toolkit-for-powerpoint/">PowerMockup â Wireframe Toolkit for PowerPoint</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-16T00:00:00+01:00" pubdate data-updated="true">Apr 16<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Link: <a href="http://www.powermockup.com/">http://www.powermockup.com/</a></p><blockquote>Disclosure Time:&nbsp; I approached the developer of this app offering to do a review in exchange for a review license.&nbsp; This isn&rsquo;t the sort of thing I usually blog about (except internally, a few times, in the company I work for) but I&rsquo;m all for supporting the people who deserve support and truth be told I would probably have written this blog post anyway (yep it&rsquo;ll be a positive one)</blockquote><p>Happy with that?&nbsp; Good lets crack on.</p><h2>The Past</h2><p>I&rsquo;ve written a fair number UI design documents over the last few years and for all of these I have used <a href="http://balsamiq.com">Balsamiq</a>.&nbsp; The problem with that is our companies standard/approved wire-framing solution is Visio (with the <a href="http://www.guuui.com/issues/02_07.php">GUUUI templates</a>).&nbsp; Why did I go against the grain? Well I am not a mad fan of Visio.&nbsp; It&rsquo;s not exactly lightweight, in fact it&rsquo;s extremely bloated (at least in the wire-framing sense), and that is easily the worst thing you can ask for when dealing with highly iterative, dynamic, interactive wire-framing.&nbsp; You need to work with the Visio rather than let Visio work for you and that is slightly too much fail for me most of the time.&nbsp; Admittedly there has been times I prefer the slicker, more professional, output of Visio (our customers come from the stiff collar world of finance and the like so it tends to sit better with them).&nbsp; But were I can I stick with Balsamiq.&nbsp; Until now&#8230;.</p><h2>The Present</h2><p>The problem I&rsquo;ve always faced with Balsamiq is that when I produce a first draft of a document with, say, 20 odd wireframes in it and something fundamental is changed by the customer then I have a hard slog ahead to fix all those images.&nbsp; Thankfully a colleague of mine, one much better at this wire-framing/UX stuff than me, pointed me towards PowerMockup.&nbsp; Rather than make a new standalone application that has it&rsquo;s own random UI features and offers little to on integration into the app we use day today PowerMockup is simply an extension/add-on to Powerpoint.&nbsp; So what does this mean?&nbsp; Well it means,</p><ul><li>The devs spent more time into the templates and stuff that matter</li><li>Fully integrated into the Office application stack (think ability to tweak results when embedded into Word)</li><li>Already makes use of the built in &ldquo;smart&rdquo; styling and other features that make Powerpoint actually a fairly decent app for quick templating and stuff.&nbsp; In fact take it a step further and you could make use of Powerpoint&rsquo;s animation stuff to demonstrate UI interactions.</li></ul><p>So given 5 minutes what could I do?&nbsp; And I do mean 5 minutes (possibly slightly less).&nbsp; Well I mocked up the website you are reading right now.&nbsp;</p><p class="img-holder"><img src="http://farm4.static.flickr.com/3151/5720048084_8b4994da36_z.jpg"></p><p>Trippy eh?&nbsp; It&rsquo;s not my best work (far from it) but it did help me test drive PowerMockup and get a better feel of it.&nbsp; So I like it.&nbsp; I like it because of all the things I&rsquo;ve mentioned above (who wouldn&rsquo;t).&nbsp; I&rsquo;d use it, and will use it, as my wire-framing tool of choice (and not because I got a free license - my work would pay for it anyway cause they are total aces) from now on but it&rsquo;s not perfect.&nbsp; If I had to pick holes there are a few things that I&rsquo;d mention,</p><ul><li>My biggest peeve but it&rsquo;s not a show stopper is the location of the various shapes/widgets.&nbsp; Dropdowns are in &ldquo;Navigation&rdquo; and Text fields are in &ldquo;Text&rdquo; but 99% of the time I&rsquo;d want both of those when constructing a form.&nbsp; I&rsquo;d really like a &ldquo;Form&rdquo; collection with all of these things grouped.</li><li>If I drop a browser container on the page then drop a scrollbar on the page I need to resize said scrollbar to fit the browser container.&nbsp; Problem is, as the scrollbar is a grouped object, it will stretch the entire thing rather than extend the base rectangle.&nbsp; Again no show stopper but it is a bit of a pain.&nbsp; I guess offering the components as separate shapes might make it easier (just a suggestion).</li><li>There a plenty of icons but I&rsquo;d like to see a few more (&ldquo;comments&rdquo; icon, &ldquo;tags&rdquo; icon) - the equivalent famfamfam icon set would blow me away (and also a lot to ask).&nbsp; Possibly some more mobile shapes etc. would also be nice.</li></ul><h2>The Future</h2><p>So thats it for now I am very happy, not because I managed to blag a free license, but rather because the app/plugin/whatever fits into how I do things so seamlessly.&nbsp; Good work and I look forward to future updates - hopefully more people think the same.</p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/blog/page/6/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>All my thingz!</h1>
-  <ul class="allmythings">
-    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
-    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
-    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
-    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
-    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("kouphax", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
-  
-</section>
+<style>
+  div.sharing { display: none; }
+</style>
 
 
   
-</aside>
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/page/7/index.html" data-via="kouphax" data-counturl="http://yobriefca.se/blog/page/7/index.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+      
+    </footer>
+  
+</article>
+
+</div>
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - James Hughes -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 <script type="text/javascript">

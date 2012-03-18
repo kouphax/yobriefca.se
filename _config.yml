@@ -96,3 +96,5 @@ google_analytics_tracking_id: UA-19143623-5
 
 # Facebook Like
 facebook_like: false
+
+category_title_prefix: '<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>'

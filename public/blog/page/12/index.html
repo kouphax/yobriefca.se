@@ -8,8 +8,12 @@
   <title>Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
   
-  <meta name="description" content="I&rsquo;m not sold on ASP.NET UpdatePanels. Conceptually they are quite nice but their implementation is nasty. So much so I&rsquo;d be happy to say &hellip;">
+  <meta name="description" content=" yobriefca.se 2009 UpdatePanels & Alternatives
+Apr 15 2009 ASP.NET Newer &rarr; div.sharing { display: none; } Tweet ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,150 +50,73 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Yo Briefcase!</a></h1>
-  
-    <h2>All the codez!</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yobriefca.se" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/screencasts">Screencasts</a></li>
-    <li><a href="/talks">Talks</a></li>
-    <!--
-    <li><a href="/cv">CV</a></li>
-    -->
-</ul>
-
-</nav>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/15/updatepanels-alternatives/">UpdatePanels & Alternatives</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-15T00:00:00+01:00" pubdate data-updated="true">Apr 15<span>th</span>, 2009</time>
-        
-      </p>
-    
+      <span style="float:right">
+      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
+      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
+      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+    </span>
+    <h1 class="entry-title">yobriefca.se</h1>
   </header>
+<div id="blog-archives">
 
 
-  <div class="entry-content">  <p><p>I&rsquo;m not sold on ASP.NET UpdatePanels. Conceptually they are quite nice but their implementation is nasty. So much so I&rsquo;d be happy to say the should be considered an anti-pattern. My reasons? Well&hellip;</p><ul><li>They generate too much JavaScript</li><li>It&rsquo;s too &ldquo;development focused&rdquo; &ndash; it puts saving time ahead of a clean performant solution</li><li>Ajax calls should be data focused (returning XML, JSON etc), UpdatePanels are content focused</li><li>Generates a massive amount of network traffic in comparison to alternative solutions (including ViewState and markup)</li><li>UpdatePanels use innerHTML to replace contents which orphans bound events (leakage) that need to be rebound each time (extra work).</li></ul><p>But what are the alternatives? Page Methods and Scripted Services are a good starting point. The good things about these alternatives is that they are lightweight &ndash; they send JSON data to and from the server so your network traffic is greatly reduced. Here is a simple example of using a page method &ndash; I&rsquo;ll not cover Scripted Services as they are very similar and you can find info about them on the net.</p><p>In your code behind you can add a [WebMethod] attributed method</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632988.js"></script></span></span></div><p>And turn on EnablePageMethods attribute of the pages ScriptManager</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632990.js"></script></span></span></div><p>What happens next is that when the page is rendered a JavaScript Proxy Class will be generated called PageMethods that contains a function call GetCurrentDateAndTime. It&rsquo;ll look something like this.</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632991.js"></script></span></span></div><p>Now all we have to do is use it. This is easy&hellip;</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632994.js"></script></span></span></div><p>That wasn&rsquo;t too difficult now was it? But we aren&rsquo;t done yet. Sure this solution works but there is still one problem &ndash; We are including the ScriptManager in our page which means event though all we are doing is getting a date back from the server we are still required to pull down at least 160k (in it&rsquo;s most compressed &amp; gzipped form) of framework 90% of which we aren&rsquo;t even going to use.</p><h3>Calling PageMethods and ScriptedServices using jQuery</h3><p>Obviously a request from client to server is always done through HTTP it doesn&rsquo;t actually matter how it is handled on the client. So it&rsquo;s easy to swap out the ASP.NET Ajax framework for jQuery. You&rsquo;ll probably be asking why? Well the long and short of it is that regardless of what the requirements say you (or someone else on the project) WILL end up writing Javascript and jQuery is the better choice&hellip;</p><ul><li>It&rsquo;s a better, smaller, compact and faster framework</li><li>It&rsquo;s much better documented and easier to learn</li><li>It&rsquo;s extensible via plugins so you don&rsquo;t need the whole &ldquo;kitchen sink&rdquo; to do simple things</li><li>It can do everything ASP.NET Ajax can do</li><li>It&rsquo;s technology agnostic so you can jump to a Java project and use the same solutions</li></ul><p>I could go on, honestly I could, but that&rsquo;s not what this post is about. There are a few nuances in calling PageMethods and ScriptedServices, namely</p><ul><li>The request content-type must be&nbsp;<code>application/json; charset=utf-8</code></li><li>The request must be a POST request</li><li>Data sent to the server must be encoded as a JSON string or &ldquo;{}&rdquo; if empty</li><li>Standard ASP.NET JSON serialization doesn&rsquo;t convert DateTime to a proper JSON date</li><li>The JSON data in the request must map directly to arguments of the function</li></ul><p>Failure to comply with any of the above will result in either a security error or, usually, the entire page being rendered back to the response. So calling the above PageMethod using jQuery is as simple as this&hellip;.</p><div><span style="font-size: small;"><span><script src="https://gist.github.com/632996.js"></script></span></span></div><p>Not bad, but there is a lot of boiler plate code there. Thankfully it&rsquo;s easy to write a jQuery plugin to abstract out most of this and make the calls simple.&nbsp;So all in all even with the 2 plugins (JSON and .Net Services) and the jQuery framework we are only forced to pull down 60k of scripts (minified but NOT gzipped) so you could see this reduced to 25-30k all in with gzipping turned on.</p></p></div>
+
   
+  <h2>2009</h2>
+
+<article>
   
+<h1><a href="/blog/2009/04/15/updatepanels-alternatives/">UpdatePanels & Alternatives</a></h1>
+<time datetime="2009-04-15T00:00:00+01:00" pubdate><span class='month'>Apr</span> <span class='day'>15</span> <span class='year'>2009</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net/' style='text-decoration:none;'><span class='label label-info'>ASP.NET</span></a></span>
+</footer>
 
 
-    </article>
-  
+</article>
+
   <div class="pagination">
     
-    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/blog/page/11/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>All my thingz!</h1>
-  <ul class="allmythings">
-    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
-    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
-    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
-    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
-    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("kouphax", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
-  
-</section>
+<style>
+  div.sharing { display: none; }
+</style>
 
 
   
-</aside>
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/page/12/index.html" data-via="kouphax" data-counturl="http://yobriefca.se/blog/page/12/index.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+      
+    </footer>
+  
+</article>
+
+</div>
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - James Hughes -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 <script type="text/javascript">

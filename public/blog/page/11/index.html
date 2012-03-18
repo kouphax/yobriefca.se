@@ -8,8 +8,13 @@
   <title>Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
   
-  <meta name="description" content="Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets &hellip;">
+  <meta name="description" content="yobriefca.se 2010 Microsoft&#8217;s Trio of jQuery Plugins
+Oct 16 2010 Microsoft jQuery jQuery 1.4.3 & jQuery Mobile Released
+Oct 16 2010 jQuery &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,467 +51,204 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Yo Briefcase!</a></h1>
-  
-    <h2>All the codez!</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yobriefca.se" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/screencasts">Screencasts</a></li>
-    <li><a href="/talks">Talks</a></li>
-    <!--
-    <li><a href="/cv">CV</a></li>
-    -->
-</ul>
-
-</nav>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/">Microsoft&#8217;s Trio of jQuery Plugins</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
-        
-      </p>
-    
+      <span style="float:right">
+      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
+      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
+      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+    </span>
+    <h1 class="entry-title">yobriefca.se</h1>
   </header>
-
-
-  <div class="entry-content">  <p>Microsoft&rsquo;s 3 jQuery plugins have been accepted as official plugins (with templating being absorbed into the core in jQuery 1.5).&nbsp; Lets have a quick look at what they provide.</p><p>There are a ton of blog posts and documentation out there describing what these plugins do,</p><ul><li><a href="http://blog.jquery.com/2010/10/04/new-official-jquery-plugins-provide-templating-data-linking-and-globalization/">Official Post</a> </li><li><a href="http://weblogs.asp.net/scottgu/archive/2010/10/04/jquery-templates-data-link-and-globalization-accepted-as-official-jquery-plugins.aspx">Scottgu&rsquo;s Annoucement</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Template Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-tmpl/">Data Link Git Repo</a> </li><li><a href="http://github.com/jquery/jquery-global">Globalisation Git Repo</a> </li></ul><p>I am going to ignore Globalisation for now as it takes too long to put a worthwhile demo together and it&rsquo;s alreaqdy heavily explained on the GitHub page linked above.&nbsp; So lets take the other plugins and use them to create &ldquo;the best todo app evar&rdquo;</p><h2>ToDo App</h2><p>Lets take a simple to do app the you can add Tasks to (along with associated comments) then save them to the server.&nbsp; Simple design like so,</p><p>[[posterous-content:iesdxxncdohkDnbunIad]]</p><h2>HTML</h2><p>So first things first lets get the HTML out of the way,</p><script src="http://gist.github.com/629833.js?file=gistfile1.html"></script><h2>JavaScript</h2><p>Next up is the interesting part &ndash; JavaScript,</p><script src="http://gist.github.com/629836.js?file=gistfile1.js"></script><p>That&rsquo;s it.&nbsp; So lets break it down and see exactly what is happening.</p><h3>Variable Declarations</h3><script src="http://gist.github.com/629839.js?file=gistfile1.js"></script><p>First thing we do is declare a model object.&nbsp; Simply an empty object for our purposes but could be pre-populated with data that can be bound.</p><h3>Model Linking</h3><p>Model linking is effectively 2 way data binding between a data context and a form (1 way optional and configurable mappings possible see API).&nbsp;</p><script src="http://gist.github.com/629840.js?file=gistfile1.js"></script><p>We just want simple 2 way binding so that is all we need.&nbsp; This sets up the 2 form inputs so they are bound to our model object so any changes will be reflected accordingly.</p><h3>Add Functionality</h3><script src="http://gist.github.com/629841.js?file=gistfile1.js"></script><p>First things first we need to take a clone of the current object as this is bound/linked to the form and if we don&rsquo;t clone it we will be referencing the same object over and over.&nbsp; This wont affect the UI but templating has some nice data centric features to pull back our data later and we need this.</p><p>Next we create a very simple template passing the cloned model into the template call.&nbsp; Finally we append this new LI to the UL list.&nbsp;</p><h3>Save Functionality</h3><p>The interesting part of the save functionality is how we actually pull back the list of data to be sent to the server.</p><script src="http://gist.github.com/629842.js?file=gistfile1.js"></script><p>Templates are data centric.&nbsp; That is, when they are created the original data that was used to generate them is stored in the jQuery data cache and can be retrieved using tmplItem.&nbsp; So rather than having to scrape the data back from UI (<em>where are you going to get the comment value from?</em>) you can simply ask for the elements data context.</p><h2>So&hellip;</h2><p>That&rsquo;s it.&nbsp; Some very nice data centric (3rd time in as many paragraphs) plugins.&nbsp; Sure you can do this stuff without these plugins but it would certainly not be as elegant.&nbsp; This is only skimming the surface of the data linking and templating plugins, there is a heap of stuff that I didn&rsquo;t cover,</p><ul><li>One way binding</li><li>Value converters for binding</li><li>Programatically change data values</li><li>Adding custom linking behaviour</li><li>Generate templats from embedded script templates</li><li>Complex and nested templating</li><li>Statically define a reusable template</li></ul></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/16/jquery-1-4-3-jquery-mobile-released/">jQuery 1.4.3 & jQuery Mobile Released</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+<div id="blog-archives">
 
 
 
   
+  <h2>2010</h2>
 
-
-<time datetime="2010-10-16T00:00:00+01:00" pubdate data-updated="true">Oct 16<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>As expected jQuery 1.4.3 and jQuery Mobile (alpha) have dropped today. The official announcements are here</p><ul><li><a href="http://blog.jquery.com/2010/10/16/jquery-143-released/">jQuery 1.4.3</a></li><li><a href="http://jquerymobile.com/2010/10/jquery-mobile-alpha-1-released/">jQuery Mobile</a></li></ul><p>Having had the chance to play around with these already here are a few of the highlights that I think are worth mentioning.&nbsp; This first post will talk about jQuery Core as I need a bit more time with jQuery Mobile to get a better feel for it.</p><h2>jQuery 1.4.3</h2><h3>.data()</h3><p>One of the first cool things that 1.4.3 brings with it is a tweak to the .data() method to allow it to work with not only DOM objects but plain old JavaScript objects as well. So what? Well it opens the doors for the recently announced <a href="http://github.com/jquery/jquery-datalink">Data Linking</a> plugin from Microsoft (<a href="http://yobriefcase.posterous.com/microsofts-trio-of-jquery-plugins">blogged about it before</a>) until now ran on a patched version of jQuery Core. Essentially this give us the ability to perform data binding between UI elements and a model object. This will be familiar to people who use binding in Silverlight. This is all made possible via the newly introduced changeData event that will get fired when .data() is used to modify a data value.</p><p><script src="https://gist.github.com/630059.js"></script></p><p>Another nice new feature rolled into .data() is that all HTML data attributes are automatically parsed as data on initial selection of the element(s). This behaviour is similar to the metadata plugin that has been around for some time. In fact data values are coerced into the applicable types (&ldquo;true&rdquo; becomes Boolean, &ldquo;{o:1}&rdquo; becomes a JavaScript object etc.). This is a nice feature to have but I wonder how resilient it is to weird strings.</p><p>So for,</p><p><script src="https://gist.github.com/630053.js"></script></p><p>The following will be true</p><p><script src="https://gist.github.com/630056.js"></script></p><p>This is going to play very nice with the Unobtrusive JavaScript/Ajax features of the ASP.NET MVC3 (which already employs something similar)</p><h3>Modularity</h3><p>One of the issues many people had with jQuery was it was &ldquo;all or nothing&rdquo;.&nbsp; This was fine at the start but as the file size started to grow people felt that they should be able to only use a small part of jQuery without having to pull the whole thing down.&nbsp; This release sees a fairly big refactoring to try and make this wish a reality.&nbsp; jQuery Core has been broken up into a number of sub modules which gives us the ability to load modules on demand (see <a href="http://yobriefcase.posterous.com/30487860">Modernizr and Require.JS</a>) or simply use the modules we need.</p><h3>jQuery.type()</h3><p>There are plenty of little cross browser differences in the typeof operator and as such it&rsquo;s not always reliable.&nbsp; The jQuery type method abstracts out all those little quirks to correctly determine arrays etc.</p><p><script src="https://gist.github.com/630195.js"></script></p><h3>And The Rest</h3><p>There are a load more improvements and tweaks in 1.4.3 that are fully explained in the original announcement including,</p><ul><li>Performance tweaks across CSS and Traversal modules</li><li>Tweak to allow pausing the DOM Ready event until explicitly specified</li><li>Event helpers can now be passed data objects</li></ul><p>Now onto jQuery Mobile&hellip;.</p></div>
+<article>
   
+<h1><a href="/blog/2010/10/16/microsoft-s-trio-of-jquery-plugins/">Microsoft&#8217;s Trio of jQuery Plugins</a></h1>
+<time datetime="2010-10-16T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>16</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/microsoft/' style='text-decoration:none;'><span class='label label-info'>Microsoft</span></a> <a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/16/jquery-1-4-3-jquery-mobile-released/">jQuery 1.4.3 & jQuery Mobile Released</a></h1>
+<time datetime="2010-10-16T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>16</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a> <a href='/blog/categories/jquery-mobile/' style='text-decoration:none;'><span class='label label-info'>jQuery Mobile</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/14/modernizr-requirejs/">Modernizr & RequireJS</a></h1>
+<time datetime="2010-10-14T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>14</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a> <a href='/blog/categories/modernizr/' style='text-decoration:none;'><span class='label label-info'>Modernizr</span></a> <a href='/blog/categories/require-js/' style='text-decoration:none;'><span class='label label-info'>require.js</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/14/modernizr-requirejs/">Modernizr & RequireJS</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2010/10/12/outside-events-jquery-plugin/">Outside Events jQuery Plugin</a></h1>
+<time datetime="2010-10-12T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>12</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/">ASP.NET MVC 3 Preview 1 First Look</a></h1>
+<time datetime="2010-07-28T00:00:00+01:00" pubdate><span class='month'>Jul</span> <span class='day'>28</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a></span>
+</footer>
 
 
-<time datetime="2010-10-14T00:00:00+01:00" pubdate data-updated="true">Oct 14<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+</article>
 
 
-  <div class="entry-content">  <p>I&rsquo;ve been pulling a lot of JavaScript libraries and utilities together to build up a NuPack server as it&rsquo;s by far one of the best ways to distribute client side resources during development.&nbsp; Some of these libraries I have used myself and thought it might be worth mentioning some of them.</p><h2>Modernizr</h2><p>Modernizr is a feature detection library that allows us to test the existence of certain HTML5 features within the browser.&nbsp; This is not only useful when constructing a page and applying styling of JS widgets but also for detecting things such as WebWorkers, Web DB, application cache etc.&nbsp; It supports many things,</p><blockquote class="posterous_medium_quote"><p>@font-face, Canvas, Canvas Text, HTML5 Audio, HTML5 Video, rgba(), hsla(), border-image:, border-radius:, box-shadow:, opacity:, Multiple backgrounds, CSS Animations, CSS Columns, CSS Gradients, CSS Reflections, CSS 2D Transforms, CSS 3D Transforms, CSS Transitions, Geolocation API, localStorage, sessionStorage, SVG, SMIL, SVG Clipping, Drag and Drop, hashchange, X-window Messaging, History Management, applicationCache, Web Sockets, Web Workers, Web SQL Database, IndexedDB, Input Types, Input Attributes</p></blockquote><p>In most cases native support for a feature is always better than an alternative CSS hack or JS script.&nbsp; Rounded Corners are a good example of this.&nbsp; A lot of, but not all, browsers already support rounded corners natively but in a world where people think a site should be <a href="http://dowebsitesneedtolookexactlythesameineverybrowser.com/">identical</a> in all browsers it is often necessary to provide your own solution.&nbsp; This means adding extra work for all browsers.&nbsp; This is where Modernizr comes in.&nbsp; Rather than applying non-native rounded corners to browsers that support them nativley we can do this,</p><script src="http://gist.github.com/628427.js?file=gistfile1.html"></script><p>That way we can always defer to the browser and remove unnecessary processing.&nbsp; But lets take it step further.&nbsp; Obviously for the majority of browsers pulling down a rounded corner plugin is completely pointless as it will never be used.&nbsp; What can we do about that?</p><h2>Require.JS</h2><p>Require.JS is one of many module/script loaders available but the good thing about Require.JS is that is extremely simple.&nbsp; Essentially it injects a script file into the head of the document and fires a callback when ready (there is a bit more configurability held within but that&#8217;s the gist of it).&nbsp; So lets take the above example and see what we can do about it.&nbsp; We don&#8217;t want to load scripts unnecessarily (lets leave that up to ASP.NET WebForms, ugh&hellip;. ) so lets only load the rounded corner script when needed,</p><script src="http://gist.github.com/628343.js?file=modernizr.html"></script><p>So basically we only get the extra script pulled down in the few browsers that don&rsquo;t support rounded corners, less processing, less traffic (as long as require.js file size &lt; total size of optional scripts).&nbsp;</p><p>Nice.</p><p>Obviously you need to be a bit more strategic about where you place this code as you can get FOUC if placed after document has fully loaded.&nbsp; Another issue is that Require.JS intentionally doesn&rsquo;t support CSS as there is no guaranteed way to ensure it has loaded across all browser.&nbsp; Thats an easy fix though,</p><script src="http://gist.github.com/628300.js?file=loadcss.js"></script><p>As always I&rsquo;ve put together a nice wee demo app that makes use of these technologies&hellip;. coming to a NuPack server near you too.</p><p><a href="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr" title="svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr">svn://subversion/Playground/trunk/jameshu/Src/Kainos.Internal.RequireAndModernizr</a></p><p>Let me know if that works as it uses NuPack (but I don&rsquo;t think that is a requirement to open the project).</p></div>
+
+<article>
   
-  
+<h1><a href="/blog/2010/01/13/css-hacks-for-ie-unnecessary/">CSS Hacks for IE - Unnecessary</a></h1>
+<time datetime="2010-01-13T00:00:00+00:00" pubdate><span class='month'>Jan</span> <span class='day'>13</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/css/' style='text-decoration:none;'><span class='label label-info'>CSS</span></a></span>
+</footer>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/12/outside-events-jquery-plugin/">Outside Events jQuery Plugin</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-12T00:00:00+01:00" pubdate data-updated="true">Oct 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><a href="http://benalman.com/projects/jquery-outside-events-plugin/">Outside Event Plugin</a> doesn&rsquo;t have a great deal of uses but it does solve one very important issue in client side code &ndash; Diminishing Responsibility.&nbsp; Before I explain how it does this I need to explain what it does.</p><p>Outside events are a new set of events provided by the plugin taht are fired on the registered element when the event happens OUTSIDE that element.&nbsp; Imagine a click event</p><script src="http://gist.github.com/628821.js?file=gistfile1.js"></script><p>Everytime that #somelement gets clicked the event fires.&nbsp; An outside event is the opposite of that so,</p><script src="http://gist.github.com/628823.js?file=gistfile1.js"></script><p>This event fires when any other element is clicked that WASN&rsquo;T #somelement (or whatever query you use &ndash; we are not stuck to a single element).&nbsp; Outside events that are supported include (some more useful than others),</p><blockquote class="posterous_medium_quote"><p><code>clickoutside</code>, <code>dblclickoutside</code>, <code>focusoutside</code>, <code>bluroutside</code>, <code>mousemoveoutside</code>, <code>mousedownoutside</code>, <code>mouseupoutside</code>, <code>mouseoveroutside</code>,<code>mouseoutoutside</code>, <code>keydownoutside</code>, <code>keypressoutside</code>, <code>keyupoutside</code>, <code>changeoutside</code>, <code>selectoutside</code>, <code>submitoutside</code>.</p></blockquote><p>Great, cool but what use is this?&nbsp; I&rsquo;ve already said it helps solve the Diminished Responsibility issue but what does that mean?</p><h2>Diminished Responsibility</h2><p>Imagine an example where there a popup notification on a web page.&nbsp; It&rsquo;s not obtrusive but should go away when the user clicks off it.&nbsp; How do you do this?&nbsp; The simple answer would be to add a load of (or delegate) click events and hide the element so your handlers would start to look like this [very contrived BTW],</p><script src="http://gist.github.com/628829.js?file=gistfile1.js"></script><p>Starts to get a bit messy if we have a lot of handlers and is actually bad practise as the popup notification should be as self contained/self managing as possible.&nbsp; Outside events solve this by allowing you to push responsibility back onto the widget/element that needs to &ldquo;do something&rdquo;.&nbsp; Neat.</p><h2>The Magic</h2><p>Funny thing is while this looks like it may be complicated to implement it&rsquo;s really not.&nbsp; Thanks to the power of event delegation and event bubbling all the plugin does is attach the inverse of the outside event (outsideclick becomes click) to the document element and when a click event is fired the handler checks if the clicked element is an element registered with outsideclick and if not fires the event.&nbsp;</p><p>Easy peasy though it does open up the possibility of infinite event triggers but that&rsquo;s not the fault of the plugin :-P.&nbsp;</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/07/28/asp-net-mvc-3-preview-1-first-look/">ASP.NET MVC 3 Preview 1 First Look</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+</article>
 
 
 
   
+  <h2>2009</h2>
 
-
-<time datetime="2010-07-28T00:00:00+01:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p style="margin-right: 0cm; margin-bottom: 16.5pt; margin-left: 0cm; line-height: 16.5pt; vertical-align: baseline;"><span style="font-size: 11.5pt; font-family: Georgia,serif; color: #333333;">[[posterous-content:6xLmqhke9CMHGNqiaUG7]]</span><span style="font-size: 11.5pt; font-family: Georgia,serif; color: #333333;">&nbsp;</span></p><p>A much better read than the ramblings below:<br><a href="http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx">http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx</a></p><p>So I had a chance to take ASP.NET MVC 3 Preview 1 out for a test drive today to see what was new and interesting.&nbsp; For a Preview release it seems fairly solid &ndash; there is a lot of low level stuff introduced (new Interfaces etc) which is, I assume, going be used to add new features in Preview 2, 3, 4 whatever.&nbsp; There is nothing MASSIVE per say in fact it really feels like the next logical step in the MVC roadmap rather than some crazy reimagining.&nbsp; That&rsquo;s good by the way &ndash; backwards compatibility maintained and life goes on as normal.&nbsp; The most obvious &ldquo;issue&rdquo; I have with this release is that it&rsquo;s NET4/VS2010 only which means if it came out tomorrow we&rsquo;d probably not have the choice of making use of it due to the snails pace of the &ldquo;enterprise&rdquo;.&nbsp; Anyways enough preamble, down to the juicy stuff &ndash; what&rsquo;s this release giving us?</p><h2>Razor</h2><p>Preview 1 introduces Microsofts new ViewEngine, Razor, to the MVC world (WebMatrix aside).&nbsp; Currently there is no syntax highlighting/intellisense for it but it&rsquo;ll still compile and generate views just fine.&nbsp; I don&rsquo;t want to dive into Razor in this post but it&rsquo;s a weird syntax.&nbsp; It&rsquo;s certainly feels much neater than the WebForms View Engine and for a weird reason it felt quite natural to use it &ndash; want to embed some serverside code?&nbsp; Just type @ and you drop into serverside mode but with the advantage of actually still being able to embed HTML content without having to escape it.&nbsp; The render just knows.&nbsp; It&rsquo;s strange but good.</p><p><script src="https://gist.github.com/630232.js"></script></p><p>Read more here: <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx</a></p><p>On a side note when you create&nbsp; a new view MVC 3 and VS2010 detects installed view engines so you can EASILY pick and choose which is very nice &ndash; though no ViewEngine currently supports this e.g.</p><p>[[posterous-content:Ryck0mqEkX92dSBGu1n4]]</p><p>Model Validation</p><p>There is some nice stuff in this area.&nbsp; In MVC you where restricted to validating properties of a model (by default using data annotations) and if you wanted to validate entire models or perform validation in model scope (e.g. compare 2 fields) you had to write custom code.</p><p>MVC3 provides model-level validation in 2 ways,</p><p class="MsoListParagraph" style=""><span style="">1.<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Using Validation Attributes</p><p class="MsoListParagraph" style=""><span style="">2.<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Using the new data annotations interface IValidateObject</p><p>Validation attributes are the same attributes that the default validation strategy currently uses except you now have access to the model and ValidationResult has been tweaked to allow broken rules to be bound to multiple fields e.g.</p><p><script src="https://gist.github.com/630234.js"></script></p><p>IValidateObject interface is the new way to provide validation of a Model object across all MS technologies (EntityFramework, DynamicData, Silverlight and ADO Data Services) and it behaves much better than the decoupled attribute stuff &ndash; at least in the preview.</p><p>If model implement the IValidateObject interface they are expected to implement the validate(ValidationContext context) method which returns an enumerable of ValidationResults.&nbsp; The Person model in my sample app gives an example of this,</p><p><script src="https://gist.github.com/630235.js"></script></p><h2>Global Filters</h2><p>More of a convenience than anything, global filters allow you to apply the same Action Filters to EVERY controller action within an application.&nbsp; Useful for all tha AOP style stuff like logging etc.&nbsp; Taking the new KDF Action Logger we can log every action invocation by pushing the attribute type into the global filters via global.asax like so,</p><p><script src="https://gist.github.com/630236.js"></script></p><p>Thats it really.&nbsp; Nice and convenient.</p><h2>Json Model Binding</h2><p>Typically model bindng is done through creating an new instance of the model and attempting to bind up properties against the names of the values submitted by the client.&nbsp; This doesn&rsquo;t really work in the Ajax world because the body of a POST request is generally a single unnamed parameter which represents a JSON encoded string of the client request data.&nbsp; In MVC2 we had to write custom binders to parse the string and bind to a model but in MVC3 this is provided automatically.&nbsp; Again another nice to have.</p><h2>Other stuff</h2><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Dynamic ViewModel&nbsp; &ndash; Simply a dynamic bag allowing us to use ViewModel.SomeProperty vs ViewData[&ldquo;SomeProperty&rdquo;]</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New hooks for IoC/Dependency Injection through the lifecycle</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New ways to expose Client Validation and Model Metadata which &ldquo;should&rdquo; allow an easier way to create a single point of validation that can be used across both client and server</p><p class="MsoListParagraph" style=""><span style="font-family: Symbol;"><span style="">&middot;<span style="font: 7.0pt Times New Roman;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>New view results &ndash; HttpStatusCodeResult and Permanent Redirects</p><h2>Summing up</h2><p>MVC3 Preview 1 is a solid enough release but ultimately it seems to be a foundation, albeit a solid one.&nbsp; Given the previous release schedule I expect another release within the next few months.&nbsp; What can we expect for future releases?&nbsp; See&nbsp;<a href="http://aspnet.codeplex.com/wikipage?title=Road%20Map&amp;referringTitle=MVC">here</a>.</p></div>
+<article>
   
+<h1><a href="/blog/2009/11/23/-less-dynamic-css-for-net/">.less - Dynamic CSS for .NET</a></h1>
+<time datetime="2009-11-23T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>23</span> <span class='year'>2009</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-less/' style='text-decoration:none;'><span class='label label-info'>.LESS</span></a> <a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2009/10/19/lazy-function-definition-pattern/">Lazy Function Definition Pattern</a></h1>
+<time datetime="2009-10-19T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2009</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2009/08/26/linqpad-don-t-let-the-name-fool-you/">LINQPad: Donât let the name fool you</a></h1>
+<time datetime="2009-08-26T00:00:00+01:00" pubdate><span class='month'>Aug</span> <span class='day'>26</span> <span class='year'>2009</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/linqpad/' style='text-decoration:none;'><span class='label label-info'>LinqPad</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/01/13/css-hacks-for-ie-unnecessary/">CSS Hacks for IE - Unnecessary</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2009/05/19/javascript-method-overloading/">JavaScript Method Overloading</a></h1>
+<time datetime="2009-05-19T00:00:00+01:00" pubdate><span class='month'>May</span> <span class='day'>19</span> <span class='year'>2009</span></time>
 
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a></span>
+</footer>
 
 
+</article>
 
-
-
-
-
-  
-
-
-<time datetime="2010-01-13T00:00:00+00:00" pubdate data-updated="true">Jan 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>There are lots of CSS tricks floating aroud to accomodate IE quirks and more specifically in most cases IE6 the problem is these hacks &ndash; which is exactly what they are &ndash; invalidate your CSS and break future-proofing (what if a another browser learns to understand this hack with different rendering effects?). These things are parsed by every browser that comes across them &ndash; the browser then has to attempt to parse it, fail and then carry on &ndash; not exactly the most performant styling mechanism! They are useful and often quite nice but aren&rsquo;t exactly self explanatory making them a maintenance nightmare if someone doesn;t understand that order can be very important in these cases.</p><p>So &ndash; Why hack when a system already exists?</p><p>Hello&nbsp;<a href="http://www.quirksmode.org/css/condcom.html">Conditional Comments</a>.</p><p>Conditional Comments are a feature implemented in IE (though other browsers COULD implement them if they wanted to but none have). It&rsquo;s a specially marked up HTML comment node (so you include it in your HTML not CSS) that is only parsed by IE. A few examples are below&hellip;.</p><p><script src="https://gist.github.com/636072.js"></script></p><p>So basically you have you all normal CSS link tag then you can include a conditional comment to cater for specifics to IE or some specific version or rnge of versions. OK you would still need hacks for the other browsers but NIWater only had to use IE6 conditional comments (no hacks for other browsers) and looks fine in Chrome/Safari/FF &ndash; plus it means you CSS is valid and IE specific CSS is only pulled down by IE slightly reducing page weight (very slightly most likely!!!).</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/11/23/-less-dynamic-css-for-net/">.less - Dynamic CSS for .NET</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-11-23T00:00:00+00:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Link:&nbsp;<a href="http://www.dotlesscss.com/">http://www.dotlesscss.com/</a></p><p>There is a&nbsp;<a href="http://lesscss.org/">Ruby library (LESS)</a>&nbsp;that gets a fair bit of buzz in Ruby circles.&nbsp; It&rsquo;s purpose is to introduce the&nbsp;<a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>&nbsp;into CSS but also adds a lot of other useful features.&nbsp; Well now there is a&nbsp;<a href="http://www.dotlesscss.com/">.NET port</a>&nbsp;of it&nbsp;&ndash; so what can it do (ripped from the original page as this pretty much sums it up)?</p><h2>Variables</h2><p>Variables allow you to specify widely used values in a single place, and then re-use them throughout the style sheet, making global changes as easy as changing one line of code.</p><p><script src="https://gist.github.com/634838.js"></script></p><p>And variables are a god-send in CSS world though other people disagree (<a href="http://www.w3.org/People/Bos/CSS-variables" rel="nofollow">http://www.w3.org/People/Bos/CSS-variables</a>) &ndash; but at least this is still generating plain old CSS for consumption</p><h2>Mixins</h2><p>Mixins allow you to embed all the properties of a class into another class by simply including the class name as one of its properties. It&rsquo;s just like variables, but for whole classes.</p><p><script src="https://gist.github.com/634840.js"></script></p><h2>Operations</h2><p>Are some elements in your style sheet proportional to other elements? Operations let you add, subtract, divide and multiply property values and colors, giving you the power to do create complex relationships between properties.</p><p><script src="https://gist.github.com/634843.js"></script></p><p>Operations are &ldquo;OK&rdquo; i guess but I am not sold on them.</p><h2>Nesting</h2><p>Rather than constructing long selector names to specify inheritance, in Less you can simply nest selectors inside other selectors. This makes inheritance clear and style sheets shorter.</p><p><script src="https://gist.github.com/634846.js"></script></p><p>I like the nesting as it moves the structure closer to the nexted DOM tree format that you are actually trying to map against</p><h2>Compression &amp; Caching</h2><p>Now you can configure if you enable Caching and minifying or the CSS output.</p><p><script src="https://gist.github.com/634847.js"></script></p><p>It&rsquo;s still in beta and I haven&rsquo;t had a chance to properly tinker with it but it&rsquo;s a great idea as CSS bloat is something that is often overlooked and can make rebranding a nightmare if not carefully managed.&nbsp; I might post more on this when I get a chance to have proper play with it.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/10/19/lazy-function-definition-pattern/">Lazy Function Definition Pattern</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Have a look at this..</p><p><script src="https://gist.github.com/634652.js"></script></p><p>Fairly simple function that loads the contents of a specific script tag (based on id) so that it can be used as a template (for something).&nbsp;<span>&nbsp;</span>The&nbsp;reasons&nbsp;why you would do this is not important but the implementation of this function is. Every time you call this function you are re-selecting all the tag elements on the page which is just plain wrong. A quick fix for this would be to cache the results after the initial call and use the cache.</p><p><script src="https://gist.github.com/634653.js"></script></p><p>This would allow the the costly getElementsByTagName to be called once and the results reused. This however starts polluting the global namespace with unnecessary variables plus even if the getTemplate function is never used you still have the cost of one call to getElementsByTagName which is pretty poor. You can get around these issues fairly easily by extending the actual function object itself</p><p><script src="https://gist.github.com/634655.js"></script></p><p>The benefits of this approach are that you aren&rsquo;t polluting the global namespace and you are only making the call to getElementsByTagName ONLY when it is needed but it does still have an issue. The cache should only be available to the getTemplate functions internal logic but it is currently exposed allowing other functions to remove or update it.</p><p>Introducing the Lazy Function Definition Pattern. Thanks to the dynamic nature of JavaScript functions can actually redefine themselves at runtime and this allows us to provide private, lazy, one time processing without polluting the global namespace. Lets see it in action&hellip;</p><p><script src="https://gist.github.com/634658.js"></script></p><p>The big change here is the middle statement. getTemplate is actually redefining itself. So what happens here?</p><ol><li>On the first call getElementsByTagName is called and stored in the cache variable</li><li>The function then redefines itself as simple function that simply loops through the already defined cache</li><li>The function then calls itself (the new self!)</li></ol><p>Thanks to the creation of a&nbsp;<a href="http://www.jibbering.com/faq/faq_notes/closures.html">closure</a>&nbsp;the redefined function actually has access to the variables of the old definition &ndash; cache. This means that cache is private to the new function, only called once and not part of the global namespace. Exactly what I wanted. Programatically as well it&rsquo;s a better solution than the ones above because there are no checks to see if cache is defined saving a few cycles each call.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/08/26/linqpad-don-t-let-the-name-fool-you/">LINQPad: Donât Let the Name Fool You</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-08-26T00:00:00+01:00" pubdate data-updated="true">Aug 26<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><p><a href="http://www.linqpad.net/">LINQPad Website</a></p><p>I&rsquo;ve been playing with this little app for a few days now and it&rsquo;s exactly what I was looking for. For the last few years I was knee deep in the crazy world of Java and in my never ending attempt to be different I researched Groovy quite a bit. One of the things that came with the installation of Groovy was a console that let me write off the cuff Groovy or Java statements without having to fire up an editor and stick all that public static void main(string[] args) boilerplate around my code, compile it and run it. I used this console a lot when debugging little bits of code, testing theories, seeing a dump of an object etc and it sped up my development no end. Since getting involved in the .NET world any time I&rsquo;ve wanted to write small test apps I&rsquo;ve had to either create a new Unit Test or new Console Application and it&rsquo;s a lot slower to do achieve the same results.</p><p>This is where LINQPad comes in. LINQPad lets you write C# (and VB) statements, expressions, programs etc and evaluates them as they are without having to write a lot of boilerplate. If your code returns an Object it can be dumped in a very neat fashion into the output window along with the generated IL and some other stuff. LINQPad, as the name suggests also lets you hook up to SQL Server, the Entity Framework, Attachable Databases etc and perform LINQ Queries, showing you the generated SQL as well.</p><blockquote><ul><li>LINQPad reports the execution time in the status bar, so you won&rsquo;t have to manually create a Stopwatch class for performance testing.</li><li>Want to test a variation of your snippet? Ctrl+Shift+C instantly clones your snippet so you can run another version side-by-side.</li><li>You can return to saved queries in single click, thanks to the My Queries treeview. Some people are using LINQPad as a scripting tool!</li></ul></blockquote><p>The licensed version gives you full Intellisense for your code plus 2 books worth (C# in a Nutshell and LINQ in Action) of working samples. Anyways here are a few screenshots of it in action. Like I said the name nearly made me skip over it but luckily I decided to try it and found what I was after!</p></p><p>[[posterous-content:HEtroelnwcgbGuFkaJnG]]</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/05/19/javascript-method-overloading/">JavaScript Method Overloading</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-19T00:00:00+01:00" pubdate data-updated="true">May 19<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>I was recently asked a question if method overloading in JavaScript was good practise, or even possible, so I thought I&rsquo;d spread share my thoughts on this to anyone who bothers to read my ramblings. JavaScript doesn&rsquo;t offer method overloading directly but it does offer features that can be used to facilitate overloading.<span>&nbsp;</span>&nbsp;Imagine these C# method signatures,</p><p><script src="https://gist.github.com/634601.js"></script></p><p>So depending on the arguments passed to the function the correct method will be called. Now this style of overloading isn&rsquo;t possible in JavaScript.</p><p><script src="https://gist.github.com/634603.js"></script></p><p>As I have said JavaScript has no notion of method overloading so all that happens here is that the join function get redefined with the last occurrence of the function definition. However thanks to JavaScript&rsquo;s typeless nature and optional arguments overloading can be achieved (or at least simulated depending on your viewpoint).</p><p><script src="https://gist.github.com/634606.js"></script></p><p>Fixed! OK so that may seem simple enough and in this case it is but there are 2 things you need to consider before actually putting this into practise.</p><h3>Signature Detection</h3><p>Obviously the first thing you need to do when overloading is detect the intention of the user &ndash; what method signature are they using. This is the biggest issue you&rsquo;ll probably come across, especially when dealing with arguments of type<code>function</code>&nbsp;or&nbsp;<code>array</code>.&nbsp;<a href="http://thinkweb2.com/projects/prototype/category/isarray/">These</a>&nbsp;<a href="http://bytes.com/groups/javascript/746441-isfunction-code-worth-recommending-project">posts</a>&nbsp;explain the various issues with type detection and functions/arrays but to summarise</p><ul><li>typeof returns &ldquo;object&rdquo; for Arrays</li><li>An array created in a frame/iframe does not share the same prototype as another Array in the parent document or another frame/iframe which make instanceof, typeof and [].constructor fail</li><li>Attempting to detect features such as methods (splice, join) and properties (length) can fail if the a non-array has matching methods/properties</li><li>Certain browsers report objects as functions making typeof == function fail</li><li>Host methods (browsers provided methods) sometimes do not report themselves as functions</li></ul><p>The list goes on! So you need to be aware of the target browsers quirks and work with them. Another way to detect signature is to use the&nbsp;<code>arguments</code>&nbsp;psuedo-array but this is only useful in situations where your overloaded methods accepts a varying number of arguments e.g.</p><p><script src="https://gist.github.com/634607.js"></script></p><p>But then this is open to abuse by ignorant/stupid/malicious coders as it doesn&rsquo;t really imply how the function should behave unless commented well (yeah right!!).</p><h3>Code Bloat</h3><p>You need to be sure you aren&rsquo;t abusing this overloading strategy as it can lead to spaghetti code. Functions that attempt to do many things with similar signatures result in loads of argument testing and lot&rsquo;s of indented code. jQuery code is riddled with this due to the way almost every method acts as either a setter, bulk setter or getter method and it&rsquo;s run into bugs in the past due to this. Also the jQuery (or $) function is overloaded to do 5 different things so looking at the init function you&rsquo;ll see that it is a big if..elseif..elseif..elseif..else block which is pretty gruesome and breaks extensability and modularity of the code base.</p><h2>Conclusion</h2><p>Overloading is possible in JavaScript but needs to be used with caution. Not only can it lead to very hard to find bugs due to type detection in different browsers but it can also make code harder to understand and extend, not to mention that amount of boilerplate code you need to write to detect the correct method signature etc.</p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/blog/page/10/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>All my thingz!</h1>
-  <ul class="allmythings">
-    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
-    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
-    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
-    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
-    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("kouphax", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
-  
-</section>
+<style>
+  div.sharing { display: none; }
+</style>
 
 
   
-</aside>
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/page/11/index.html" data-via="kouphax" data-counturl="http://yobriefca.se/blog/page/11/index.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+      
+    </footer>
+  
+</article>
+
+</div>
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - James Hughes -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 <script type="text/javascript">

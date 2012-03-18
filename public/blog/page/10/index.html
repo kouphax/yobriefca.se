@@ -8,8 +8,13 @@
   <title>Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
   
-  <meta name="description" content="That&#8217;s a bit of a mouthful.&nbsp; I wanted to write a post about creating a basic jQuery Mobile app but as I started putting the code together &hellip;">
+  <meta name="description" content="yobriefca.se 2010 Practical jQuery Mobile with ASP.NET MVC
+Oct 22 2010 ASP.NET MVC jQuery jQuery Mobile ASP.NET MVC3 JsonValueProviderFactory
+Oct 21 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,467 +51,201 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Yo Briefcase!</a></h1>
-  
-    <h2>All the codez!</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yobriefca.se" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/screencasts">Screencasts</a></li>
-    <li><a href="/talks">Talks</a></li>
-    <!--
-    <li><a href="/cv">CV</a></li>
-    -->
-</ul>
-
-</nav>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/22/practical-jquery-mobile-with-asp-net-mvc/">Practical jQuery Mobile With ASP.NET MVC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-22T00:00:00+01:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2010</time>
-        
-      </p>
-    
+      <span style="float:right">
+      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
+      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
+      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+    </span>
+    <h1 class="entry-title">yobriefca.se</h1>
   </header>
-
-
-  <div class="entry-content">  <p>That&#8217;s a bit of a mouthful.&nbsp; I wanted to write a post about creating a basic  jQuery Mobile app but as I started putting the code together MVC became more and  more involved so I combined the 2.</p><p>The end solution?&nbsp; Lets create a phone directory with 2 main views,</p><ol><li>A filterable list of all people with quick info (telephone extension and  name) that is grouped and sorted alphabetically, and,</li><li>A disclosure view of a selected person showing more details including a  photo</li></ol><p>[[posterous-content:FddxCHuIgArIuezHEbcn]]</p><h2>MVC (The Server Side)</h2><p>jQuery Mobile works by progressive enhancement and uses Ajax to load and  parse external links so it has more control over page transitions and Ajax  history.&nbsp; This means that we create a plain old website that will work without  jQuery Mobile, Ajax or any JavaScript.&nbsp; So I started with the ASP.NET MVC 2 Web  Application Visual Studio Template and ripped out everything bar the Home  Controller and the 2 views.&nbsp; I also stripped the Site.Master down to the bare  bones.</p><p>Next I created my model with data access methods,</p><p><script src="https://gist.github.com/640270.js"></script></p><p>You can implement your own data access there or just hard code some values.&nbsp;  Next I updated the HomeController to return the right models&nbsp; to the views</p><p><script src="https://gist.github.com/640281.js"></script></p><p>I updated the views to&nbsp;display the information in a straightforward way.&nbsp;</p><p>Index.aspx</p><p><script src="https://gist.github.com/640303.js"></script></p><p>About.aspx</p><p><script src="https://gist.github.com/640304.js"></script></p><p>This leaves us with a normal, not so pretty but fully functioning site.&nbsp;</p><p>[[posterous-content:DblJukiumuFlvvqlHokq]]</p><p>Now lets inject some mobile niceness into it,</p><h2>jQuery Mobile</h2><p>First things first lets put reference to jQuery and jQuery Mobile&nbsp; (script  and css) into our site master and update our DOCTYPE to the HTML5 DOCTYPE  leaving us with,</p><p><script src="https://gist.github.com/640308.js"></script></p><p>Now we need to tell jQuery Mobile how to layout the pages and mobilise.&nbsp; This  isn&rsquo;t necessarily done in script as you might think.&nbsp; jQuery Mobile makes use of  HTML5&rsquo;s data- attributes to identify how the page should be laid out and mark  areas to specific roles.</p><p>Index.aspx</p><p><script src="https://gist.github.com/640312.js"></script></p><p>About.aspx</p><p><script src="https://gist.github.com/640313.js"></script></p><p>So what have we added here?&nbsp;</p><ul><li>data-roles&nbsp;&ndash; telling jQuery Mobile what each div actually represents e.g.     <ul><li>page&nbsp;&ndash; a single view (a single html page can have multiple views)</li><li>header&nbsp;&ndash; the header of a page</li><li>content&nbsp;&ndash; the pages content</li><li>footer&nbsp;&ndash; the footer of a page</li><li>list-view&nbsp;&ndash; a special&nbsp;role to&nbsp;specifying &nbsp;that the content is a list</li><li>list-divider&nbsp;&ndash; a divide for a list that doesn&rsquo;t do anything but look  different</li></ul></li><li>data-filter&nbsp;&ndash; telling jQuery Mobile that&nbsp;it should provide filtering on this  view</li><li>ui-li-aside class identifies that this is some aside information for this  list item</li></ul><p>And that is it.&nbsp; We have taken a static site and without writing any code  (bar markup) created a mobile app.&nbsp; Probably might be a good idea to include an  application cache manifest file as well so there is some semblance of offline  capability provided.&nbsp; But that&#8217;s for another day.</p><p>[[posterous-content:pJHwwsHHmrfAkJIJFkrp]]</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/21/asp-net-mvc3-jsonvalueproviderfactory/">ASP.NET MVC3 JsonValueProviderFactory</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+<div id="blog-archives">
 
 
 
   
+  <h2>2010</h2>
 
-
-<time datetime="2010-10-21T00:00:00+01:00" pubdate data-updated="true">Oct 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><a href="http://www.asp.net/mvc/mvc3" target="_blank">ASP.NET MVC 3</a></p><p>Anyone who&rsquo;s been involved in an&nbsp;ASP.NET MVC project that is quite Ajax heavy  will probably have noticed that something was always missing.&nbsp; Imagine this  front end scenario,</p><p><script src="https://gist.github.com/639171.js"></script></p><p>Which posts to the following action</p><p><script src="https://gist.github.com/639226.js"></script></p><p>We have a login screen that is submitted via ajax.&nbsp; Now this is quite a  contrived example (ideally you&rsquo;d be&nbsp;performing a normal post via ajax in  this&nbsp;situation) but there are many instances where this sort practise would  apply (ExtJS&rsquo; RESTful DataWriters for example).&nbsp;</p><h2>MVC 2</h2><p>In MVC 2 this wouldn&rsquo;t work immediately.&nbsp; The default model binder in MVC 2  uses Request parameters to bind&nbsp;to model properties but in this case there are  none as the ajax content is the body of the request.</p><p>To accommodate this sort of request in MVC 2 we had to provide a custom model  binder that knows how to deal with JSON requests,</p><p><script src="https://gist.github.com/639234.js"></script></p><p>And attribute our actions model argument telling it to use this binder,</p><p><script src="https://gist.github.com/639242.js"></script></p><p>It&rsquo;ll do the job but it&rsquo;s incredibly messy.&nbsp;</p><h2>MVC 3</h2><p>MCV3 fills this gap thanks to the JsonValueProviderFactory.&nbsp; The JVPF  operates at a higher level than a model binder.&nbsp; Basically what it does when a  JSON request is received is that it pulls the values&nbsp;out of the JSON body&nbsp;as key  value pairs which means they are available to the model binders including the  default model binder.&nbsp; No special wiring required, no custom model binders  (unless of course you want one) just out-of-the-box workingness!</p><p><script src="https://gist.github.com/639226.js"></script></p><p>I know most of this post was taken up by MVC2 specific implementation but  isn&rsquo;t that really the point?&nbsp; MVC3 is a nice refinement of MVC2 there isn&rsquo;t  anything new exactly but the core stuff that is there has been made easier and  more configurable.</p></div>
+<article>
   
+<h1><a href="/blog/2010/10/22/practical-jquery-mobile-with-asp-net-mvc/">Practical jQuery Mobile with ASP.NET MVC</a></h1>
+<time datetime="2010-10-22T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>22</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a> <a href='/blog/categories/jquery-mobile/' style='text-decoration:none;'><span class='label label-info'>jQuery Mobile</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/21/asp-net-mvc3-jsonvalueproviderfactory/">ASP.NET MVC3 JsonValueProviderFactory</a></h1>
+<time datetime="2010-10-21T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>21</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/json/' style='text-decoration:none;'><span class='label label-info'>JSON</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/19/javascript-proxy-pattern/">JavaScript Proxy Pattern</a></h1>
+<time datetime="2010-10-19T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/19/javascript-proxy-pattern/">JavaScript Proxy Pattern</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2010/10/19/client-side-processing-vs-responsiveness/">Client Side: Processing vs Responsiveness</a></h1>
+<time datetime="2010-10-19T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>Web</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2010/10/19/-head-ache-including-javascript-in-asp-net-master-pages/">< HEAD >ache: Including JavaScript in ASP.NET Master Pages</a></h1>
+<time datetime="2010-10-19T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>19</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net/' style='text-decoration:none;'><span class='label label-info'>ASP.NET</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>Web</span></a></span>
+</footer>
 
 
-<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+</article>
 
 
-  <div class="entry-content">  <p><p>More often than not when using 3rd party Javascript widgets/plugins/frameworks is that they don&rsquo;t behave in exactly the way that you want forcing you to change tactics, write some horribly messy boilerplate code, hack the original code or look for alternatives. The proxy pattern is a useful pattern that provides a sort of AOP-lite technique that can be used to transparently manage 3rd party code without having to make breaking changes or repeating horrible code from a single point in the code.</p><p>Functions are 1st class objects in JavaScript and this is the feature that powers this pattern. Imagine the setup below,</p><p><script src="https://gist.github.com/634816.js"></script></p><p>Now imagine there are a set of URLs that require some sort of authentication token passed along with the request. How do we deal with that? Well some people would just hack the internal functions but that&rsquo;s a bad idea as it probably breaks other parts of the system. Another way to do it would be to write your own Ajax framework for the new calls you want to make but that&rsquo;s overkill. The proxy pattern can help here.</p><p><script src="https://gist.github.com/634818.js"></script></p><p>So basically if the URL is a secured URL (present in the XHR.securedURLs array) then there will be a bit of pre-processing done to the URL before the function is called. Otherwise the normal function is called. That is the primary aim of the proxy pattern &ndash; to enhance existing functionality &ndash; at the very least the proxied function should fall back to the original function otherwise other parts of the system could be come affected (unless you know what you are doing of course &ndash; cancelling illegal calls etc).</p></p></div>
+
+<article>
   
+<h1><a href="/blog/2010/10/18/webforms-jquery-a-comparison/">Webforms & jQuery: A Comparison</a></h1>
+<time datetime="2010-10-18T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>18</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/webforms/' style='text-decoration:none;'><span class='label label-info'>WebForms</span></a> <a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/18/t4mvc-strong-typing-vs-magic-strings/">T4MVC: Strong Typing vs Magic Strings</a></h1>
+<time datetime="2010-10-18T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>18</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/t4/' style='text-decoration:none;'><span class='label label-info'>T4</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/18/strong-typing-vs-magic-strings-part-ii-/">Strong Typing vs. Magic Strings (Part II)</a></h1>
+<time datetime="2010-10-18T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>18</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/19/client-side-processing-vs-responsiveness/">Client Side: Processing vs Responsiveness</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2010/10/18/multi-touch-reactive-extensions/">Multi-Touch Reactive Extensions</a></h1>
+<time datetime="2010-10-18T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>18</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/rx/' style='text-decoration:none;'><span class='label label-info'>RX</span></a> <a href='/blog/categories/silverlight/' style='text-decoration:none;'><span class='label label-info'>Silverlight</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2010/10/18/jquery-mobile-quick-look/">jQuery Mobile Quick Look</a></h1>
+<time datetime="2010-10-18T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>18</span> <span class='year'>2010</span></time>
 
+<footer>
+  <span class="categories"><a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a> <a href='/blog/categories/jquery-mobile/' style='text-decoration:none;'><span class='label label-info'>jQuery Mobile</span></a></span>
+</footer>
 
-<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
 
+</article>
 
-  <div class="entry-content">  <p style="padding-left: 30px;"><em>The examples below are probably best run in a browser that has a relatively slow script engine (IE for example)</em></p><p>One of the problem with the whole Web2.0/Rich Client concepts is that people seem to think it&rsquo;s OK to shove processing that should be done on the server on to the client. This is never the answer &ndash; you can control resources on the sever but never on some random browser half way across the world/country/street/room. There are, however, situations where client side processing is going to be mandatory (think Complex Grids and Calculations etc). This obviously leads to a loss of responsiveness on the client (to varying degrees). One of the big problem with large processing is that it obviously takes time. Imagine this scenario&hellip;</p><p><script src="https://gist.github.com/635921.js"></script></p><p>You&rsquo;d expect that this code updates the &ldquo;progress-meter&rdquo; element with &ldquo;Processing&rdquo;, does some long computation and then updates the &ldquo;progress-meter&rdquo; again to indicate it&rsquo;s done. But it doesn&rsquo;t. Screen repaints/updates do not happen until calls complete. So what is actually happening? Well the expected outcome DOES happen it&rsquo;s just both updates happen after the call completes so the first update occurs so fast you never see it.&nbsp;<a href="http://jsfiddle.net/kouphax/VtaHg/" target="_blank">See It In Action</a>. You&rsquo;ll also notice that the entire screen is locked while this processing occurs and that just leads to a bad user experience. So what can be done?</p><h2>Use of setTimeout()</h2><p>Javascript is single threaded which leads to the issues above but there is a way create pseudo-threading using setTimeout. The setTimeout function executes code after a set time in milliseconds (what a surprise!). So delaying this execution (even by 0 miilliseconds) allows screen updates to occur before the processing begins. This requires a small change to the code.</p><p><script src="https://gist.github.com/635922.js"></script></p><p>So if you&nbsp;<a href="http://jsfiddle.net/kouphax/MJFFX/" target="_blank">give this a go</a>&nbsp;you will see there is a much better feedback response compared to the first. This approach solves our initial problem but we still have the issue that the screen is locking up. At least now the users knows something is happening. Another issue this creates is that some browsers prompt users if scripts take to long allowing the user to cancel potentially important tasks.</p><p>[[posterous-content:jcdDmwFBuEneeneritwd]]</p><h2>Asynchronous Processing</h2><p>Now we are getting into the good stuff. To prevent the screen locking up during any complex processing activity it is possible to apply the setTimeout technique but only over a smaller subset of the processing activity each time. This will achieve a sort of asynchronous effect allowing the user to do other stuff while the processing happens in the background. This is a basic example,</p><p><script src="https://gist.github.com/635923.js"></script></p><p>You can&nbsp;<a href="http://jsfiddle.net/kouphax/CKALu/" target="_blank">see this in action</a>&nbsp;for yourself. If you run the example you will see that there is a constant update (after each chunk is processed) and that screen control is still available. So this has solved both our issues but has introduced new considerations.</p><ul><li>Executes asynchronously therefore we need to support a callback mechanism as it&rsquo;s not procedural (see code)</li><li>Processing time increases (see below)</li></ul><p>You will see that the length of time it take to process the complete task is a lot longer than the other 2 examples.. this is due to the increase in complexity of the code (recursion, another function call etc) and this is the trade off. Processing time is inversely proportional to the size of each processing chunk</p><div>[[posterous-content:ImAAruEoruBBGBGeBetI]]<p>Chunk Size (y) vs Response Time (x)</p></div><p><br>As the chunk sizes get smaller you get a more responsive UI but the processing time can get scarily long. The example chunks at about 1% of the total task size and that seems to be a good balance (for this task at least) between responsiveness and processing time. I threw together a little suite of yielding techniques with various update times etc and you can play around with that&nbsp;<a href="http://jsfiddle.net/kouphax/Kkhc9/" target="_blank">here</a></p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/19/-head-ache-including-javascript-in-asp-net-master-pages/">< HEAD >ache: Including JavaScript in ASP.NET Master Pages</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <h2>Problem</h2><p>Include a Javascript file in the head of of an ASP.NET WebForms Master Page whose src attribute should contain an absolute (from Application Root) path e.g.http://localhost:8080/js/jquery-1.3.2.js&nbsp;(single application server) or <a href="http://localhost:8080/MyProject/js/jquery-1.3.2.js">http://localhost:8080/MyProject/js/jquery-1.3.2.js</a> (multi application server).&nbsp; Sounds simple enough but it&rsquo;s surprisingly difficult.</p><h3>Attempt 1: Use a fixed path. (Partial Success)</h3><p><script src="https://gist.github.com/634782.js"></script></p><p>While this &ldquo;works&rdquo; it isn&rsquo;t exactly the most resilient to server changes &ndash; what if we move to/from a single/multi application server?&nbsp; We need to re-write all our URL&rsquo;s</p><h3>Attempt 2: Use Application Root Reference (~) (Fail)</h3><p><script src="https://gist.github.com/634783.js"></script></p><p>This just plain doesn&rsquo;t work because script tags do not get parsed by ASP page renderer so the URL doesn&rsquo;t get converted and what you see here is what you end up with on the page which obviously isn&rsquo;t correct.</p><h3>Attempt 3: Use Server Code (&lt;%= %&gt;) (Partial Success/Fail)</h3><p><script src="https://gist.github.com/634784.js"></script></p><p>Again this is going to fail in certain situations (but not all).&nbsp; This will fail when your head tag has a runat=&rdquo;server&rdquo; attribute present.&nbsp; In some cases you can simply remove the attribute but if you are using the &ldquo;out-of-the-box&rdquo; CSS Themes/Skins you NEED this.</p><h3>Attempt 4: Use a Second &lt;HEAD&gt; Element (Partial Success)</h3><p><script src="https://gist.github.com/634785.js"></script></p><p>This will work as you would expect &ndash; the only problem is that it isn&rsquo;t valid Markup and will fail if you throw it through W3C Validators.</p><h3>Attempt 5: Add script tags &ldquo;Outside&rdquo; Head Element (Partial Success)</h3><p><script src="https://gist.github.com/634788.js"></script></p><p>Again this will work the only problem is you can never guarantee another developer won&rsquo;t stick code (which is dependant on your global script) BEFORE your inclusion of said script which is a bit of a &lt;head&gt;ache (i.e. in the &lt;head&gt; element &ndash; get it?).</p><h3>Attempt 6: Insert Script Tags via MasterPage Page_Load Event (Success)</h3><p><script src="https://gist.github.com/634790.js"></script></p><p>I suppose this is the first real successful attempt.&nbsp; It does what it says by dynamically creating new Script tag element and inserting them to the top of &lt;head&gt;.&nbsp; I inserted everything at the top of the head so no matter where people put their scripts it&rsquo;s going to have all global resources available.&nbsp; The only problem with this is that EVERY Page_Load event is going to dynamically inject new Elements into the head and it&rsquo;s not exactly a very clean separation of mark-up and code.</p><h3>Attempt 7/Solution 1: Use Data Binding to Evaluate src Attribute (AKA The Holmes Technique)</h3><p>ASPX</p><p><script src="https://gist.github.com/634791.js"></script></p><p>Jonny Holmes&nbsp;<a href="http://leedumond.com/blog/the-controls-collection-cannot-be-modified-because-the-control-contains-code-blocks/">uncovered</a>&nbsp;a more elegant solution to this issue and it is described above.&nbsp; It gets around the issue of not being able to use &lt;%= %&gt; tags by using a Data Binding Expression.&nbsp; And all you have to do is perform a DataBind() during the Page_Load event and you&rsquo;re sorted like&nbsp;<a href="http://www.youtube.com/watch?v=e0Mzr_A-Q0I">Ebenezer</a>.</p><p><script src="https://gist.github.com/634793.js"></script></p><p>Anyone got any other methods to do this?</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/webforms-jquery-a-comparison/">Webforms & jQuery: A Comparison</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><em>This one has been pulled from the archives but I still think it is quite relevant</em></p><p>I tend to be a bit picky when it comes to seeing what is generated by server-side technologies. The first thing I do when I write a page (JSP, ASPX &ndash; whatever) that uses some sort of tag library or user control is check the resultant HTML/CSS/Javascript. When it comes to ASPX&rsquo;s this has always been a major issue for me &ndash; the code it generates, the JS it pulls down, the amount of redundant traffic, the actual quality of the code &ndash; all of it annoys me. Just out of curiosity I wanted to do a &ldquo;contrast and compare&rdquo; study to see the differences between the DIY approach and using Webforms&hellip;</p><p>The use case for the study is simple</p><ul><li>A simple screen with a star rating (1-5)</li><li>User selects a rating by clicking a star</li><li>The result is posted back, via ajax, to the server</li><li>The front end is updated with message indicating the selection and the rating system is disabled</li></ul><h2>Technologies Used</h2><table><tr><td><h3>Webforms</h3></td><td><h3>&nbsp;&nbsp; &nbsp;jQuery</h3></td></tr><tr><td valign="top"><p>ASP.NET ScriptManager Control</p><p>ASP.NET Update Panel Control</p><p>ASP.NET Ajax Toolkit Star Rating Control</p><p>ASP.NET Label Control</p></td><td valign="top"><p>&nbsp;&nbsp; &nbsp;ASP.NET MVC Framework</p><p>&nbsp;&nbsp; &nbsp;jQuery v1.3.2</p><p>&nbsp;&nbsp; &nbsp;<a href="http://www.fyneworks.com/jquery/star-rating/">jQuery Star Rating</a></p></td></tr></table><p>There is not much really to draw from this table except for Webforms the majority of the technology is server-side whereas the jQuery stuff is more client side focused. This is one of the big arguments that people use when arguing about webforms. It&rsquo;s all server side work which reduces client side scripting &ndash; but that&rsquo;s a bit blind. It&rsquo;s server-side for the developer but the end code isn&rsquo;t any less client side (it&rsquo;s simply auto-generated).</p><h2>Development Effort Required</h2><p>I&rsquo;m going to end up being biased on this. I am 10,000 times more familiar with the MVC paradigm and jQuery than I am with Webforms. Ultimately it took me about the same amount of time to knock up both applications. But here are some points to note.</p><h3>Webforms</h3><p>Drag and drop of all the controls to knock up a simple page. The bulk of the work came from my lack of understanding I guess. I initially stuck the Star Rating control on the page and set up the CSS Classes, this failed as I didn&rsquo;t have the ScriptManager control added to the page. The next issue I faced was that my server side code wasn&rsquo;t actually having any effect &ndash; I had to turn AutoPostBack on for it to work but this wasn&rsquo;t Ajax-y. I got around this by wrapping the code in an UpdatePanel.</p><p>[[posterous-content:bBdcwIItewquatsyfJyv]]</p><p>Default.aspx</p><p>[[posterous-content:vfJuAxpqzbFsFoFBFwAE]]</p><p>Default.aspx.cs &nbsp;(Code Behind)</p><h3>jQuery</h3><p>I used ASP.NET MVC framework to generate my empty page, and controller. I then added a simple one liner Action to my controller to handle the Ajax response. I included jQuery and Star Rating (JS &amp; CSS) to my page and 5 radio buttons that act as the star rating (automatic progressive enhancement) and wrote the initializer code for the star rating stuff. For me that was it &ndash; completely straight forward with little configuration.</p><p>[[posterous-content:xqpnygHdsdJiruvDqkpf]]</p><p>Index.aspx</p><p>[[posterous-content:kgpqwhjHGDbiqHJCCvCA]]</p><p>RatingController.cs</p><h2>Resultant Page Weight &amp; Render Time</h2><h3>Webforms</h3><p>[[posterous-content:uCAmokcAGoyHstBqGxsj]]</p><p>Page Weight</p><p>[[posterous-content:nDxjAJoJDbwurDtdAnvx]]</p><p>Render Time</p><h3>jQuery</h3><p>[[posterous-content:cHfxHIJCwxwiGDCgCIuw]]</p><p>Page Weight</p><p>[[posterous-content:zsChEvClgasifCgquBpo]]</p><p>Render Time</p><p>Now the real differences are starting to show. The jQuery Solution is light years ahead when it comes to page weight (with marginally faster render times). It&rsquo;s also worth noting here that the Webform solution automatically used GZIP compression for it&rsquo;s scripts whereas the MVC didn&rsquo;t so the results are actually skewed in favour of Webforms (not that it makes a difference).</p><p>Here in lies one of my issues with the Webform solution &ndash; it pulls down the massive ASP.NET JavaScript framework even though it doesn&rsquo;t use 99.9% of it. jQuery is a complete framework but it&rsquo;s ethos is that it gives you the bare minimum set of tools to get the job done. Look at my code (both server side and client side) &ndash; is it at all complex? Not really.</p><p>One argument I guess you could use here is that as the page grows the Webform solution, because it has most of the scripts it needs, shouldn&rsquo;t grow much bigger, where as the jQuery solution will. I haven&rsquo;t tested this so I could be wrong but it&rsquo;s a valid argument. That said given any situation I&rsquo;d be willing to bet I could at the very least match page weight and render time against any Webform solution using jQuery (and MVC).</p><h2>Server Responses</h2><h3>Webforms</h3><p>[[posterous-content:rChlEcegkzzzEgEkxiAc]]</p><p>Request Parameters</p><p>[[posterous-content:gIgansGldxpvrcfvkapa]]</p><p>Response Body</p><h3>jQuery</h3><p><img src="http://blogs.kainos.com/jameshu/files/2009/04/jquery-postparams.png" height="21" alt="jquery-postparams" width="70"></p><p>Request Parameters</p><p><img src="http://blogs.kainos.com/jameshu/files/2009/04/jquery-postresponse.png" height="21" alt="jquery-postresponse" width="70"></p><p>Response Body</p><p>Again there is a big difference here. Because a lot of stuff is automated on the Webform side there is a lot of configuration (Viewstate etc) that needs to be passed about. Even for this simple solution the overhead is considerable &ndash; Firefox is giving me traffic (response only sans headers) of 1 byte for jQuery and 3k for Webforms &ndash; now multiply that by 2 to roughly include the request as well.</p><p>Which is easier to understand here?</p><h2>Conclusion</h2><p>A lot of the arguments and observations brought up here aren&rsquo;t purely Webform vs jQuery related &ndash; a lot have to do with Client vs Server programming but they are still valid. I admit I have a firm grasp of client side coding so the choice for me is obvious but the results here speak for themselves &ndash; there is a considerable overhead involved in the Webform world that must be accepted if you want to be able to drag and drop controls and save possibly a small amount of development time.</p><p>I am in no way a veteran Webform developer and I am sure there are folks out there that could strip my example down to the bare minimum and get similar results and to them I open floor &ndash; bring it &ndash; I haven&rsquo;t begun!</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/t4mvc-strong-typing-vs-magic-strings/">T4MVC: Strong Typing vs Magic Strings</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Magic strings are everywhere in ASP.NET MVC 2.&nbsp; Less so than in version 1 and some of the Beta and RC releases but there are still some kicking around.&nbsp; The problem with literals is that they don&rsquo;t give you any compile time error checking or refactoring ability.&nbsp; Say for example you have an action link that points you to the Edit action of the Person controller &ndash; you write it like this.</p><p><script src="https://gist.github.com/632720.js"></script></p><p>Now image you&rsquo;ve written something like this over numerous pages and all of sudden you change the name of the Action or the Controller.&nbsp; These are literal strings so you can&rsquo;t use the refactor tools in VS or get any compile time error when you build.&nbsp; The only real way to ensure everything has been changed would be to do a quick regression test.&nbsp; Nightmare.</p><h2><a href="http://mvccontrib.codeplex.com/wikipage?title=T4MVC&amp;referringTitle=Documentation">T4MVC</a></h2><p>T4MVC makes use of the Visual Studio bundled T4 Text Template Transform Toolkit (Template based code generation tool) to generate invisible classes that give you strongly typed links to Controllers, Actions, Views and even JavaScript, CSS, Images and other static links.</p><p>T4MVC is part of the MVCContrib project (though completely standalone).&nbsp; You simply download the zip with the 2 T4 files and add them to the root of your MVC project and you are done.&nbsp; Here are some examples of it in action.</p><h3>VIEW NAMES</h3><p><script src="https://gist.github.com/632723.js"></script></p><p>And within a controller</p><p><script src="https://gist.github.com/632725.js"></script></p><h3>CONTROLLER ACTIONS</h3><p><span style="font-weight: normal;"><script src="https://gist.github.com/632727.js"></script>&nbsp;</span></p><h3>STATIC FILES</h3><p>You also get the ability to reference static files so that if they are moved or renamed you&rsquo;ll not be missing images etc. &ndash; something that is a pain to test most times.</p><p><script src="https://gist.github.com/632729.js"></script></p><p>Another nicety is that you also get this for JavaScript files but without having to do anything it will swap out debug (uncompressed) versions of you files for minified versions when you move into production.&nbsp; As long as you have &lt;filename&gt;.js and &lt;filename&gt;-min.js side by side it will determine which one to use based on the build environment.</p><p><script src="https://gist.github.com/632730.js"></script>&nbsp;</p><h3>Summing Up</h3><p>T4MVC is a nice tool to get around magic strings.&nbsp; There are other things out there that give &ldquo;fluent&rdquo; syntax to methods that use literals which use delegates instead of generating any sort of proxy classes.&nbsp; Which is better is a question I still can&rsquo;t answer confidently.&nbsp; I have had some minor issues using T4MVC (mostly my fault) and I am a bit dubious about the syntax for static files but it&rsquo;s a decent starter for 10 and doesn&rsquo;t need any thought to implement and use.&nbsp; Of course you could also roll own specific T4 template (or extend T4MVC) but that obviously requires a bit more work.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/strong-typing-vs-magic-strings-part-ii-/">Strong Typing vs. Magic Strings (Part II)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>One of the problems with ASP.NET MVC is it&rsquo;s use of magic strings in almost every facet of the architecture.&nbsp; I&rsquo;ve mentioned this&nbsp;<a href="http://blogs.kainos.com/jameshu/2010/03/19/avoiding-magic-strings-in-mvc2/">before</a>&nbsp;but I have a few other things I&rsquo;d like to mention.&nbsp; In my last post I used T4MVC to generate static classes that layer on top of the magic strings but if these don&rsquo;t generate when you want them to they become out of sync and break compile time checking.&nbsp; One solution is to generate the &ldquo;proxy&rdquo; files one every save however if you have a large project this could be a bit of a pain.</p><p>Other solutions exist already.&nbsp; MVC2 comes with strongly typed HtmlHelpers so which turns</p><p><script src="https://gist.github.com/632874.js"></script></p><p>Into,</p><p><script src="https://gist.github.com/632878.js"></script></p><p>Great &ndash; compile time checking and the ability to reflect things such as attribute for generating validation etc.&nbsp; Problem is they didn&rsquo;t really do much else.&nbsp; Controller methods still suffered from Magicstringitis.&nbsp; RedirectToAction still needed magic strings for controller and action names and ModelState.AddModelError still needed string for property names.</p><h2>MvcContrib</h2><p><a href="http://mvccontrib.codeplex.com/Wikipage">MvcContrib</a>&nbsp;offers a load of non-official but excellent extensions to MVC and one of the things that comes bundled with the build is a strongly typed RedirectToAction extension method.&nbsp; This lets change this,</p><p><script src="https://gist.github.com/632871.js"></script></p><p>Into</p><p><script src="https://gist.github.com/632869.js"></script></p><p>Yet again&nbsp; &ndash; compile time checking, refactoring support and no magic strings &ndash; Win.&nbsp; But that leaves one last thing that still bugs me &ndash; ModelState.AddModelError.&nbsp; To add an error for a particualr property of your model you still need to do something like this&hellip;</p><p><script src="https://gist.github.com/632867.js"></script></p><p>YAMS! Yet another magic string!</p><h2>DIY</h2><p>Seeing as I couldn&rsquo;t find a solution from my good friend Google I decided to see if I could do it myself.&nbsp; Turns out it&rsquo;s bloody easy.&nbsp; This extension method will allow us to get rid of magic strings when expecting to map to a property of a simple class (such as a model or DTO)</p><p><script src="https://gist.github.com/632863.js"></script></p><p>And you can now call it like this&hellip;</p><p><script src="https://gist.github.com/632864.js"></script></p><p>Neat!</p><p>One more bit of proof that lambda expressions are awesome &ndash; true there is reflection involved so it&rsquo;s going to be slower than magic strings but in my daily use I haven&rsquo;t really noticed any performance hits so (thanks to Jeff Atwood @ <a href="http://www.codinghorror.com">codinghorror.com</a>) I can give it a &ldquo;Works on my Machine&rdquo; badge.</p><p><img title="6a0120a85dcdae970b0128776ff992970c-pi[1]" src="http://codinghorror.typepad.com/.a/6a0120a85dcdae970b0128776ff992970c-pi" border="0" height="193" alt="6a0120a85dcdae970b0128776ff992970c-pi[1]" width="200"></p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/multi-touch-reactive-extensions/">Multi-Touch Reactive Extensions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>Link:&nbsp;<a href="http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx">Reactive Extensions for .NET</a></p><p>It&rsquo;s been a while since I&rsquo;ve played with MultiTouch functionality so I decided it was time to dust off the old TouchSmart and put it to good use.&nbsp;&nbsp;The purpose wasn&rsquo;t to play with MultiTouch functionality but more to see how we could simplify managing isolated events using <a href="http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx">RX</a>.&nbsp; The MultiTouch API is good for this because by its very nature MultiTouch requires us to collect multiple events simultaneously and wire them up to create gestures.&nbsp; Unfortunately the current iteration of MultiTouch API wrappers for Silverlight and WPF (<a href="http://touch.codeplex.com/">touch</a>, <a href="http://miria.codeplex.com/">MIRIA</a>&nbsp;etc) are quite basic and when working with custom gestures you are forced to introduce a lot of global code such as flags etc.&nbsp; Not pretty!</p><p>Imagine the following scenario.</p><ul><li>2 touch points on screen (let call them HoldRight and HoldLeft).&nbsp; Both expose 2 events Hold and Release</li><li>When a person presses and hold a finger over BOTH points trigger an event</li><li>If only one is being pressed and held do not fire the event</li><li>If the user lifts their finger or fingers off the points and repeats the process the event should fire again.</li></ul><p>This is a fairly simple example but actually wiring this up requires the use of nasty global variables and a bit of repetition.&nbsp; Here is a very quick implementation of this.</p><p><script src="https://gist.github.com/632785.js"></script></p><p>As you can see I have made use of 2 global variables a DoCheck method that checks if the 2 canvases are currently in a &ldquo;held&rdquo; state and fires the event if they are.&nbsp; All the event handlers do nearly the same thing.&nbsp; Sure I could refactor this to use maybe 2 event handlers and inspect the sender but that starts getting messy.</p><h2>Reactive Extensions to the Rescue!</h2><p>Reactive extensions let us &ldquo;compose&rdquo; events so we can pass them around and filter them like first class citizens.&nbsp; Because of this we can actually create custom events by combining.&nbsp; Tackling the same issue as above we can achieve the same functionality without the need for dodgy global vars and boilerplate code.&nbsp; Lets look at the code first.</p><p><script src="https://gist.github.com/632781.js"></script></p><p>First things first for some random reason the implementers of MIRIA decided to create en event the actually passed NO event args &ndash; this is not normal and could easily be considered and anti-pattern.&nbsp; Because of this I had to use the long winded Observable.FromEvent which is created as a helper method.</p><p>So what are we doing here?</p><ol><li>Compose our events into first class citizens &ndash; Observables</li><li>Zip left and right hold events.&nbsp; Zipping basically combines 2 Observables and publishes or emits a value when both observables have emitted a value.&nbsp; The second argument in Zip is the transform function that converts the 2 emitted values into 1 value.&nbsp; We don&rsquo;t care about this value so just return some arbitrary value.</li><li>Take the Zip generated observable and keep publishing it&rsquo;s values until Either the left or right release events are triggers (Amb = most ambitious &ndash; publishes first value to appear)</li><li>Subscribe to this super composed event.&nbsp; When this happens we can fire our event</li></ol><p>What actually happens on the front end is irrelevant (the solution looks like this and will spin when the two Thumb areas are pressed and held)</p><p>[[posterous-content:ECxarBiHmvIvJutnbJaJ]]</p><p>But the fact we have managed to combine 4 isolated events without having to use boilerplate is very nice.&nbsp; This gives us a lot of power to create and control complex gestures &ndash; not limited to MultiTouch but any sort of UI interactions (Mouse events, Web service calls etc).</p><p><em>* I&rsquo;ll keep saying this.&nbsp; RX doesn&rsquo;t do anything new or solve any unsolvable problems but what it does do is allow us to do things in a neater way.&nbsp; Now there is a bit of learning curve in it &ndash; you really need to start thinking in RX but once you wrap your head around RX is a nice tool to have on your tool belt.&nbsp; No it&rsquo;s not complexity for complexity&rsquo;s sake &ndash; I honestly believe the code above, when used in the real world, will hep reduce complexity and make maintenance easier.</em></p><p>Good Fortune Awaits!</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/18/jquery-mobile-quick-look/">jQuery Mobile Quick Look</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-18T00:00:00+01:00" pubdate data-updated="true">Oct 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>jQuery Mobile was <span style="color: #1f497d;"><a href="http://jquerymobile.com/2010/10/jquery-mobile-alpha-1-released/">released</a></span> over the weekend or at least the alpha version of it was (full release scheduled for some time on 2011).&nbsp;</p><p>So what is it like?&nbsp; Well first things first it&#8217;s early days, there are certainly more than few rough edges but given the development timeline (~2 months) it is quite an impressive effort put in by the <span style="color: #1f497d;"><a href="http://www.filamentgroup.com/">Filament Group</a></span> and others.</p><h2>iThings</h2><p>The first question most people will ask (or the first thing they will try and do) will probably be</p><blockquote><p style="padding-left: 30px;">So how does it look on the various iThings (iPad, iPhone, iPhone 4)?&nbsp;</p></blockquote><p>Well it looks good for the most part.&nbsp; There are some issues around page transitions and displaying dialogs (especially on the iPad) - things like page flickering, hidden content becoming visible after the page has loaded etc. and while they are a bit annoying they don&#8217;t &#8220;break&#8221; anything.</p><p>As the framework isn&#8217;t targeting iOS specifically there are some behaviours that would wouldn&#8217;t necessarily expect if you used this as a native app (using PhoneGap or whatever).&nbsp; Toolbars aren&#8217;t explicitly fixed and when they are fixed disappear on scroll and repositioned after scrolling has finished.&nbsp; Select boxes don&#8217;t display the normal pickers found in native iOS but instead use a custom dialog for selection.&nbsp; Again these aren&#8217;t criticisms, they work well, but I have heard people already complaining because they expect the framework to produce a fully native looking app.</p><h2>Sencha Touch</h2><p>When comparing frameworks many peoples first thoughts will be</p><blockquote><p style="padding-left: 30px;">How does it compare to <span style="color: #1f497d;"><a href="http://www.sencha.com/products/touch/">Sencha Touch</a></span>&nbsp;</p></blockquote><p>To be honest&nbsp; the comparison is like comparing apples to oranges, or jQueryUI to ExtJS.&nbsp; Both projects have also different goals.&nbsp; While Sencha currently aims to provide a rich native like experience on a small subset of mobile browsers (specifically iOS and Android), jQuery Mobile aims to create a consistent, mobile/touch capable experience across a much <span style="color: #1f497d;"><a href="http://jquerymobile.com/gbs/Touch">wider range of mobile browsers</a></span>.&nbsp; This is by no means easy.&nbsp; An interaction style one device may not be suitable for another.</p><h2>FOUC</h2><p>One of the goals of jQuery Mobile is to progressively enhance the base page to become more mobile capable.&nbsp; Because of this the base page is very basic with jQuery Mobile specific stylers applied when the DOM is ready.&nbsp; This can lead to some initial FOUC (Flash of Unstyled Content).&nbsp; We can get around this by applying some of the basic jQuery Mobile styles to begin with and I suspect we will see this tactic being used on future releases.</p><p>[[posterous-content:EeHJJwvCqFJrzcdxeEEb]]</p><h2>Accessibility</h2><p>One thing I never really though of in a Mobile Framework is accessibility.&nbsp; This is just short sightedness on my part as it is as relevant in the mobile world as it is in the desktop world.&nbsp; jQuery Mobile aiming to be fully accessible through it&#8217;s use of ARIA roles and progressive enhancement.</p><h2>The Technicals</h2><p>From a technical/developer stand point jQuery Mobile is quite nice.&nbsp; Lets look at a few of the highlights,</p><h3>Pages</h3><p>Sites can be built as a single page with sub sections being marked as &#8220;pages&#8221; that jQuery Mobile can navigate.&nbsp; External pages are load using ajax (rather than simply navigating to them), this give jQuery Mobile better control over transitions, and history management.&nbsp; A simple page looks like this,</p><p><script src="https://gist.github.com/631896.js"></script></p><p>So lets break this down and pick out the interesting parts,</p><p><script src="https://gist.github.com/631897.js"></script></p><p>HTML5 DocType which older browsers can handle gracefully</p><p><script src="https://gist.github.com/631899.js"></script></p><p>Scripts and styles included.&nbsp; Now from a mobile perspective this is still quite a bit of script especially over some flaky 3G connections but in comparison to some of the frameworks out there it is still quite small.</p><p><script src="https://gist.github.com/631900.js"></script></p><p>This section describes 2 pages.&nbsp; A page is marked as a page by its `data-role` attribute and can contain 3 elements marking a header, the page content and the footer.&nbsp; Unless stipulated the first page will be first page in the DOM.&nbsp; Navigation between pages is handled using location.hash changes (page 1s button links to Page 2 in the example).</p><h3>Themeing</h3><p>Themeroller will see an overhaul on the official release which will allow you to create custom themes a la jQueryUI.&nbsp; Currently jQuery Mobile comes with 2 themes both of which have a number of swtaches.&nbsp; This is intended to create contrast between UI elements (e.g. for marking mandatory fields, or highlight primary buttons on a form etc.)</p><h3>Dialogs</h3><p>Dialogs in jQuery Mobile are simply pages with a `data-rel=&#8221;dialog&#8221;` added to them so the same rules apply as above.</p><h3>Form Elements</h3><p>Forms in jQuery Mobile are plain old HTML(5) forms which is actually a VERY nice feature.&nbsp; Sencha/ExtJS forms are nice but when using SELECTs etc. can become a real pain to manage.&nbsp; jQuery Mobile uses a much lighter approach.&nbsp; Some screenshots (iPhone 4)</p><p>[[posterous-content:qipBwFyayBhuztrHFpJI]] So thats a very quick overview of jQuery Mobile.  I encourage you to play around with and get those bugs filed. &nbsp;As I&#8217;ve said it&#8217;s early days but it&#8217;s a big goal they are aiming for and they are currently well on track to produce a very nice framework come the official release.</p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/blog/page/9/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>All my thingz!</h1>
-  <ul class="allmythings">
-    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
-    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
-    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
-    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
-    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("kouphax", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
-  
-</section>
+<style>
+  div.sharing { display: none; }
+</style>
 
 
   
-</aside>
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/page/10/index.html" data-via="kouphax" data-counturl="http://yobriefca.se/blog/page/10/index.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+      
+    </footer>
+  
+</article>
+
+</div>
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - James Hughes -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 <script type="text/javascript">

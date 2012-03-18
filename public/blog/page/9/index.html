@@ -8,8 +8,13 @@
   <title>Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
   
-  <meta name="description" content="I&rsquo;ve been playing with node.js for a while now and some of the things coming out of that community are simply amazing.&nbsp; One of the &hellip;">
+  <meta name="description" content="yobriefca.se 2011 Using CoffeeScript in .NET
+Jan 17 2011 .NET CoffeeScript VS2010/MVC JavaScript Intellisense HTML âHackâ
+Jan 07 2011 JavaScript &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,467 +51,204 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Yo Briefcase!</a></h1>
-  
-    <h2>All the codez!</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/feed" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yobriefca.se" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-    <li><a href="/">Blog</a></li>
-    <li><a href="/blog/archives">Archives</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/screencasts">Screencasts</a></li>
-    <li><a href="/talks">Talks</a></li>
-    <!--
-    <li><a href="/cv">CV</a></li>
-    -->
-</ul>
-
-</nav>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/17/using-coffeescript-in-net/">Using CoffeeScript in .NET</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-17T00:00:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
-        
-      </p>
-    
+      <span style="float:right">
+      <a href="/feed"><img style="border:none;shadow:none;" src="images/feed.png"/></a>
+      <a href="http://twitter.com/kouphax"><img style="border:none;shadow:none;" src="images/twitter.png"/></a>
+      <a href="http://github.com/kouphax"><img style="border:none;shadow:none;" src="images/github.png"/></a>
+    </span>
+    <h1 class="entry-title">yobriefca.se</h1>
   </header>
-
-
-  <div class="entry-content">  <p style="text-align: center;"><img src="http://posterous.com/getfile/files.posterous.com/temp-2011-01-17/GzcAkdBuuBhqnFqExtbBrpthjHwbqpFyslpzEnJEiIiwqmulsAjFgFAuciHJ/coffeescriptdotnet.png.scaled500.png" alt=""></p><p>I&rsquo;ve been playing with <a href="http://nodejs.org/">node.js</a> for a while  now and some of the things coming out of that community are simply amazing.&nbsp; One  of the interesting techs is <a href="http://coffeescript.org/">CoffeeScript</a>&nbsp;which is essentially a  JavaScript dialect that compiles into JavaScript.&nbsp; It&rsquo;s goal is to simplify the  JavaScript language by removing all those bad parts that can cause a lot of  grief&nbsp;and taking all those common tasks (array manipulation, scoping etc and  making them very very easy to achieve.&nbsp; I have an old post I have yet to publish  externally on the subject but I will get it out there ASAP.</p><p>CoffeeScript comes in 2 variations&nbsp;&ndash; a node.js specific version and a  &ldquo;standalone&rdquo; version that can be run in browser (pure JavaScript without any of  the node.js assumptions basically).&nbsp; Considering it&rsquo;s parsing one language into  another it&rsquo;s not recommended to be running the script client side every time so  if you want to use it you want to be doing the parsing server side and possibly  using some sort of caching to prevent redoing the parsing on every request.&nbsp;  This is the bad(ish) news for .NET folks because there really isn&rsquo;t any stable  JavaScript implementations that can run a script as complex a CoffeeScript (this  is essentially a compiler of sorts).&nbsp; Well at least not until now&hellip;.&nbsp; When i  first investigated this I tried using a number of JavaScript engines,</p><ul><li><a href="https://github.com/fholm/IronJS">IronJS</a>: Currently&nbsp;only a  partial implementation and&nbsp;doesn&rsquo;t appear to run the CoffeeScript  compiler&nbsp;fully.</li><li><a href="http://javascriptdotnet.codeplex.com/">JavaScript.NET</a>: Worked  for version 0.9 or so of CoffeeScript but there is a bug that causes version 1.0  to fall over and development appears to have ceased.</li><li>Command line JScript:&nbsp;Epic fail.&nbsp; Just wouldn&rsquo;t do what I needed it  to.</li></ul><p>Then along came&nbsp;yet another JavaScript engine for .NET so I gave it a shot.&nbsp;  On the surface <a href="http://jurassic.codeplex.com/">Jurassic</a>&nbsp;appeared to  offered everything I needed and upon diving a bit deeper I discovered that, yes,  it does indeed offer everything I needed&nbsp;&ndash; it runs the CoffeeScript compiler.&nbsp;  Sweet.</p><p>So lets write the compiler wrapper.&nbsp; Pretty basic really,</p><p><script src="https://gist.github.com/782874.js"></script></p><p>Few points worth noting here,</p><ul><li>I create a ThreadStatic instance of the Jurassic Engine and feed the  CoffeeScript compiler source into it once.&nbsp; The executions/evaluation of that  script is quite slow so I only wanted to take the hit once.&nbsp; Jurassic isn&rsquo;t  thread safe so I made the reference ThreadStatic.</li><li>Just to be extra safe I am locking during the execution of the compilation  task.</li><li>Any errors just return null.&nbsp; This is a bare bones implementation I have  stripped out custom logging and profiling code and an interface that means  little in this context.</li></ul><p>I have created a VS2010 MVC3 solution that makes use of this processor to generate JavaScript from a simple CoffeeScript example. &nbsp;Have fun.</p><p><a href="https://github.com/kouphax/coffeescript-dotnet">https://github.com/kouphax/coffeescript-dotnet</a></p><h2>What&rsquo;s Next?</h2><p>This is obviously only the start&nbsp;&ndash; if I wanted to use CoffeeScript in a .NET  environment I am going to need to consider how it is used.&nbsp; When should I be  compiling it?&nbsp; How should I be caching it etc?&nbsp; The usual things.&nbsp; Hopefully  I&rsquo;ll touch on these in a later post.</p><p>So right now this is kind of a request for comments, this was knocked up quite quickly and likely I have forgotten something or made a massive mistake. &nbsp;Anything you want to offer fire away.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/">VS2010/MVC JavaScript Intellisense HTML âHackâ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+<div id="blog-archives">
 
 
 
   
+  <h2>2011</h2>
 
-
-<time datetime="2011-01-07T00:00:00+00:00" pubdate data-updated="true">Jan 7<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>There is a problem with Visual Studio 2010 JavaScript Intellisense (using MVC in this case) and it is  this&nbsp;-&nbsp;If you are referencing JavaScript resources correctly (or Stylesheets for  that matter) as you all should be you&nbsp;wont actually&nbsp;get intellisense within an  SCRIPT blocks in HTML.&nbsp; So using this sort of script reference,</p><p><script src="https://gist.github.com/769312.js"></script></p><p>Will not give you intellisense.&nbsp; Sure you can use JavaScript files and make  use of the reference VSDOC tag (in fact maybe you should)</p><p><script src="https://gist.github.com/769313.js"></script></p><p>But this doesn&rsquo;t work (yet) within SCRIPT blocks.&nbsp; So what about those rare  times you actually want intellisense within your page?&nbsp; It&rsquo;s actually quite easy  though a bit hacky&nbsp;&ndash; stick it in a condition branch that never gets reached.&nbsp;  So,</p><p><script src="https://gist.github.com/769314.js"></script></p><p>The Intellisense parser doesn&rsquo;t really care about the fact that the code wont  ever get hit and you still get your typeahead and documentation etc. but it  won&rsquo;t ever get accidentally written to the generated output (as often happened  to me).&nbsp; I guess this seems kind of obvious or whatever but perhaps so obvious  some people may not have even though about it and hopefully it&rsquo;ll help someone  out somewhere at some point sometime, eventually&nbsp;&ndash; maybe.</p></div>
+<article>
   
+<h1><a href="/blog/2011/01/17/using-coffeescript-in-net/">Using CoffeeScript in .NET</a></h1>
+<time datetime="2011-01-17T00:00:00+00:00" pubdate><span class='month'>Jan</span> <span class='day'>17</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/coffeescript/' style='text-decoration:none;'><span class='label label-info'>CoffeeScript</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2011/01/07/vs2010-mvc-javascript-intellisense-html-hack-/">VS2010/MVC JavaScript Intellisense HTML âHackâ</a></h1>
+<time datetime="2011-01-07T00:00:00+00:00" pubdate><span class='month'>Jan</span> <span class='day'>07</span> <span class='year'>2011</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a> <a href='/blog/categories/visual-studio/' style='text-decoration:none;'><span class='label label-info'>Visual Studio</span></a></span>
+</footer>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/11/20/better-json-serialisation-for-asp-net-mvc/">Better JSON Serialisation for ASP.NET MVC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
+</article>
 
 
 
   
+  <h2>2010</h2>
 
-
-<time datetime="2010-11-20T00:00:00+00:00" pubdate data-updated="true">Nov 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><p>The Json() method of controllers is a nice little convenience method for  serialising server side data into JSON for handy consumption on the client side  but it&rsquo;s not without it&rsquo;s issues.&nbsp; Firstly it just cant serialise dates in any  nice way due to no hard and fast standard in JSON for dates.</p><p><script src="https://gist.github.com/708168.js"></script></p><p>Simply gets spat back to the front end as a string like so,</p><p><script src="https://gist.github.com/708170.js"></script></p><p>Not exactly the most useful thing in the world. &nbsp;You are going to need to make use of JSON&#8217;s reviver callback to parse this accordingly.</p><p>Another issue is lack of configurability.&nbsp; C# coding standards recommend the  use of PascalCased property names whereas in JavaScript land the standard is  camelCase (and many frameworks assume this casing which can cause issues behind  the scenes *cough*ExtJS*cough*).&nbsp; You can fix this by adding DataContract and  DataMember attributes to your model object but it gets a bit messy and open to  error if an attribute is left out accidentally.&nbsp; Or what if you don&rsquo;t have  access to the model code?</p><h2>JSON.NET</h2><p><a href="http://json.codeplex.com/">Json.NET</a> is my JSON de/serialiser of  choice.&nbsp; It&rsquo;s fast and widely configurable plus it fixes the problems I&rsquo;ve  mentioned above (among many many other things).&nbsp; Not to mention some BSON  (Binary JSON) support which could come in handy in the future.</p><h2>JsonNetResult</h2><p>So lets fix things.&nbsp; Lets wrap Json.NET up in an ActionResult type and offer  a configurable entry point.</p><p><script src="https://gist.github.com/708173.js"></script></p><p>As you can see I have exposed the JsonSerializerSettings object allow  developers to tune the serialisation all they want.&nbsp; We can also make things  even simpler by providing a Controller extension method that we can call without  having to create the object directly,</p><p><script src="https://gist.github.com/708175.js"></script></p><p>Simple stuff but still pretty powerful, lets see it in action.</p><h2>The Date Problem</h2><p>We can fix the date problem in a number of ways via converters.&nbsp; Converters  give us a custom way to convert values of objects and Json.NET provides a number  of converters out of the box &ndash; IsoDateTimeConverter, JavaScriptDateTimeConverter  and an abstract base DateTimeConverter to roll your own.&nbsp; Lets use the  JavaScriptDateTimeConverter for this example,</p><p><script src="https://gist.github.com/708176.js"></script></p><p>The resultant JSON object will generate a JSON object with a JavaScript Date  constructor</p><p><script src="https://gist.github.com/708178.js"></script></p><p>While not strictly valid JSON native JSON parsers and JSON2 handle it  fine.</p><h2>The Casing Issue</h2><p>We can use Json.NET&rsquo;s contract resolver to automagically convert PascalCased  property names of C# to camelCased property names of JavaScript.</p><p><script src="https://gist.github.com/708179.js"></script></p><p>Which gives us a response like so,</p><p><script src="https://gist.github.com/708183.js"></script></p><p>Fixed.</p><h2>Wrap Up</h2><p>So we have managed to create a much more powerful JSON serialisation  technique without having to sacrifice too much of the convenience of the Json()  method in the controller.&nbsp; Anyone got any recommendations/enhancements they are  willing to share? &nbsp;</p></p></div>
+<article>
   
+<h1><a href="/blog/2010/11/20/better-json-serialisation-for-asp-net-mvc/">Better JSON Serialisation for ASP.NET MVC</a></h1>
+<time datetime="2010-11-20T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>20</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.NET</span></a> <a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/json/' style='text-decoration:none;'><span class='label label-info'>JSON</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/11/18/the-razor-view-engine/">The Razor View Engine</a></h1>
+<time datetime="2010-11-18T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/razor/' style='text-decoration:none;'><span class='label label-info'>Razor</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/11/12/underscore-js-the-javascript-utility-library/">Underscore.js: The JavaScript Utility Library</a></h1>
+<time datetime="2010-11-12T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>12</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a> <a href='/blog/categories/underscore-js/' style='text-decoration:none;'><span class='label label-info'>underscore.js</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/11/18/the-razor-view-engine/">The Razor View Engine</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2010/11/10/remote-validation-in-asp-net-mvc-3-rc1/">Remote Validation in ASP.NET MVC 3 RC1</a></h1>
+<time datetime="2010-11-10T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>10</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a></span>
+</footer>
+
+
+</article>
 
 
 
-
-
-
-
-
+<article>
   
+<h1><a href="/blog/2010/11/09/all-change-validateinputattribute-and-skiprequestvalidation/">All Change! ValidateInputAttribute and SkipRequestValidation</a></h1>
+<time datetime="2010-11-09T00:00:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>09</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a></span>
+</footer>
 
 
-<time datetime="2010-11-18T00:00:00+00:00" pubdate data-updated="true">Nov 18<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
+</article>
 
 
-  <div class="entry-content">  <p><em>Sorry for the poor syntax highlighting on the source code&#8230; not much support for Razor ATM</em></p><p>I&rsquo;ve been holding off trying to form an opinion on this until we got the full  package so to speak.&nbsp; With MVC 3 RC1 being released last week I guess it&rsquo;s time  to share my thoughts on the <a href="http://blog.robertgreyling.com/2010/07/is-razor-just-wolf-in-sparks-clothing.html">mildly  contentious</a> view engine.&nbsp; First things first though &ndash; lets be extremely  superficial and compare a a bit of code.&nbsp; Specifically lets look a using a loop  to output a list of &ldquo;really useful&rdquo; list items.&nbsp; In the older WebForms view  engine you&rsquo;d do something like this.</p><p><script src="https://gist.github.com/705755.js"></script></p><p>Even for a very trivial example it does look a bit messy - lots of redundant  start and end markers etc.&nbsp; Lets look at the equivalent in Razor,</p><p><script src="https://gist.github.com/705756.js"></script></p><p>Now excuse me while I go off on a tiny bit of a tangent.&nbsp; There are two  things you probably notice about the equivalent Razor syntax,</p><ol><li>It&rsquo;s much cleaner because of some very clever parsing </li><li>It&rsquo;s still embedding code in a view.&nbsp; THE HORROR!!!! </li></ol><p>Yeah I know in this day and age when everyone is trying to eradicate every  suggestion of server code in a view Microsoft have went right ahead and actually  enabled you to do it in neat/cleaner manner.&nbsp; It works though &ndash; doesn&rsquo;t it?&nbsp; I  mean why abstract C# when your view is going to get compiled into C#?&nbsp; Why try  and mimic HTML/XML when technically speaking your custom markup is pretty much  meaningless?&nbsp; What&rsquo;s wrong with being able to see when server side syntax  finishes and front end syntax takes over?&nbsp; It makes a lot of sense to me  actually.</p><h2>The Truth Will Out</h2><p>I&rsquo;ve been holding off judgement on Razor for a while until it was more  &ldquo;complete&rdquo;.&nbsp; Truth be told for a long time I could have easily summed it up  as</p><blockquote><p><span style="color: #000000;">It&rsquo;s the WebForms View Engine with the &lt;% %&gt;  replaced with @</span></p></blockquote><p>In some ways thats true but at an extremely basic level.&nbsp; I misjudged it.&nbsp; I  was wrong.&nbsp; I actually kind of like it now.</p><h2>But what about Spark?</h2><p>I&rsquo;ve been an advocate of the <a>Spark View  Engine</a> for sometime in my company and I&rsquo;ve used it on a few projects very  successfully.&nbsp; It&rsquo;s a great engine but has suffered from a lack of tooling &ndash;  there are plenty of developers that simply reject or get a negative impression  of something because of the lack of tooling for the tech.&nbsp; Spark, especially in  comparison to Razor, has very limited tooling support in VS2010 &ndash; sure you have  SparkSense but it&rsquo;s currently not a patch on Razor support (which is still in  itself RC status) and I can&rsquo;t help but feel they&rsquo;ll always be playing catch-up  with in house developed/supported stuff.&nbsp; Would I have like to see Spark being  adopted by MS rather than them rolling their own view engine?&nbsp; Perhaps, but  variety is the spice of life and I&rsquo;m happy to have Razor around.</p><p>So what will I use on future projects?&nbsp; I&rsquo;m tending towards Razor for now but  perhaps that&rsquo;s because it&rsquo;s new and I&rsquo;m a technology magpie.&nbsp; Also it easier to  justify the use of a technology to a customer when they are provided pre-bundled  and supported by such a large entity.</p><p>&lt;/opinion piece&gt;</p><h2>Back On Track</h2><p>Now I&rsquo;ve had my little digression lets look at some of the features of  Razor.</p><h3>Syntax</h3><p>As I showed above the syntax is much more terse.&nbsp; The parser is clever enough  to detect when you mean server code and when you mean client code.&nbsp; This reduces  the need to use a lot of bulky delimiters like &lt;% and %&gt;.&nbsp; Also the parser  is able to determine if the @ you just wrote is a server side delimiter or just  plain text &ndash; most of the time.&nbsp; Alternatively you can fall back on the @@ syntax  to use a literal @.&nbsp;</p><p>The parser does choke sometimes when you don&rsquo;t wrap text in an appropriate  element or tag</p><p><script src="https://gist.github.com/705758.js"></script></p><p>fails whereas</p><p><script src="https://gist.github.com/705760.js"></script></p><p>is fine.&nbsp; If you really insist on not using an HTML element you can fall back  on one of two things.&nbsp; Using a &lt;text&gt; element that is a Razor tag for  marking an area for processing as plain text or a slightly shorter single line  equivalent of @:</p><p><script src="https://gist.github.com/705762.js"></script></p><h3>Layouts and Sections</h3><p>Razor (obviously) has support for master pages and rending content sections  including optional sections.&nbsp; Syntax for it is pretty simple, lets start with  our master page _Layout.cshtml</p><p><script src="https://gist.github.com/705766.js"></script></p><p>Couple of features worth mentioning,</p><ol><li>Use of RenderSection() to render named sections from the view, also able to  specify if the section is a required or optional section throught the use of the required argument (i.e. if it needs to or  doesn&rsquo;t need to be included in the view during render - if required is true and the section is missing you&#8217;ll get a runtime error when you attempt to access the page).&nbsp; Another option for  optional sections is to use the IsSectionDefined method e.g. <p><script src="https://gist.github.com/705769.js"></script><p><p>This way we can, as demonstrated, provide some sort of default as well.</p></li><li>RenderBody convenience method.&nbsp; This is used to render the body of the  view.&nbsp; Unlike WebForms view engine Razor doesn&rsquo;t require you to wrap the main  body in a content area &ndash; similar to Spark.&nbsp;</li></ol><p>So an appropriate view that this master layout can &ldquo;consume&rdquo; could look like  this</p><p><script src="https://gist.github.com/705776.js"></script></p><p>Notice I have left out the footer but that&rsquo;s not an issue as it has been  marked as optional.&nbsp; Also notice that the body is at the root level of the view  and sections are wrapped in a section marker.&nbsp; This all adds a more minimal look  and feel to the whole view.</p><h3>_ViewStart.cshtml</h3><p>Another leaf from the Spark world (and probably many other&nbsp;&ndash; sorry to  everyone else that supports/implements this sort of feature) is the ability to  provide a global place to put code that applies to every view.&nbsp; Using the  _ViewStart.cshtml file we could easily just put the Layout declaration from the  view code above into a single global location.&nbsp; We can also add helpers and  functions there too which I&rsquo;ll talk about now.</p><h2>Helpers</h2><p>Helpers enable use to provide context aware reusable HTML &ldquo;templates&rdquo; in our  views.&nbsp; Imagine a view that listed Top Selling, New and Top Rated products in 3  lists.&nbsp; The most basic way to implement this would be 3 loops like so</p><p><script src="https://gist.github.com/705778.js"></script></p><p>But that&rsquo;s not exactly DRY is it?&nbsp; Helpers can help us out here (hence the  name I guess :-P).&nbsp; Lets create a helper that does the repeatable stuff for  us,</p><p><script src="https://gist.github.com/705784.js"></script></p><p>And the rest of the view&hellip;</p><p><script src="https://gist.github.com/705788.js"></script></p><p>Much simpler, cleaner, whateverer.&nbsp; Again with the Spark similarities&nbsp;&ndash; these  are similar to macros.</p><h2>Functions</h2><p>Razor also makes it easier to embed arbitrary methods on your page which I  guess can be useful for formatting and things like that.&nbsp; This give us the power  to extend the Razor view engine and adapt it to suit our needs&nbsp;&ndash; powerful yes  but also open to abuse as you might guess.&nbsp; Here&rsquo;s a simple function in  action,</p><p><script src="https://gist.github.com/705790.js"></script></p><p>The function&nbsp;applies a highly technical string encryption&nbsp;technique to a  string value returning the result.</p><h2>Inline Templates</h2><p>One more feature before I head off to watch telly or sleep or something.&nbsp;  Razor allows you to pass little html nuggets or templates as arguments to  helpers and functions.&nbsp; There is a details blog post about this over at <a href="http://blog.andrewnurse.net/2010/08/02/InsideRazorPart3Templates.aspx">Vibrant  Code</a>&nbsp;and my example is heavily inspired/plagiarised from that.&nbsp; Lets see  what we can do,</p><p><script src="https://gist.github.com/705794.js"></script></p><p>Look at the second to last line see that little block of html preceded by the  Razor marker (@)?&nbsp; See how in our Times&nbsp;function the HTML block it is getting translated transparently as a  Func&lt;int, object&gt; the we can call and manipulate in the helper function anyway we want?&nbsp; Can  you see how powerful that could be in the&nbsp;right place?&nbsp; Me too.&nbsp; Me too.</p><h2>Done&nbsp;For Now</h2><p>There is more to Razor than all this stuff including the ability to use it  outside of the view context so it could simply be a&nbsp;templating language if needs  be.&nbsp; There is even more than that too but thats for another time.&nbsp; Imagine  though&hellip;. I started out this blog post more or less telling you I used to think  Razor was simply the WebForms view engine but with @&rsquo;s instead of &lt;% %&gt;&rsquo;s  and hopefully you can see why I was wrong and why I was happy to admit it.&nbsp; My  only gripe is that the Razor documentation could be a bit more available.&nbsp; There  isn&rsquo;t really a great deal out there ATM.&nbsp; However this has been promised for the  official release so I am looking forward to that.</p><p>Oh Misfits is about to start&hellip;&hellip;</p></div>
+
+<article>
   
+<h1><a href="/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/">Mobilize! Adapting the ASP.NET MVC Project Template for jQuery Mobile</a></h1>
+<time datetime="2010-10-26T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>26</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>Web</span></a> <a href='/blog/categories/jquery/' style='text-decoration:none;'><span class='label label-info'>jQuery</span></a> <a href='/blog/categories/jquery-mobile/' style='text-decoration:none;'><span class='label label-info'>jQuery Mobile</span></a></span>
+</footer>
+
+
+</article>
+
+
+
+<article>
   
+<h1><a href="/blog/2010/10/24/validateinputattribute-changes-in-mvc3-beta-2-/">ValidateInputAttribute Changes in MVC3 (Beta 2)</a></h1>
+<time datetime="2010-10-24T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>24</span> <span class='year'>2010</span></time>
+
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a></span>
+</footer>
 
 
-    </article>
+</article>
+
+
+
+<article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/11/12/underscore-js-the-javascript-utility-library/">Underscore.js: The JavaScript Utility Library</a></h1>
-    
-    
-      <p class="meta">
-        
+<h1><a href="/blog/2010/10/23/unobtrusive-javascript-in-mvc3/">Unobtrusive JavaScript in MVC3</a></h1>
+<time datetime="2010-10-23T00:00:00+01:00" pubdate><span class='month'>Oct</span> <span class='day'>23</span> <span class='year'>2010</span></time>
 
+<footer>
+  <span class="categories"><a href='/blog/categories/asp-net-mvc/' style='text-decoration:none;'><span class='label label-info'>ASP.NET MVC</span></a> <a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>JavaScript</span></a></span>
+</footer>
 
 
+</article>
 
-
-
-
-
-  
-
-
-<time datetime="2010-11-12T00:00:00+00:00" pubdate data-updated="true">Nov 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p class='img-holder'><img src="http://farm5.static.flickr.com/4017/5168979559_07b681c56d_o.gif" alt=""></p><p>I&rsquo;ve been meaning to give <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>&nbsp;some love  for some time but never got around to it.&nbsp; The other day I though about writing  about <a href="http://documentcloud.github.com/backbone/">Backbone.js</a> (another excellent library from the <a href="http://www.documentcloud.org/home">same people</a>) but didn&rsquo;t feel it  was possible to do so without first talking about Underscore as it underpins  most of the Backbone.js functionality.&nbsp; So without further ado&hellip;</p><h2>Introduction</h2><p style="padding-left: 30px;"><em><a href="http://github.com/documentcloud/underscore/">Underscore</a> is a  utility-belt library for JavaScript that provides a lot of the functional  programming support that you would expect in <a href="http://prototypejs.org/api">Prototype.js</a> (or&nbsp;<a href="http://www.ruby-doc.org/core/classes/Enumerable.html">Ruby</a>), but  without extending any of the built-in JavaScript objects. It&#8217;s the tie to go  along with <a href="http://docs.jquery.com/">jQuery</a>&#8217;s tux.</em></p><p style="text-align: right;">- <a href="http://documentcloud.github.com/underscore/">http://documentcloud.github.com/underscore/</a></p><p>That&rsquo;s how the creators describe underscore and it&rsquo;s pretty spot  on.&nbsp; Underscore offers numerous low level functions that can be used to  perform&nbsp;on&nbsp;arrays and collections (as well as few for object and functions).&nbsp;  Some of these functions are available in some browsers but not all and because  of this Underscore provides a nice layer of abstraction to avoid having to  constantly feature detect.&nbsp; Incidentally where a browser does implement a  specific function Underscore will always fallback on the native implementation  ensuring that performance is as optimal as possible.&nbsp; This is the sort of stuff  that you would probably miss if you moved from <a href="http://www.prototypejs.org/">Prototype</a>&nbsp;to <a href="http://www.jquery.com/">jQuery</a>.&nbsp; Another point to note is that  Underscore doesn&rsquo;t extend native objects with it&rsquo;s own implementations which  most people will consider a good thing.&nbsp; Instead, like jQuery, Underscore  exposes a single global object aptly named _.&nbsp; Now I am not 100% sold on this, I  am a bit strange when it comes to neat code and I think this variable name makes  code look a bit &ldquo;noisy&rdquo;.&nbsp; Not a big deal but I like to pick holes in things  :-).</p><h2>Coding Styles</h2><p>There are two ways to write code using Underscore.&nbsp; Imagine the scenario that  given an array of numbers You can go the functional route and call methods  directly on the underscore object,</p><p><script src="https://gist.github.com/674020.js"></script></p><p>Or go the OO route for those familiar with the jQuery style syntax,&nbsp;</p><p><script src="https://gist.github.com/674050.js"></script></p><p>These 2 examples acheive the same thing&nbsp;&ndash; filter a list to those  values greater than 10 and derive a sum of these values; but the look and feel  are actually quite different.&nbsp; Which one you chose will be down to personal  preference (I tend towards the former approach but the jury is still out).</p><h2>Collections/Arrays</h2><p>Underscore has a ton of collection and array methods -&nbsp; a  collection being either an array or an object (as in an object is essentially a  property bag/associative array).&nbsp;</p><p>The usual suspects for array manipulation/traversal are all here.&nbsp; Coming  from a C# background some of the&nbsp;names will be familiar and some are different  but they achieve the same thing - here is just a tiny subset,</p><h3>each()</h3><p>Loops over a collection executing a callback on each element.&nbsp; break; support  provided by _.breakLoop()</p><p><script src="https://gist.github.com/674113.js"></script></p><h3>map()</h3><p>Creates a new array from a collection where each element can be transformed  by a callback</p><p><script src="https://gist.github.com/674130.js"></script></p><h3>first()/last()</h3><p>Select the first and last elements from an array</p><p><script src="https://gist.github.com/674137.js"></script></p><h2>Functions</h2><p>Underscore provides a number of methods that can be applied to functions.&nbsp;  These include the ability to bind methods to a specific object/context (bind),  memoize functions (caching or results to increase calculation speeds), delay and  defer execution of methods and perform some AOP style actions on functions (wrap  and compose).</p><h2>Objects</h2><p>Underscore provides a number of common object related methods such as the  ubiquitous extend and clone functions.&nbsp; Other useful functions include the use  of a tap function.&nbsp; This function lets you &ldquo;tap&rdquo; into an execution chain and  inspect/manipulate the object in its current state.&nbsp; The underscore example  demonstrates this perfectly.</p><p><script src="https://gist.github.com/674155.js"></script></p><p>As you can see the tap function is used to push the object (in this case an  array) through.&nbsp; There is also a fairly robust set of type detection  functions.</p><p style="padding-left: 30px;"><em>isEqual, isEmpty, isElement,isArray, isArguments, isFunction, isString,  isNumber, isBoolean, isDate,isRegExp isNaN, isNull, isUndefined</em></p><h2>Other Things</h2><p>There are a few other specific methods in Underscore that provide utility  functions including,</p><ul><li>template&nbsp;&ndash; super simple templating function</li><li>mixin&nbsp;&ndash; extend underscores functionlaity with your own custom methods</li><li>times&nbsp;&ndash; execute a callback a specified number of times</li></ul><h2>Conclusion</h2><p>This is a very high level overview of Underscore (so I can now go and get all  excited abuot Backbone) but hopefully you can see it&rsquo;s worth.&nbsp; Have a look at  the <a href="http://documentcloud.github.com/underscore/">comprehensive docs</a> that many of my example where derived from and see if there is anything useful  for you there.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/11/10/remote-validation-in-asp-net-mvc-3-rc1/">Remote Validation in ASP.NET MVC 3 RC1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-10T00:00:00+00:00" pubdate data-updated="true">Nov 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><em><strong>UPDATE</strong>: &nbsp;Added some words around the extra configuration options available</em></p><p>Remote validation has finally landed in RC1 of <a href="http://weblogs.asp.net/scottgu/archive/2010/11/09/announcing-the-asp-net-mvc-3-release-candidate.aspx">ASP.NET  MVC 3</a>.&nbsp; It&rsquo;s a&nbsp;weird area as more often than not people tend to over  complicate something that is really pretty simple.&nbsp; Thankfully the MVC  implementation is fairly straightforward by simply providing wiring allowing the <a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">jQuery  Validation</a> plugin to work it&#8217;s magic.&nbsp; Basically there is a new Remote attribute that can be used  like so.</p><p><script src="https://gist.github.com/670685.js"></script></p><p>As you can see we have attributed the Username field with a Remote  attribute.&nbsp; The 2 parameters tell us what Action and Controller we should call  to perform the validation. &nbsp;This does make me feel slightly uneasy as it kind of feels like you are coupling the controller to the model which doesn&#8217;t sit right by me. &nbsp;currently sitting on the fence I&#8217;ll see how it works in real life. &nbsp;Anyway I implemented it like so,</p><p><script src="https://gist.github.com/670712.js"></script></p><p>And thats you - provided you have the necessary client side libraries included  of course (jQuery, jQuery Validate etc). and have Client Side Validation turned on (now by default in MVC3).</p><h2>Configuration</h2><p>The Remote attribute offers a few nice little configuration options to make  things easier.&nbsp; The typical ones are there such as ErrorMessage, ErrorResource  etc. but there are a few specific ones as well.</p><h3>Fields</h3><p>There may be a case where ding the name and the value of a single form field  isn&rsquo;t enough to perform validation.&nbsp; Perhaps validation is affected by some  other field/value in the form.&nbsp; The Remote attribute accepts a comma separated  list of other fields that need to be sent up with the request using the Fields  parameter</p><p>This basic example will send up the value of the EmailService input field  along with the value of Username.&nbsp; Clean and simple.</p><p><script src="https://gist.github.com/672168.js"></script></p><h3>HttpMethod</h3><p>HttpMethod simply allows us to change how the ajax request is sent e.g. via  POST or GET or anything else that makes sense.&nbsp; So to send a remote request via  POST</p><p><script src="https://gist.github.com/672169.js"></script></p><h2>A Minor Difference</h2><p>You might notice if you read the release notes for RC1 that my implementation  of the controller is slightly different.&nbsp; The reason being that the example in  the release notes is broken :-).&nbsp; The example looks like this</p><p><script src="https://gist.github.com/670723.js"></script></p><p>However the Validate plugin expects a JSON response which is fine on the  surface but returning a boolean response to the client side results in a  response body of False (notice the captial F) which in turn causes a parse error  when the plugin performs JSON.parse.&nbsp; My suggested solution is actually more  inline with how most people would typically write an Ajax capable controller  action anyway (though I am not happy with the JsonRequestBehaviour usage) but  there are other ways but they aren&rsquo;t pretty&hellip;.</p><p><script src="https://gist.github.com/670736.js"></script></p><p>See?&nbsp; Ugly and plain <strong>WRONG</strong> (but it will work).</p><p>Nice to see this feature finally landing as it can be useful in certain  situations.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/11/09/all-change-validateinputattribute-and-skiprequestvalidation/">All Change! ValidateInputAttribute and SkipRequestValidation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-09T00:00:00+00:00" pubdate data-updated="true">Nov 9<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p>I recently <a href="http://yobriefcase.posterous.com/validateinputattribute-changes-in-mvc3">blogged</a> about the new Exclude feature of ValidateInputAttribute in ASP.NET MVC 3 (Beta  2).&nbsp; Well as with most early adopter types I&rsquo;ve been shafted!&nbsp; Well not really  but things have changed slightly and it makes my last <a href="http://yobriefcase.posterous.com/validateinputattribute-changes-in-mvc3">post</a> slightly redundant.</p><p>Let me clarify a bit.&nbsp; The Exclude property no longer exists.&nbsp; It has instead  been replaced with a new attribute SkipRequestValidation.&nbsp; This is a  per-property attribute that lets you specify what properties should be  excluded.&nbsp; This has the effect of pushing the validation flag down to the model  rather than on the controller.&nbsp; This make a lot more sense especially in a  controller/solution that has many actions accepting the model.&nbsp; So what  changes?&nbsp; Lets take a look at our old code.</p><p>First things first the controller no longer need the ValidateInput attribute  and goes back to the old &ldquo;thinner&rdquo; version of itself,</p><p><script src="https://gist.github.com/643503.js"></script></p><p>We then need to mark the Bodyt property of our ForumPost model to skip  validation,</p><p><script src="https://gist.github.com/670517.js"></script></p><p>Thats it.&nbsp; To be honest this feels like a much neater solution.&nbsp; It feels  more a solution rather than a tacked on property that was added to cater for a  specific case.</p><p>ASP.NET MVC 3 RC1 is out now&nbsp;&ndash; read more <a href="http://weblogs.asp.net/scottgu/archive/2010/11/09/announcing-the-asp-net-mvc-3-release-candidate.aspx">here</a>,  and get it <a href="http://go.microsoft.com/fwlink/?LinkID=191797">here</a>.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/26/mobilize-adapting-the-asp-net-mvc-project-template-for-jquery-mobile/">Mobilize! Adapting the ASP.NET MVC Project Template for jQuery Mobile</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-26T00:00:00+01:00" pubdate data-updated="true">Oct 26<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p class='img-holder'><img src="http://farm3.static.flickr.com/2413/5721975436_fb47349a04_o.png" alt=""></p><p style="text-align: right;"><em><span style="font-size: xx-small;"><span style="font-size: xx-small;">Image</span> courtesy of the  awesome </span></em><em><span style="font-size: xx-small;"><a href="http://www.threadless.com/">Threadless</a></span></em></p><p>Having tinkered with <a href="http://yobriefcase.posterous.com/practical-jquery-mobile-with-aspnet-mvc">jQuery  Mobile and MVC</a> a bit recently but I wanted to do a bit more.&nbsp; The first app  I wrote was read only which is actually pretty easy to accomplish regardless of  technology/framework.&nbsp; So I wanted to try a little something different,  something a kin to a real application.&nbsp; However time and coders block left me  with little inspiration for creating the worlds next amazing mobile app.&nbsp;  Sitting there with a new ASP.NET MVC project open in Visual Studio I couldn&rsquo;t  think of what to write.&nbsp; Then it struck me&hellip; don&rsquo;t write anything.&nbsp; The MVC  starter skeleton project was sitting right there why not just mobilise it?&nbsp; So I  did.&nbsp; Without modifying any server side code and only tweaking the views I found  I was able to create a fully jquery-mobilified version of the template.&nbsp; Here&rsquo;s  what I did.</p><h2>Clean House</h2><p>We need to strip some of the dead weight out of our project including some of  the mark up and resources,</p><h3>Resources</h3><p>First things first I dropped the current bundle of scripts (MS Ajax, jQuery  1.4.1, Validate etc.) and the Site.css.&nbsp; Next I added the jQuery Mobile  assets,</p><ul><li>jQuery 1.4.3 (jquery-1.4.3.js)</li><li>jQuery Mobile 1.0a1 (jquery.mobile-1.0a1.js)</li><li>jQuery Mobile CSS (jquery.mobile-1.0a1.css)</li><li>jQuery Mobile images</li></ul><p>In the following project structure</p><p class='img-holder'><img src='http://farm3.static.flickr.com/2696/5721416507_18861d0ae1_o.png'></p><h3>Site.Master</h3><p>Next I&nbsp;cut down the Site.Master to it&rsquo;s bare minimum and add the HTML5  DocType and the references to jQuery Mobile ,</p><p><script src="https://gist.github.com/646750.js"></script></p><p>I could have included the basic markup for a full page but I wanted to keep  it as flexible for now.&nbsp; I also removed the LogOnUserControl for now as I want  to just push it into the main page.</p><h2>Marking Up</h2><p>The next step was to tweak the markup of the pages so they comply with jQuery  Mobile and can be mobilised correctly.&nbsp; Most pages are marked up in the same way  so rather than list them all I&rsquo;ll just list the highlights.</p><h3>Home.aspx</h3><p><script src="https://gist.github.com/646756.js"></script></p><p>I have a top toolbar button for Login/Log Off (depending on context) and the  View.Message from the old page is included as the content of the page.</p><h3>Logon.aspx</h3><p><script src="https://gist.github.com/646757.js"></script></p><p>Gives us the login form and a link to the Register screen.&nbsp; I marked the  Register screen as a Dialog just to be a wee bit different.&nbsp; The Register screen  itself is marked up as a normal page (the framework handles the displaying of a  dialog automagically).&nbsp; I also added a different theme to the login button and a  &ldquo;pop&rdquo; transition to the Register dialog through the data- attributes.</p><p>One other thing I had to do was add a &ldquo;fieldcontain&rdquo; wrapper to the field  blocks as there was some layout issues.&nbsp; This is documented in the jQuery Mobile  docs.</p><h3>Register.aspx</h3><p><script src="https://gist.github.com/646760.js"></script></p><p>The most complex screen in the app.&nbsp; Nothing special added only some  different markup.</p><h2>Running It</h2><p>That was it.&nbsp; After adapting the rest of the pages (via manipulating markup)&nbsp;  I was left with a mobilized version of the MVC project template.&nbsp; Again I didn&rsquo;t  have to make any code changes&nbsp;&ndash; validation still worked, forms still worked,  login, register, change password&nbsp;&ndash; all worked as expected (screen shots&nbsp;from Chrome which has a few issues with rounded corners on fields in jQuery Mobile).</p><p class='img-holder'>  <img src='http://farm4.static.flickr.com/3502/5721975554_272b823481_o.png' width='200' style='border:1px solid #000;'>  <img src='http://farm3.static.flickr.com/2756/5721416629_4b4e7ebaed_o.png' width='200' style='border:1px solid #000;'>  <img src='http://farm3.static.flickr.com/2510/5721416689_20e25e2983_o.png' width='200' style='border:1px solid #000;'></p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/24/validateinputattribute-changes-in-mvc3-beta-2-/">ValidateInputAttribute Changes in MVC3 (Beta 2)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-24T00:00:00+01:00" pubdate data-updated="true">Oct 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><strong>This post is now redundant with the release of ASP.NET MVC 3 RC 1. &nbsp;SkipRequestValidation is the new ValidateInputAttribute(Exclude=&#8221;&#8220;).</strong><span style="color: #ff6600;"><strong> &nbsp;<a href="http://yobriefcase.posterous.com/all-change-validateinputattribute-and-skipreq">Read More.</a></strong></span></p><p>The ValidateInputAttribute has received a nice little tweak in MVC 3 offering  more fine grained control over parameters of a request.&nbsp;</p><p>In MVC 2 using ValidateInputAttribute&nbsp;was limited to the&nbsp;request level, that  is all parameters in the request where either validated or not.&nbsp; Lets  demonstrate this with a simple example - a simple forum posting page,</p><p><script src="https://gist.github.com/643500.js"></script></p><p>We don;t care what the controller actions actually do but lets describe them  here anyway</p><p><script src="https://gist.github.com/643503.js"></script></p><p>Now attempting to post any sort of markup back to the action will result in  an exception being thrown,</p><p>[[posterous-content:DasrjrabrrcEcDeiHdeG]]</p><p>If we wanted to allow markup to go through we can add the  [ValidateInput(false)] attribute to the action.&nbsp; The only problem with that is  if we only wanted to allow markup in the Body and not the Subject we would have  to write our own tests in the controller to prevent this.&nbsp; Not the most ideal or  clean solution.</p><p>MVC 3 solves this quite simply by extending the ValidateInputAttribute and  allowing use to specify exclusions.&nbsp; This means we can have validation turned on  but specifically state the we don&rsquo;t want to validate a specific request  parameter(s) (e.g. Body).</p><p><script src="https://gist.github.com/643509.js"></script></p><p>A very minor tweak that makes a big leap to being able to produce cleaner more readable code.</p></div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/23/unobtrusive-javascript-in-mvc3/">Unobtrusive JavaScript in MVC3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-23T00:00:00+01:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">  <p><p>One of the &ldquo;it&rsquo;s not new but it&rsquo;s cool&rdquo; features that appeared in the ASP.NET  MVC3 Beta was Unobtrusive JavaScript (well actually Unobtrusive Ajax and an  unobtrusive validation adapter for the jQuery Validation plugin).&nbsp; Before we  dive into how this differs from MVC2 lets talk about JavaScript in MVC.</p><p>First things first&nbsp;&ndash; jQuery is now the defacto standard for any ASP.NET MVC  solution.&nbsp; In the MVC2 Project Template you got both the Microsoft Ajax Library  and jQuery.&nbsp; This hasn&rsquo;t changed in MVC3 but the Microsoft stuff is only there  for any potential backward compatibility issues a solution&nbsp;may have&nbsp;&ndash; feel free  to just delete these files and embrace jQuery.&nbsp; All the new client side stuff is  all facilitated through jQuery which means you wont have to have some other  framework on your page just because generated code mandates it.</p><h2>What Is It?</h2><p>Unobtrusive JavaScript (in the MVC3 sense) is a strategy that ensures that no  JavaScript is embedded within the markup (unless you do it yourself).&nbsp; 100% no  generated code muddying your markup.&nbsp; No code islands,&nbsp;no inline event handlers,  better handling of failure&nbsp;cases&nbsp;and no dependence on any specific framework.&nbsp;  To me, being a web focused developer, this is HUGE and it should be to you too&nbsp;&ndash;  it is after all considered best practise.</p><h2>Turn It On</h2><p>There are two ways to turn Unobtrusive Ajax/Validation on,</p><h3>1. Web.Config</h3><p>Within the &lt;appSettings&gt; config node in Web.Config you can specify  whether unobtrusive JavaScript is on or off</p><p><script src="https://gist.github.com/642655.js"></script></p><h3>2 On a Per-Page Basis</h3><p>Just like EnableClientValidation it is possible to activate unobtrusive  JavaScript&nbsp; at a page level.</p><p><script src="https://gist.github.com/642657.js"></script></p><h2>What Does It Do</h2><p>Best way to show what it does is by comparison to, um,&nbsp;Obtrusive JavaScript.&nbsp;  So lets create a scenario in both MVC2 and MVC3 and seeing how they compare.&nbsp;  The scenario will be a simple ajaxified login form (Username and Password) with  some client validation and no server side magic.&nbsp; Most of this, bar the client  side scripts, is the same across both solutions.&nbsp;</p><h2>The Model</h2><p><script src="https://gist.github.com/642569.js"></script></p><p>Two properties with basic [Required] validation.&nbsp;</p><h2>The Controller</h2><p><script src="https://gist.github.com/642572.js"></script></p><p>Again there isn&rsquo;t much going on here, this all about the client side!</p><h2>The View</h2><h3>Common Parts</h3><p><script src="https://gist.github.com/642578.js"></script></p><p>A simple view that is the same across both projects the only thing that is  going to differ is the actual libraries/scripts that do all the wiring up.&nbsp;</p><h3>MVC2</h3><p><script src="https://gist.github.com/642584.js"></script></p><p>Using the out of the box Microsoft Ajax Library (which is now deprecated)</p><h3>MVC3</h3><p><script src="https://gist.github.com/642585.js"></script></p><p>Using the out of the box jQuery plugins.</p><p>Done.&nbsp; That&rsquo;s all we need for our solutions to function.&nbsp; The form will be  validated on the client side and&nbsp;submission will be&nbsp;performed through ajax.&nbsp;  Both will behave exactly the same but the markup and code they generate will be  quite different.&nbsp; I&rsquo;ve tidied both up in terms of formatting just so it&rsquo;s  slightly easier to read but I&rsquo;ve tried to keep the layout style consistent  across both.</p><h2>MVC2 Output</h2><p><script src="https://gist.github.com/642592.js"></script></p><h2>MVC 3 Output</h2><p><script src="https://gist.github.com/642599.js"></script></p><h2>Analysis</h2><p>The first obvious thing we can see is that the&nbsp;UnobJS code is slightly  lighter, even with strict formatting turned it generally produces less LOC&rsquo;s.&nbsp;  But that&rsquo;s not really that important in the grand scheme of things, but is  important is the whole unobtrusiveness of the UnobJS source.</p><p>In the old MVC2 code look at those inline event handlers at lines 14 and 15,  look at that huge code island at line 33, smack bang in the middle of our HTML.&nbsp;  It&rsquo;s not wrong per say but it&rsquo;s certainly not best practise.&nbsp; No it&rsquo;s always  best to keep your View (HTML) and your Code (JavaScript) separated as much as  possible.&nbsp; Imagine if some wayward script was added between line 61 and 62 did  something like this</p><p><script src="https://gist.github.com/642614.js"></script></p><p>OHT3HNOES END OF THE WORLD!</p><p>Or what if your CDN that served your scripts was down?&nbsp; You are actually  going to get JavaScript errors during form submission which can, in various  browsers, prevent the form being submitted.</p><p>OHT3HNOES&nbsp;END OF THE WORLD AGAIN!</p><p>MVC 3/UnobJS on the other hand isn&rsquo;t going to error out and will fall back to  a normal form submission - progressive enhancement or just expected  behaviour?</p><p>On other thing&hellip; those inline event handlers pretty much need to have the MS  Ajax Library available to work (and not&nbsp;cause errors).&nbsp; What if I was already  using jQuery for my project?&nbsp; I&rsquo;d still need to include MS Ajax on the page even  though only generated code required it (well I could write my own API mimicking  the required MS Ajax API but why should I?).</p><p>Now Unobtrusive JavaScript isn&rsquo;t without it&rsquo;s issues.&nbsp; Using HTML5&rsquo;s data-  attributes can invalidate your HTML which can be a showstopper for some  projects.&nbsp; One other issue that we may start to see is that EVERYONE is starting  to use data- attributes (e.g. jQuery Mobile) I wonder if we are going to start  seeing collisions between different libraries?</p><p>All in all I don&rsquo;t think there should be an option to turn  Unobtrusive&nbsp;JavaScript off, it should just be the only way of doing things :-)  but thats just me.</p></p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/blog/page/8/">Newer &rarr;</a>
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>All my thingz!</h1>
-  <ul class="allmythings">
-    <li><a href="http://speakerdeck.com/u/kouphax" style="text-decoration: none;"><img src="/images/social/speakerdeck.gif" height="32" width="32" title="Speakerdeck" /> Speakerdeck (Presentations)</a></li>
-    <li><a href="http://bitbucket.org/kouphax" style="text-decoration: none;"><img src="/images/social/bitbucket.png" height="32" width="32" title="BitBucket" /> Bitbucket (Code)</a></li>
-    <li><a href="http://github.com/kouphax" style="text-decoration: none;"><img src="/images/social/github.png" height="32" width="32" title="Github" /> Github (Code)</a></li>
-    <li><a href="http://twitter.com/kouphax" style="text-decoration: none;"><img src="/images/social/twitter.png" height="32" width="32" title="Twitter" /> Twitter (Social)</a></li>
-    <li><a href="http://vimeo.com/kouphax" style="text-decoration: none;"><img src="/images/social/vimeo.png" height="32" width="32" title="Vimeo" /> Vimeo (Screencasts)</a></li>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/12/sentamentalizer/">sentimentalizer: A Ruby port of Sentan</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/08/tinkering-with-minion-dot-js/">Tinkering with minion.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/06/taking-the-stairs/">Taking the Stairs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/12/the-estimation-4x4/">The Estimation 4x4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/09/caveat-abstractor/">Caveat Abstractor</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("kouphax", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/kouphax" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @kouphax</a>
-  
-</section>
+<style>
+  div.sharing { display: none; }
+</style>
 
 
   
-</aside>
+    <footer>
+      
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/page/9/index.html" data-via="kouphax" data-counturl="http://yobriefca.se/blog/page/9/index.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+      
+    </footer>
+  
+</article>
+
+</div>
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - James Hughes -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 <script type="text/javascript">
