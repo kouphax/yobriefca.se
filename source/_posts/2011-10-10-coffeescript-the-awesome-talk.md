@@ -4,6 +4,7 @@ title:      "CoffeeScript the Awesome"
 published:  true
 categories: [Talks]
 thumb: coffee.jpg
+events: ['DDD Belfast']
 ---
 
 CoffeeScript - "a little language that compiles into JavaScript" has been making a lot of noise in the web community with its inclusion in Ruby on Rail v3 and its swift rise in popularity on Github.

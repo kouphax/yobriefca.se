@@ -11,8 +11,39 @@ layout: page
     </span>
     <h1 class="entry-title">yobriefca.se</h1>
     
-      <span class="label label-important" id="commitmessage">Fixed unnecessary bug.
-      </span>
+      <span class="label label-important" id="commitmessage">Fixed unnecessary bug.</span>
+
+      <i id="refresh" class="icon-refresh" style="position: relative;top: 8px;margin-left: 10px;cursor:pointer;display:none; opacity:0.5;" ></i>
+      <i id="info" class="icon-info-sign" style="position: relative;top: 8px; cursor:pointer;display:none;opacity:0.5;"></i>
+      <script>
+        !function(){
+          var refreshbtn = $('#refresh'),
+              commitmsg = $('#commitmessage'),
+              infobtn = $('#info');
+
+          function loadcommitmsg(){
+            refreshbtn.hide();
+            infobtn.hide();
+            $.ajax({
+                url: 'http://whatthecommit-service.herokuapp.com/?callback=?', 
+                type: 'jsonp', 
+                success: function (resp) {
+                  commitmsg.html(resp);
+
+                  refreshbtn.show();
+                  infobtn.show();
+                }
+            })
+          }
+
+          refreshbtn.bind('click', loadcommitmsg);
+          infobtn.bind('click', function() { 
+            window.location = "http://www.whatthecommit.com" 
+          });
+
+          loadcommitmsg();
+        }()
+      </script>
     
   </header>
 <div id="blog-archives">

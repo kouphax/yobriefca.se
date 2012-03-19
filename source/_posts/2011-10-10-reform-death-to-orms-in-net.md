@@ -4,6 +4,7 @@ title:      "refORM: Death to ORMs in .NET"
 published:  true
 categories: [Talks]
 thumb: reform.jpg
+events: ['DDD Belfast', 'DDD North']
 ---
 
 Data Access is a difficult area to master. There are plenty of frameworks such as Entity Framework, NHibernate, i/myBatis. These frameworks attempt to make data access simpler but while these products are widely used they can lead to leaky abstractions forcing us to work around constraints of the technology or introduce the nightmare of trying to figure out what is happening deep down in the frameworks internals.
