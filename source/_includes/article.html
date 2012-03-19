@@ -1,5 +1,12 @@
  {% unless page.no_header %}
   <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
     {% if index %}
       <h1 class="entry-title"><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h1>
     {% else %}
