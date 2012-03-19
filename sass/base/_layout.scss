@@ -93,9 +93,8 @@ $header-padding-bottom: 1.5em !default;
 }
 
 body {
-  max-width: $max-width;
+  background-color: #F2F2F2;
   position: relative;
-  margin: 0 auto;
   > header, > nav, > footer, #content > article, #content > div > article, #content > div > section {
     @extend .group;
     padding-left: $pad-min;
@@ -177,10 +176,10 @@ body.sidebar-footer {
   #main {
     @extend .group;
     padding: 0;
-    margin: 0 auto;
   }
   #content {
     @extend .group;
+    max-width: 960px;
     margin-right: $sidebar-width-medium;
     position: relative;
     .no-sidebar & { margin-right: 0; border-right: 0; }

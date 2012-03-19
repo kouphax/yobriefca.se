@@ -7,26 +7,111 @@ footer: false
 ---
 
 <div id="blog-archives">
-{% for post in site.categories["Talks"] %}
-  {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-  {% unless year == this_year %}
-    {% assign year = this_year %}
-    <h2>{{ year }}</h2>
-  {% endunless %}
+  <h2>2012</h2> 
   <article>
-    {% capture category %}{{ post.categories | size }}{% endcapture %}
-    <h1>
-        <a href="{{ root_url }}{{ post.url }}">{{post.title}}</a>
-    </h1>
-    <time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='month'>%b</span> <span class='day'>%d</span> <span class='year'>%Y</span>"}}</time>
-    <div>
-      <span class="categories">{{ post.events | category_links }}</span>
-    </div>
-    {% if category != '1' || category != '0' %}
+    <h1>.NET On a Diet</h1>
+    <time datetime="2012-06-08T00:00:00+01:00" pubdate>
+      <span class='month'>Jun</span> 
+      <span class='day'>08</span> 
+      <span class='year'>2012</span>
+    </time>
     <footer>
-      <span class="categories">{{ post.categories | category_links }}</span>
+      <span class="categories">
+        <span class="label label-info">NDC, Oslo</span>
+      </span>
     </footer>
-    {% endif %}
   </article>
-{% endfor %}
+  <article>
+    <h1>MonoTouch - C# + iOS = Good Times</h1>
+    <time datetime="2012-06-08T00:00:00+01:00" pubdate>
+      <span class='month'>Jun</span> 
+      <span class='day'>08</span> 
+      <span class='year'>2012</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">NDC, Oslo</span>
+      </span>
+    </footer>
+  </article>
+  <article>
+    <h1>Mobile, How Do I Develop Thee? Let Me Count the Ways</h1>
+    <time datetime="2012-06-06T00:00:00+01:00" pubdate>
+      <span class='month'>Jun</span> 
+      <span class='day'>06</span> 
+      <span class='year'>2012</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">NDC, Oslo</span>
+      </span>
+    </footer>
+  </article>
+  <article>
+    <h1>Mobile, How Do I Develop Thee? Let Me Count the Ways</h1>
+    <time datetime="2012-04-20T00:00:00+01:00" pubdate>
+      <span class='month'>Apr</span> 
+      <span class='day'>20</span> 
+      <span class='year'>2012</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">Infoshare, Gdansk</span>
+      </span>
+    </footer>
+  </article>
+  <article>
+    <h1>BDD in .NET</h1>
+    <time datetime="2012-03-28T00:00:00+01:00" pubdate>
+      <span class='month'>Mar</span> 
+      <span class='day'>18</span> 
+      <span class='year'>2012</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">DevWeek, London</span>
+      </span>
+    </footer>
+  </article>
+  
+  <h2>2011</h2> 
+  <article>
+    <h1>refORM: Death to ORMs in .NET</h1>
+    <time datetime="2011-10-17T00:00:00+01:00" pubdate>
+      <span class='month'>Oct</span> 
+      <span class='day'>17</span> 
+      <span class='year'>2011</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">DeveloperDeveloperDeveloper, North</span>
+      </span>
+    </footer>
+  </article>
+  <article>
+    <h1>refORM: Death to ORMs in .NET</h1>
+    <time datetime="2011-10-10T00:00:00+01:00" pubdate>
+      <span class='month'>Oct</span> 
+      <span class='day'>10</span> 
+      <span class='year'>2011</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">DeveloperDeveloperDeveloper, Belfast</span>
+      </span>
+    </footer>
+  </article>
+  <article>
+    <h1>Coffeescript the Awesome</h1>
+    <time datetime="2011-10-10T00:00:00+01:00" pubdate>
+      <span class='month'>Oct</span> 
+      <span class='day'>10</span> 
+      <span class='year'>2011</span>
+    </time>
+    <footer>
+      <span class="categories">
+        <span class="label label-info">DeveloperDeveloperDeveloper, Belfast</span>
+      </span>
+    </footer>
+  </article>
 </div>
