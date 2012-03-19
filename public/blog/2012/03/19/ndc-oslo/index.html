@@ -5,14 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sentimentalizer: A Ruby port of Sentan - Yo Briefcase!</title>
+  <title>Speaking at NDC Oslo - Yo Briefcase!</title>
   <meta name="author" content="James Hughes">
 
   <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
 
   
-  <meta name="description" content="In a bid to be at least 1% less stupid I decided to jump into Ruby. Properly this time, no tinkering with Rails or watching a few videos. So the &hellip;">
+  <meta name="description" content="Mike Cohn, Dan North, Robert C. Martin, Udi Dahan, Gojko Adzic, Billy Hollis, Laurent Bugnion, Venkat Subramaniam, Brad Wilson, Phil Haack, Rob &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yobriefca.se/blog/2012/03/12/sentamentalizer">
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/03/19/ndc-oslo">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,7 +64,7 @@
       <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
     </span>
     
-      <h1 class="entry-title">Sentimentalizer: A Ruby Port of Sentan</h1>
+      <h1 class="entry-title">Speaking at NDC Oslo</h1>
     
 
     
@@ -84,28 +84,29 @@
   
 
 
-<time datetime="2012-03-12T19:22:00+00:00" pubdate data-updated="true">Mar 12<span>th</span>, 2012</time>
+<time datetime="2012-03-19T21:34:00+00:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>&#8217;s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
+<div class="entry-content"><p><img src="/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
-<ol>
-<li>I wanted something fairly meaty to actually port over to Ruby in an effort to get a more-than-superficial feel for the language</li>
-<li>I might have a need for such a service in an upcoming hackathon (though the original .NET version would have been fine too)</li>
-</ol>
+<p>Mike Cohn, Dan North, Robert C. Martin, Udi Dahan, Gojko Adzic, Billy Hollis, Laurent Bugnion, Venkat Subramaniam, Brad Wilson, Phil Haack, Rob Conery, Greg Young, Zach Holman&#8230;.. and then me.  So someone was drinking when deciding the line up for NDC Oslo right?</p>
+
+<p>Seriously though I&#8217;ve been given one of the best opportunites of my career to talk alongside some of the shining lights of our industry at NDC Oslo so I better not drop the ball.  Thank you to whoever gave me the opportunity.  But hey if I mess up I&#8217;ve got another 2 shots at it&#8230; thats right I&#8217;m speaking not once, not twice but thrice.</p>
+
+<ul>
+<li><a href="http://ndcoslo.oktaset.com/t-4960">.NET On a Diet</a></li>
+<li><a href="http://ndcoslo.oktaset.com/t-4961">MonoTouch - C# + iOS = Good Times</a></li>
+<li><a href="http://ndcoslo.oktaset.com/t-4872">Mobile, How Do I Develop Thee? Let Me Count the Ways</a></li>
+</ul>
 
 
-<p>This is in no way some sort of new project or intended for some production environment.</p>
+<p>Still blown away by this, if you can&#8217;t tell - given the calibre of people talking this is going to be a highlight of the year for sure.  Also it couldn&#8217;t have come at a better time - there is so much I&#8217;ve wanted to say about things like the OSS world in .NET, Mono and mobile development. Now I&#8217;ve got the perfect opportunity.</p>
 
-<p>So what is it?  <a href="https://github.com/kouphax/sentimentalizer/">sentamentalizer</a> is a quick and dirty <a href="http://en.wikipedia.org/wiki/Sentiment_analysis">sentiment analysis</a> tool.  With it you can loosley class statements as either positive or negative (and get a breakdown of how that classification was derived).  You &#8220;train&#8221; it with datasets for both negative and positive control statements and then feed it sentences you want analysed.  At the minute the engine sits behind a super super super, did I say super already?, simple sinatra app that you submit statements to and it returns a simple JSON response with the sentiment result (negative, positive, neutral) and probability.  If you want to train the bitch you&#8217;ve got to change the <code>api.rb</code> file or update the files in the <code>data\positive</code> and <code>data\negative</code> folders.</p>
-
-<p>Plans? Yeah I might poke around some more, make into more of a standalone learning service or something (again another feature I might need soon anyway).  But for now - feel free to review my shitey code Rubyists (I assume there are better ways to do things, standard appraoches that I&#8217;m not using etc.) and offer suggestions.</p>
-
-<p>Once again thanks to <a href="https://twitter.com/#!/martinrue">@martinrue</a> for doing all the hard-work on <a href="https://github.com/martinrue/Sentan">Sentan</a></p>
+<p>Now whats this .NET thing I keep hearing about :)</p>
 </div>
 
 
@@ -123,12 +124,12 @@
   
 
 
-<time datetime="2012-03-12T19:22:00+00:00" pubdate data-updated="true">Mar 12<span>th</span>, 2012</time>
+<time datetime="2012-03-19T21:34:00+00:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
       
 
 <span style="float:right">
   
-    <a href='/blog/categories/ruby/' style='text-decoration:none;'><span class='label label-info'>ruby</span></a> <a href='/blog/categories/sentimentalizer/' style='text-decoration:none;'><span class='label label-info'>sentimentalizer</span></a>
+    <a href='/blog/categories/-net/' style='text-decoration:none;'><span class='label label-info'>.net</span></a> <a href='/blog/categories/conferences/' style='text-decoration:none;'><span class='label label-info'>conferences</span></a> <a href='/blog/categories/mobile/' style='text-decoration:none;'><span class='label label-info'>mobile</span></a> <a href='/blog/categories/monotouch/' style='text-decoration:none;'><span class='label label-info'>monotouch</span></a> <a href='/blog/categories/nancy/' style='text-decoration:none;'><span class='label label-info'>nancy</span></a>
   
 </span>
 
@@ -137,7 +138,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/03/12/sentamentalizer/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/03/12/sentamentalizer/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/03/19/ndc-oslo/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/03/19/ndc-oslo/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -147,10 +148,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/08/tinkering-with-minion-dot-js/" title="Previous Post: Tinkering with minion.js">&laquo; Tinkering with minion.js</a>
+        <a class="basic-alignment left" href="/blog/2012/03/12/sentamentalizer/" title="Previous Post: sentimentalizer: A Ruby port of Sentan">&laquo; sentimentalizer: A Ruby port of Sentan</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/03/19/ndc-oslo/" title="next Post: Speaking at NDC Oslo">Speaking at NDC Oslo &raquo;</a>
       
     </p>
   </footer>
@@ -174,8 +173,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yobriefca.se/blog/2012/03/12/sentamentalizer/';
-        var disqus_url = 'http://yobriefca.se/blog/2012/03/12/sentamentalizer/';
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/03/19/ndc-oslo/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/03/19/ndc-oslo/';
         var disqus_script = 'embed.js';
       
     (function () {

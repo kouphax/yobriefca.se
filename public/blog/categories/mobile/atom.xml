@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Mobile | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/mobile/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-19T13:41:13+00:00</updated>
+  <updated>2012-03-19T22:15:41+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
+    <updated>2012-03-19T21:34:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
+    <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
+
+<p>Mike Cohn, Dan North, Robert C. Martin, Udi Dahan, Gojko Adzic, Billy Hollis, Laurent Bugnion, Venkat Subramaniam, Brad Wilson, Phil Haack, Rob Conery, Greg Young, Zach Holman..... and then me.  So someone was drinking when deciding the line up for NDC Oslo right?</p>
+
+<p>Seriously though I've been given one of the best opportunites of my career to talk alongside some of the shining lights of our industry at NDC Oslo so I better not drop the ball.  Thank you to whoever gave me the opportunity.  But hey if I mess up I've got another 2 shots at it... thats right I'm speaking not once, not twice but thrice.</p>
+
+<ul>
+<li><a href="http://ndcoslo.oktaset.com/t-4960">.NET On a Diet</a></li>
+<li><a href="http://ndcoslo.oktaset.com/t-4961">MonoTouch - C# + iOS = Good Times</a></li>
+<li><a href="http://ndcoslo.oktaset.com/t-4872">Mobile, How Do I Develop Thee? Let Me Count the Ways</a></li>
+</ul>
+
+
+<p>Still blown away by this, if you can't tell - given the calibre of people talking this is going to be a highlight of the year for sure.  Also it couldn't have come at a better time - there is so much I've wanted to say about things like the OSS world in .NET, Mono and mobile development. Now I've got the perfect opportunity.</p>
+
+<p>Now whats this .NET thing I keep hearing about :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
@@ -757,52 +781,6 @@
 <h2>Awareness and Education</h2>
 
 <p>So what am I saying?  Well for a start I'm not saying we totally abandon the word hybrid and mock anyone who uses it.  Hells no.  It's still useful as I've already mentioned above. All I ask is that you make sure you know what you are talking about and that the people you are talking to know what you are talking about.  That and don't just take the easy route because it's easier for you.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hackathon #2: Mobile]]></title>
-    <link href="http://yobriefca.se/blog/2011/09/15/hackathon-2-mobile/"/>
-    <updated>2011-09-15T00:00:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2011/09/15/hackathon-2-mobile</id>
-    <content type="html"><![CDATA[<p>So as I've already said in a <a href="/blog/2011/08/29/hackathon-retorspective/">previous post</a> our first hackathon was well recieved.  So why not, we thought, do another one?  And indeed why not?</p>
-
-<p>This time we are changing things up.  Rather than everyone coming together to bang out a solution we are going to have small teams working on the same project on different mobile platforms.  With musical chairs.  Yeah you heard right right.  Musical Chairs.  Kind of.</p>
-
-<p>Heres the deal</p>
-
-<ul>
-<li>A number of stations are set up in a room.</li>
-<li>Each station is set up to host a particular development platform (iOS Native, Android Native, PhoneGap, Web, Windows Phone 7 etc.).</li>
-<li>Each station will have 2 x Developers assigned to them for pairing and 1 X Technology Expert that will act as an advisory role for that stations technology platform</li>
-<li>There will be 1 product owner and 1 idea.</li>
-<li>Each station will produce the solution in the best way possible for that platform</li>
-</ul>
-
-
-<p>Now here's the catch.</p>
-
-<ul>
-<li>Development will be done in sprints lasting 1 hour.  At the end of the sprint the 2 devs at each station get up and move to the next station giving a 5 minute handover to the next team.  This keeps happneing until the Hackathon (24hrs this time) is over.</li>
-</ul>
-
-
-<p>Thats the musical chairs bit.  But why?  Well this allows people to get some exposure to each platform, see the relevant pain points and above all else learn to work as a team rather than being a bunch of selfish pricks (#joke).  Sure the first full cycle will probably be painful for most people but like women who live in the same house - after the first cycle everyone should be roughly in sync (#jokeagain).</p>
-
-<p>It's a grand idea but it's easily broken.  We need to prevent that happening.  Here's how I think we can do that.</p>
-
-<ul>
-<li><strong>People</strong>.  People are key to this one.  More specifically numbers.  We need 3 people per station and 1 product owner.  If people drop out we have to start cutting stations, if numbers aren't right some teams will be too big/small and that wont work.  We got 12 people last time which dropped to about 6 after 24 hours because some people just couldn't hack the pace.  this time people need to commit and stay commited or we fail and that would suck!</li>
-<li><strong>Planning</strong>.  Everything needs to be ready for this one.  It's got a mobile focus and that should remain the focus.  This means all the backend services need to be available and working upfront.  This means user stories need to be defined beforehand and even a few broken down into tasks so devs can get cracking immediatley while the rest are fleshed out.  This means stations needs to be up and running with everything installed and working.  So lots to do.</li>
-<li><strong>Server/Services</strong>.  As I've said these need to be in place and rather than roll our own we are looking at the potentially awesome <a href="https://www.parse.com/">Parse</a> as it will have everything we need for all platforms thanks to the minimum of a RESTful API.  Still under review but it's looking good so far</li>
-<li><strong>Idea</strong>.  We need an idea that is sufficiently small but also feature rich enough to make the implementations different (device integration etc.).  We have some but we need to narrow this down to something that would be beneficial.</li>
-<li><strong>Infrastructure</strong>.  All the infrastructure needs to be in place.  All dev software installed, source control ready, <a href="http://agilezen.com/">AgileZen</a> subscriptions bought, test devices ready blah blah blah</li>
-</ul>
-
-
-<p>I'm sure there's more - I mean it's early days.</p>
-
-<p>So that is where we are right now, lots to think about and lots to do.  We are aiming for a November/December slot if we can get the people and a weekend they are all free.  Excited++.</p>
 ]]></content>
   </entry>
   
