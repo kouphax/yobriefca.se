@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-20T11:38:48+00:00</updated>
+  <updated>2012-03-20T22:38:22+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,167 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
+    <updated>2012-03-20T21:37:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
+    <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
+<img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
+</div>
+
+
+<p>You can&#8217;t call yourself a language these days without having your own <a href="sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it&#8217;s own - <a href="http://sparkjava.com">Spark</a>.  I&#8217;m well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
+
+<p><a href="http://sparkjava.com">Spark</a>&#8217;s site has a great little piece about the &#8220;why&#8221; and that is what stuck with me.  Especially this bit,</p>
+
+<blockquote><p>Its intention is to be used by Java developers that want or are required to develop in pure Java.</p></blockquote>
+
+<p>I know a few people who are &#8220;required&#8221; to develop in pure Java and anything that might make their lives easier would be welcomed.  Being completely out of loop with Java since before Maven made an appearance I had a lot of catching up to do just to get the project running.  In fact I went with SBT as it made things a lot easier for me and my mavenless brain.  I did have to tinker with the dependencies in the <code>ivy2</code> directory due to a <a href="https://github.com/perwendel/spark/pull/15">known issue</a> but if I can do it anyone interested in this can to - if not give me a shout.</p>
+
+<h2>App.java</h2>
+
+<p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.*;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">spark.*</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the &#8220;/&#8221; route.  A couple of other things are worth mentioning here,</p>
+
+<ol>
+<li>The <code>Request</code> object gives you access to many things you would expect i.e. the query parameters.  It gives you so much more than this but I&#8217;ll leave the <a href="http://www.sparkjava.com/readme.html#title2">docs</a> to describe this.</li>
+<li>Just like in Sinatra it is possible to simply <code>halt</code> the request chain at any time.  Here I am halting execution unless the request conforms to my very strict and highly secure authentication scheme.</li>
+</ol>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// extract the name from the request</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// set the response type</span>
+</span><span class='line'>        <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// return some html</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;DOCTYPE html&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;html&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;head&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;/head&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;body&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;    &lt;h1&gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&lt;/h1&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;/body&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;/html&gt;&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally I am defining a route (&#8220;/&#8221;) that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
+
+<h2>SBT Build File</h2>
+
+<p>For the curious among you (you got this far so you must be slightly curious&#8230; and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
+
+<h2>Mopping Up</h2>
+
+<p>OK so thats the basics of the framework but then again there really isn&#8217;t much other stuff besides picking a port and redirecting.  This means there is some things still missing that would really make this framework really stand out,</p>
+
+<ul>
+<li>View rendering.  Even if it is just plain HTML it would be a big leap forward (turns out an <a href="https://github.com/perwendel/spark/issues/1">issue</a> is already open too).</li>
+<li>Static Content.  Would be nice to define a rule for serving static content without having to define a route or filter manually</li>
+<li>Session support.  Again an <a href="https://github.com/perwendel/spark/pull/12">issue and pull request</a> is already available for this.</li>
+</ul>
+
+
+<p>Good work <a href="https://github.com/perwendel/">perwendel</a> keep it up :)</p>
+
+<p>As always my code samples are available on <a href="https://github.com/kouphax/spark-tinkering">Github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
@@ -1430,56 +1591,6 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 <p>The <a href="http://www.devweek.com/sessions/">line-up for DevWeek</a> looks excellent and the pre/post conference workshops all look stellar - so much choice, I just need to find a way to clone myself.</p>
 
 <p>If you&#8217;re going - see you there, catch up with me and come throw tomatoes and/or abuse during my session.  If you&#8217;re not going, well sucks to be you then!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
-    <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
-    <updated>2011-11-16T00:00:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
-    <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;&gt;</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I have.  Ugly and noisy isn&#8217;t it!  <!--more--> OK you could make it <em>slightly</em> less noisy by using <code>var</code></p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Or I suppose you could ahead and create yet another random type to abstract the implementation out of the way but thats just too much work for something internal to a class.</p>
-
-<p>Turns out you can make use of alises.  I&#8217;ve always known about using alises for namespaces to either resolve possible type conflicts or to make code a bit more understandable</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">CoreWeb</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span>
-</span><span class='line'><span class="p">...</span>
-</span><span class='line'><span class="n">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CoreWeb</span><span class="p">.</span><span class="n">Request</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So this works with namespaces <strong>AND</strong> types.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">Cache</span> <span class="p">=</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This allows us to make the declaration above in a much nicer manner,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Cache</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Cache</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>OK so there are way to many uses of the word cache there but you get the gist.  Handy to know.  Never knew this until today #youlearnsomethingneweveryday</p>
 ]]></content>
   </entry>
   

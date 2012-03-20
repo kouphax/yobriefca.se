@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Web | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-20T11:38:48+00:00</updated>
+  <updated>2012-03-20T22:38:22+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,183 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
+    <updated>2012-03-20T21:37:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
+    <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
+<img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
+</div>
+
+
+<p>You can't call yourself a language these days without having your own <a href="sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it's own - <a href="http://sparkjava.com">Spark</a>.  I'm well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
+
+<p><a href="http://sparkjava.com">Spark</a>'s site has a great little piece about the "why" and that is what stuck with me.  Especially this bit,</p>
+
+<blockquote><p>Its intention is to be used by Java developers that want or are required to develop in pure Java.</p></blockquote>
+
+<p>I know a few people who are "required" to develop in pure Java and anything that might make their lives easier would be welcomed.  Being completely out of loop with Java since before Maven made an appearance I had a lot of catching up to do just to get the project running.  In fact I went with SBT as it made things a lot easier for me and my mavenless brain.  I did have to tinker with the dependencies in the <code>ivy2</code> directory due to a <a href="https://github.com/perwendel/spark/pull/15">known issue</a> but if I can do it anyone interested in this can to - if not give me a shout.</p>
+
+<h2>App.java</h2>
+
+<p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.&lt;</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">spark.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
+</span><span class='line'>      <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the "/" route.  A couple of other things are worth mentioning here,</p>
+
+<ol>
+<li>The <code>Request</code> object gives you access to many things you would expect i.e. the query parameters.  It gives you so much more than this but I'll leave the <a href="http://www.sparkjava.com/readme.html#title2">docs</a> to describe this.</li>
+<li>Just like in Sinatra it is possible to simply <code>halt</code> the request chain at any time.  Here I am halting execution unless the request conforms to my very strict and highly secure authentication scheme.</li>
+</ol>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// extract the name from the request</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// set the response type</span>
+</span><span class='line'>    <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// return some html</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;DOCTYPE html&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;html&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;head&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;/head&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;body&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;    &amp;lt;h1&amp;gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&amp;lt;/h1&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;/body&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;/html&amp;gt;&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Finally I am defining a route ("/") that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
+
+<h2>SBT Build File</h2>
+
+<p>For the curious among you (you got this far so you must be slightly curious... and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
+
+<h2>Mopping Up</h2>
+
+<p>OK so thats the basics of the framework but then again there really isn't much other stuff besides picking a port and redirecting.  This means there is some things still missing that would really make this framework really stand out,</p>
+
+<ul>
+<li>View rendering.  Even if it is just plain HTML it would be a big leap forward (turns out an <a href="https://github.com/perwendel/spark/issues/1">issue</a> is already open too).</li>
+<li>Static Content.  Would be nice to define a rule for serving static content without having to define a route or filter manually</li>
+<li>Session support.  Again an <a href="https://github.com/perwendel/spark/pull/12">issue and pull request</a> is already available for this.</li>
+</ul>
+
+
+<p>Good work <a href="https://github.com/perwendel/">perwendel</a> keep it up :)</p>
+
+<p>As always my code samples are available on <a href="https://github.com/kouphax/spark-tinkering">Github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
@@ -511,48 +688,6 @@ Tinyweb.Init();
 <p>I'm sure there's more - I mean it's early days.</p>
 
 <p>So that is where we are right now, lots to think about and lots to do.  We are aiming for a November/December slot if we can get the people and a weekend they are all free.  Excited++.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tinkering with Agility: Honorable Mentions]]></title>
-    <link href="http://yobriefca.se/blog/2011/09/02/tinkering-with-agility-honorable-mentions/"/>
-    <updated>2011-09-02T00:00:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2011/09/02/tinkering-with-agility-honorable-mentions</id>
-    <content type="html"><![CDATA[<p>In the process of <a href="/blog/2011/09/01/tinkering-with-agility/">researching Agility</a> I needed to throw together a quick serverside stack to accept the RESTful calls from Agility.  I went with my current framework de jour <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and I must admit it was a great call.  For more basic info on Tinyweb check out my <a href="/blog/2011/07/18/micro-web-frameworks-101-tinyweb/">blog post</a></p>
-
-<p>Agility by default routes the RESTful requests to <code>api/model/{id}</code> and Tinyweb let me create a handler associated with this sort of url by way of areas.</p>
-
-<h2>Areas</h2>
-
-<p>Tinyweb has a feature I wasn;t aware of before.  It is possible to register a handlers namespace as an "area" (if you have experience with ASP.NET MVC you'll know what that means).</p>
-
-<pre><code>Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
-</code></pre>
-
-<p>This means that even though my handler is call <code>TodoHandler</code> the url would map to the one above without having to sacrifice naming style of the handler or force us to create a custom route variable in each handler that had to map to this area.  Flippin clever stuff</p>
-
-<h2>WebActivator</h2>
-
-<p>Another excellent Nuget package is the <a href="http://nuget.org/List/Packages/WebActivator">WebActivator</a> and I have been charmed by it's slickness recently.  WebActivator allows you to attribute a class/namespace and specify what code should be run when the application starts.  So rather than having to put in a load of lines for configuring different aspects of your stack into <code>Global.asax.cs</code> you can break them into distinct classes and avoid breaking <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">SRP</a> more than you have too.  Here is the example I used in the Agility.js source</p>
-
-<pre><code>[assembly: WebActivator.PostApplicationStartMethod(typeof(TinywebActivator), "Activate")]
-namespace Agility.Tinkerings.Web.Activators
-{
-    public class TinywebActivator
-    {
-        public static void Activate()
-        {
-            Tinyweb.Areas.Add("Agility.Tinkerings.Web.Handlers.Api", "api");
-            Tinyweb.Init();
-        }
-    }
-} 
-</code></pre>
-
-<p> I don't even have a <code>Global.asax</code> defined at all.</p>
-
-<p> Feel free to poke around the source to get a better picture of how I threw the backend together.  Thanks go to <a href="https://github.com/martinrue/Tinyweb">Tinyweb</a> and <a href="http://twitter.com/#!/martinrue">@martinrue</a></p>
 ]]></content>
   </entry>
   

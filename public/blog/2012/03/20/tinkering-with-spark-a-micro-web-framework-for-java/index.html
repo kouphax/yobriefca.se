@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tinkering with Spark: A Micro Web Framework for Java - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="You can&#8217;t call yourself a language these days without having your own Sinatra clone. Not even, it seems, if you are Java. I know - it sounds &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Tinkering With Spark: A Micro Web Framework for Java</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T21:37:00+00:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="text-align:center;margin-bottom:20px;">
+<img src="/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
+</div>
+
+
+<p>You can&#8217;t call yourself a language these days without having your own <a href="sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it&#8217;s own - <a href="http://sparkjava.com">Spark</a>.  I&#8217;m well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
+
+<p><a href="http://sparkjava.com">Spark</a>&#8217;s site has a great little piece about the &#8220;why&#8221; and that is what stuck with me.  Especially this bit,</p>
+
+<blockquote><p>Its intention is to be used by Java developers that want or are required to develop in pure Java.</p></blockquote>
+
+<p>I know a few people who are &#8220;required&#8221; to develop in pure Java and anything that might make their lives easier would be welcomed.  Being completely out of loop with Java since before Maven made an appearance I had a lot of catching up to do just to get the project running.  In fact I went with SBT as it made things a lot easier for me and my mavenless brain.  I did have to tinker with the dependencies in the <code>ivy2</code> directory due to a <a href="https://github.com/perwendel/spark/pull/15">known issue</a> but if I can do it anyone interested in this can to - if not give me a shout.</p>
+
+<h2>App.java</h2>
+
+<p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.*;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">spark.*</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the &#8220;/&#8221; route.  A couple of other things are worth mentioning here,</p>
+
+<ol>
+<li>The <code>Request</code> object gives you access to many things you would expect i.e. the query parameters.  It gives you so much more than this but I&#8217;ll leave the <a href="http://www.sparkjava.com/readme.html#title2">docs</a> to describe this.</li>
+<li>Just like in Sinatra it is possible to simply <code>halt</code> the request chain at any time.  Here I am halting execution unless the request conforms to my very strict and highly secure authentication scheme.</li>
+</ol>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// extract the name from the request</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// set the response type</span>
+</span><span class='line'>        <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// return some html</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;DOCTYPE html&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;html&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;head&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;/head&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;body&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;    &lt;h1&gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&lt;/h1&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;  &lt;/body&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>          <span class="s">&quot;&lt;/html&gt;&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally I am defining a route (&#8220;/&#8221;) that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
+
+<h2>SBT Build File</h2>
+
+<p>For the curious among you (you got this far so you must be slightly curious&#8230; and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
+
+<h2>Mopping Up</h2>
+
+<p>OK so thats the basics of the framework but then again there really isn&#8217;t much other stuff besides picking a port and redirecting.  This means there is some things still missing that would really make this framework really stand out,</p>
+
+<ul>
+<li>View rendering.  Even if it is just plain HTML it would be a big leap forward (turns out an <a href="https://github.com/perwendel/spark/issues/1">issue</a> is already open too).</li>
+<li>Static Content.  Would be nice to define a rule for serving static content without having to define a route or filter manually</li>
+<li>Session support.  Again an <a href="https://github.com/perwendel/spark/pull/12">issue and pull request</a> is already available for this.</li>
+</ul>
+
+
+<p>Good work <a href="https://github.com/perwendel/">perwendel</a> keep it up :)</p>
+
+<p>As always my code samples are available on <a href="https://github.com/kouphax/spark-tinkering">Github</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T21:37:00+00:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/java/' style='text-decoration:none;'><span class='label label-info'>java</span></a> <a href='/blog/categories/spark/' style='text-decoration:none;'><span class='label label-info'>spark</span></a> <a href='/blog/categories/web/' style='text-decoration:none;'><span class='label label-info'>web</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/19/ndc-oslo/" title="Previous Post: Speaking at NDC Oslo">&laquo; Speaking at NDC Oslo</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
