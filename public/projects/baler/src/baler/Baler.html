@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>Baler.cs</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="Bale.html">Bale.cs</a>
+          <a class="source" href="Baler.html">Baler.cs</a>
+          <a class="source" href="BalerConfiguration.html">BalerConfiguration.cs</a>
+          <a class="source" href="FileWriter.html">FileWriter.cs</a>
+          <a class="source" href="IBale.html">IBale.cs</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>Baler.cs</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">﻿</span><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CodeSlice.Web.Baler</span>
+<span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>The Baler class represents the entry point for defining <em>bales</em>
+that can be embedded on a web page</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Baler</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Bale</span><span class="p">&gt;</span> <span class="n">_cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Bale</span><span class="p">&gt;();</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Constructors'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Constructors">&#182;</a>
+        </div>
+        <h3>Constructors</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Responsible for creating the default configuration object including
+setting</p>
+
+<ul>
+<li><code>OutputPath</code> &ndash; the location of the actual generated bales
+relative to the web project root (defaults to <code>~/Scripts</code>)</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">static</span> <span class="nf">Baler</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Configuration</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BalerConfiguration</span>
+            <span class="p">{</span>
+                <span class="n">OutputPath</span> <span class="p">=</span> <span class="s">&quot;~/Scripts&quot;</span>
+            <span class="p">};</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Public_Methods'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Public_Methods">&#182;</a>
+        </div>
+        <h3>Public Methods</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>The build method allows us to define and return a bale.  It
+accepts a list as relative urls, relative to the application root
+such as <code>~/Scripts/script.js</code> or <code>~/Styles/style.css</code> and returns
+the instanstiated bale that can be further configured.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">IBale</span> <span class="nf">Build</span><span class="p">(</span><span class="k">params</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">items</span><span class="p">)</span>
+        <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>Check cache to see if bale is currently defined and return
+cached value otherwise create a new bale and cache it</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>            <span class="kt">string</span> <span class="n">key</span> <span class="p">=</span> <span class="n">Bale</span><span class="p">.</span><span class="n">Hash</span><span class="p">(</span><span class="n">items</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">_cache</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Bale</span><span class="p">(</span><span class="n">items</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">];</span>
+        <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Public_Properties'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Public_Properties">&#182;</a>
+        </div>
+        <h3>Public Properties</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        </pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Provides an entry point into the Baler configuration.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>        <span class="k">public</span> <span class="k">static</span> <span class="n">BalerConfiguration</span> <span class="n">Configuration</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
