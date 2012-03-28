@@ -10,7 +10,7 @@ categories: [Java,Spark,Web]
 <img src="/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
 </div>
 
-You can't call yourself a language these days without having your own [Sinatra](sinatrarb.com) clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it's own - [Spark](http://sparkjava.com).  I'm well aware as of JRE 1.6 has a built in `HttpServer` class but there is such as thing as __too close__ to the metal :)  Also Sparks logo is fairly epic.
+You can't call yourself a language these days without having your own [Sinatra](http://sinatrarb.com) clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it's own - [Spark](http://sparkjava.com).  I'm well aware as of JRE 1.6 has a built in `HttpServer` class but there is such as thing as __too close__ to the metal :)  Also Sparks logo is fairly epic.
 
 [Spark](http://sparkjava.com)'s site has a great little piece about the "why" and that is what stuck with me.  Especially this bit,
 

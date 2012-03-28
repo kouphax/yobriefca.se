@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-20T22:38:22+00:00</updated>
+  <updated>2012-03-28T13:57:36+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,129 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Done Spoked at DevWeek]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek/"/>
+    <updated>2012-03-28T13:19:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek</id>
+    <content type="html"><![CDATA[<p>So I made it through my talk at DevWeek which might sound a little odd but it took a whole bottle of cough syrup to do it.  Not having been sick for most of the winter my body decided a day before DevWeek to go into shut down.  I spent Tuesday in bed with very little voice.  Thankfully the head colds hold on my vocal chords relented this morning and I think I managed to project as best I could.</p>
+
+<p>So initial thoughts of how it went?  I honestly think I&#8217;m getting better at this presenting thing so that must be a good thing, unless I was TERRIBLE before.  The 2 main annoyances that have been raised thus far have been</p>
+
+<h2>1. Too Short</h2>
+
+<p>I did my usual &#8220;talk really fast and finish earlier than planned&#8221; thing I sometimes do. But there was plenty of discussion afterwards which I tought was interesting.  FWIW when I present this to myself it takes longer.  My internal monologue must be slower than the way I speak.  Apologies to anyone that felt it was &#8220;too short&#8221;.</p>
+
+<h2>2. Not enough Visual Studio</h2>
+
+<p>I opted to play it safe end embed code into my slides rather than code live - I didn&#8217;t go unnoticed and I had a few comments that &#8220;moar codez&#8221; would have been good.  Totally agree.</p>
+
+<h2>Other Stuff</h2>
+
+<p>I opted to change my slide deck between submitting them for print and presenting.  I did it out of desire to devlier a better, more structured, talk (my first set being quite short as I was going for a &#8220;free-form&#8221; type of presentation).  Probably not the most professional approach to do this but at least I can say my heart was in the right place :)  Here are offending articles BTW</p>
+
+<div style="max-width:500px;margin:0 auto;">
+    <script src="http://speakerdeck.com/embed/4f719e7aca692c002101c187.js"></script>
+</div>
+
+
+<p>Code that was presented is available, as always, in/on my <a href="https://github.com/kouphax/bddindotnet-code">Github Repo</a>.  Thanks to all who attended and any other feedback you have throw it my way so I can get better at this talking malarky.</p>
+
+<p>Also thanks to the folks at DevWeek for the opportunity - hopefully you&#8217;ll have me back at some point.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
+    <updated>2012-03-22T10:56:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
+    <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It&#8217;s and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I&#8217;ve been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little&#8230; odd.</p>
+
+<p>But hey it&#8217;s an easy fix,</p>
+
+<ul>
+<li>Open your CodeRunner Preferences</li>
+<li>Select the Languages tab</li>
+<li>Select Ruby in the Language List</li>
+<li>Change the run command from <code>ruby $filename</code> to <code>~/.rbenv/shims/ruby $filename</code></li>
+</ul>
+
+
+<h2>Before</h2>
+
+<p><img class="borderless" src="http://yobriefca.se/images/blog/coderunnerruby/before.png"></p>
+
+<h2>After</h2>
+
+<p><img class="borderless" src="http://yobriefca.se/images/blog/coderunnerruby/after.png"></p>
+
+<p>Blam - global rbenv version is now the goto version for CodeRunner.  OK so it won&#8217;t work with rbenv locals but I am sure you can tweak it to make it work (I haven&#8217;t needed it so never looked).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
+    <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
+    <updated>2012-03-22T08:21:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
+    <content type="html"><![CDATA[<p>So I&#8217;ve been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It&#8217;s obviously not the most complicated system in the world but hey it was new to me.</p>
+
+<p>Anyway my current setup features a lot of html based pages (the default markdown approach didn&#8217;t fit due to styling needs) and it was getting rather noisy.  So I wrote, as there didn&#8217;t seem to be one out there, a <a href="http://slim-lang.com/">Slim</a> generator.  And here it is,  step back it&#8217;s VERY COMPLEX&#8230;.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;slim&#39;</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">SlimConverter</span> <span class="o">&lt;</span> <span class="no">Converter</span>
+</span><span class='line'>    <span class="n">safe</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="n">priority</span> <span class="ss">:low</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">ext</span> <span class="o">=~</span> <span class="sr">/slim/i</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">output_ext</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+</span><span class='line'>      <span class="s2">&quot;.html&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">begin</span>
+</span><span class='line'>        <span class="no">Slim</span><span class="o">::</span><span class="no">Template</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="n">content</span> <span class="p">}</span><span class="o">.</span><span class="n">render</span>
+</span><span class='line'>      <span class="k">rescue</span> <span class="no">StandardError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>        <span class="nb">puts</span> <span class="s2">&quot;!!! SLIM Error: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just drop this file (call it anything) into your plugins folder in Jekyll/Octopress and any file with the <code>slim</code> extension will use this converter to generate HTML.  No more noisy HTML for me!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
@@ -23,7 +146,7 @@
 </div>
 
 
-<p>You can&#8217;t call yourself a language these days without having your own <a href="sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it&#8217;s own - <a href="http://sparkjava.com">Spark</a>.  I&#8217;m well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
+<p>You can&#8217;t call yourself a language these days without having your own <a href="http://sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it&#8217;s own - <a href="http://sparkjava.com">Spark</a>.  I&#8217;m well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
 
 <p><a href="http://sparkjava.com">Spark</a>&#8217;s site has a great little piece about the &#8220;why&#8221; and that is what stuck with me.  Especially this bit,</p>
 
@@ -1537,60 +1660,6 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 <h2>Awareness and Education</h2>
 
 <p>So what am I saying?  Well for a start I&#8217;m not saying we totally abandon the word hybrid and mock anyone who uses it.  Hells no.  It&#8217;s still useful as I&#8217;ve already mentioned above. All I ask is that you make sure you know what you are talking about and that the people you are talking to know what you are talking about.  That and don&#8217;t just take the easy route because it&#8217;s easier for you.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Chutzpah 1.3 Released]]></title>
-    <link href="http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
-    <updated>2011-11-27T09:51:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released</id>
-    <content type="html"><![CDATA[<p>I missed the announcement last week the <a href="http://matthewmanela.com/blog/chutzpah-1-3-0-released/">Chutzpah 1.3 has been released</a>.  This is a big release as it brings support for <a href="http://pivotal.github.com/jasmine">Jasmine</a> - my BDD framework of choice for JavaScript.</p>
-
-<!-- more -->
-
-
-<p><a href="http://chutzpah.codeplex.com/">Chutzpah</a> is available as a plugin for Visual Studio but more importantly as a command line runner which allows us to integrate JavaScript testing into our continuious integration builds.  Excellent stuff!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Out with the old...]]></title>
-    <link href="http://yobriefca.se/blog/2011/11/25/out-with-the-old-dot-dot-dot/"/>
-    <updated>2011-11-25T07:50:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/11/25/out-with-the-old-dot-dot-dot</id>
-    <content type="html"><![CDATA[<p>&#8230; in with the new.  So I&#8217;ve started rolling out my new site, expect somethings to be slightly broken as images and whatnot have been moved around.  Spent a day or two designing a new site that was similar to the old one but slightly better.  Eventually got frustrated at my inability to do any sort of graphical design and went the <a href="http://octopress.org">Octopress</a>.</p>
-
-<!-- more -->
-
-
-<p>Still a few things to tweak, possibly add a splash of colour around the place and give it a bit more life.  Also apologies to people who subscribe to my feed - looks like the new feed has pushed all the old posts out as new.  But hey they are worth reading twice!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
-    <link href="http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012/"/>
-    <updated>2011-11-17T00:00:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012</id>
-    <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
-
-<p>So it&#8217;s been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it&#8217;s quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>
-
-<!--more-->
-
-
-<blockquote><h3>BDD and .NET</h3>
-
-<p>Behaviour Driven Design/Development is an interesting premise, but does it really work? What benefits does it offer and how can we successfully apply its principles in the .NET world? We can answer these questions by reviewing the principles around BDD and diving into the technologies that exist in the .NET world that support these principles.</p>
-
-<p>From low-level unit focused testing technologies all the way up to the more abstract integration and acceptance level suite of specifications, automated testing and continuous integration, we will see that .NET isn’t lacking in choice. As a bonus we will address the oft ignored testing of our JavaScript project components using tools such as Jasmine and QUnit.</p></blockquote>
-
-<p>The brief was written in haste and sounds a bit boilerplate but I will be giving it my all and really pull off an engaging session.  I&#8217;ve been at the attendee end of a few bad sessions and I will do my damnedest not to put anyone through that kind of ordeal.</p>
-
-<p>The <a href="http://www.devweek.com/sessions/">line-up for DevWeek</a> looks excellent and the pre/post conference workshops all look stellar - so much choice, I just need to find a way to clone myself.</p>
-
-<p>If you&#8217;re going - see you there, catch up with me and come throw tomatoes and/or abuse during my session.  If you&#8217;re not going, well sucks to be you then!</p>
 ]]></content>
   </entry>
   

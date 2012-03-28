@@ -232,3 +232,9 @@ body.sidebar-footer {
     ul, ol { margin-left: 0; }
   }
 }
+
+img.borderless {
+  border:none!important; 
+  box-shadow:none!important; 
+  -webkit-box-shadow:none!important;
+}

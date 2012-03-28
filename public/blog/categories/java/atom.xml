@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Java | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-20T22:38:22+00:00</updated>
+  <updated>2012-03-28T13:57:36+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -23,7 +23,7 @@
 </div>
 
 
-<p>You can't call yourself a language these days without having your own <a href="sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it's own - <a href="http://sparkjava.com">Spark</a>.  I'm well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
+<p>You can't call yourself a language these days without having your own <a href="http://sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it's own - <a href="http://sparkjava.com">Spark</a>.  I'm well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
 
 <p><a href="http://sparkjava.com">Spark</a>'s site has a great little piece about the "why" and that is what stuck with me.  Especially this bit,</p>
 
