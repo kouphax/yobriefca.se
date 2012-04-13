@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-03-28T13:57:36+01:00</updated>
+  <updated>2012-04-13T12:26:32+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
+    <updated>2012-04-03T17:24:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
+    <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
+
+<p>Alfred to the rescue here, just create a script as shown below and then running alfred and typing <code>l 9000</code> you can launch your default browser at <code>http://localhost:9000</code>.  Very simple but saves me heaps of time at the minute.</p>
+
+<p><img class="borderless" src="/images/blog/alfredscript.png"></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
@@ -99,17 +112,6 @@
     <updated>2012-01-31T16:53:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/01/31/on-craftmanship</id>
     <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It's the one that's always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you'll have better stories to tell when you get there.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Enterprise Scale]]></title>
-    <link href="http://yobriefca.se/blog/2012/01/26/enterprise-scale/"/>
-    <updated>2012-01-26T09:54:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2012/01/26/enterprise-scale</id>
-    <content type="html"><![CDATA[<p>Enterprise.  What a broken, misued term.  Its meant to sound big, huge even. I guess many years ago it used to mean big, huge, big business serious work.</p>
-
-<p>But when you think about it, its none of those things really, not any more. <!-- more --> Even the biggest multi-nationals entire enterprise backbone throughput is probably a small fraction of Lady Gagas Twitter feed. Enterprise is just that - one enterprise. Social is global, its all of us at anytime and that is so much bigger than some old enterprise. So if you try and pimp out your CV by using the term enterprise - the only people who are probably going to care are the managers and execs that think their little boring legacy system is unique and special... Do you really want to be sold that sort of job?  All bytes are equal, some are more equal than others - Pah!  Some are more mired in unnecessary abstraction, contracts and unread, out-of-date doucmentation but they are still bytes.</p>
 ]]></content>
   </entry>
   

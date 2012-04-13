@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Selenium | Yo Briefcase!]]></title>
+  <link href="http://yobriefca.se/blog/categories/selenium/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-04-13T12:26:32+01:00</updated>
+  <id>http://yobriefca.se/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
+    <updated>2012-04-02T15:21:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
+    <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I've been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
+
+<p>I looked around the interwebs and didn't really find anything - now I'm not saying it isn't out there, I am certain it is, but I couldn't find it.  So I decided to document how I did it in case any lone sole is stuck in a similar situation...</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">driver</span><span class="o">.</span><span class="n">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="n">id</span><span class="o">(</span><span class="s">&quot;year&quot;</span><span class="o">)).&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="n">tagName</span><span class="o">(</span><span class="s">&quot;option&quot;</span><span class="o">)).</span>
+</span><span class='line'><span class="n">get</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span>
+</span><span class='line'><span class="n">setSelected</span><span class="o">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So here I am simply finding the second <code>option</code> of the "year" <code>select</code> element and setting it selected.  I know it looks obvious now but trust me I was scratching my head for an age on this one.</p>
+
+<p>I hope it helps some one, eventually :)</p>
+
+<div style="text-align:center">
+<img src="http://imgs.xkcd.com/comics/wisdom_of_the_ancients.png">
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>
