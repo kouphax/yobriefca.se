@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-13T12:26:32+01:00</updated>
+  <updated>2012-04-17T22:30:33+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
+    <updated>2012-04-17T22:08:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
+    <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It&#8217;s fulfils a need I keep having but never really fixing.</p>
+
+<h2>Evelvator Pitch</h2>
+
+<p>SYL, or lad for short, will take a git repo, clone it and replace a bunch of tokens in it with the values you&#8217;ve supplied.</p>
+
+<h2>Say Wha?</h2>
+
+<p>This means you can create a bunch of base solution/project types for any language and SYL will simply do some basic file/folder renaming and file content replacing for a given token.  For example doing the following,</p>
+
+<pre><code>lad /path/to/git/repo MyNewProject
+</code></pre>
+
+<p>Will do the following things,</p>
+
+<ol>
+<li>Clone the repo at <code>path/to/git/repo</code> into a temporary folder</li>
+<li>Remove the <code>.git</code> folder from the repo</li>
+<li>Check for the existence of a <code>.ladconfig</code> in the freshly cloned repo</li>
+<li>If one exists it loads the config setting</li>
+<li>Otherwise it falls back to the defaults</li>
+<li>Replace all instances of the configured token (eg. <code>__NAME__</code>) in all files, directories and file contents with the project name (in our case <code>MyNewProject</code>)</li>
+<li>Copy the new folder over to your current working directory (<code>./MyNewProject</code>)</li>
+</ol>
+
+
+<p>What this allows you to do is have a standard project template for pretty much anything (.NET, Ruby, Scala - listen I mean anything - if it a collection of folders and files in a git repo then you set) and create a new instance with a few keystrokes - saving you time and potential RSI.</p>
+
+<p>SYL was inspired by <a href="https://github.com/chucknorris/warmup">WarmuP</a> which is itself a gem but it requires you to be running .NET which for a lot of my requirement isn&#8217;t going to cut it.</p>
+
+<p>If you want to see what a typical template project looks like try <a href="https://github.com/amirrajan/Loam">Amir&#8217;s Loam repo</a>.  This is a WarmuP project but works just fine.  With SYL you can create a <code>.ladconfig</code> file to override some of the conventions - get the source README linked above.</p>
+
+<h2>Whats Next</h2>
+
+<p>Yep it&#8217;s pretty damn basic right now but it satifies most of my needs right now.  There are a few things I want to add for myself but I didn&#8217;t release this for ME, I am pretty sure this will be of use to someone in some community in some shape or form.  With that in mind here are some features I think would take this to the next level,</p>
+
+<ol>
+<li>Specifiying multiple tokens e.g. <code>__NAME__</code> and <code>__NAMESPACE__</code> and <code>__YEAR__</code> etc. etc.</li>
+<li>Post processing actions (e.g. <code>bundle install</code> or <code>npm install</code> or <code>sbt compile</code> or something like that)</li>
+<li>A catalog - I have a <a href="https://github.com/strapping-young-lad">github organisation</a> with no repos setup right now but this would be a brilliant place to hold a load of templates compatible with SYL, don&#8217;t ya think?  Then I could roll a site like rubygems or npmjs.org and make the projects searchable etc.  If you build it, they will come.  Maybe, who knows.</li>
+</ol>
+
+
+<p>So if you like it - HIGHFIVE - if not - it&#8217;s all good.  Now go break it and criticise me.</p>
+
+<blockquote><p>So we&#8217;ll criticise him, because he can take it&#8230;. [The Dark Knight, Approx.]</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
@@ -1193,26 +1247,6 @@ If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is
 <h2>In Summary</h2>
 
 <p>Boooo to 2011, Yay to 2012.  See you around the same time next year when I have another failful year and promising myself a better one in 2013 :-P</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Code Coverage and the Forces of Good]]></title>
-    <link href="http://yobriefca.se/blog/2011/12/27/code-coverage-and-the-forces-of-good/"/>
-    <updated>2011-12-27T09:23:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/12/27/code-coverage-and-the-forces-of-good</id>
-    <content type="html"><![CDATA[<p>Code coverage often does more harm than good.  It removes the focus from testing the expected behaviour of the code to just writing tests to make sure all your code is hit (gamifiying the process to its own detriment).  People will bend tests, often in a way that no typical use case could, just to make them run as they want.  This is unrealistic and paints a false picture of the behaviour of your code.</p>
-
-<!-- more -->
-
-
-<p>That being said - code coverage is a tool and it shouldn&#8217;t be blamed for enabling bad habits (a bad workman always blames hi&#8230; well, you know the rest).  So can code coverage be applied in a less obvious way?  Indeed it can.</p>
-
-<p>Business users invariably end up using things like <a href="http://google.com/analytics">Google Analytics</a>, <a href="http://gaug.es">Gauges</a> or <a href="http://flurry.com">Flurry</a> to discover the most valuable areas of the solution and tailor accordingly.  Makes perfect sense, right?  So why not use code coverage, during development, as a mechanism to identify redundant areas of code, or discover feature hotspots that could benefit from refactoring or performance tweaking?  Why not indeed?</p>
-
-<p>As any system evolves there will be behaviours that simply don&#8217;t need to exist to satisfy the overall behaviour of the system.  Some code and it&#8217;s related tests will still hang around.  It happens and with the right tools you&#8217;ll be able to see those areas - MightyMoose will show you hit counts for lines of code for example.  So by ensuring tests are reviewed as part of your code review process (or refactored during pairing) you&#8217;ll also get reporting of redundant code or feature hotspots for free.</p>
-
-<p>So if your project is already reporting on code coverage thanks to some great architectural mandate why not at least use it for something more positive?</p>
 ]]></content>
   </entry>
   

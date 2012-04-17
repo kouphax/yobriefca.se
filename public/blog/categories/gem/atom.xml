@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>gem | Yo Briefcase!]]></title>
+  <link href="http://yobriefca.se/blog/categories/gem/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-04-17T22:30:33+01:00</updated>
+  <id>http://yobriefca.se/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
+    <updated>2012-04-17T22:08:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
+    <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It's fulfils a need I keep having but never really fixing.</p>
+
+<h2>Evelvator Pitch</h2>
+
+<p>SYL, or lad for short, will take a git repo, clone it and replace a bunch of tokens in it with the values you've supplied.</p>
+
+<h2>Say Wha?</h2>
+
+<p>This means you can create a bunch of base solution/project types for any language and SYL will simply do some basic file/folder renaming and file content replacing for a given token.  For example doing the following,</p>
+
+<pre><code>lad /path/to/git/repo MyNewProject
+</code></pre>
+
+<p>Will do the following things,</p>
+
+<ol>
+<li>Clone the repo at <code>path/to/git/repo</code> into a temporary folder</li>
+<li>Remove the <code>.git</code> folder from the repo</li>
+<li>Check for the existence of a <code>.ladconfig</code> in the freshly cloned repo</li>
+<li>If one exists it loads the config setting</li>
+<li>Otherwise it falls back to the defaults</li>
+<li>Replace all instances of the configured token (eg. <code>__NAME__</code>) in all files, directories and file contents with the project name (in our case <code>MyNewProject</code>)</li>
+<li>Copy the new folder over to your current working directory (<code>./MyNewProject</code>)</li>
+</ol>
+
+
+<p>What this allows you to do is have a standard project template for pretty much anything (.NET, Ruby, Scala - listen I mean anything - if it a collection of folders and files in a git repo then you set) and create a new instance with a few keystrokes - saving you time and potential RSI.</p>
+
+<p>SYL was inspired by <a href="https://github.com/chucknorris/warmup">WarmuP</a> which is itself a gem but it requires you to be running .NET which for a lot of my requirement isn't going to cut it.</p>
+
+<p>If you want to see what a typical template project looks like try <a href="https://github.com/amirrajan/Loam">Amir's Loam repo</a>.  This is a WarmuP project but works just fine.  With SYL you can create a <code>.ladconfig</code> file to override some of the conventions - get the source README linked above.</p>
+
+<h2>Whats Next</h2>
+
+<p>Yep it's pretty damn basic right now but it satifies most of my needs right now.  There are a few things I want to add for myself but I didn't release this for ME, I am pretty sure this will be of use to someone in some community in some shape or form.  With that in mind here are some features I think would take this to the next level,</p>
+
+<ol>
+<li>Specifiying multiple tokens e.g. <code>__NAME__</code> and <code>__NAMESPACE__</code> and <code>__YEAR__</code> etc. etc.</li>
+<li>Post processing actions (e.g. <code>bundle install</code> or <code>npm install</code> or <code>sbt compile</code> or something like that)</li>
+<li>A catalog - I have a <a href="https://github.com/strapping-young-lad">github organisation</a> with no repos setup right now but this would be a brilliant place to hold a load of templates compatible with SYL, don't ya think?  Then I could roll a site like rubygems or npmjs.org and make the projects searchable etc.  If you build it, they will come.  Maybe, who knows.</li>
+</ol>
+
+
+<p>So if you like it - HIGHFIVE - if not - it's all good.  Now go break it and criticise me.</p>
+
+<blockquote><p>So we'll criticise him, because he can take it.... [The Dark Knight, Approx.]</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>
