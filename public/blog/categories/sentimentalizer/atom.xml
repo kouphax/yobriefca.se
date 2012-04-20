@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>sentimentalizer | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/sentimentalizer/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-17T22:30:33+01:00</updated>
+  <updated>2012-04-20T21:53:44+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[sentimentalizer: A Ruby port of Sentan]]></title>
     <link href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/"/>
-    <updated>2012-03-12T19:22:00+00:00</updated>
+    <updated>2012-03-12T19:22:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/12/sentamentalizer</id>
     <content type="html"><![CDATA[<p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>'s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
 

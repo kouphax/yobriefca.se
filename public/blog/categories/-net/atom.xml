@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>.NET | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/-net/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-17T22:30:33+01:00</updated>
+  <updated>2012-04-20T21:53:44+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
     <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+00:00</updated>
+    <updated>2012-03-19T21:34:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
     <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
@@ -40,7 +40,7 @@
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
     <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
-    <updated>2012-01-05T13:59:00+00:00</updated>
+    <updated>2012-01-05T13:59:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
@@ -126,7 +126,7 @@
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
     <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
-    <updated>2011-11-16T00:00:00+00:00</updated>
+    <updated>2011-11-16T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
@@ -171,7 +171,7 @@
   <entry>
     <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
     <link href="http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook/"/>
-    <updated>2011-11-01T00:00:00+00:00</updated>
+    <updated>2011-11-01T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook</id>
     <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
 
@@ -357,7 +357,7 @@
   <entry>
     <title type="html"><![CDATA[DDDNorth Retrospective]]></title>
     <link href="http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective/"/>
-    <updated>2011-10-09T00:00:00+01:00</updated>
+    <updated>2011-10-09T00:00:00+02:00</updated>
     <id>http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective</id>
     <content type="html"><![CDATA[<p>So its the day after DDD North and I'm more or less getting packed and ready to do the long boring travel bit home, which is really less travelling and more waiting around.  Anyway DDD North was pretty special.  Excellent turn out, great location and above all some great talks.  My talk (refORM: Death to ORMs in .NET) had a technical problem with the projector which meant the live demo section I wove in since last weeks talk had to be abandoned, shit happens.  It also went very fast, the talk was over in about 35 minutes but at least there was plenty of banter and questions - so at least the people seemed to be engaged.  Enough about my woes.  I'll have the slides and the (super secret) demo code available as soon as get back home.</p>
 

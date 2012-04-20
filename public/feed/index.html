@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-17T22:30:33+01:00</updated>
+  <updated>2012-04-20T21:53:44+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,141 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
+    <updated>2012-04-20T21:36:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
+    <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
+
+<pre><code>token: ['__NAME__', '__NAMESPACE__', '__AUTHOR__']
+</code></pre>
+
+<p>The user will be prompted to specify the values for these tokens before the engine goes off and does the replacement.  The <code>__NAME__</code> token is a bit special - you still need to specify the project name as part of the command line call so if SYL come across this token in the the list of configured tokens it will allow you to default that value without having to type it again, e.g.</p>
+
+<pre><code>lad git@github.com:strapping-young-lad/Loam.git laddy
+
+  Cloning git repository                OK
+  Loading configuration                 OK
+  Parsing tokens and stuff              
+    name (laddy): 
+    namespace: test.lad
+    author: kouphax
+                                        OK
+  Processing files                      OK
+  Processing directories                OK
+  Moving project files                  OK
+
+  Done processing 137 file(s)
+  Done processing 22 directories(s)
+</code></pre>
+
+<p>Notice I didn&#8217;t need to specify the name of the project again and then I was prompted for the second and third token values.  Simple stuff.</p>
+
+<h2>Next up</h2>
+
+<p>So there are a few outstanding efforts to go in now.  Namely push some more templates into the SYL repo and spin up a site that lets you search said templates and document all the little features of SYL.  They will come in time.</p>
+
+<p>This is the life!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
+    <updated>2012-04-20T14:52:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4f911c9791b203001f00cc2b" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Resources</h2>
+
+<p>I mentioned a lot of technologies during my talk so here are the ones I mentioned</p>
+
+<h3>Web Frameworks</h3>
+
+<ul>
+<li><a href="http://jquerymobile.com/">jQuery Mobile</a></li>
+<li><a href="http://www.sencha.com/products/touch">Sencha Touch</a></li>
+</ul>
+
+
+<h3>Design</h3>
+
+<ul>
+<li><a href="http://codiqa.com/">Codiqa</a></li>
+<li><a href="http://www.sencha.com/products/architect/">Sencha Architect 2</a></li>
+</ul>
+
+
+<h3>Web Containers</h3>
+
+<ul>
+<li><a href="http://phonegap.com/">Phonegap</a></li>
+<li><a href="http://incubator.apache.org/cordova/">Cordova</a></li>
+</ul>
+
+
+<h3>Cross Platform</h3>
+
+<ul>
+<li><a href="http://xamarin.com/monotouch">Monotouch</a></li>
+<li><a href="http://xamarin.com/monoforandroid">Monodroid</a></li>
+<li><a href="http://www.anscamobile.com/corona/">Corona</a></li>
+<li><a href="https://build.phonegap.com/">Phonegap:Build</a></li>
+<li><a href="http://www.appcelerator.com/platform/titanium-sdk">Titanium</a></li>
+</ul>
+
+
+<h3>Server Platforms</h3>
+
+<ul>
+<li><a href="https://parse.com/">Parse</a></li>
+<li><a href="http://www.kinvey.com/">Kinvey</a></li>
+</ul>
+
+
+<h3>Cloud Services</h3>
+
+<ul>
+<li><a href="http://www.flurry.com/">Flurry</a></li>
+<li><a href="http://urbanairship.com/">Urban  Airship</a></li>
+</ul>
+
+
+<h3>Testing &amp; Debugging</h3>
+
+<ul>
+<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>
+<li><a href="https://www.lesspainful.com/">Less Painful</a></li>
+<li><a href="http://www.testingwithfrank.com/">Frank</a></li>
+<li><a href="http://people.apache.org/~pmuellr/weinre/">Weinre</a></li>
+</ul>
+
+
+<h3>Beta Testing</h3>
+
+<ul>
+<li><a href="https://testflightapp.com/">Testflight</a></li>
+<li><a href="http://www.hockeyapp.net/">Hockey</a></li>
+</ul>
+
+
+<h2>Comments</h2>
+
+<p>So how did it go?  From my perspective it could have been better - I&#8217;m not sure why started &#8220;ummmmming&#8221; all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats good what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
+
+<p>One more note - Gdasnk is awesome - the technical people are so engaged and enthusiastic, the place itself is really interesting and I managed try my new favourite shot - <a href="http://www.drinksmixer.com/drink10324.html">Mad Dog</a>.  Thanks for the opportunity Gdasnk and Infoshare.  Hopefully I can back here and spend more time in the city soon.</p>
+
+<p>Na zdrowie</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
     <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+01:00</updated>
+    <updated>2012-04-17T22:08:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
     <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It&#8217;s fulfils a need I keep having but never really fixing.</p>
 
@@ -70,7 +202,7 @@
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+01:00</updated>
+    <updated>2012-04-13T09:06:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don&#8217;t use it all the time!</p>
 
@@ -95,7 +227,7 @@
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+01:00</updated>
+    <updated>2012-04-03T17:24:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I&#8217;ve thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it&#8217;s working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -108,7 +240,7 @@
   <entry>
     <title type="html"><![CDATA[Rails is not a gateway drug]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug/"/>
-    <updated>2012-04-03T13:30:00+01:00</updated>
+    <updated>2012-04-03T13:30:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug</id>
     <content type="html"><![CDATA[<blockquote><p>WARNING!!! - a negative opinion on Rails lies ahead.  Everything here needs to be taken with an <strong>IMHO</strong> and, if you feel so inclined, tell me to go mind my own business.</p></blockquote>
 
@@ -250,7 +382,7 @@
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+01:00</updated>
+    <updated>2012-04-02T15:21:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I&#8217;ve been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 
@@ -283,7 +415,7 @@
   <entry>
     <title type="html"><![CDATA[Done Spoked at DevWeek]]></title>
     <link href="http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek/"/>
-    <updated>2012-03-28T13:19:00+01:00</updated>
+    <updated>2012-03-28T13:19:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek</id>
     <content type="html"><![CDATA[<p>So I made it through my talk at DevWeek which might sound a little odd but it took a whole bottle of cough syrup to do it.  Not having been sick for most of the winter my body decided a day before DevWeek to go into shut down.  I spent Tuesday in bed with very little voice.  Thankfully the head colds hold on my vocal chords relented this morning and I think I managed to project as best I could.</p>
 
@@ -315,7 +447,7 @@
   <entry>
     <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+00:00</updated>
+    <updated>2012-03-22T10:56:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
     <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It&#8217;s and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I&#8217;ve been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little&#8230; odd.</p>
 
@@ -344,7 +476,7 @@
   <entry>
     <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
-    <updated>2012-03-22T08:21:00+00:00</updated>
+    <updated>2012-03-22T08:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
     <content type="html"><![CDATA[<p>So I&#8217;ve been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It&#8217;s obviously not the most complicated system in the world but hey it was new to me.</p>
 
@@ -406,7 +538,7 @@
   <entry>
     <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
     <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
-    <updated>2012-03-20T21:37:00+00:00</updated>
+    <updated>2012-03-20T21:37:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
     <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
 <img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
@@ -567,7 +699,7 @@
   <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
     <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+00:00</updated>
+    <updated>2012-03-19T21:34:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
     <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
@@ -591,7 +723,7 @@
   <entry>
     <title type="html"><![CDATA[sentimentalizer: A Ruby port of Sentan]]></title>
     <link href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/"/>
-    <updated>2012-03-12T19:22:00+00:00</updated>
+    <updated>2012-03-12T19:22:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/12/sentamentalizer</id>
     <content type="html"><![CDATA[<p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>&#8217;s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
 
@@ -614,7 +746,7 @@
   <entry>
     <title type="html"><![CDATA[Tinkering with minion.js]]></title>
     <link href="http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js/"/>
-    <updated>2012-03-08T13:13:00+00:00</updated>
+    <updated>2012-03-08T13:13:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js</id>
     <content type="html"><![CDATA[<p>Yay a technical post&#8230;</p>
 
@@ -785,7 +917,7 @@
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
     <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+00:00</updated>
+    <updated>2012-03-06T23:22:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
     <content type="html"><![CDATA[<p>Ya&#8217;ll about ready for another silly analogy?  I sure am&#8230;.</p>
 
@@ -804,7 +936,7 @@
   <entry>
     <title type="html"><![CDATA[The Estimation 4x4]]></title>
     <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
-    <updated>2012-02-12T19:36:00+00:00</updated>
+    <updated>2012-02-12T19:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
     <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I&#8217;ve ever had the pleasure to work with.</p></blockquote>
 
@@ -833,7 +965,7 @@
   <entry>
     <title type="html"><![CDATA[Caveat Abstractor]]></title>
     <link href="http://yobriefca.se/blog/2012/02/09/caveat-abstractor/"/>
-    <updated>2012-02-09T08:37:00+00:00</updated>
+    <updated>2012-02-09T08:37:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/02/09/caveat-abstractor</id>
     <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
 
@@ -865,7 +997,7 @@
   <entry>
     <title type="html"><![CDATA[On Craftmanship and Understanding, I Guess]]></title>
     <link href="http://yobriefca.se/blog/2012/01/31/on-craftmanship/"/>
-    <updated>2012-01-31T16:53:00+00:00</updated>
+    <updated>2012-01-31T16:53:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/01/31/on-craftmanship</id>
     <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It&#8217;s the one that&#8217;s always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you&#8217;ll have better stories to tell when you get there.</p>
 ]]></content>
@@ -874,7 +1006,7 @@
   <entry>
     <title type="html"><![CDATA[Enterprise Scale]]></title>
     <link href="http://yobriefca.se/blog/2012/01/26/enterprise-scale/"/>
-    <updated>2012-01-26T09:54:00+00:00</updated>
+    <updated>2012-01-26T09:54:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/01/26/enterprise-scale</id>
     <content type="html"><![CDATA[<p>Enterprise.  What a broken, misued term.  Its meant to sound big, huge even. I guess many years ago it used to mean big, huge, big business serious work.</p>
 
@@ -885,7 +1017,7 @@
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
     <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
-    <updated>2012-01-05T13:59:00+00:00</updated>
+    <updated>2012-01-05T13:59:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn&#8217;t the current build wont run in WP7.  So another item on the list is a version that doesn&#8217;t rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
@@ -966,287 +1098,6 @@
 <p>Happy hacking.</p>
 
 <p>Can I have my WP7 MVP now please?  <strong>Kidding</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
-    <link href="http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
-    <updated>2011-12-30T20:46:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
-    <content type="html"><![CDATA[<p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I&#8217;d have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later&#8230;</p>
-
-<!-- more -->
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">TEntity</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">NancyModule</span> <span class="n">where</span> <span class="n">TEntity</span> <span class="p">:</span> <span class="k">class</span>
-</span><span class='line'><span class="err">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">RailslikeControllerFor</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span> <span class="p">+</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Index</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/new&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">New</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Post</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Create</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Show</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])/edit&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Edit</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Put</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Update</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Delete</span><span class="p">[</span><span class="s">@&quot;/(?&lt;id&gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Destroy</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">New</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Create</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Show</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Edit</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Update</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Destroy</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">protected</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">AsView</span><span class="p">(</span><span class="kt">object</span> <span class="n">model</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">method</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StackTrace</span><span class="p">().</span><span class="n">GetFrame</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">entity</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">View</span><span class="p">[</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;{0}/{1}&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span> <span class="n">model</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To use it you just subclass the class and override the necessary methods.  Like so.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">QuestionModule</span> <span class="p">:</span> <span class="n">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">Question</span><span class="p">&gt;</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">QuestionModule</span><span class="p">(</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">questions</span> <span class="p">=</span> <span class="n">questions</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">override</span> <span class="n">Response</span> <span class="nf">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nf">AsView</span><span class="p">(</span><span class="n">questions</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What the base class does is create the necessary CRUDdy urls with a base route starting with the name of the entity you pass in, pluralised in the easiest way possible.  In this case <code>/questions</code>.  The rules match what you wold get for a controller in Rails.</p>
-
-<table style="width:100%" border="1">
-    <tbody>
-        <tr style="background-color: #666;color:#fff;">
-            <th style="padding:4px;font-weight:bold;">Verb </th>
-            <th style="padding:4px;font-weight:bold;">Path</th>
-            <th style="padding:4px;font-weight:bold;">Action </th>
-            <th style="padding:4px;font-weight:bold;"></th>
-        </tr>
-        <tr>
-            <td style="padding:4px;"><span class="caps">GET</span>     </td>
-            <td style="padding:4px;">/questions           </td>
-            <td style="padding:4px;">index    </td>
-            <td style="padding:4px;">display a list of all questions</td>
-        </tr>
-        <tr style="background-color: #fff;">
-            <td style="padding:4px;"><span class="caps">GET</span>     </td>
-            <td style="padding:4px;">/questions/new       </td>
-            <td style="padding:4px;">new      </td>
-            <td style="padding:4px;">return an <span class="caps">HTML</span> form for creating a new question</td>
-        </tr>
-        <tr>
-            <td style="padding:4px;"><span class="caps">POST</span>    </td>
-            <td style="padding:4px;">/questions           </td>
-            <td style="padding:4px;">create   </td>
-            <td style="padding:4px;">create a new question</td>
-        </tr>
-        <tr style="background-color: #fff;">
-            <td style="padding:4px;"><span class="caps">GET</span>     </td>
-            <td style="padding:4px;">/questions/:id       </td>
-            <td style="padding:4px;">show     </td>
-            <td style="padding:4px;">display a specific question</td>
-        </tr>
-        <tr>
-            <td style="padding:4px;"><span class="caps">GET</span>     </td>
-            <td style="padding:4px;">/questions/:id/edit  </td>
-            <td style="padding:4px;">edit     </td>
-            <td style="padding:4px;">return an <span class="caps">HTML</span> form for editing a question</td>
-        </tr>
-        <tr style="background-color: #fff;">
-            <td style="padding:4px;"><span class="caps">PUT</span>     </td>
-            <td style="padding:4px;">/questions/:id       </td>
-            <td style="padding:4px;">update   </td>
-            <td style="padding:4px;">update a specific question</td>
-        </tr>
-        <tr>
-            <td style="padding:4px;"><span class="caps">DELETE</span>  </td>
-            <td style="padding:4px;">/questions/:id       </td>
-            <td style="padding:4px;">destroy  </td>
-            <td style="padding:4px;">delete a specific question</td>
-        </tr>
-    </tbody>
-</table>
-
-
-<br/>
-
-
-<p>There is a teeny-tiny bit of sugar in the <code>AsView</code> method that will look up the corresponding view.  So the module above would resolve its <code>Index</code> method to <code>questions/index</code> and the view engine would find the correct file (eg. for Razor - <code>questions/index.cshtml</code>).</p>
-
-<p>I&#8217;ve already said it&#8217;s a bit of fun but I have actually used this at least once - there is probably more that could be added but it&#8217;ll do for a first spike at least.  Any use to anyone?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Standing at the cusp of 2011... WTF?]]></title>
-    <link href="http://yobriefca.se/blog/2011/12/30/2011-and-2012-review/"/>
-    <updated>2011-12-30T19:51:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/12/30/2011-and-2012-review</id>
-    <content type="html"><![CDATA[<p>I&#8217;m not sure where this post is going to go in terms of content.  I&#8217;m thinking a bit of full disclosure might be quite cathartic but at the same time do you really want to know the ins and out of my somewhat awful 2011?  Compromise - I&#8217;ll keep it short.  Possibly.</p>
-
-<!-- more -->
-
-
-<h2>2011 (The Bad Parts)</h2>
-
-<p>2011 was a pretty terrible year if I&#8217;m honest.  It was the year my wife suffered two miscarriages, I got into my first car accident, stuff kept breaking and I totally dropped the ball in work when I burnt out (I&#8217;m certain I&#8217;m still feeling the effects of that).  Oh and yes on top of all that I was diagnosed with severe depression for which I am now fully medicated.  But you know what?  I&#8217;m not alone - I know a ton of people for whom (look at me I said whom - how posh) 2011 was grim.</p>
-
-<p>So lets cast aside all the personal stuff, we&#8217;ve all had our problems, and let me talk about the burn out.  Long and short of it was that I took too much work on and eventually delivered unacceptable results for them all.  I have something akin to ADD when it comes to work and unless I am suitably challenged or stimulated my productivity drops to pretty much nil.  2011 was full of time consuming mundane boring work for me and as I tried desperately to pull personal value from the work (or hobbies) I started making mistakes, over committing and generally under achieving.  Lesson learned - I need to learn to say no and sometimes I just need to suck up the fact that we can&#8217;t all be doing the best part of our jobs ALL THE TIME.  Sometimes we need to just knuckle down and get on with it.  Just not for a full year&#8230;</p>
-
-<p>Anyway I became somewhat disillusioned with my employer and, truthfully, Northern Ireland.  I like other people to be excited about the stuff I preach but I felt there was a lot of disinterest and empty words.  This annoyed me and I guess I just started pushing harder, which I guess made me look quite angry and pushy.  This obviously wouldn&#8217;t help.  When I looked outside of my company - Northern Ireland didn&#8217;t seem that much better.  So I felt a bit out of place and I had 2 choices ahead of me.</p>
-
-<ol>
-<li>Up sticks and go somewhere that I felt would be more receptive to my extreme nerdyness and desire to share it.</li>
-<li>Stick around, my company and Northern Ireland and try and make a difference.</li>
-</ol>
-
-
-<p>I chose the second, not being to be hero or anything but for more pragmatic reasons,</p>
-
-<ul>
-<li>My wife got pregnant again (due soon yay!), the economy is terrible and it would be too much of a risk right now</li>
-<li><span class='pullquote-right' data-pullquote='It is better to invest in people and risk them leaving than to not invest in them and risk them staying '>
-If I stayed in Northern Ireland, or even Ireland, I don&#8217;t believe there is any other company that would support me (aka let me get away with) the things I do.  I&#8217;m not the most predictable of sorts.  I work weird hours and do strange things.  <a href="http://www.kainos.com">Kainos</a> have always been there for me and supported me.  Having done interviews with people from various levels from various other companies the state of other IT firms makes me seethe with anger. It is better to invest in people and risk them leaving than to not invest in them and risk them staying&#8221;
-</span></li>
-</ul>
-
-
-<p>So I start 2012 with a big challenge set for myself.  That sounds about right.  The more I think about <a href="http://www.kainos.com">Kainos</a>, my employer, deserves more credit than I give it.  We have been in a space thats been all about big business types with big enterprisey solutions and delivered well.  It&#8217;s not an area that exactly screams enthusiasm and I think it will take a while to draw people out of that kind of insular thinking. <a href="http://www.kainos.com">Kainos</a> certainly seems to be better than most in this area.  Now enough gushing about <a href="http://www.kainos.com">Kainos</a> (who are hiring BTW)</p>
-
-<h2>2011 (The Good Parts)</h2>
-
-<p>OK OK 2011 wasn&#8217;t all sob stories and dullness some really cool things happened.</p>
-
-<ul>
-<li>My CodeSlice initiative in work (meet at least once a month, talk nerdy things, get <a href="http://www.kainos.com">Kainos</a> to pay for free pizza) didn&#8217;t die.  In fact in the hands of one of my colleagues, Jonny Holmes, it flourished.  Attendence was never HUGE but it was consistent and varied.  May long this tradition continue and hopefully we can expand it..</li>
-<li>I organised and participated in not one but two hackathons (internally).  Once again <a href="http://www.kainos.com">Kainos</a> covered the costs for our weekend long hack sessions.  Turnout was decent (about 8-12 people) with all types turning up - managers, placement students, technical architects etc.  The experience was enough for me - which is a clever way of saying the end products weren&#8217;t as good as envisaged.  But we drew so many valuable lessons that the second one was infinitely more successful that the first - live and learn!  And, oh lord, the plans I have for the first half of 2012 around hackathons are going to be legendary!</li>
-<li>I talked, and not just to myself but to real people, real people who were not paid to be there!  I talked, outside of work, a total of three times.  I know the number isn&#8217;t huge but it was late on in the year before I decided to get out there.  Already topped that number for 2012 and the year hasn&#8217;t started.  Double figures would be good next year thank you.</li>
-<li>I attended <a href="http://gotocon.com/amsterdam-2011/">GOTO Amsterdam</a> were I got to meet a lot of people I have deemed awesome (because they are).  Being in rooms with like minded people (who are generally much smarter than me) saying things that make you realise you are not insane for thinking things could be better really strengthens your beliefs!</li>
-<li>Shared more.  All the stuff above I did because I wanted to get my thoughts out there - I wanted to be educated as well as educate.  I was happy to look like a fool if it meant I didn&#8217;t look like a fool later.  Thats hard for an introvert but damn it I gave it my best shot.  I know people, the one who only know me through my writing on <a href="http://yammer.com">Yammer</a> or half-read blog post, think I am a purist (I&#8217;m not - perfect is the enemy of better), or angry (not me, frustrated at times but never angry), or opinionated (openly opinionated perhaps) or even annoyed that everyone isn&#8217;t dancing the happy geek dance like myself (as long as I&#8217;m not dancing alone on the dance floor like a sleazy old man stalking girls half his age I&#8217;m happy).  Thats fine.  People reckon I risk detracting from the message I am trying to communicate.  Fair enough.  Perhaps I need to tone it down sometimes - but I can&#8217;t see that happening - it&#8217;s no in my nature.  I think it&#8217;s better that people see me as a purist and take some of my ideas away rather than being half-assed and them not taking anything on board!  It&#8217;s inevitable that when I try and challenge peoples conceptions of technical things, especially in the open, it&#8217;s going to leave a sour taste in some peoples mouths.  But thats how I roll and thats how it should be.  Sorry but there is more on the way.  But I take as good as I give so come at me bros!</li>
-<li>Won a years to subscription to <a href="http://tekpub.com">Tekpub</a> on Christmas Day thanks Rob &#8216;Santa Clause&#8217; Conrey.</li>
-<li>Put my foot in it a few times.  Yeah sounds odd I am classing this as a good thing but Scott Hanselman gave me permission, and I <a href="http://www.hanselman.com/blog/BestPracticesForIndividualContribution.aspx">quote</a></li>
-</ul>
-
-
-<blockquote><p>Chris Sells told me once, If you’re not getting in trouble with your boss at least twice a year, you’re likely not pushing the envelope hard enough. Two slaps a year might be the cost for 10 successes. If you’re not moving forward, well, you’re not moving forward.</p></blockquote>
-
-<h2>2012 (More like 20AWESOME! AMIRITE!)</h2>
-
-<p>So enough dwelling in the past - how am I going to make 2012 be the awesomest?  Well thats easy - <strong>set some real fecking goals</strong>.  I failed to do that last year (outside of my typical career goals during my annual reviews of course) and ended up coasting in parts.  Not next year - hells no.  I got me a bucket list (stuff to do before the year dies - not me - unless that comes first - oh god I never thought of that).  TO THE LIST!</p>
-
-<h3>2012 Bucket List (In No Particular Order)</h3>
-
-<ul>
-<li>Release a screencast</li>
-<li>Release a game</li>
-<li>Appalachian Trail</li>
-<li><a href="http://givecampni.org.uk">GiveCamp NI</a></li>
-<li>Talk/Present as often as possible</li>
-<li>Learn a new language</li>
-<li>Contribute more to OSS</li>
-</ul>
-
-
-<p>So let me explain some of these, as I am sure they mean sweet FA to some of you.</p>
-
-<h3>Release a Screencast</h3>
-
-<p>A lot of my blog posts last year were a kind of &#8220;Introduction to Technology X&#8221; and I think that sort of knowledge can be better shared via video and real coding.  Coupled with my desire to go a bit deeper in my technical posts but always getting distracted with other blog posts I think 2012 is the year I try my hand at producing a real life proper screencast (or perhaps a series).  With decent production values and what not.  The topic?  Well I am currently thinking <a href="http://nancyfx.org">Nancy</a> but I need to really get my head around it a lot than I already do - but thats fine.  Time will tell on that one.</p>
-
-<h3>Release a Game</h3>
-
-<p>Game programming is an area I&#8217;ve failed to venture into and I feel it is about time.  I wan&#8217;t to do something really simple, something mobiley possibly using <a href="http://impactjs.com/">ImpactJS</a> because it interests me.  I&#8217;d like to release said game into an app store as well - just to watch it get flamed and to say &#8220;I&#8217;ve done it&#8221;</p>
-
-<h3>Appalachian Trail</h3>
-
-<p>This is a codename for a current unfunded project of mine.  The goal is to get a more fuller understanding of the spectrum of mobile development approaches, platforms and technologies.  So simply put generate a bunch of super simple (though still useful) app ideas and using every conceivable type of technology from native to web and all in-between deliver decent quality apps across all the major platforms through hackathons, team challenges, school and university outreach, app camps etc..</p>
-
-<p>Sounds awesome doesn&#8217;t it?</p>
-
-<h3>GiveCamp NI</h3>
-
-<blockquote><p>GiveCamp was founded by Microsoft Developer Evangelist, Chris Koenig, in Dallas, Texas in 2007. His vision was to bring together passionate developers and local charitable organisations for an entire weekend, and see what would happen.</p>
-
-<p>In late 2012 GiveCamp is coming to Northern Ireland.</p></blockquote>
-
-<p>Thats what the <a href="http://givecampni.org.uk/">official site</a> says (I should know I put it there).  So late next year we will run GiveCamp for the first time in Northern Ireland.  A weekend long charity focused public hackathon.  It&#8217;s going to be a belter!</p>
-
-<h3>Talk/Present as often as possible</h3>
-
-<p>I enjoy talking about nerdy things.  I got a taste for it last year when I went public (having been talking internally to <a href="http://www.kainos.com">Kainos</a> staff for years) and in 2012 I really want to get out there as much as possible.  I find it an amazing way for me to learn as well as understand whats going on in the industry.  So far I am speaking in <a href="http://dublinalt.net/2011/12/14/january-meetup-calling-all-mobile-devs/">Dublin in January</a>, <a href="http://www.devweek.com/">Devweek in London</a> and a few other un-announced venues.</p>
-
-<p>BTW if anyone can recommend conferences I should pitch for, or want me to come over and talk about anything in the .NET/JavaScript/Mobie world(s) (see my blog for the kind of thing I know about) - let me know!</p>
-
-<h3>Learn a new language</h3>
-
-<p>Everyone says this one right?  Yeah so I spent last year looking at node.js and Ruby and I think it&#8217;s time to get out of my safe - I&#8217;m thinking F# - yeah that sounds sweet!</p>
-
-<h3>Contribute more to OSS</h3>
-
-<p>I head-dived into OSS .NET last year and loved it.  Many people see .NET as a very restricted, Microsoft led platform were every modern web-app is MVC3 with Entity Framework and WCF rules the web service world.  Thats total bull.  .NET has a very vibrant, very active OSS community.  There is almost no need to use any MS technology ever.  But lets not forget MS have really started to embrace and support OSS in a big way.  Lets hope that trend continues!</p>
-
-<h2>In Summary</h2>
-
-<p>Boooo to 2011, Yay to 2012.  See you around the same time next year when I have another failful year and promising myself a better one in 2013 :-P</p>
 ]]></content>
   </entry>
   

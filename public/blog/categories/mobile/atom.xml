@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Mobile | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/mobile/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-17T22:30:33+01:00</updated>
+  <updated>2012-04-20T21:53:44+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,102 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
+    <updated>2012-04-20T14:52:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4f911c9791b203001f00cc2b" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Resources</h2>
+
+<p>I mentioned a lot of technologies during my talk so here are the ones I mentioned</p>
+
+<h3>Web Frameworks</h3>
+
+<ul>
+<li><a href="http://jquerymobile.com/">jQuery Mobile</a></li>
+<li><a href="http://www.sencha.com/products/touch">Sencha Touch</a></li>
+</ul>
+
+
+<h3>Design</h3>
+
+<ul>
+<li><a href="http://codiqa.com/">Codiqa</a></li>
+<li><a href="http://www.sencha.com/products/architect/">Sencha Architect 2</a></li>
+</ul>
+
+
+<h3>Web Containers</h3>
+
+<ul>
+<li><a href="http://phonegap.com/">Phonegap</a></li>
+<li><a href="http://incubator.apache.org/cordova/">Cordova</a></li>
+</ul>
+
+
+<h3>Cross Platform</h3>
+
+<ul>
+<li><a href="http://xamarin.com/monotouch">Monotouch</a></li>
+<li><a href="http://xamarin.com/monoforandroid">Monodroid</a></li>
+<li><a href="http://www.anscamobile.com/corona/">Corona</a></li>
+<li><a href="https://build.phonegap.com/">Phonegap:Build</a></li>
+<li><a href="http://www.appcelerator.com/platform/titanium-sdk">Titanium</a></li>
+</ul>
+
+
+<h3>Server Platforms</h3>
+
+<ul>
+<li><a href="https://parse.com/">Parse</a></li>
+<li><a href="http://www.kinvey.com/">Kinvey</a></li>
+</ul>
+
+
+<h3>Cloud Services</h3>
+
+<ul>
+<li><a href="http://www.flurry.com/">Flurry</a></li>
+<li><a href="http://urbanairship.com/">Urban  Airship</a></li>
+</ul>
+
+
+<h3>Testing &amp; Debugging</h3>
+
+<ul>
+<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>
+<li><a href="https://www.lesspainful.com/">Less Painful</a></li>
+<li><a href="http://www.testingwithfrank.com/">Frank</a></li>
+<li><a href="http://people.apache.org/~pmuellr/weinre/">Weinre</a></li>
+</ul>
+
+
+<h3>Beta Testing</h3>
+
+<ul>
+<li><a href="https://testflightapp.com/">Testflight</a></li>
+<li><a href="http://www.hockeyapp.net/">Hockey</a></li>
+</ul>
+
+
+<h2>Comments</h2>
+
+<p>So how did it go?  From my perspective it could have been better - I'm not sure why started "ummmmming" all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats good what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
+
+<p>One more note - Gdasnk is awesome - the technical people are so engaged and enthusiastic, the place itself is really interesting and I managed try my new favourite shot - <a href="http://www.drinksmixer.com/drink10324.html">Mad Dog</a>.  Thanks for the opportunity Gdasnk and Infoshare.  Hopefully I can back here and spend more time in the city soon.</p>
+
+<p>Na zdrowie</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
     <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+00:00</updated>
+    <updated>2012-03-19T21:34:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
     <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
@@ -40,7 +133,7 @@
   <entry>
     <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
     <link href="http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
-    <updated>2011-12-13T17:39:00+00:00</updated>
+    <updated>2011-12-13T17:39:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
     <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my "lets have a natter about mobile" blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
 
@@ -317,7 +410,7 @@
   <entry>
     <title type="html"><![CDATA[Rolling Your Own PhoneGap with MonoTouch]]></title>
     <link href="http://yobriefca.se/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch/"/>
-    <updated>2011-12-05T20:11:00+00:00</updated>
+    <updated>2011-12-05T20:11:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/12/05/rolling-your-own-phonegap-with-monotouch</id>
     <content type="html"><![CDATA[<p><a href="http://phonegap.com/">PhoneGap</a> is a clever little idea.  Take a transparent native wrapper for a mobile platform, stretch a 100% x 100% web view and provide a JavaScript API that acts as a bridge to native methods that control the device features such as cameras, GPS and Contacts.  It brings all those lovely web people into the mobile space.  Truth be told PhoneGap isn't powered by flaked unicorn and rainbow essence - it's fairly simple to achieve yourself.</p>
 
@@ -611,7 +704,7 @@
   <entry>
     <title type="html"><![CDATA[So This Mobile Stuff Then... (Techologies)]]></title>
     <link href="http://yobriefca.se/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability/"/>
-    <updated>2011-12-05T13:50:00+00:00</updated>
+    <updated>2011-12-05T13:50:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/12/05/so-this-mobile-stuff-then-dot-dot-dot-applicability</id>
     <content type="html"><![CDATA[<p>Do you have your mobile strategy yet?  Do you have your "one true way" to cater for every mobile application need?  If not, the world will suddenly end and you'll never get anywhere in the mobile market.  Seriously.  Well not seriously.  Obviously that’s a pile of sheep.</p>
 
@@ -722,65 +815,6 @@
 <p>To me if you want to embrace mobile you need to understand it properly.  If you're just sticking with a particular stack because it's familiar to you you are doing yourself and the project a dis-service.  As many articles before me have said - you are not the programming language you code in - you need to embrace the polyglot nature of a good developer and do what is right for that project.</p>
 
 <p>Hope you enjoyed this.  That’s me for December I think :).  I have other things to do.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[So this mobile stuff then... (Hybrid)]]></title>
-    <link href="http://yobriefca.se/blog/2011/12/03/so-this-mobile-stuff-then/"/>
-    <updated>2011-12-03T11:53:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2011/12/03/so-this-mobile-stuff-then</id>
-    <content type="html"><![CDATA[<p>It's fair to say over the past year or so I've dabbled in a bit of mobile development.  I've been involved in a number of  projects (from a technical perspective),</p>
-
-<ul>
-<li>Web Based, Tablet Focused Analytics Dashboard (Custom HTML and <a href="http://www.highcharts.com/">HighCharts</a>)</li>
-<li>Web Based, Tablet Focused Data Capture application (<a href="http://www.sencha.com/products/touch">Sencha Touch</a>)</li>
-<li>Hybrid application for a teleco (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
-<li>Mobile Hackathon (<a href="http://jquerymobile.com">jQuery Mobile</a> and <a href="http://phonegap.com">PhoneGap</a> and <a href="http://parse.com">Parse</a>)</li>
-<li>Hybrid Application for a Bank (<a href="http://www.sencha.com/products/touch">Sencha Touch</a> and <a href="http://phonegap.com">PhoneGap</a>)</li>
-<li>Various iPhone and iPad POCs for a health based project (<a href="http://xamarin.com/monotouch">MonoTouch</a>, XCode)</li>
-<li>Technology evaluations (Native Apple Development, <a href="http://parse.com">Parse</a>, <a href="http://www.sencha.com/products/touch">Sencha Touch</a>], <a href="http://phonegap.com">PhoneGap</a>, <a href="http://nimblekit.com/index.php">NimbleKit</a>, <a href="http://jquerymobile.com">jQuery Mobile</a>, <a href="http://documentcloud.github.com/backbone/">Backbone</a>, <a href="http://spinejs.com">Spine.js</a>, <a href="http://www.appcelerator.com/">Appcelerator</a>, <a href="http://xamarin.com/monotouch">MonoTouch</a>, <a href="http://android.xamarin.com/">Monodroid</a> and plenty more...)</li>
-<li>Consulted on various projects around the whole "native vs hybrid vs web" thing</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h2>That Hybrid Word</h2>
-
-<p>One thing I've found is that many clients are using the old "a web app will never be as polished as a native app" argument but TBH that really isn't the case.  This is down to a lack of real understanding and abuse of the word in the industry.  A bit of hybridism can go along way in creating a rich experience.</p>
-
-<h3>A Rose By Any Other Name...</h3>
-
-<p>Many people break mobile applications into 3 VERY distinct areas,</p>
-
-<ol>
-<li><strong>Native</strong> - app installed on the device, written using the default toolkit for that platform.</li>
-<li><strong>Hybrid</strong> - consists of a transparent "native" layer and a Web View into which HTML, JavaScript and CSS is loaded (generally stored within the native package).  The nativelayer provides and API for the JavaScript model in the Web View to call.  Think PhoneGap.</li>
-<li><strong>Web</strong> - HTML, CSS, JavaScript assets hosted on the web and accessed from a mobile device.  Possibly some native-like features such as icons and removing the browser chrome.</li>
-</ol>
-
-
-<p>The problem with the hybrid definition there is that it is, well, wrong.  There isn't a clear distinction between the native and hybrid and there shouldn't be.  If I spun up a Silverlight app that put a Web View in the middle to display some HTML I wouldn't call it hybrid.  If I wrote an Android app that used a library written in Scala it wouldn't be hybrid.  Or even if I wrote a Monotouch app using some bindings to the <a href="http://www.flurry.com/">Flurry</a> framework - nope not hybrid.</p>
-
-<h3>The Charting Example</h3>
-
-<p>A good example of "hybrid" is charting.  There aren't a great deal of nice flexible charting libraries for iOS, but there is for JavaScript/HTML5.  So some of our projects have made use of HighCharts and Sencha Charting inside a transparent UIWebView to render charts that are flexible and rich.  I wouldn't bother pinning the hybrid tag to that app - it's simply making use of whatever technologies helped us get the job done in the best way possible.</p>
-
-<p>I understand the use of hybrid in sales pitches or to simply convey meaning to people who are less technical but the problem is people are starting to develop opinions based on these words alone which is disatorous.  I've had customers tell me that they want native because that hybrid stuff is ugly.  True some hybrid apps are ugly as sin (Aer Lingus iPhone app for one) but then so are some native ones.  It's unfair to collectively throw away and entire type of app because of poorly misunderstood words.</p>
-
-<h2>But, But, But... Reusability</h2>
-
-<p>People use the hybrid term to show that they have thought about portability.  Write once, run anywhere.  In that sense I guess using hybrid makes sense (but that sort of talk is really part of the sales talk right?).  But then it would be just as easy to say that "elements of the solution will be written in a platform agnostic language to minimise code rewrites on different devices" - or something like that.  In fact that would be better.  That way you cover off more than "hybrid".  You've included the things like <a href="http://xamarin.com/monotouch">MonoTouch</a> or <a href="http://www.appcelerator.com/">Appcelerator</a> as well.  You've moved away from implementation specifics at the point where they shouldn't matter anyway!  Thats got to be a good thing.</p>
-
-<h2>Ah ha but what about Skills?</h2>
-
-<p>People go "hybrid" for another good reason - because they have no experience in the native platform.  I used to be one of those people but I'm not convinced that this is a good reason on its own.  If you want to make a compelling experience your limitation should never be your lack of skill.  Get skilled.  Obj-C isn't as scary as it seems - in fact I'd rather write Obj-C than Java.  Dig deep - thats what we've got the internet for - understanding and learning (well that and porn).</p>
-
-<h2>Awareness and Education</h2>
-
-<p>So what am I saying?  Well for a start I'm not saying we totally abandon the word hybrid and mock anyone who uses it.  Hells no.  It's still useful as I've already mentioned above. All I ask is that you make sure you know what you are talking about and that the people you are talking to know what you are talking about.  That and don't just take the easy route because it's easier for you.</p>
 ]]></content>
   </entry>
   

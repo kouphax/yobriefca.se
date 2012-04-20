@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Octopress | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-17T22:30:33+01:00</updated>
+  <updated>2012-04-20T21:53:44+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
-    <updated>2012-03-22T08:21:00+00:00</updated>
+    <updated>2012-03-22T08:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
     <content type="html"><![CDATA[<p>So I've been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It's obviously not the most complicated system in the world but hey it was new to me.</p>
 
