@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>webjars | Yo Briefcase!]]></title>
+  <link href="http://yobriefca.se/blog/categories/webjars/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-05-09T21:15:28+01:00</updated>
+  <id>http://yobriefca.se/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
+    <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
+    <updated>2012-05-08T07:26:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
+    <content type="html"><![CDATA[<p>This post is going to cover the whole "getting up an running" for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I've been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I've seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn't touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
+
+<p>It's worth pointing out right away that James Ward already has a <a href="http://www.jamesward.com/2012/02/21/play-framework-2-with-scala-anorm-json-coffeescript-jquery-heroku">similar post</a> and a <a href="https://github.com/jamesward/play2torial/blob/master/JAVA.md">(currently Java only) tutorial</a>.  These are  much better but they dont cover the Mongo/Caabah/Salat side of things (not that it is particularly difficult) so at least I've got a leg to stand on.</p>
+
+<h2>Installing</h2>
+
+<blockquote><p>Versions used in this post</p>
+
+<ul>
+<li>Scala (2.9.1)</li>
+<li>Play (2.0.1)</li>
+<li>Mongo (2.0.4)</li>
+</ul>
+</blockquote>
+
+<p>I'm going to assume that you are capable of installing software (by following basic instructions) so I won't waste your time covering this.  Here are some links to kick you off,</p>
+
+<ul>
+<li><a href="http://www.scala-lang.org/downloads">Scala</a></li>
+<li><a href="http://www.playframework.org/download">Play 2</a> (it just goes on your <code>PATH</code>)</li>
+<li><a href="http://www.mongodb.org/downloads">Mongo</a></li>
+</ul>
+
+
+<p>Alternatively if you are on OSX - <a href="http://mxcl.github.com/homebrew/">Homebrew</a> has got everything you need at the time of putting this together.</p>
+
+<h2>Generating your Application</h2>
+
+<p>Play is a command line tool and can be used to generate your basic app skeleton,</p>
+
+<pre><code>play new &lt;project name&gt;
+</code></pre>
+
+<p>Just fill in the project name and you will be guided through the basic generation of the project, e.g.</p>
+
+<pre><code>→ play new sampleapp                                              
+       _            _ 
+ _ __ | | __ _ _  _| |
+| '_ \| |/ _' | || |_|
+|  __/|_|\____|\__ (_)
+|_|            |__/ 
+
+play! 2.0.1, http://www.playframework.org
+
+The new application will be created in /Users/kouphax/Projects/temp/sampleapp
+
+What is the application name? 
+&gt; sampleapp
+
+Which template do you want to use for this new application? 
+
+  1 - Create a simple Scala application
+  2 - Create a simple Java application
+  3 - Create an empty project
+
+&gt; 1
+
+OK, application sampleapp is created.
+
+Have fun!
+</code></pre>
+
+<p>Indeed - fun you shall have.</p>
+
+<h2>Dependencies</h2>
+
+<p>Working with Mongo directly is all well and good but it can be made a bit simpler with a few dependencies.  Namely <a href="http://api.mongodb.org/scala/casbah/2.0/">Casbah</a> and <a href="https://github.com/novus/salat">Salat</a>.  Casbah is the official Scala Toolkit for MongoDB and Salat allows you to map to and from the generic Mongo object classes into more concrete case classes.</p>
+
+<p>To add the dependencies you need to update the <code>Build.scala</code> file in the generated <code>project</code> directory.  Firstly you need to update the <code>appDependencies</code> to create the dependency on the new two libraries,</p>
+
+<pre><code>val appDependencies = Seq(
+  "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
+  "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
+)
+</code></pre>
+
+<p>Then you'll need to add the <code>resolvers</code> to the <code>main</code> project declaration,</p>
+
+<pre><code> val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings
+   resolvers ++= Seq(
+     "repo.novus snaps" at "http://repo.novus.com/snapshots/")
+ )
+</code></pre>
+
+<p>And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!</p>
+
+<h2>The Model &amp; Data Access</h2>
+
+<p>First things first lets create our model.  So we are going to write a very basic registration app.  People "register" on the site, for fun or something, I dunno as our stakeholders - I just write the code.</p>
+
+<p>Our model is super simple,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Registration</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">confirm</span><span class="k">:</span>  <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">realName</span><span class="k">:</span> <span class="kt">String</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now to the interesting part.  To persist this in a Mongo data store we need to make use of the two libraries we imported previously,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">com.mongodb.casbah.Imports.</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat.global._&lt;/p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">object</span> <span class="nc">Registrations</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">registrations</span> <span class="k">=</span> <span class="nc">MongoConnection</span><span class="o">()(</span><span class="s">&quot;sampleapp&quot;</span><span class="o">)(</span><span class="s">&quot;registrations&quot;</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">all</span> <span class="k">=</span> <span class="n">registrations</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asObject</span><span class="o">(</span><span class="n">_</span><span class="o">)).</span><span class="n">toList</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="k">:</span> <span class="kt">Registration</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">registrations</span> <span class="o">+=</span> <span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asDBObject</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>First things first we create a connection using the <code>MongoConnection</code> class and grabs the <code>registrations</code> collection from the <code>sampleapp</code> store.  Now it's worth noting that provided Mongo is up and running we don't actually need to create either the store or the collection - the act of acting on a collection is enough to create both.</p>
+
+<p>Next up I defined two methods <code>all</code> and <code>create</code>.</p>
+
+<ul>
+<li><code>all</code> simply pulls out all the collection data using Casbah, performs a map over the collection (which is a collection of <code>MongoDBObject</code>/<code>DBObject</code>s) and uses the <code>grater</code> object provided by Salat to map from these generic objects to our <code>Registration</code> case class.</li>
+<li><code>create</code> simply adds an element (cast from a <code>Registration</code> class to an acceptable <code>DBObject</code>) to the collection.</li>
+</ul>
+
+
+<p>Now isn't that a nice terse data access layer?  Yes it is.  You want to make changes?  Go ahead - the fear of change is gone or much reduced compared to the typical approach.</p>
+
+<h2>Controllers</h2>
+
+<p>Next up we want to add a register controller and update the existing <code>Application</code> controller.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="nc">Registrations</span><span class="o">.</span><span class="n">all</span><span class="o">))</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The only difference here is the <code>Registrations.all</code> so we can list the registrations in the UI.  Lets jump over the the register controller</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Register</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">mapping</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;username&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>  <span class="s">&quot;password&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>  <span class="s">&quot;confirm&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>  <span class="s">&quot;realName&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">text</span>
+</span><span class='line'><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">})</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">registrationForm</span><span class="o">))</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">register</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">form</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
+</span><span class='line'>  <span class="n">registration</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'>    <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span><span class="s">&quot;message&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;User Registered!&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>OK thats a lot to take in so lets break it down a bit.</p>
+
+<h3>The Form</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">mapping</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;username&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'><span class="s">&quot;password&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'><span class="s">&quot;confirm&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'><span class="s">&quot;realName&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">text</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
+</span><span class='line'><span class="o">})</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The Form concept in Play is a bit like a ViewModel of sorts.  It defines validation and mapping rules and allows you to pass a structured object between the controller and the view (inluding error information etc.).  In fact you aren't even obliged to bind this to a class, they can exists as themselves.  My example above shows you how to bind to and from our <code>Registration</code> class as well as some field and crossfield/global validation.</p>
+
+<h3>Model Binding</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">form</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
+</span><span class='line'>  <span class="n">registration</span> <span class="k">=&gt;</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'><span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;message&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;User Registered!&quot;</span>
+</span><span class='line'><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This little functional approach allows us to bind a request to our <code>registrationForm</code> and react to invalid input.  In the case of an invalid bind the first argument into <code>fold</code> is executed which returns a bad request with an instance of the form.  In the case of the happy path we simply push our <code>registration</code> instance into the data store and redirect to the <code>index</code> action along with a flash message.</p>
+
+<h3>Flash</h3>
+
+<p>Flash is like a carefully curated session variable that exists only for the next request.  This allows you to pass messages or some very transient data between requests.  This is also accessible in the view which is handy.</p>
+
+<h2>Routes</h2>
+
+<p>Routes in Play are written into the <code>config/routes</code> file and this is used as a basis to generate reverse routes (this gives is us statically typed routes via the <code>routes</code> object).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Routes</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">This</span> <span class="n">file</span> <span class="n">defines</span> <span class="n">all</span> <span class="n">application</span> <span class="n">routes</span> <span class="o">(</span><span class="nc">Higher</span> <span class="n">priority</span> <span class="n">routes</span> <span class="n">first</span><span class="o">)&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;~~~~&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Home</span> <span class="n">page</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">GET</span>     <span class="o">/</span>                           <span class="n">controllers</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span>
+</span><span class='line'><span class="nc">GET</span>     <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">index</span>
+</span><span class='line'><span class="nc">POST</span>    <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">register</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Map</span> <span class="n">static</span> <span class="n">resources</span> <span class="n">from</span> <span class="n">the</span> <span class="o">/</span><span class="n">public</span> <span class="n">folder</span> <span class="n">to</span> <span class="n">the</span> <span class="o">/</span><span class="n">assets</span> <span class="nc">URL</span> <span class="n">path</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">GET</span>     <span class="o">/</span><span class="n">assets</span><span class="cm">/*file               controllers.Assets.at(path=&quot;/public&quot;, file)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So I added two new routes for register that allows us to view and submit our registration form.</p>
+
+<h2>The Views</h2>
+
+<p>Right lets do something a little neat - remember I mentioned James Ward earlier?  Well he curates a little project called <a href="http://webjars.github.com">webjars</a> which allows us to add client side resources as managed dependencies to our project.  So lets prettify our UI with a bit of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> love.</p>
+
+<p>First thing we want to do is update our <code>Build.scala</code> file with webjars resolver and our bootstrap dependency</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;com.github.twitter&quot;</span> <span class="o">%</span>  <span class="s">&quot;bootstrap&quot;</span>  <span class="o">%</span> <span class="s">&quot;2.0.2&quot;</span><span class="o">,</span>
+</span><span class='line'>  <span class="c1">// other deps...</span>
+</span><span class='line'><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">val</span> <span class="n">main</span> <span class="k">=</span> <span class="nc">PlayProject</span><span class="o">(</span><span class="n">appName</span><span class="o">,</span> <span class="n">appVersion</span><span class="o">,</span> <span class="n">appDependencies</span><span class="o">,</span> <span class="n">mainLang</span> <span class="k">=</span> <span class="nc">SCALA</span><span class="o">).</span><span class="n">settings</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">resolvers</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;webjars&quot;</span>          <span class="n">at</span> <span class="s">&quot;http://webjars.github.com/m2&quot;</span><span class="o">,</span>
+</span><span class='line'><span class="c1">// other resolvers...</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then in our <code>main.scala.html</code> we can reference the bootstrap assets in the normal way,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">href=</span><span class="s">&quot;@routes.Assets.at(&quot;</span><span class="na">stylesheets</span><span class="err">/</span><span class="na">bootstrap</span><span class="err">.</span><span class="na">min</span><span class="err">.</span><span class="na">css</span><span class="err">&quot;)&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Index (index.scala.html)</h3>
+
+<p>Here we simply list the current registered people,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrations: List[Registration])(implicit flash: Flash)
+</span><span class='line'>@main(&quot;Super Simple Sample&quot;) {
+</span><span class='line'>  @if(flash.data.contains(&quot;message&quot;)){<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div class=&quot;alert alert-success&quot;<span class="ni">&amp;gt;</span>@flash.get(&quot;message&quot;)<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  }
+</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;@routes.Register.index&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="nt">&gt;</span>Register<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;table table-bordered&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>thead<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>tr<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>th<span class="ni">&amp;gt;</span>Username<span class="ni">&amp;lt;</span>/th<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>th<span class="ni">&amp;gt;</span>Real Name<span class="ni">&amp;lt;</span>/th<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/tr<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/thead<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>tbody<span class="ni">&amp;gt;</span>
+</span><span class='line'>  @registrations.map { registration =<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>tr<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>td<span class="ni">&amp;gt;</span>@registration.username<span class="ni">&amp;lt;</span>/td<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>td<span class="ni">&amp;gt;</span>@registration.realName<span class="ni">&amp;lt;</span>/td<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/tr<span class="ni">&amp;gt;</span>
+</span><span class='line'>  }
+</span><span class='line'><span class="ni">&amp;lt;</span>/tbody<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/table&gt;</span>
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The interesting thing about Play 2 views is that they are just Scala.  Yep neat.  In fact any .NETters will feel quite at home as they are reminiscent of Razor views too.</p>
+
+<h3>Register (register.scala.html)</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrationForm: Form[models.Registration])(implicit flash: Flash)<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>@import play.api.i18n.<span class="nt">&lt;em&gt;</span>
+</span><span class='line'>@import views.html.helper.<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>@input(field: Field, label: String, fieldType: Symbol = &#39;text) = {
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group @if(field.hasErrors) {error}&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>label class=&quot;control-label&quot; for=&quot;@field.id&quot;<span class="ni">&amp;gt;</span>@label<span class="ni">&amp;lt;</span>/label<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>div class=&quot;controls&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>input type=&quot;@fieldType.name&quot; value=&quot;@field.value&quot; name=&quot;@field.id&quot; /<span class="ni">&amp;gt;</span>
+</span><span class='line'>  @if(field.hasErrors){
+</span><span class='line'>    <span class="ni">&amp;lt;</span>span class=&quot;help-inline&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>      @Messages(field.error.head.message)
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span>
+</span><span class='line'>  }
+</span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>@main(&quot;Super Simple Sample&quot;) {
+</span><span class='line'>  @form(action = routes.Register.register, &#39;class -&gt; &quot;form-horizontal&quot;) {<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>fieldset<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>legend<span class="ni">&amp;gt;</span>Registration<span class="ni">&amp;lt;</span>/legend<span class="ni">&amp;gt;</span>
+</span><span class='line'>  @registrationForm.globalError.map { error =<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>div class=&#39;row&#39;<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>div class=&quot;alert alert-error&quot;<span class="ni">&amp;gt;</span>@error.message<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'>  }
+</span><span class='line'>  @input(registrationForm(&quot;name&quot;), &quot;Username&quot;)
+</span><span class='line'>  @input(registrationForm(&quot;password&quot;), &quot;Password&quot;, &#39;password)
+</span><span class='line'>  @input(registrationForm(&quot;confirm&quot;), &quot;Confirm Password&quot;, &#39;password)
+</span><span class='line'>  @input(registrationForm(&quot;realName&quot;), &quot;Real Name&quot;)
+</span><span class='line'><span class="ni">&amp;lt;</span>/fieldset<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>input type=&quot;submit&quot; class=&quot;btn&quot; value=&quot;Register&quot;/<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You can see from the source there that I've crafted my own helper function to keep things nice and DRY and avoid having to write out the twitter bootstrap required structure over and over.</p>
+
+<h2>Running and Wrap Up</h2>
+
+<p>Right about now the solution is done so with a simple <code>play run</code> you should be able to register and view current registrations.  Excellent.  If you want to skip everything and just get my code you can clone the <a href="https://github.com/kouphax/scala-sampleapp">Github Repo</a>.</p>
+
+<p>OK so it's not the most useful app in the world - that was never the intention.  But look at the code - it's very terse and the time required to write this post was considerably more than the time required to implement the solution.  Joy!</p>
+]]></content>
+  </entry>
+  
+</feed>

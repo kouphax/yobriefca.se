@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,37 @@
 
   
   <entry>
+    <title type="html"><![CDATA[The Little Sacrifices]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
+    <updated>2012-04-29T23:24:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
+    <content type="html"><![CDATA[<p>Late night ramblings...</p>
+
+<p>Productivity can plateau very quickly - especially in a technical process.  No matter how good you get at the process or approach, if you keep doing the same thing you can only get so good at it or do it so fast.  It's possible, however, by sacrificing some of your precious time to go beyond that plateau.  There are things we, the developers, do as part of our development process that are so small and insignificant that we do them without thinking</p>
+
+<ul>
+<li>Clearing down the values in LocalStorage when debugging a web app</li>
+<li>Copying assets from one folder to another (aka the macgyver deploy)</li>
+<li>Navigating to <code>http://localhost:8000</code> or <code>9000</code> or some other port</li>
+<li>Typing <code>rake generate preview</code> into the terminal about 20 times an hour</li>
+<li>These are but a few things I've had to consider today alone</li>
+</ul>
+
+
+<p>Generally these things are so small we'd just do them by hand, right?  But if you take the time to automate these processes or even just refine them in some way it can do wonders for you productivity going forward.</p>
+
+<p>For example the clearing of LocalStorage in Chrome - spent a few minutes writing a bookmarklet that you can execute with 1 click.  The macgyver deploy?  Write a rake/make/jake/psake/cake task for it.  Better yet use <a href="https://github.com/guard/guard">Guard</a> or <a href="https://github.com/mynyml/watchr">Watchr</a> and perform the deploy on save!  Navigatin to various different localhost ports?  Try my <a href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/">alfred script</a> to minimise the keystrokes. <code>rake generate preview</code> - alias that bad boy to <code>rgp</code>!  Save yourself those extra keystrokes - you might need them later.</p>
+
+<p>Listen - specifics aren't important here.  You'll have your own small repetitive tasks and you'll be able to find your own ways to automate, improve or refine them - but this is the point.  You probably don't.  At least not as often as you should.  Losing a second here and there on one task means very little in the small.  In the large, across many of these tasks, well thats a different story.  It's hard to justify spending 10 or 20 minutes on something to automate a task that takes 5 seconds to run but even if the time doesn't repay for a while then the fact you have less of a cognitive shift between your primary task and this secondary one should allow you stay in the highly effective, productive mindset to get the job done.</p>
+
+<p>So give it a go, even as a thought experiment - think about the habitual development tasks you do and how you could automate them - you could well suprise yourself (like I have been recently).</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+02:00</updated>
+    <updated>2012-04-03T17:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -29,7 +57,7 @@
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
     <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+01:00</updated>
+    <updated>2012-03-06T23:22:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
     <content type="html"><![CDATA[<p>Ya'll about ready for another silly analogy?  I sure am....</p>
 
@@ -48,7 +76,7 @@
   <entry>
     <title type="html"><![CDATA[The Estimation 4x4]]></title>
     <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
-    <updated>2012-02-12T19:36:00+01:00</updated>
+    <updated>2012-02-12T19:36:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
     <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I've ever had the pleasure to work with.</p></blockquote>
 
@@ -77,7 +105,7 @@
   <entry>
     <title type="html"><![CDATA[Caveat Abstractor]]></title>
     <link href="http://yobriefca.se/blog/2012/02/09/caveat-abstractor/"/>
-    <updated>2012-02-09T08:37:00+01:00</updated>
+    <updated>2012-02-09T08:37:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/02/09/caveat-abstractor</id>
     <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
 
@@ -103,15 +131,6 @@
 <p>In the same way guns dont kill people, people do - Abstraction dont kill projects, developers do.  You've only got yourself to blame (been there done that, will be again).  A nice simple abstraction, at the right time (e.g. When needed) can be expressive and helpful but too often we put the abstraction before the need.</p>
 
 <p>So consider abstractions as “guilty until proven innocent” not the other way around.  Solve YOUR problem - not every other problem, not until you need to.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[On Craftmanship and Understanding, I Guess]]></title>
-    <link href="http://yobriefca.se/blog/2012/01/31/on-craftmanship/"/>
-    <updated>2012-01-31T16:53:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/01/31/on-craftmanship</id>
-    <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It's the one that's always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you'll have better stories to tell when you get there.</p>
 ]]></content>
   </entry>
   

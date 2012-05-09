@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Talks | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/talks/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,11 +16,16 @@
   <entry>
     <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+02:00</updated>
+    <updated>2012-04-20T14:52:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="4f911c9791b203001f00cc2b" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+
+
+<iframe src="http://player.vimeo.com/video/41132110?title=0&amp;byline=0&amp;portrait=0" width="500" height="275" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
 
 <h2>Resources</h2>
@@ -98,7 +103,7 @@
 
 <h2>Comments</h2>
 
-<p>So how did it go?  From my perspective it could have been better - I'm not sure why started "ummmmming" all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats good what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
+<p>So how did it go?  From my perspective it could have been better - I'm not sure why started "ummmmming" all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
 
 <p>One more note - Gdasnk is awesome - the technical people are so engaged and enthusiastic, the place itself is really interesting and I managed try my new favourite shot - <a href="http://www.drinksmixer.com/drink10324.html">Mad Dog</a>.  Thanks for the opportunity Gdasnk and Infoshare.  Hopefully I can back here and spend more time in the city soon.</p>
 
@@ -109,7 +114,7 @@
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+02:00</updated>
+    <updated>2012-04-13T09:06:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
 
@@ -134,7 +139,7 @@
   <entry>
     <title type="html"><![CDATA[refORM: Death to ORMs in .NET]]></title>
     <link href="http://yobriefca.se/blog/2011/10/10/reform-death-to-orms-in-net/"/>
-    <updated>2011-10-10T00:00:00+02:00</updated>
+    <updated>2011-10-10T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/10/10/reform-death-to-orms-in-net</id>
     <content type="html"><![CDATA[<p>Data Access is a difficult area to master. There are plenty of frameworks such as Entity Framework, NHibernate, i/myBatis. These frameworks attempt to make data access simpler but while these products are widely used they can lead to leaky abstractions forcing us to work around constraints of the technology or introduce the nightmare of trying to figure out what is happening deep down in the frameworks internals.</p>
 
@@ -155,7 +160,7 @@
   <entry>
     <title type="html"><![CDATA[CoffeeScript the Awesome]]></title>
     <link href="http://yobriefca.se/blog/2011/10/10/coffeescript-the-awesome-talk/"/>
-    <updated>2011-10-10T00:00:00+02:00</updated>
+    <updated>2011-10-10T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/10/10/coffeescript-the-awesome-talk</id>
     <content type="html"><![CDATA[<p>CoffeeScript - "a little language that compiles into JavaScript" has been making a lot of noise in the web community with its inclusion in Ruby on Rail v3 and its swift rise in popularity on Github.</p>
 

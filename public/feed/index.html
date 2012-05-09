@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,537 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
+    <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
+    <updated>2012-05-08T07:26:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
+    <content type="html"><![CDATA[<p>This post is going to cover the whole &#8220;getting up an running&#8221; for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I&#8217;ve been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I&#8217;ve seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn&#8217;t touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
+
+<p>It&#8217;s worth pointing out right away that James Ward already has a <a href="http://www.jamesward.com/2012/02/21/play-framework-2-with-scala-anorm-json-coffeescript-jquery-heroku">similar post</a> and a <a href="https://github.com/jamesward/play2torial/blob/master/JAVA.md">(currently Java only) tutorial</a>.  These are  much better but they dont cover the Mongo/Caabah/Salat side of things (not that it is particularly difficult) so at least I&#8217;ve got a leg to stand on.</p>
+
+<h2>Installing</h2>
+
+<blockquote><p>Versions used in this post</p>
+
+<ul>
+<li>Scala (2.9.1)</li>
+<li>Play (2.0.1)</li>
+<li>Mongo (2.0.4)</li>
+</ul>
+</blockquote>
+
+<p>I&#8217;m going to assume that you are capable of installing software (by following basic instructions) so I won&#8217;t waste your time covering this.  Here are some links to kick you off,</p>
+
+<ul>
+<li><a href="http://www.scala-lang.org/downloads">Scala</a></li>
+<li><a href="http://www.playframework.org/download">Play 2</a> (it just goes on your <code>PATH</code>)</li>
+<li><a href="http://www.mongodb.org/downloads">Mongo</a></li>
+</ul>
+
+
+<p>Alternatively if you are on OSX - <a href="http://mxcl.github.com/homebrew/">Homebrew</a> has got everything you need at the time of putting this together.</p>
+
+<h2>Generating your Application</h2>
+
+<p>Play is a command line tool and can be used to generate your basic app skeleton,</p>
+
+<pre><code>play new &lt;project name&gt;
+</code></pre>
+
+<p>Just fill in the project name and you will be guided through the basic generation of the project, e.g.</p>
+
+<pre><code>→ play new sampleapp                                              
+       _            _ 
+ _ __ | | __ _ _  _| |
+| '_ \| |/ _' | || |_|
+|  __/|_|\____|\__ (_)
+|_|            |__/ 
+
+play! 2.0.1, http://www.playframework.org
+
+The new application will be created in /Users/kouphax/Projects/temp/sampleapp
+
+What is the application name? 
+&gt; sampleapp
+
+Which template do you want to use for this new application? 
+
+  1 - Create a simple Scala application
+  2 - Create a simple Java application
+  3 - Create an empty project
+
+&gt; 1
+
+OK, application sampleapp is created.
+
+Have fun!
+</code></pre>
+
+<p>Indeed - fun you shall have.</p>
+
+<h2>Dependencies</h2>
+
+<p>Working with Mongo directly is all well and good but it can be made a bit simpler with a few dependencies.  Namely <a href="http://api.mongodb.org/scala/casbah/2.0/">Casbah</a> and <a href="https://github.com/novus/salat">Salat</a>.  Casbah is the official Scala Toolkit for MongoDB and Salat allows you to map to and from the generic Mongo object classes into more concrete case classes.</p>
+
+<p>To add the dependencies you need to update the <code>Build.scala</code> file in the generated <code>project</code> directory.  Firstly you need to update the <code>appDependencies</code> to create the dependency on the new two libraries,</p>
+
+<pre><code>val appDependencies = Seq(
+  "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
+  "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
+)
+</code></pre>
+
+<p>Then you&#8217;ll need to add the <code>resolvers</code> to the <code>main</code> project declaration,</p>
+
+<pre><code> val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings
+   resolvers ++= Seq(
+     "repo.novus snaps" at "http://repo.novus.com/snapshots/")
+ )
+</code></pre>
+
+<p>And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!</p>
+
+<h2>The Model &amp; Data Access</h2>
+
+<p>First things first lets create our model.  So we are going to write a very basic registration app.  People &#8220;register&#8221; on the site, for fun or something, I dunno as our stakeholders - I just write the code.</p>
+
+<p>Our model is super simple,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Registration</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">confirm</span><span class="k">:</span>  <span class="kt">String</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">realName</span><span class="k">:</span> <span class="kt">String</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now to the interesting part.  To persist this in a Mongo data store we need to make use of the two libraries we imported previously,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">com.mongodb.casbah.Imports._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat.global._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Registrations</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">registrations</span> <span class="k">=</span> <span class="nc">MongoConnection</span><span class="o">()(</span><span class="s">&quot;sampleapp&quot;</span><span class="o">)(</span><span class="s">&quot;registrations&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">all</span> <span class="k">=</span> <span class="n">registrations</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asObject</span><span class="o">(</span><span class="n">_</span><span class="o">)).</span><span class="n">toList</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="k">:</span> <span class="kt">Registration</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">registrations</span> <span class="o">+=</span> <span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asDBObject</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First things first we create a connection using the <code>MongoConnection</code> class and grabs the <code>registrations</code> collection from the <code>sampleapp</code> store.  Now it&#8217;s worth noting that provided Mongo is up and running we don&#8217;t actually need to create either the store or the collection - the act of acting on a collection is enough to create both.</p>
+
+<p>Next up I defined two methods <code>all</code> and <code>create</code>.</p>
+
+<ul>
+<li><code>all</code> simply pulls out all the collection data using Casbah, performs a map over the collection (which is a collection of <code>MongoDBObject</code>/<code>DBObject</code>s) and uses the <code>grater</code> object provided by Salat to map from these generic objects to our <code>Registration</code> case class.</li>
+<li><code>create</code> simply adds an element (cast from a <code>Registration</code> class to an acceptable <code>DBObject</code>) to the collection.</li>
+</ul>
+
+
+<p>Now isn&#8217;t that a nice terse data access layer?  Yes it is.  You want to make changes?  Go ahead - the fear of change is gone or much reduced compared to the typical approach.</p>
+
+<h2>Controllers</h2>
+
+<p>Next up we want to add a register controller and update the existing <code>Application</code> controller.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="nc">Registrations</span><span class="o">.</span><span class="n">all</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The only difference here is the <code>Registrations.all</code> so we can list the registrations in the UI.  Lets jump over the the register controller</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Register</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span>
+</span><span class='line'>    <span class="n">mapping</span><span class="o">(</span>
+</span><span class='line'>      <span class="s">&quot;username&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>      <span class="s">&quot;password&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>      <span class="s">&quot;confirm&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>      <span class="s">&quot;realName&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+</span><span class='line'>    <span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
+</span><span class='line'>      <span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="k">=&gt;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">})</span>
+</span><span class='line'>  <span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">registrationForm</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">register</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
+</span><span class='line'>      <span class="n">form</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
+</span><span class='line'>      <span class="n">registration</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>        <span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'>        <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span><span class="s">&quot;message&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;User Registered!&quot;</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>OK thats a lot to take in so lets break it down a bit.</p>
+
+<h3>The Form</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">mapping</span><span class="o">(</span>
+</span><span class='line'>    <span class="s">&quot;username&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>    <span class="s">&quot;password&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>    <span class="s">&quot;confirm&quot;</span> <span class="o">-&gt;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
+</span><span class='line'>    <span class="s">&quot;realName&quot;</span> <span class="o">-&gt;</span> <span class="n">text</span>
+</span><span class='line'>  <span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="k">=&gt;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">})</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The Form concept in Play is a bit like a ViewModel of sorts.  It defines validation and mapping rules and allows you to pass a structured object between the controller and the view (inluding error information etc.).  In fact you aren&#8217;t even obliged to bind this to a class, they can exists as themselves.  My example above shows you how to bind to and from our <code>Registration</code> class as well as some field and crossfield/global validation.</p>
+
+<h3>Model Binding</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">form</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
+</span><span class='line'>  <span class="n">registration</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
+</span><span class='line'>    <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span>
+</span><span class='line'>      <span class="s">&quot;message&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;User Registered!&quot;</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This little functional approach allows us to bind a request to our <code>registrationForm</code> and react to invalid input.  In the case of an invalid bind the first argument into <code>fold</code> is executed which returns a bad request with an instance of the form.  In the case of the happy path we simply push our <code>registration</code> instance into the data store and redirect to the <code>index</code> action along with a flash message.</p>
+
+<h3>Flash</h3>
+
+<p>Flash is like a carefully curated session variable that exists only for the next request.  This allows you to pass messages or some very transient data between requests.  This is also accessible in the view which is handy.</p>
+
+<h2>Routes</h2>
+
+<p>Routes in Play are written into the <code>config/routes</code> file and this is used as a basis to generate reverse routes (this gives is us statically typed routes via the <code>routes</code> object).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">#</span> <span class="nc">Routes</span>
+</span><span class='line'><span class="k">#</span> <span class="nc">This</span> <span class="n">file</span> <span class="n">defines</span> <span class="n">all</span> <span class="n">application</span> <span class="n">routes</span> <span class="o">(</span><span class="nc">Higher</span> <span class="n">priority</span> <span class="n">routes</span> <span class="n">first</span><span class="o">)</span>
+</span><span class='line'><span class="k">#</span> <span class="o">~~~~</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">#</span> <span class="nc">Home</span> <span class="n">page</span>
+</span><span class='line'><span class="nc">GET</span>     <span class="o">/</span>                           <span class="n">controllers</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span>
+</span><span class='line'><span class="nc">GET</span>     <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">index</span>
+</span><span class='line'><span class="nc">POST</span>    <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">register</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">#</span> <span class="nc">Map</span> <span class="n">static</span> <span class="n">resources</span> <span class="n">from</span> <span class="n">the</span> <span class="o">/</span><span class="n">public</span> <span class="n">folder</span> <span class="n">to</span> <span class="n">the</span> <span class="o">/</span><span class="n">assets</span> <span class="nc">URL</span> <span class="n">path</span>
+</span><span class='line'><span class="nc">GET</span>     <span class="o">/</span><span class="n">assets</span><span class="cm">/*file               controllers.Assets.at(path=&quot;/public&quot;, file)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So I added two new routes for register that allows us to view and submit our registration form.</p>
+
+<h2>The Views</h2>
+
+<p>Right lets do something a little neat - remember I mentioned James Ward earlier?  Well he curates a little project called <a href="http://webjars.github.com">webjars</a> which allows us to add client side resources as managed dependencies to our project.  So lets prettify our UI with a bit of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> love.</p>
+
+<p>First thing we want to do is update our <code>Build.scala</code> file with webjars resolver and our bootstrap dependency</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;com.github.twitter&quot;</span> <span class="o">%</span>  <span class="s">&quot;bootstrap&quot;</span>  <span class="o">%</span> <span class="s">&quot;2.0.2&quot;</span><span class="o">,</span>
+</span><span class='line'>  <span class="c1">// other deps...</span>
+</span><span class='line'><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">val</span> <span class="n">main</span> <span class="k">=</span> <span class="nc">PlayProject</span><span class="o">(</span><span class="n">appName</span><span class="o">,</span> <span class="n">appVersion</span><span class="o">,</span> <span class="n">appDependencies</span><span class="o">,</span> <span class="n">mainLang</span> <span class="k">=</span> <span class="nc">SCALA</span><span class="o">).</span><span class="n">settings</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">resolvers</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>    <span class="s">&quot;webjars&quot;</span>          <span class="n">at</span> <span class="s">&quot;http://webjars.github.com/m2&quot;</span><span class="o">,</span>
+</span><span class='line'>    <span class="c1">// other resolvers...</span>
+</span><span class='line'>  <span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then in our <code>main.scala.html</code> we can reference the bootstrap assets in the normal way,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">href=</span><span class="s">&quot;@routes.Assets.at(&quot;</span><span class="na">stylesheets</span><span class="err">/</span><span class="na">bootstrap</span><span class="err">.</span><span class="na">min</span><span class="err">.</span><span class="na">css</span><span class="err">&quot;)&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Index (index.scala.html)</h3>
+
+<p>Here we simply list the current registered people,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrations: List[Registration])(implicit flash: Flash)
+</span><span class='line'>@main(&quot;Super Simple Sample&quot;) {
+</span><span class='line'>  @if(flash.data.contains(&quot;message&quot;)){
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;alert alert-success&quot;</span><span class="nt">&gt;</span>@flash.get(&quot;message&quot;)<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  }
+</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;@routes.Register.index&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="nt">&gt;</span>Register<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;table table-bordered&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;thead&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;</span>Username<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;</span>Real Name<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/thead&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;tbody&gt;</span>
+</span><span class='line'>      @registrations.map { registration =&gt;
+</span><span class='line'>        <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;td&gt;</span>@registration.username<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;td&gt;</span>@registration.realName<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>      }
+</span><span class='line'>    <span class="nt">&lt;/tbody&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/table&gt;</span>
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The interesting thing about Play 2 views is that they are just Scala.  Yep neat.  In fact any .NETters will feel quite at home as they are reminiscent of Razor views too.</p>
+
+<h3>Register (register.scala.html)</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrationForm: Form[models.Registration])(implicit flash: Flash)
+</span><span class='line'>
+</span><span class='line'>@import play.api.i18n._
+</span><span class='line'>@import views.html.helper._
+</span><span class='line'>
+</span><span class='line'>@input(field: Field, label: String, fieldType: Symbol = &#39;text) = {
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group @if(field.hasErrors) {error}&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span> <span class="na">for=</span><span class="s">&quot;@field.id&quot;</span><span class="nt">&gt;</span>@label<span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;@fieldType.name&quot;</span> <span class="na">value=</span><span class="s">&quot;@field.value&quot;</span> <span class="na">name=</span><span class="s">&quot;@field.id&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      @if(field.hasErrors){
+</span><span class='line'>        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-inline&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          @Messages(field.error.head.message)
+</span><span class='line'>        <span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>      }
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>@main(&quot;Super Simple Sample&quot;) {
+</span><span class='line'>  @form(action = routes.Register.register, &#39;class -&gt; &quot;form-horizontal&quot;) {
+</span><span class='line'>    <span class="nt">&lt;fieldset&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;legend&gt;</span>Registration<span class="nt">&lt;/legend&gt;</span>
+</span><span class='line'>      @registrationForm.globalError.map { error =&gt;
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&#39;row&#39;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;alert alert-error&quot;</span><span class="nt">&gt;</span>@error.message<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      }
+</span><span class='line'>      @input(registrationForm(&quot;name&quot;), &quot;Username&quot;)
+</span><span class='line'>      @input(registrationForm(&quot;password&quot;), &quot;Password&quot;, &#39;password)
+</span><span class='line'>      @input(registrationForm(&quot;confirm&quot;), &quot;Confirm Password&quot;, &#39;password)
+</span><span class='line'>      @input(registrationForm(&quot;realName&quot;), &quot;Real Name&quot;)
+</span><span class='line'>    <span class="nt">&lt;/fieldset&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;btn&quot;</span> <span class="na">value=</span><span class="s">&quot;Register&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see from the source there that I&#8217;ve crafted my own helper function to keep things nice and DRY and avoid having to write out the twitter bootstrap required structure over and over.</p>
+
+<h2>Running and Wrap Up</h2>
+
+<p>Right about now the solution is done so with a simple <code>play run</code> you should be able to register and view current registrations.  Excellent.  If you want to skip everything and just get my code you can clone the <a href="https://github.com/kouphax/scala-sampleapp">Github Repo</a>.</p>
+
+<p>OK so it&#8217;s not the most useful app in the world - that was never the intention.  But look at the code - it&#8217;s very terse and the time required to write this post was considerably more than the time required to implement the solution.  Joy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Little Sacrifices]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
+    <updated>2012-04-29T23:24:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
+    <content type="html"><![CDATA[<p>Late night ramblings&#8230;</p>
+
+<p>Productivity can plateau very quickly - especially in a technical process.  No matter how good you get at the process or approach, if you keep doing the same thing you can only get so good at it or do it so fast.  It&#8217;s possible, however, by sacrificing some of your precious time to go beyond that plateau.  There are things we, the developers, do as part of our development process that are so small and insignificant that we do them without thinking</p>
+
+<ul>
+<li>Clearing down the values in LocalStorage when debugging a web app</li>
+<li>Copying assets from one folder to another (aka the macgyver deploy)</li>
+<li>Navigating to <code>http://localhost:8000</code> or <code>9000</code> or some other port</li>
+<li>Typing <code>rake generate preview</code> into the terminal about 20 times an hour</li>
+<li>These are but a few things I&#8217;ve had to consider today alone</li>
+</ul>
+
+
+<p>Generally these things are so small we&#8217;d just do them by hand, right?  But if you take the time to automate these processes or even just refine them in some way it can do wonders for you productivity going forward.</p>
+
+<p>For example the clearing of LocalStorage in Chrome - spent a few minutes writing a bookmarklet that you can execute with 1 click.  The macgyver deploy?  Write a rake/make/jake/psake/cake task for it.  Better yet use <a href="https://github.com/guard/guard">Guard</a> or <a href="https://github.com/mynyml/watchr">Watchr</a> and perform the deploy on save!  Navigatin to various different localhost ports?  Try my <a href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/">alfred script</a> to minimise the keystrokes. <code>rake generate preview</code> - alias that bad boy to <code>rgp</code>!  Save yourself those extra keystrokes - you might need them later.</p>
+
+<p>Listen - specifics aren&#8217;t important here.  You&#8217;ll have your own small repetitive tasks and you&#8217;ll be able to find your own ways to automate, improve or refine them - but this is the point.  You probably don&#8217;t.  At least not as often as you should.  Losing a second here and there on one task means very little in the small.  In the large, across many of these tasks, well thats a different story.  It&#8217;s hard to justify spending 10 or 20 minutes on something to automate a task that takes 5 seconds to run but even if the time doesn&#8217;t repay for a while then the fact you have less of a cognitive shift between your primary task and this secondary one should allow you stay in the highly effective, productive mindset to get the job done.</p>
+
+<p>So give it a go, even as a thought experiment - think about the habitual development tasks you do and how you could automate them - you could well suprise yourself (like I have been recently).</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
-    <updated>2012-04-20T21:36:00+02:00</updated>
+    <updated>2012-04-20T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
     <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
 
@@ -55,11 +583,16 @@
   <entry>
     <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+02:00</updated>
+    <updated>2012-04-20T14:52:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="4f911c9791b203001f00cc2b" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+
+
+<iframe src="http://player.vimeo.com/video/41132110?title=0&amp;byline=0&amp;portrait=0" width="500" height="275" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
 
 <h2>Resources</h2>
@@ -137,7 +670,7 @@
 
 <h2>Comments</h2>
 
-<p>So how did it go?  From my perspective it could have been better - I&#8217;m not sure why started &#8220;ummmmming&#8221; all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats good what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
+<p>So how did it go?  From my perspective it could have been better - I&#8217;m not sure why started &#8220;ummmmming&#8221; all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
 
 <p>One more note - Gdasnk is awesome - the technical people are so engaged and enthusiastic, the place itself is really interesting and I managed try my new favourite shot - <a href="http://www.drinksmixer.com/drink10324.html">Mad Dog</a>.  Thanks for the opportunity Gdasnk and Infoshare.  Hopefully I can back here and spend more time in the city soon.</p>
 
@@ -148,7 +681,7 @@
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
     <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+02:00</updated>
+    <updated>2012-04-17T22:08:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
     <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It&#8217;s fulfils a need I keep having but never really fixing.</p>
 
@@ -202,7 +735,7 @@
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+02:00</updated>
+    <updated>2012-04-13T09:06:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don&#8217;t use it all the time!</p>
 
@@ -227,7 +760,7 @@
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+02:00</updated>
+    <updated>2012-04-03T17:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I&#8217;ve thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it&#8217;s working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -240,7 +773,7 @@
   <entry>
     <title type="html"><![CDATA[Rails is not a gateway drug]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug/"/>
-    <updated>2012-04-03T13:30:00+02:00</updated>
+    <updated>2012-04-03T13:30:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug</id>
     <content type="html"><![CDATA[<blockquote><p>WARNING!!! - a negative opinion on Rails lies ahead.  Everything here needs to be taken with an <strong>IMHO</strong> and, if you feel so inclined, tell me to go mind my own business.</p></blockquote>
 
@@ -382,7 +915,7 @@
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+02:00</updated>
+    <updated>2012-04-02T15:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I&#8217;ve been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 
@@ -415,7 +948,7 @@
   <entry>
     <title type="html"><![CDATA[Done Spoked at DevWeek]]></title>
     <link href="http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek/"/>
-    <updated>2012-03-28T13:19:00+02:00</updated>
+    <updated>2012-03-28T13:19:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek</id>
     <content type="html"><![CDATA[<p>So I made it through my talk at DevWeek which might sound a little odd but it took a whole bottle of cough syrup to do it.  Not having been sick for most of the winter my body decided a day before DevWeek to go into shut down.  I spent Tuesday in bed with very little voice.  Thankfully the head colds hold on my vocal chords relented this morning and I think I managed to project as best I could.</p>
 
@@ -447,7 +980,7 @@
   <entry>
     <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+01:00</updated>
+    <updated>2012-03-22T10:56:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
     <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It&#8217;s and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I&#8217;ve been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little&#8230; odd.</p>
 
@@ -476,7 +1009,7 @@
   <entry>
     <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
-    <updated>2012-03-22T08:21:00+01:00</updated>
+    <updated>2012-03-22T08:21:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
     <content type="html"><![CDATA[<p>So I&#8217;ve been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It&#8217;s obviously not the most complicated system in the world but hey it was new to me.</p>
 
@@ -538,7 +1071,7 @@
   <entry>
     <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
     <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
-    <updated>2012-03-20T21:37:00+01:00</updated>
+    <updated>2012-03-20T21:37:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
     <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
 <img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
@@ -699,7 +1232,7 @@
   <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
     <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+01:00</updated>
+    <updated>2012-03-19T21:34:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
     <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
@@ -723,7 +1256,7 @@
   <entry>
     <title type="html"><![CDATA[sentimentalizer: A Ruby port of Sentan]]></title>
     <link href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/"/>
-    <updated>2012-03-12T19:22:00+01:00</updated>
+    <updated>2012-03-12T19:22:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/12/sentamentalizer</id>
     <content type="html"><![CDATA[<p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>&#8217;s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
 
@@ -746,7 +1279,7 @@
   <entry>
     <title type="html"><![CDATA[Tinkering with minion.js]]></title>
     <link href="http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js/"/>
-    <updated>2012-03-08T13:13:00+01:00</updated>
+    <updated>2012-03-08T13:13:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js</id>
     <content type="html"><![CDATA[<p>Yay a technical post&#8230;</p>
 
@@ -917,7 +1450,7 @@
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
     <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+01:00</updated>
+    <updated>2012-03-06T23:22:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
     <content type="html"><![CDATA[<p>Ya&#8217;ll about ready for another silly analogy?  I sure am&#8230;.</p>
 
@@ -936,7 +1469,7 @@
   <entry>
     <title type="html"><![CDATA[The Estimation 4x4]]></title>
     <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
-    <updated>2012-02-12T19:36:00+01:00</updated>
+    <updated>2012-02-12T19:36:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
     <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I&#8217;ve ever had the pleasure to work with.</p></blockquote>
 
@@ -965,7 +1498,7 @@
   <entry>
     <title type="html"><![CDATA[Caveat Abstractor]]></title>
     <link href="http://yobriefca.se/blog/2012/02/09/caveat-abstractor/"/>
-    <updated>2012-02-09T08:37:00+01:00</updated>
+    <updated>2012-02-09T08:37:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/02/09/caveat-abstractor</id>
     <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
 
@@ -997,107 +1530,9 @@
   <entry>
     <title type="html"><![CDATA[On Craftmanship and Understanding, I Guess]]></title>
     <link href="http://yobriefca.se/blog/2012/01/31/on-craftmanship/"/>
-    <updated>2012-01-31T16:53:00+01:00</updated>
+    <updated>2012-01-31T16:53:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/01/31/on-craftmanship</id>
     <content type="html"><![CDATA[<p>You can stand at the station and wait for the train.  You know the one. It&#8217;s the one that&#8217;s always late, always packed with people, head down staring at the ground.  Or, you can walk the tracks with your own two feet. When you walk the tracks you take in your surroundings, you understand the route and you see the alternatives.  You wont beat the train everytime but when you walk the tracks you&#8217;ll have better stories to tell when you get there.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Enterprise Scale]]></title>
-    <link href="http://yobriefca.se/blog/2012/01/26/enterprise-scale/"/>
-    <updated>2012-01-26T09:54:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/01/26/enterprise-scale</id>
-    <content type="html"><![CDATA[<p>Enterprise.  What a broken, misued term.  Its meant to sound big, huge even. I guess many years ago it used to mean big, huge, big business serious work.</p>
-
-<p>But when you think about it, its none of those things really, not any more. <!-- more --> Even the biggest multi-nationals entire enterprise backbone throughput is probably a small fraction of Lady Gagas Twitter feed. Enterprise is just that - one enterprise. Social is global, its all of us at anytime and that is so much bigger than some old enterprise. So if you try and pimp out your CV by using the term enterprise - the only people who are probably going to care are the managers and execs that think their little boring legacy system is unique and special&#8230; Do you really want to be sold that sort of job?  All bytes are equal, some are more equal than others - Pah!  Some are more mired in unnecessary abstraction, contracts and unread, out-of-date doucmentation but they are still bytes.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
-    <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
-    <updated>2012-01-05T13:59:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
-    <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn&#8217;t the current build wont run in WP7.  So another item on the list is a version that doesn&#8217;t rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
-
-<p><a href="https://www.parse.com/">Parse</a> is a site aimed at providing a simple service for pushing and pulling data on mobile devices.  You can create applications and store your mobile data there, create users, provide logon/off mechanisms and even achieve push notifications.  There are 2 ways to access <a href="https://www.parse.com/">Parse</a></p>
-
-<!-- more -->
-
-
-<ol>
-<li>Via its natively compiled binaries (on iOS and Android)</li>
-<li>Via a its Rest API (for all non iOS/Android devices and desktops)</li>
-</ol>
-
-
-<p>Now I wanted to try and create bindings for the iOS library so I could use it for a Monotouch application I&#8217;ve been playing with but truth be told the whole process confused the hell out of me.  Thing was the REST API gave me everything I needed so I started recently to write a dynamic wrapper around the API.  Currently built on .NET in Visual Studio (Mono on my list) with a few sanity tests it works well enough to put it out there incase anyone was wanting to do something similar and could extract value from it.</p>
-
-<p>It&#8217;s pretty early at the minute - in fact all you can do with this first spike is basic object CRUD.  No querying yet, no special user management features etc.  But they will come.  So what could you use it for?  Well a number of things,</p>
-
-<ul>
-<li>WP7 Cloud Storage</li>
-<li>Monotouch (and Monodroid) storage until someone smarter than me creates proper bindings to the actual iOS frameworks</li>
-<li>It&#8217;s an object store so why not use it to store data on any web app?</li>
-<li>Just for tinkering.</li>
-</ul>
-
-
-<p>It makes use of <code>dynamic</code> from .NET 4 so you can kind of pass it arbitrary stuff and get arbitrary stuff back (Parse is schemaless so this makes sense for me).  It also means you wont have to create concrete classes for every single thing you want to store.</p>
-
-<p>If you want to run the tests you&#8217;ll need to sign up for Parse, create an app and update the <code>consts</code> in <code>describe_Parsely</code> to point to your new app (and authenticate).</p>
-
-<h2>Sample Uses</h2>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// create your parsley API</span>
-</span><span class='line'><span class="n">Parsley</span> <span class="n">parsley</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Parsley</span><span class="p">(</span><span class="n">applicationId</span><span class="p">,</span> <span class="n">masterKey</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// create new class</span>
-</span><span class='line'><span class="n">dynamic</span> <span class="n">response</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">1</span>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// do other cool stuff</span>
-</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">4</span><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">dyanmic</span> <span class="n">myObject</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Retrieve</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">myObject</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Outstanding Tasks</h2>
-
-<p>Lots.  But here is the main ones I see right now.</p>
-
-<ul>
-<li>Compile on Mono and show MonoTouch some Parse love.</li>
-<li>Samples (for WP7, Monotouch, possibly Monodroid)</li>
-<li>Add Queries</li>
-<li>Add User Management</li>
-</ul>
-
-
-<p>It&#8217;s probably fairly rough right now and could do with some TLC if anyone wants to pitch in?  I&#8217;ve given it a name (Parsley) but that in no way implies this is going to be a long running project or anything.  I just like naming things.  Get it while it&#8217;s hot, the code is in my <a href="https://bitbucket.org/kouphax/parsley">usual place</a>.</p>
-
-<h2>Pre-Post Update</h2>
-
-<p>Rather than update this blog post I decided to tack this on here.  With BitBucket experiencing some issues at present I spent about 10 minutes hacking in the user management features.  No tests written yet (oh no I have broken all the rules and must be beaten with oversized crayons) so lets just say that it&#8217;s very edge, very experimental at the minute.  Also bonus - returning a collection of objects is implemented as <code>Query</code> but again totally untested (fast and loose - it&#8217;s how I roll son).  There be dragons there therebe!</p>
-
-<p>Happy hacking.</p>
-
-<p>Can I have my WP7 MVP now please?  <strong>Kidding</strong></p>
 ]]></content>
   </entry>
   

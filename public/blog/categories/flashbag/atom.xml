@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>FlashBag | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/flashbag/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Guerrilla Learning Experiment #2: FlashBags]]></title>
     <link href="http://yobriefca.se/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags/"/>
-    <updated>2011-04-21T00:00:00+02:00</updated>
+    <updated>2011-04-21T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/04/21/guerrilla-learning-experiment-2-flashbags</id>
     <content type="html"><![CDATA[<p>  <p>So I kicked off another experiment in my war against ignorance in the IT industry.&nbsp; To make myself look cool I am using the term Guerrilla Learning.&nbsp; The experiment?&nbsp; Well I am calling it FlashBag<em></p><blockquote>Flashbag (fuh-lash-bah-ag): A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization.</blockquote><p>The name itself is a portmanteau of Flash Mob (I assume you all know what this is by now) and Whitebag - a technology awareness session held during lunch - hence Whitebag (the one you bring your lunch in).</p><p>Anyway whats it all about then?&nbsp; Well a typical scenario would be this.....&nbsp;</p><ul><li>I am reading my tech blogs on a day and come across a new tech that seems really nice.&nbsp;</li><li>As usual I link it on yammer or twitter or whatever and continue to dive into it.</li><li>I&rsquo;m sold.&nbsp; This is something other people need to know about.</li><li>So I book a room for 1/2 hour at the last minute, post internally the room and the topic (say 12:00, Boardroom, Glimpse for .NET)</li><li>Once the party is assembled I do a very short talk, possibly demo (15 minutes tops) and thats it.</li></ul><p>So what would this achieve?&nbsp; Well I believe a lot of people throw links and stuff into a &ldquo;Read Later&rdquo; pile or have a quick look at the page and go &ldquo;Cool&rdquo;.&nbsp; Then they forget all about it.&nbsp; This quick interactive, community focused practical sessions forces them to actually think about whats going on (James Hughes PHd in Theoretical Theories and Things like that) and how they would apply it to their work.&nbsp; It&rsquo;s more in your face and creates a better connection in those peoples minds.&nbsp; The news then precipitates&nbsp; further - the people attending the FlashBag post on yammer/twitter and talk about it more rather than just little old me.</p><p>As always I record these things as a memento of my awesome presentation skills (#lies) and allowing other people to see what went on.</p><p>It&rsquo;s early days and I&rsquo;ve done one so far (posting shortly) - turn out was mediocre but perhaps that will change, perhaps it won&rsquo;t.&nbsp; Mediocre turn out is better than none I guess - perhaps people are busy, perhaps enthusiasm is waining among my colleagues, or perhaps they are sick of me spamming every sense they have on a daily basis!</p><p>Thoughts?</p><p></em> After some internal discussion the name is up for debate.&nbsp; I like it but mostly because of my huge ego.&nbsp; Thoughts?</p></p>
 ]]></content>
@@ -25,7 +25,7 @@
   <entry>
     <title type="html"><![CDATA[Flashbag: Glimpse]]></title>
     <link href="http://yobriefca.se/blog/2011/04/21/flashbag-glimpse/"/>
-    <updated>2011-04-21T00:00:00+02:00</updated>
+    <updated>2011-04-21T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/04/21/flashbag-glimpse</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/22708858?portrait=0" frameborder="0" height="400" width="100%"></iframe></p><p>Glimpse is an extensible client side debugging dev tool for server side stuff in any ASP.NET (WebForms) and ASP.NET MVC (RoR and PHP forthcoming). Think Firebug for your server and you have the gist of it. &nbsp;This presentation is a very brief introduction/overview/review.</p><p>Also the quality totally blows I promise it'll be better next time.</p><p><span style="color: #888888;"><em><strong>Flashbag (fuh-lash-bah-ag)</strong>: A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization</em></span></p></p>
 ]]></content>

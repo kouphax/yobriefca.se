@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Windows | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Windows 8]]></title>
     <link href="http://yobriefca.se/blog/2011/09/14/windows-8/"/>
-    <updated>2011-09-14T00:00:00+02:00</updated>
+    <updated>2011-09-14T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/09/14/windows-8</id>
     <content type="html"><![CDATA[<p>Where WebForms was an attempt to bring the desktop paradigm to web development Windows 8 attempts to do the exact opposite by bringing web to the desktop. More so in fact Windows 8 appears to be effectivley deprecating the desktop idea over time. It's a bold move but trying to cater to every platform is surely a recipe for disaster but you know what I can't help but like it.</p>
 

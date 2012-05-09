@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Security | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/security/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tinyweb Fluent Security]]></title>
     <link href="http://yobriefca.se/blog/2011/09/26/tinyweb-fluentsecurity/"/>
-    <updated>2011-09-26T00:00:00+02:00</updated>
+    <updated>2011-09-26T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/09/26/tinyweb-fluentsecurity</id>
     <content type="html"><![CDATA[<p>I've been working on a little project recently that is using Tinyweb.  It's a typical little CRUDdy app and makes use of typical security features in a web app.  Tinyweb itself doesn't provide any sort of custom security features out of the box but as it sits on top of ASP.NET you can avail of all the normal membership stuff.  Problem is though - the default membership stuff, when working directly with it, is a bit cumbersome.  I recently tinkered with a project for ASP.NET MVC called <a href="http://www.fluentsecurity.net/">FluentSecurity</a> that added a fluent syntax to configuring security for ASP.NET MVC applications.  Taking a healthy dose of inspiration from this project I rolled a lightweight Tinyweb version of my own.  I figure this might be useful to someone else so I have now created a new project specifically for this.  It's probably totally broken in areas but the areas I've written tests around appear to work.</p>
 

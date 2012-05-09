@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Alfred | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/alfred/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+02:00</updated>
+    <updated>2012-04-03T17:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 

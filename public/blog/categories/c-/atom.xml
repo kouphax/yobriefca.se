@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>C# | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/c-/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-04-20T21:53:44+02:00</updated>
+  <updated>2012-05-09T21:15:28+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
     <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
-    <updated>2011-11-16T00:00:00+01:00</updated>
+    <updated>2011-11-16T00:00:00+00:00</updated>
     <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
