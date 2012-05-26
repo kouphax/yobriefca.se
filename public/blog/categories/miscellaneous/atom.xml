@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-09T21:15:28+01:00</updated>
+  <updated>2012-05-26T22:40:07+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[5 Years]]></title>
+    <link href="http://yobriefca.se/blog/2012/05/26/5-years/"/>
+    <updated>2012-05-26T22:11:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/05/26/5-years</id>
+    <content type="html"><![CDATA[<p>So I am sitting here, here being London - 315(ish) miles away from my family, halfway through the <a href="http://nhshackday.com">NHS Hack Day</a> and having a bit of a personal crisis.  I often have these little episodes but this one has been languishing in my dusty old head for a good while - refusing to go away, nagging me every time I have a chance to ponder things.  It's the same old thing - why am I doing any of this stuff I do?  I don't generally get a great amount of opportunity in work to really stretch my creative urges.  That sort of thing happens on my own time and therefore given my other responsibilities (my wife, family and lifes associated activities) is done under a fairly tight deadline.  Add this to the fact I bore easily of things that aren't really benefiting people immediately - I tend to flit, easily, between little unfinished projects.  But wait....  I did it again.  You see back there, about 2 sentences ago I just sidelined my entire life.  Thrown between two looming brackets I relegated my wife and family to a byline yet again.  Oy vey.</p>
+
+<p>And this brings me, neatly enough, to the point of this entire ramble.</p>
+
+<p>Five years ago I married my awesome wife and in that time I've done a heap of things - relocated twice, had two kids bought a house, got promoted, pissed everyone off, seen a few countries and bought/traded three cars (which get smaller every time oddly enough).  And through all this hopping around my wife has been the one true constant.  She thinks, most of the time, I don't care about her - after all I'm in London participating in a hackathon on our 5th wedding anniversary because I stupidly didn't put two and two together and notice the clash.  So yeah it may damn well seem like she comes in a close second to my hobby/career stuff (you know the stuff I already mentioned was pulling into crisis mode).  But it's not true.  I can't help the fact I am "emotionally retarded", as my sister once called it, but perhaps once in a while I really should let her know that she means more than she thinks she does.  And here it is.  A little bit of emotional letting if you will.</p>
+
+<p>Dear Emma - happy anniversary, I hope we have plenty more, thank you for putting up with me, you're aces.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The Little Sacrifices]]></title>
@@ -99,38 +114,6 @@
 <p>Dont believe me?  Try it out next time.  Do your pseudo-scientific enterprise-ready finger in the air analysis.  But hey see when that project is finished see how close the 4x4 would have brought you to the real result.  I bet 9 times out of 10 it was as accurate as your real estimate, except you could have started much sooner....</p>
 
 <p> #winning</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Caveat Abstractor]]></title>
-    <link href="http://yobriefca.se/blog/2012/02/09/caveat-abstractor/"/>
-    <updated>2012-02-09T08:37:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2012/02/09/caveat-abstractor</id>
-    <content type="html"><![CDATA[<p><em>Ramblings from 30,000ft.  The word abstraction is starting to sound odd.</em></p>
-
-<p>Every time you create an abstraction there is a very good chance you've introduced unnecessary complexity into a solution.  It should never be done alone - it should be a team decision.  The goal of an abstraction is to simplify but in its untamed natural form an abstraction will only add complexity.</p>
-
-<!-- more -->
-
-
-<p>As programmers it's easy to fall into the trap whereby we want the code that we write to be the last time anyone ever has to write that code again.  We dream of creating reusable works of art that ever other developer will use and never be concerned with the low level implementation ever again.</p>
-
-<p>This is wrong and impossible.  An anti-pattern even!</p>
-
-<p>It baffles me that anyone would create an abstraction that they didn't have a need for at the time. It's wasteful and degrades the readability, grokability and all those other good "ilities" we use.  Of course I say this like i don't do it myself but I'd be lying to you and myself.</p>
-
-<p>An abstraction, by definition, is an intentional hiding of implementation and knowledge but surely understanding of these things will lead to a higher chance of success in a project?  The person that created the abstraction has that understanding but it's like they dont want anyone else to know how it works.  They're ready to take that secret to their grave.</p>
-
-<p>When you start to abstract you need to remind yourself you are building a specific solution and not a framework (unless you are of course).  Abstractions should be done only within the scope of the project and you should have a strong case to back up its creation (make the decision a team effort).  This may sound like overhead but if you find it difficult to justify the creation odds are the abstraction is unnecessary.</p>
-
-<p>Abstractions should not be grand, they should be light and convey their intent clearly by other people (pair programming and peer review will help weed out any verbose abstractions).</p>
-
-<p>If you are creating an abstraction for anything other than DRY, odds are youre probably creating it for YAGNI.  You'll start considering irrelevant use cases and having to cater for insane edge cases.  This will happen even if you are taking a strong test driven approach - you'll concern youself with the workings of the abstraction rather then the problem you are solving and begin creating endless "what if" tests to cater for all those "0.00000001% chance of happening" edge cases. When this happens youre going to end up in mediocrity.  Mediocre abstractions attract more abstraction.  Even in a shared codebase bad abstractions create a certain amount of implied ownership to the person that created it. Inevitably someone will come along and create an abstraction around your abstraction (even if they have access to the original source).  This in turn will likely become YAMA (Yet Another Mediocre Abstraction) attracting yet more abstraction.... You can guess where I am going with that one... Its abstractions all the way down and everytime you abstract you've decreased system comphension and likely destroyed another future developers soul.</p>
-
-<p>In the same way guns dont kill people, people do - Abstraction dont kill projects, developers do.  You've only got yourself to blame (been there done that, will be again).  A nice simple abstraction, at the right time (e.g. When needed) can be expressive and helpful but too often we put the abstraction before the need.</p>
-
-<p>So consider abstractions as “guilty until proven innocent” not the other way around.  Solve YOUR problem - not every other problem, not until you need to.</p>
 ]]></content>
   </entry>
   
