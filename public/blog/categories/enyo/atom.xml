@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Enyo | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/enyo/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Ugh. He's on about something mobiley again. Lord save us all!]]></title>
     <link href="http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all/"/>
-    <updated>2011-12-13T17:39:00+00:00</updated>
+    <updated>2011-12-13T17:39:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/12/13/ugh-hes-on-about-something-mobiley-again-lord-save-us-all</id>
     <content type="html"><![CDATA[<p>Good timing right?  Fresh of the wave of my "lets have a natter about mobile" blog posts HP went and did something good (for a change, right?).  After the hash that was made of the TouchPad HP went and open sourced the webOS software. <!-- more -->  Bundled with this software is <a href="https://developer.palm.com/content/api/dev-guide/enyo.html">Enyo</a> a mobile framework for WebKit browsers.  Enyo was to be one of the main development platforms for webOS - JavaScript on the front end with node.js services for the backend.  The future was bright.  Then the TouchPad flopped.  Ack well.</p>
 

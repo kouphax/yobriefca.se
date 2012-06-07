@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[5 Years]]></title>
     <link href="http://yobriefca.se/blog/2012/05/26/5-years/"/>
-    <updated>2012-05-26T22:11:00+01:00</updated>
+    <updated>2012-05-26T22:11:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/05/26/5-years</id>
     <content type="html"><![CDATA[<p>So I am sitting here, here being London - 315(ish) miles away from my family, halfway through the <a href="http://nhshackday.com">NHS Hack Day</a> and having a bit of a personal crisis.  I often have these little episodes but this one has been languishing in my dusty old head for a good while - refusing to go away, nagging me every time I have a chance to ponder things.  It's the same old thing - why am I doing any of this stuff I do?  I don't generally get a great amount of opportunity in work to really stretch my creative urges.  That sort of thing happens on my own time and therefore given my other responsibilities (my wife, family and lifes associated activities) is done under a fairly tight deadline.  Add this to the fact I bore easily of things that aren't really benefiting people immediately - I tend to flit, easily, between little unfinished projects.  But wait....  I did it again.  You see back there, about 2 sentences ago I just sidelined my entire life.  Thrown between two looming brackets I relegated my wife and family to a byline yet again.  Oy vey.</p>
 
@@ -31,7 +31,7 @@
   <entry>
     <title type="html"><![CDATA[The Little Sacrifices]]></title>
     <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
-    <updated>2012-04-29T23:24:00+01:00</updated>
+    <updated>2012-04-29T23:24:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
     <content type="html"><![CDATA[<p>Late night ramblings...</p>
 
@@ -59,7 +59,7 @@
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+01:00</updated>
+    <updated>2012-04-03T17:24:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -72,7 +72,7 @@
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
     <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+00:00</updated>
+    <updated>2012-03-06T23:22:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
     <content type="html"><![CDATA[<p>Ya'll about ready for another silly analogy?  I sure am....</p>
 
@@ -91,7 +91,7 @@
   <entry>
     <title type="html"><![CDATA[The Estimation 4x4]]></title>
     <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
-    <updated>2012-02-12T19:36:00+00:00</updated>
+    <updated>2012-02-12T19:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
     <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I've ever had the pleasure to work with.</p></blockquote>
 

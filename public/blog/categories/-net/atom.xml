@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>.NET | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/-net/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,27 @@
 
   
   <entry>
+    <title type="html"><![CDATA[.NET on a Diet]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet/"/>
+    <updated>2012-06-07T21:40:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4fd0fb8d3bb27c001f0309b7" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Description</h2>
+
+<p>There are plenty of framework options in .NET. We have the big mainstream web frameworks like ASP.NET WebForms and MVC, the ORM abstractions and DataMappers in the form of Entity Framework, NHibernate and iBatis and services such as WCF requiring large amounts of careful configuration to get right. Unfortunately these frameworks can get in the way, abstractions breakdown and leak and eventually we end up fighting against the frameworks limitations.</p>
+
+<p>This session will take a look at the feature-fit lightweight alternatives and how they can be used to compose a technology stack that is cruft-free and fit for purpose.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
     <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+00:00</updated>
+    <updated>2012-03-19T21:34:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
     <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
 
@@ -40,7 +58,7 @@
   <entry>
     <title type="html"><![CDATA[Using Parse in .NET and WP7]]></title>
     <link href="http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7/"/>
-    <updated>2012-01-05T13:59:00+00:00</updated>
+    <updated>2012-01-05T13:59:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/01/05/using-parse-in-net-and-wp7</id>
     <content type="html"><![CDATA[<blockquote><p>UPDATE: Being completely wrong in assuming WP7 supports <code>dynamic</code> which apparently it doesn't the current build wont run in WP7.  So another item on the list is a version that doesn't rely on <code>dynamic</code> I guess.  Sorry for misleading anyone on that front - I did say it was rough and mostly untested right?</p></blockquote>
 
@@ -126,7 +144,7 @@
   <entry>
     <title type="html"><![CDATA[Wednesday Tip: C# Type aliases]]></title>
     <link href="http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip/"/>
-    <updated>2011-11-16T00:00:00+00:00</updated>
+    <updated>2011-11-16T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
@@ -171,7 +189,7 @@
   <entry>
     <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
     <link href="http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook/"/>
-    <updated>2011-11-01T00:00:00+00:00</updated>
+    <updated>2011-11-01T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook</id>
     <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
 
@@ -351,54 +369,6 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So all in all very simple but damn I'm proud that I got off my arse and contributed to such a stellar community. hopefully someone finds this useful.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[DDDNorth Retrospective]]></title>
-    <link href="http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective/"/>
-    <updated>2011-10-09T00:00:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2011/10/09/ddd-north-retrospective</id>
-    <content type="html"><![CDATA[<p>So its the day after DDD North and I'm more or less getting packed and ready to do the long boring travel bit home, which is really less travelling and more waiting around.  Anyway DDD North was pretty special.  Excellent turn out, great location and above all some great talks.  My talk (refORM: Death to ORMs in .NET) had a technical problem with the projector which meant the live demo section I wove in since last weeks talk had to be abandoned, shit happens.  It also went very fast, the talk was over in about 35 minutes but at least there was plenty of banter and questions - so at least the people seemed to be engaged.  Enough about my woes.  I'll have the slides and the (super secret) demo code available as soon as get back home.</p>
-
-<!-- more -->
-
-
-<p>So what about the rest of the talks?</p>
-
-<h2>Commercial Software Development - Writing Software Is Easy, Not Going Bust is the Hard Bit - Liam Westley</h2>
-
-<p>Liam took us through some of his personal experience of working in the industry as a sole(ish) trader.  He highlighted some of the things that you should really be doing to ensure you aren't "wasting time" and raised a very valid point - every time you take a support call you are bleeding money.  Makes sense but I initially rebelled against this premise.  I had wrongly jumped to the conclusion that if you don't get support calls you don't need a support contract - which in hindsight is pretty stupid of me.</p>
-
-<p>He also highlighted that if the phone does ring, or a support issue is raised then you need to make sure you have all the information at hand.  Detailed logging of crucial areas of your system, automated emails or tweets when the system detects something is wrong and generally making sure you don't need to rely on the end user to tell you what has went wrong.  Again makes perfect sense.  Obviously writing good code that is well tested prior to release is another winner in this area.</p>
-
-<p>In terms of releases he re-iterated the old "release early" mantra.  You don't want to waste time writing features that no one is going to use and you aren't really going to know this until users have the product in their hands - the minimum viable product.</p>
-
-<p>All in all a great session, nothing massively new for me here but I love hearing this stuff from people with real experience in it - it really helps solidify my beliefs in good code and early release.</p>
-
-<h2>"The Happy Programmer" - Is It a Myth? - Andy Gibson</h2>
-
-<p>Looking the various aspects of a developers life that determine if it is truly possible to have a "happy developer".  A fair amount of audience participation looking at the best office type, the rationale for having the best hardware and all that other stuff.</p>
-
-<h2>Continuous Delivery - Paul Stack</h2>
-
-<p>Certainly the highlight of the day for me.  Many people I work with believe that CD is a long way off for many projects but there was so much hard evidence at this talk that debunked this theory.  If it can be scripted or automated in anyway it should be.  This includes HTML, JS, CSS, and C# code analysis, unit tests, acceptance tests, environment configuration, document generation, Sharepoint config and setup (yep that to), VM rollout, DB upgrades and backups.  Everything really.</p>
-
-<p>A great example of this was a massive search engine in Norway that turned their 2 1/2 year release cycle into once every 4 hours.  This wasn't some big massive leap, it was done by gradually shortening the release cycle and tightening up the processes bit by bit till they got there.</p>
-
-<p>A good point was raised on this topic later in the evening - CI/CD scripts should be the very first thing you do on a project.  Then you build them up gradually as and when you need to.  No point in waiting till the end of the first release do this - it'll hurt way too much and never get done.</p>
-
-<h2>The 10 Habits of Highly Effective Programmers - Dennis Doomen</h2>
-
-<p>The last session, and after being up since 4AM I was wrecked.  But you know what?  Even with the tiredness and the heat of the room I remained engaged.  Again a lot of the topics in this talk I was already very familiar with but it was great to get a different perspective and new techniques for achieving them.  Also managed to increase my "To Read" list with a few books from this session.  Nice way to finish off the day.</p>
-
-<h2>Grok Talks</h2>
-
-<p>Through lunchtime there were a number of quick, informal grok talks.  The one I want to mention was on "teaching your kids to code" and showed various tools/games like LightBot and SmallBasic - my son is still a tiny bit young for this sort of thing but he'll probably be forced to do some of this with me being his dad.  I'd also have liked to have seen Scratch (from MIT) mentioned as this is a similar technology.</p>
-
-<p>Overall the day was beyond my expectations - plenty of refreshments, goodies, decent food and great people.  To be honest I really felt like a small fish presenting though - after seeing the other guys I felt my delivery was decidedly amateur.  But hey thats why I am doing this - to get better.  Looking forward to the next one!  Thanks everyone.</p>
-
-<p>Next up I have GOTOAmsterdam (this Wednesday).  Funnily enough I need to find my passport ASAP as 2 minutes after jokingly saying "Wouldn't it be funny if I couldn't find my passport?" to my wife, well, you can probably guess what happened.  So not only did I look like a dick in-front of my lovely wife I also managed to put my GOTO conf attendance in jeopardy - hell I really am a dick!</p>
 ]]></content>
   </entry>
   

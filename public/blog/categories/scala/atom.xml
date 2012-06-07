@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Scala | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
     <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
-    <updated>2012-05-08T07:26:00+01:00</updated>
+    <updated>2012-05-08T07:26:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
     <content type="html"><![CDATA[<p>This post is going to cover the whole "getting up an running" for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I've been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I've seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn't touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
 
@@ -595,7 +595,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+01:00</updated>
+    <updated>2012-04-13T09:06:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
 
@@ -620,7 +620,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+01:00</updated>
+    <updated>2012-04-02T15:21:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I've been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 

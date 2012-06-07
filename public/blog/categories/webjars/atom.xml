@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>webjars | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/webjars/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
     <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
-    <updated>2012-05-08T07:26:00+01:00</updated>
+    <updated>2012-05-08T07:26:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
     <content type="html"><![CDATA[<p>This post is going to cover the whole "getting up an running" for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I've been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I've seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn't touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
 

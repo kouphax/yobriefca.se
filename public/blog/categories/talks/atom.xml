@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Talks | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/talks/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,67 @@
 
   
   <entry>
+    <title type="html"><![CDATA[.NET on a Diet]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet/"/>
+    <updated>2012-06-07T21:40:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4fd0fb8d3bb27c001f0309b7" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Description</h2>
+
+<p>There are plenty of framework options in .NET. We have the big mainstream web frameworks like ASP.NET WebForms and MVC, the ORM abstractions and DataMappers in the form of Entity Framework, NHibernate and iBatis and services such as WCF requiring large amounts of careful configuration to get right. Unfortunately these frameworks can get in the way, abstractions breakdown and leak and eventually we end up fighting against the frameworks limitations.</p>
+
+<p>This session will take a look at the feature-fit lightweight alternatives and how they can be used to compose a technology stack that is cruft-free and fit for purpose.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Monotouch: C# + iOS = Good Times]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times/"/>
+    <updated>2012-06-07T21:38:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4fd0fb533bb27c0022030674" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Code</h2>
+
+<p><a href="https://github.com/kouphax/monotouch-samples-ndc2012">https://github.com/kouphax/monotouch-samples-ndc2012</a></p>
+
+<h2>Description</h2>
+
+<p>MonoTouch allows you to harness all those C# skills and most of those handy .NET/Mono libraries to create truly native apps for iOS with a sprinkle of cross-platform support. But why not just use objective-c you cry? Choice is nice, so is C# and so is the range of libraries available for mono!</p>
+
+<p>In this talk I will dive in to what makes MonoTouch so compelling for .NET developers wanting to break into iOS development and even how these skills can be harnessed to create cross platform native applications for iOS, Android and WP7 through a shared codebase.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mobile, How Do I Develop Thee? Let Me Count the Ways (Long Version)]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/07/mobile/"/>
+    <updated>2012-06-07T21:36:00+02:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/07/mobile</id>
+    <content type="html"><![CDATA[<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="4fcf26728a589b001f0040e8" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2>Description</h2>
+
+<p>Mobile development is a bit like writing web apps back in the browser war days - full of decision anxiety, volatility and platform specific issues. There is no one true answer yet most people think there should be. This talk will cover the popular(ish) options from native all the way to web solutions (and all the mashup magic in-between). Oh yes and some opinion as well.</p>
+
+<p>This is the longer more up to date version of the previous talk.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+01:00</updated>
+    <updated>2012-04-20T14:52:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -114,7 +172,7 @@
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+01:00</updated>
+    <updated>2012-04-13T09:06:00+02:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
 
@@ -130,48 +188,6 @@
 <h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="4f86b1fcd1325b0022019eea" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[refORM: Death to ORMs in .NET]]></title>
-    <link href="http://yobriefca.se/blog/2011/10/10/reform-death-to-orms-in-net/"/>
-    <updated>2011-10-10T00:00:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2011/10/10/reform-death-to-orms-in-net</id>
-    <content type="html"><![CDATA[<p>Data Access is a difficult area to master. There are plenty of frameworks such as Entity Framework, NHibernate, i/myBatis. These frameworks attempt to make data access simpler but while these products are widely used they can lead to leaky abstractions forcing us to work around constraints of the technology or introduce the nightmare of trying to figure out what is happening deep down in the frameworks internals.</p>
-
-<p>In this session we will look at the various lightweight alternatives and the advantages they offer as well as provide rationale about why the more heavyweight approach isn't always the best approach.</p>
-
-<!-- more -->
-
-
-<p><a href="https://bitbucket.org/kouphax/ddd-data-access/">Demo Code and Examples</a></p>
-
-<script src="http://speakerdeck.com/embed/4eb7ebb05040b9005400eb4f.js"></script>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CoffeeScript the Awesome]]></title>
-    <link href="http://yobriefca.se/blog/2011/10/10/coffeescript-the-awesome-talk/"/>
-    <updated>2011-10-10T00:00:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2011/10/10/coffeescript-the-awesome-talk</id>
-    <content type="html"><![CDATA[<p>CoffeeScript - "a little language that compiles into JavaScript" has been making a lot of noise in the web community with its inclusion in Ruby on Rail v3 and its swift rise in popularity on Github.</p>
-
-<p>This session will look at the benefits this language brings over the native JavaScript alternative, the syntactical double rainbow it creates, the problems you'll face and of course how you can actually use it in different technology stacks such as Ruby, node.js, .NET and Java.</p>
-
-<!-- more -->
-
-
-
-
-<script src="http://speakerdeck.com/embed/4eb7effc5040b9005100f937.js"></script>
 
 
 

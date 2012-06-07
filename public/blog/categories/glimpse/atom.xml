@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Glimpse | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/glimpse/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-05-26T22:40:07+01:00</updated>
+  <updated>2012-06-07T21:48:53+02:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Flashbag: Glimpse]]></title>
     <link href="http://yobriefca.se/blog/2011/04/21/flashbag-glimpse/"/>
-    <updated>2011-04-21T00:00:00+01:00</updated>
+    <updated>2011-04-21T00:00:00+02:00</updated>
     <id>http://yobriefca.se/blog/2011/04/21/flashbag-glimpse</id>
     <content type="html"><![CDATA[<p>  <p><iframe src="http://player.vimeo.com/video/22708858?portrait=0" frameborder="0" height="400" width="100%"></iframe></p><p>Glimpse is an extensible client side debugging dev tool for server side stuff in any ASP.NET (WebForms) and ASP.NET MVC (RoR and PHP forthcoming). Think Firebug for your server and you have the gist of it. &nbsp;This presentation is a very brief introduction/overview/review.</p><p>Also the quality totally blows I promise it'll be better next time.</p><p><span style="color: #888888;"><em><strong>Flashbag (fuh-lash-bah-ag)</strong>: A flashbag is a group of people who assemble suddenly in a meeting room type place, partake in a brief technical discussion (or demonstration), then disperse, often for the purposes of education and betterization</em></span></p></p>
 ]]></content>
