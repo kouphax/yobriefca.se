@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Talks | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/talks/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[.NET on a Diet]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet/"/>
-    <updated>2012-06-07T21:40:00+02:00</updated>
+    <updated>2012-06-07T21:40:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -34,7 +34,7 @@
   <entry>
     <title type="html"><![CDATA[Monotouch: C# + iOS = Good Times]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times/"/>
-    <updated>2012-06-07T21:38:00+02:00</updated>
+    <updated>2012-06-07T21:38:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -56,7 +56,7 @@
   <entry>
     <title type="html"><![CDATA[Mobile, How Do I Develop Thee? Let Me Count the Ways (Long Version)]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/mobile/"/>
-    <updated>2012-06-07T21:36:00+02:00</updated>
+    <updated>2012-06-07T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/mobile</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -74,7 +74,7 @@
   <entry>
     <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+02:00</updated>
+    <updated>2012-04-20T14:52:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -172,7 +172,7 @@
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+02:00</updated>
+    <updated>2012-04-13T09:06:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
 

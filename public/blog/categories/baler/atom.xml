@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Baler | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/baler/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Baler v0.4.1 Released]]></title>
     <link href="http://yobriefca.se/blog/2011/07/10/baler-v04.1-released/"/>
-    <updated>2011-07-10T00:00:00+02:00</updated>
+    <updated>2011-07-10T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/07/10/baler-v04.1-released</id>
     <content type="html"><![CDATA[<p>  <p>Tiny release push out to <a href="http://yobriefca.se/projects/baler">Baler</a> that provides VS2008 specific project and solution files.  No new stuff pushed to Nuget as it is source only this time.</p><p>Source available in the <a href="https://github.com/kouphax/baler/">Github Repo</a>.</p><p>More on its way soon!</p></p>
 ]]></content>
@@ -25,7 +25,7 @@
   <entry>
     <title type="html"><![CDATA[Baler v0.4 Released]]></title>
     <link href="http://yobriefca.se/blog/2011/06/20/baler-0.4-released/"/>
-    <updated>2011-06-20T00:00:00+02:00</updated>
+    <updated>2011-06-20T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/06/20/baler-0.4-released</id>
     <content type="html"><![CDATA[<p>  <p>Just a quick note to say that Baler v0.4 has been released.  Nothing new here I have simply compiled it (and the official extensions) against .NET3.5 just to make it more useable for people still stuck on old projects :-P</p><p>Everything is on Nuget already so go have fun.</p></p>
 ]]></content>
@@ -34,7 +34,7 @@
   <entry>
     <title type="html"><![CDATA[Baler v0.3 Released]]></title>
     <link href="http://yobriefca.se/blog/2011/06/17/baler-v0.3-released/"/>
-    <updated>2011-06-17T00:00:00+02:00</updated>
+    <updated>2011-06-17T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/06/17/baler-v0.3-released</id>
     <content type="html"><![CDATA[<p>  <p>I&#8217;ve just pushed a new version of <a href="http://yobriefca.se/projects/baler">Baler</a>.  It&#8217;s current version of 0.3 but semantically speaking it should be v0.2.2 as I haven&#8217;t changed the <span class="caps">API</span>.  But hey we all make mistakes :(</p><h2>What&#8217;s New?</h2><p>Thanks to a suggestion from <a href="https://github.com/edazdarevic">edazdarevic</a> this release reworks the way files are generated.</p><p>Originally if a bale wasn&#8217;t flagged as generated (e.g. after an <span class="caps">IIS</span> reset) a new file with a random name would be generated.  This mean&#8217;t that during development a shed load of files would be generated as you changed some other file and restarted your server.  This lead to an awful mess in your output folder.  Now what happens if a bale isn&#8217;t flagged as generated the contents of the file are processed and a hash is generated from this.  This hash is then used as the filename for that file (appended with the correct extension).  If that file exists then the contents haven&#8217;t changed and are not written out to a new file saving that extra file system write.</p><p>In the future I&#8217;d like to adopt the approach of simply writing out references to the bales contents during <code>DEBUG</code>/development mode and only process the bales when in <code>PRODUCTION</code> mode.  But for now I think this is a reasonable stop gap.</p><p><a href="https://github.com/edazdarevic">edazdarevic</a> has some <a href="https://github.com/kouphax/baler/issues/1">more ideas</a> that I plan on trying to integrate but I need more time to think about how to approach it without bloating the code.</p></p>
 ]]></content>
@@ -43,7 +43,7 @@
   <entry>
     <title type="html"><![CDATA[Baler v0.2.1 Released and 2 New Extensions]]></title>
     <link href="http://yobriefca.se/blog/2011/06/09/baler-1-2-and-extensions/"/>
-    <updated>2011-06-09T00:00:00+02:00</updated>
+    <updated>2011-06-09T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/06/09/baler-1-2-and-extensions</id>
     <content type="html"><![CDATA[<p>  <h1>Baler</h1><p>I have just released a new version of <a href="http://yobriefca.se/projects/baler">Baler</a>.  Version 0.2.1 release adds a new feature for adding custom attributes to bales.  The <code>Attr</code> function, available as an instance method to all bales, accepts an attribute name and a string value that will be applied to the rendered bale tag.  The best way to demonstrate this is with an example.</p><h2><span class="caps">CSS</span> Media Attribute</h2><p>When specifying link tags for <span class="caps">CSS</span> it is possible to scope that stylesheet to a specific meida type.  For example you could have a stylesheet that modifies your page style for printing e.g.</p><p class="minimal-gist"><script src="https://gist.github.com/1016555.js?file=style.css"></script></p><p>The new <code>Attr</code> method allows you to specify this new attribute like so,</p><p class="minimal-gist"><script src="https://gist.github.com/1016560.js?file=Baler.cs"></script></p><h2>&#8220;No Value&#8221; Attributes</h2><p>Some attributes, such as the <code>async</code> and <code>defer</code> on script tags do not require a value.  <code>Attr</code> is capable of dealing with these type of attributes.</p><p class="minimal-gist"><script src="https://gist.github.com/1016564.js?file=async.js"></script></p><p>Will produce</p><p class="minimal-gist"><script src="https://gist.github.com/1016565.js?file=script.html"></script></p><p>I am sure there are other uses for it (setting id&#8217;s or data-* attributes) as it&#8217;s a fairly flexible little enhancement.</p><h1><span class="caps">CSS</span> Media Extensions</h1><pre><code>PM&gt; Install-Package CodeSlice.Web.Baler.Extensions.CssMedia</code></pre><p>The first extension to utilise this new <code>Attr</code> is the <code>CssMediaExtensions</code> addon. <code>CssMediaExtensions</code> provide methods for setting the media type that a stylesheet should render for such as screen or print</p><h2>WithMedia()</h2><p>The WithMedia Extension allows you to set the media attribute of the rendered <span class="caps">CSS</span> tag.</p><p class="minimal-gist"><script src="https://gist.github.com/1016677.js?file=withmedia.cs"></script></p><h2>AsCss()</h2><p><code>AsCss</code> overrides the existing <code>AsCss</code> method allowing you to pass a media attribute value directly into the render call. For example the above example could simply be written as,</p><p class="minimal-gist"><script src="https://gist.github.com/1016682.js?file=ascss.cs"></script></p><h1>Named Bales Extension</h1><pre><code>PM&gt; Install-Package CodeSlice.Web.Baler.Extensions.NamedBales</code></pre><p>This one has been released for a while but I didn&#8217;t get around to writing about it. TheNamed Bales extension provides a mechanism to declare a Bale definition up front and reuse the same bale throughout the application without having to redefine the contents over and over. For example we can define a bale with 3 scripts and name it</p><p class="minimal-gist"><script src="https://gist.github.com/1016778.js?file=namedbale.cs"></script></p><p>This can returns the Bale itself so can be used inline or somewhere like <code>Global.asax</code>. Next we can render this bundle using <code>AsJs</code> later in the app like so,</p><p class="minimal-gist"><script src="https://gist.github.com/1016781.js?file=bale.cs"></script></p><p>Currently this doesn?t short circuit Balers internal cache so a second cache check will be made using the internal hashing mechanism. This is either a good thing or a bad thing. But for now it?s a good thing! This does have the side effect of ensuring that any unnamed bales with the same signature as a named bale will still get cached bale.</p><h3>NameAs()</h3><p>NameAs adds some sugar to the IBale interface allowing us to apply a friendly name to a bale. There is currently no check to see if the bale name is already taken. Existing definitions will be overwritten.</p><h3>NamedBales.Get()</h3><p>Allows us to retrieve a bale based on a friendly name defined by the developer. Will throw and exception if the bale name doesn?t exist in the cache ? otherwise the bale itself.</p><h1>Coming Up</h1><p>Still plenty to be done.  Docs are fairly complete but there are a mountain of unit tests to be written still and some extra features to be added (without bloating the code base of course).  I have a few features I&#8217;d like to work in but I&#8217;ll keep that for another day.</p></p>
 ]]></content>
@@ -52,7 +52,7 @@
   <entry>
     <title type="html"><![CDATA[Baler Site now Live(ish)]]></title>
     <link href="http://yobriefca.se/blog/2011/06/06/baler-site-live/"/>
-    <updated>2011-06-06T00:00:00+02:00</updated>
+    <updated>2011-06-06T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/06/06/baler-site-live</id>
     <content type="html"><![CDATA[<p>  <p>I&#8217;ve just pushed the first draft of the new shiny Baler web site into the various tubes that form the basis of the interwebs.  I am still missing a logo but why let that hold me back?  Anyway feel free to check it out while I add more tests to the project and generally polish things.</p><p><a href="http://yobriefca.se/projects/baler">Baler Project Site</a></p></p>
 ]]></content>

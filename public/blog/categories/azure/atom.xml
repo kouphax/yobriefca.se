@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Azure | Yo Briefcase!]]></title>
+  <link href="http://yobriefca.se/blog/categories/azure/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-07-12T13:49:59+01:00</updated>
+  <id>http://yobriefca.se/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Azure Website Workflow for Bosses]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/12/azure-website-workflow-for-bosses/"/>
+    <updated>2012-07-12T12:23:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/12/azure-website-workflow-for-bosses</id>
+    <content type="html"><![CDATA[<blockquote><p>So consider my indefinite hiatus suspended definitely.  I suck at quitting!  But we wont dive into the whys and wherefores  around that now.</p></blockquote>
+
+<p>I've a confession to make, the "new" Azure, I like it.  Yeah I do, s'nice.  I like the way it blends PaaS with IaaS (though I do feel that adding 1st class node.js and PHP support is a bit of a tacked on marketing ploy).  So you dont have the "Add-On" model you get from Appharbor and Heroku but thats fine because this blending of "as a Services" gives you an alternate approach.  For a start you can just use the external services without them having to be "Add-Ons".  Sure you lose out on the nice automatic integration points for managing your services but it's not the end of the world and what happens when you want something that isn't available as an Add-On or worse not available as a cloudy SaaS thing?  Well I guess you need to go off to EC2 or similar and host your own (assuming you want to stick with the cloudy infrastructure).  But with Azure you also get another option - you want to use Mongo or some huge enterprisey platform that isn't SaaSified?  Stick it on an Azure VM.  Everything managed under one cloud provider.  Thats such a nice thing to have at your disposal.</p>
+
+<p>But thats not the point of this post.  Most posts out there cover a workflow for Azure WebSites that make use of the portal to provision new sites (and then usually <code>git</code> to deploy) but that's weak sauce (the portal part at least - gits still aces).  No, no no - You want hyper-productivity, you want automated provisioning,  you want to be hip; node.js hip; and you want to feel like a boss hanging out on your command line while other "lesser people" click stuff with a silly little rodent.  I just read your mind, didn't I?  Well then - you got that with Azure.</p>
+
+<h2>Setting Up</h2>
+
+<p>First things first you need to install a few things.</p>
+
+<h3>Installing node.js + NPM</h3>
+
+<p><a href="http://nodejs.org/#download">Download</a></p>
+
+<p>The tools are built and deployed in node via NPM, the node package manager so just run the one click installer and you'll be all setup.</p>
+
+<h3>Installing Azure CLI Tools</h3>
+
+<p>Install these via NPM so fire up your terminal/command prompt/whatever and type</p>
+
+<pre><code>npm install azure -g
+</code></pre>
+
+<p>Then let NPM install all the dependencies and what not (the <code>-g</code> option just tells NPM to install the tools globally so they are accessible from the command line)</p>
+
+<h3>Adding your account</h3>
+
+<p>Next up you need to tell azure what account to use so fire this command into you command line</p>
+
+<pre><code>azure account download
+</code></pre>
+
+<p>You'll then be taken to the Azure website and it should (assuming you're logged in already) download a <code>publishsettings</code> file.  Next up you need to import this file into your azure toolchain.</p>
+
+<pre><code>azure account import YOUR_DOWNLOADED_FILE.publishsettings
+</code></pre>
+
+<p>After some scrolling text you'll be all set up and ready to deploy.  You'll be asked to delete the file you downloaded - probably best to do this :)</p>
+
+<h2>Creating the app</h2>
+
+<p>OK then lets create an app - what we create is irrelevant here so lets just create the default ASP.NET MVC website and use that as our sample app.  Remeber though, if you're a cutting edge awesome-addict to switch from .NET 4.5 to 4 or else you'll get some issues when deploying your site to Azure.</p>
+
+<p>Once you've created you app and saved it then you'll want to intialise an empty repo at the root of the solution,</p>
+
+<pre><code>git init
+</code></pre>
+
+<p>Then we need to create a site on Azure we can push to.</p>
+
+<h2>Creating a new site</h2>
+
+<p>Back to the command line now,</p>
+
+<pre><code>azure site create SITE_NAME
+</code></pre>
+
+<p>If we execute this, again at the root of our solution, it will do a number of things,</p>
+
+<ol>
+<li>Validate the request (site name availability and what not)</li>
+<li>Create a new site on Azure</li>
+<li>Add a new git <code>remote</code> to your <code>.git\config</code> file</li>
+</ol>
+
+
+<h2>Pushing site</h2>
+
+<p>As I've said the last command actually added a remote repo to our git configuration so if we do the usual gitty stuff (you'll want to, for neatness sake, set up your <code>.gitignore</code> but we can skip this for brevity),</p>
+
+<pre><code>git add -A
+git commit -m "Boring commit message"
+</code></pre>
+
+<p>Now we push,</p>
+
+<pre><code>git push azure master
+</code></pre>
+
+<p>Done!</p>
+
+<h2>Viewing your site</h2>
+
+<p>You could just browse to your new site but thats just not hip enough, hell no.  Instead lets launch it from the command line...</p>
+
+<pre><code>azure site browse
+</code></pre>
+
+<p>That will launch our new site without having to touch a silly old, out of date rodent.</p>
+
+<h2>Wrapping up</h2>
+
+<p>Ok so thats the basic workflow for using CLI tools to manage Azure sites.  You can do this with most of the Azure services (VMs, Certs, Cloud Services etc.) aswell.</p>
+
+<p>So apart from making you look all hackery working in the terminal it does have other uses, specifically around the fact terminal command can be easily executed in a headless automated environment.  Think of creating new sites as part of your CI's deployment pipeline, or as part of some disaster recovery process.  The possibilities are endless... heck even write your own UI for managing sites or deploying new sites/VM/whatever!</p>
+
+<p>So lets see -</p>
+
+<ul>
+<li>CLI hackery coolness... ✓</li>
+<li>Node.js hipster bragging rights... ✓</li>
+<li>Azure website created and deployed with about 6 commands... ✓</li>
+</ul>
+
+
+<p>Not bad for a few minutes work!</p>
+]]></content>
+  </entry>
+  
+</feed>

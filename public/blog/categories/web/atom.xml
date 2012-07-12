@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Web | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
     <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
-    <updated>2012-03-20T21:37:00+01:00</updated>
+    <updated>2012-03-20T21:37:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
     <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
 <img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
@@ -193,7 +193,7 @@
   <entry>
     <title type="html"><![CDATA[A Nancy Module that Behaves like a Rails Controller... Mother of God]]></title>
     <link href="http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller/"/>
-    <updated>2011-12-30T20:46:00+01:00</updated>
+    <updated>2011-12-30T20:46:00+00:00</updated>
     <id>http://yobriefca.se/blog/2011/12/30/a-nancy-module-taht-behaves-like-a-rails-controller</id>
     <content type="html"><![CDATA[<p>If <a href="http://nancyfx.org">Nancy</a> is inspired by Sinatra I thought I'd have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later...</p>
 
@@ -368,7 +368,7 @@
   <entry>
     <title type="html"><![CDATA[Nancy JSONP Hook]]></title>
     <link href="http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook/"/>
-    <updated>2011-11-01T00:00:00+01:00</updated>
+    <updated>2011-11-01T00:00:00+00:00</updated>
     <id>http://yobriefca.se/blog/2011/11/01/nancy-jsonp-hook</id>
     <content type="html"><![CDATA[<blockquote><p>3 Nov 2011: As of Nancy v0.9 this is part of the core (same logic applies)</p></blockquote>
 
@@ -554,7 +554,7 @@
   <entry>
     <title type="html"><![CDATA[Tinyweb Fluent Security]]></title>
     <link href="http://yobriefca.se/blog/2011/09/26/tinyweb-fluentsecurity/"/>
-    <updated>2011-09-26T00:00:00+02:00</updated>
+    <updated>2011-09-26T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/09/26/tinyweb-fluentsecurity</id>
     <content type="html"><![CDATA[<p>I've been working on a little project recently that is using Tinyweb.  It's a typical little CRUDdy app and makes use of typical security features in a web app.  Tinyweb itself doesn't provide any sort of custom security features out of the box but as it sits on top of ASP.NET you can avail of all the normal membership stuff.  Problem is though - the default membership stuff, when working directly with it, is a bit cumbersome.  I recently tinkered with a project for ASP.NET MVC called <a href="http://www.fluentsecurity.net/">FluentSecurity</a> that added a fluent syntax to configuring security for ASP.NET MVC applications.  Taking a healthy dose of inspiration from this project I rolled a lightweight Tinyweb version of my own.  I figure this might be useful to someone else so I have now created a new project specifically for this.  It's probably totally broken in areas but the areas I've written tests around appear to work.</p>
 
@@ -648,7 +648,7 @@ Tinyweb.Init();
   <entry>
     <title type="html"><![CDATA[Hackathon #2: Mobile]]></title>
     <link href="http://yobriefca.se/blog/2011/09/15/hackathon-2-mobile/"/>
-    <updated>2011-09-15T00:00:00+02:00</updated>
+    <updated>2011-09-15T00:00:00+01:00</updated>
     <id>http://yobriefca.se/blog/2011/09/15/hackathon-2-mobile</id>
     <content type="html"><![CDATA[<p>So as I've already said in a <a href="/blog/2011/08/29/hackathon-retorspective/">previous post</a> our first hackathon was well recieved.  So why not, we thought, do another one?  And indeed why not?</p>
 

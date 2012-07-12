@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Ruby | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
-    <updated>2012-04-20T21:36:00+02:00</updated>
+    <updated>2012-04-20T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
     <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
 
@@ -55,7 +55,7 @@
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
     <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+02:00</updated>
+    <updated>2012-04-17T22:08:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
     <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It's fulfils a need I keep having but never really fixing.</p>
 
@@ -109,7 +109,7 @@
   <entry>
     <title type="html"><![CDATA[Rails is not a gateway drug]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug/"/>
-    <updated>2012-04-03T13:30:00+02:00</updated>
+    <updated>2012-04-03T13:30:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug</id>
     <content type="html"><![CDATA[<blockquote><p>WARNING!!! - a negative opinion on Rails lies ahead.  Everything here needs to be taken with an <strong>IMHO</strong> and, if you feel so inclined, tell me to go mind my own business.</p></blockquote>
 
@@ -262,7 +262,7 @@
   <entry>
     <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+01:00</updated>
+    <updated>2012-03-22T10:56:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
     <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It's and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I've been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little... odd.</p>
 
@@ -291,7 +291,7 @@
   <entry>
     <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
-    <updated>2012-03-22T08:21:00+01:00</updated>
+    <updated>2012-03-22T08:21:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
     <content type="html"><![CDATA[<p>So I've been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It's obviously not the most complicated system in the world but hey it was new to me.</p>
 

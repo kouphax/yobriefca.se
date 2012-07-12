@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Scala | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,247 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Super Basic Trello API Wrapper for Scala and Play]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/"/>
+    <updated>2012-06-25T14:43:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play</id>
+    <content type="html"><![CDATA[<p>So I am currently doing a bit of work with using Trello as a kind of data store and decided to write a litle app in <a href="http://playframework.org">Play!</a> (the Scala variety of course).  There didn't appear to be a library out there to handle some of the basic Trello stuff so over the past 20 minutes I put one together.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.ws.WS</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">case</span> <span class="k">class</span> <span class="nc">Trello</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">token</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">val</span> <span class="n">host</span> <span class="k">=</span> <span class="s">&quot;https://api.trello.com&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">get</span><span class="o">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">post</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">put</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">put</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">delete</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">delete</span><span class="o">()&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">private</span> <span class="k">def</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">host</span> <span class="o">+</span> <span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="kc">true</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">uri</span>
+</span><span class='line'>  <span class="k">case</span> <span class="kc">false</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">uri</span>
+</span><span class='line'><span class="o">})).</span><span class="n">withQueryString</span><span class="o">(</span><span class="n">query</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;key&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">key</span><span class="o">,</span> <span class="s">&quot;token&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">token</span><span class="o">)</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Yep it's very basic and all but the <code>get</code> is untested (it's all I've needed so far).  But in the spirit of shipping early this is a good start.  The class makes use of Play!s uberflexible <code>WS</code> class and returns <code>Promise[Request]</code> so you can use it like so (just an example)</p>
+
+<p>A simple API object to wrap the Trello class instance to load cards and map them into my expected objects</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Api</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">val</span> <span class="n">api</span> <span class="k">=</span> <span class="nc">Trello</span><span class="o">(</span><span class="nc">KEY</span><span class="o">,</span> <span class="nc">TOKEN</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">implicit</span> <span class="k">object</span> <span class="nc">CardFormat</span> <span class="k">extends</span> <span class="nc">Format</span><span class="o">[</span><span class="kt">Card</span><span class="o">]</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="n">reads</span><span class="o">(</span><span class="n">json</span><span class="k">:</span> <span class="kt">JsValue</span><span class="o">)</span><span class="k">:</span> <span class="kt">Card</span> <span class="o">=</span> <span class="nc">Card</span><span class="o">(</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;name&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;due&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'><span class="o">)</span>
+</span><span class='line'><span class="k">def</span> <span class="n">writes</span><span class="o">(</span><span class="n">card</span><span class="k">:</span> <span class="kt">Card</span><span class="o">)</span><span class="k">:</span> <span class="kt">JsValue</span> <span class="o">=</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">NotImplementedException</span><span class="o">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">getPastTalks</span> <span class="k">=</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/1/lists/_____&quot;</span><span class="o">,</span> <span class="s">&quot;cards&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;open&quot;</span><span class="o">,</span> <span class="s">&quot;card_fields&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;desc,name,due&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">res</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;cards&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">JsArray</span><span class="o">(</span><span class="n">cards</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">cards</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">_</span><span class="o">.</span><span class="n">as</span><span class="o">[</span><span class="kt">Card</span><span class="o">])</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And calling this bad boy from a controller.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Async</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nc">Api</span><span class="o">.</span><span class="n">getPastTalks</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">talks</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span>
+</span><span class='line'>    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="n">talks</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So - lots of work to do around this - I want to move away from a thin wrapper to something a bit more robust with strong classes for the different entites.</p>
+
+<p>Also if you want to find out where to get the API keys etc. go read the decent <a href="https://trello.com/docs/">API docs from Trello</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Two Hidden Gems in Play 2's Template Engine]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/"/>
+    <updated>2012-06-17T19:06:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine</id>
+    <content type="html"><![CDATA[<p>Poking around some <a href="http://www.playframework.org/">Play 2</a> <a href="http://www.playframework.org/documentation/2.0.1/Samples">samples</a> today I came across some little bits of sugar.  I haven't seen mention of them in other places (they must be well hidden) but they are two very common things I've implemented in less elegant ways in the past.  That was reason enough for me to throw a quick post up about them.</p>
+
+<p>Prepare to have your minds blown.  Well not blown - gently nudged probably.</p>
+
+<h2>String.when</h2>
+
+<p><code>"somestring".when(predicate: =&gt; Boolean)</code> allows you conditionally spit out the value of the string it is called on (otherwise returning and empty string).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;returned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>      <span class="c1">// returns &quot;returned_string&quot;</span>
+</span><span class='line'><span class="s">&quot;nonreturned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>  <span class="c1">// returns &quot;&quot; (empty string)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So in the context of views what is this good for?  Lots of things but the most clever use for this little function is conditional css.  Imagine you've got a block of HTML that represents a message area. These messages can be either good or bad and so we need to add the css class of <code>message-bad</code> depending on an argument passed in to the view.  A very quick and dirty way of handling this would be as such</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="nd">@if</span><span class="o">(!</span><span class="n">successful</span><span class="o">){</span> <span class="s">&quot;message-bad&quot;</span> <span class="o">}</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Grand, fine.  It's a bit noisy but it works. <code>when()</code> makes this a bit neater IMHO.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="o">@(</span><span class="s">&quot;message-bad&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(!</span><span class="n">successful</span><span class="o">))</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Yep the line is the same length but it looks more like a single block of conditional code, it flows much better and, I think at least, is much more readable.</p>
+
+<h2>Date.format("&lt;date-format>")</h2>
+
+<p><code>new java.util.Date().format(pattern: String)</code> allows you to specify how a date should be formatted in the rendered HTML.  It's essentially shorthand for the noise-fest that is <code>SimpleDateFormat</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="n">pattern</span><span class="o">).</span><span class="n">format</span><span class="o">(</span><span class="n">date</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In the past I've added transient properties to models for displaying the date, or written my own methods on those models.  Both of those approaches should have had me taken out into a field and shot.  <code>format</code> makes things much more straightforward,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">importantDate</span><span class="k">:</span> <span class="kt">java.util.Date</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@importantDate</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">&quot;dd-MM-yyyy&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And the output will be along the lines of "29-01-2013" or whatever the date was.</p>
+
+<p>OK so neither of these are ground breaking or earth shattering (wait they mean the same thing really dont they???) but they are neat to enough to warrant a shout-out here.  Anyone else have any little nuggets in Play 2 they want to share?</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
     <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
-    <updated>2012-05-08T07:26:00+02:00</updated>
+    <updated>2012-05-08T07:26:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
     <content type="html"><![CDATA[<p>This post is going to cover the whole "getting up an running" for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I've been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I've seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn't touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
 
@@ -595,7 +833,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+02:00</updated>
+    <updated>2012-04-13T09:06:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
 
@@ -620,7 +858,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+02:00</updated>
+    <updated>2012-04-02T15:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I've been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 

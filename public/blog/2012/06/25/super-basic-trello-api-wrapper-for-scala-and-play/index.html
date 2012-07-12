@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Super Basic Trello API Wrapper for Scala and Play - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="So I am currently doing a bit of work with using Trello as a kind of data store and decided to write a litle app in Play! (the Scala variety of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Super Basic Trello API Wrapper for Scala and Play</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-25T14:43:00+01:00" pubdate data-updated="true">Jun 25<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So I am currently doing a bit of work with using Trello as a kind of data store and decided to write a litle app in <a href="http://playframework.org">Play!</a> (the Scala variety of course).  There didn&#8217;t appear to be a library out there to handle some of the basic Trello stuff so over the past 20 minutes I put one together.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.ws.WS</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Trello</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">token</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">host</span> <span class="k">=</span> <span class="s">&quot;https://api.trello.com&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">get</span><span class="o">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">post</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">put</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">put</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">delete</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">delete</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">host</span> <span class="o">+</span> <span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="n">uri</span>
+</span><span class='line'>      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">uri</span>
+</span><span class='line'>    <span class="o">})).</span><span class="n">withQueryString</span><span class="o">(</span><span class="n">query</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;key&quot;</span> <span class="o">-&gt;</span> <span class="n">key</span><span class="o">,</span> <span class="s">&quot;token&quot;</span> <span class="o">-&gt;</span> <span class="n">token</span><span class="o">)</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep it&#8217;s very basic and all but the <code>get</code> is untested (it&#8217;s all I&#8217;ve needed so far).  But in the spirit of shipping early this is a good start.  The class makes use of Play!s uberflexible <code>WS</code> class and returns <code>Promise[Request]</code> so you can use it like so (just an example)</p>
+
+<p>A simple API object to wrap the Trello class instance to load cards and map them into my expected objects</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Api</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">api</span> <span class="k">=</span> <span class="nc">Trello</span><span class="o">(</span><span class="nc">KEY</span><span class="o">,</span> <span class="nc">TOKEN</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">implicit</span> <span class="k">object</span> <span class="nc">CardFormat</span> <span class="k">extends</span> <span class="nc">Format</span><span class="o">[</span><span class="kt">Card</span><span class="o">]</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">def</span> <span class="n">reads</span><span class="o">(</span><span class="n">json</span><span class="k">:</span> <span class="kt">JsValue</span><span class="o">)</span><span class="k">:</span> <span class="kt">Card</span> <span class="o">=</span> <span class="nc">Card</span><span class="o">(</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;name&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;due&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>    <span class="k">def</span> <span class="n">writes</span><span class="o">(</span><span class="n">card</span><span class="k">:</span> <span class="kt">Card</span><span class="o">)</span><span class="k">:</span> <span class="kt">JsValue</span> <span class="o">=</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">NotImplementedException</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">getPastTalks</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/1/lists/_____&quot;</span><span class="o">,</span> <span class="s">&quot;cards&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;open&quot;</span><span class="o">,</span> <span class="s">&quot;card_fields&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;desc,name,due&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">res</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;cards&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nc">JsArray</span><span class="o">(</span><span class="n">cards</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">cards</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">_</span><span class="o">.</span><span class="n">as</span><span class="o">[</span><span class="kt">Card</span><span class="o">])</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And calling this bad boy from a controller.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">Async</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nc">Api</span><span class="o">.</span><span class="n">getPastTalks</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">talks</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="n">talks</span><span class="o">))</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So - lots of work to do around this - I want to move away from a thin wrapper to something a bit more robust with strong classes for the different entites.</p>
+
+<p>Also if you want to find out where to get the API keys etc. go read the decent <a href="https://trello.com/docs/">API docs from Trello</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-25T14:43:00+01:00" pubdate data-updated="true">Jun 25<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/play-2/' style='text-decoration:none;'><span class='label label-info'>play 2</span></a> <a href='/blog/categories/scala/' style='text-decoration:none;'><span class='label label-info'>scala</span></a> <a href='/blog/categories/trello/' style='text-decoration:none;'><span class='label label-info'>trello</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/" title="Previous Post: Two Hidden Gems in Play 2's Template Engine">&laquo; Two Hidden Gems in Play 2's Template Engine</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/03/starter-for-10-dropwizard/" title="next Post: [Quick and Dirty, Super Ugly,] Starter for 10 - Dropwizard">[Quick and Dirty, Super Ugly,] Starter for 10 - Dropwizard &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

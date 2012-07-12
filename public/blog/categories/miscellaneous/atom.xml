@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,32 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Quitsies, Well Sort Of]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/03/quitsies/"/>
+    <updated>2012-07-03T19:08:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/03/quitsies</id>
+    <content type="html"><![CDATA[<blockquote><p>You know when you start to question why you write these things it's probably time to quit, or at least take a break.</p>
+
+<p> ~ me, just there now</p></blockquote>
+
+<p>This more of an FYI to anyone who may read this blog than a horrible diatribe about how I am wasting my life with meaningless exercises or technologies I'll never get to use to a bunch of people that don't really care, what would be the point?  Plus - it's probably not even true.</p>
+
+<p>So rather than pottering on about cool and interesting technologies that will make everyones (read, developers) life infinitely better 100% guaranteed I've decided to devote my time to,</p>
+
+<ol>
+<li>Working on some startup-py type things that have been milling around the back of my head for some time, and,</li>
+<li>Generally getting stuff done</li>
+</ol>
+
+
+<p>Yep, like a hipster band, this little testament to bike-shedding is going on indefinite hiatus.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[5 Years]]></title>
     <link href="http://yobriefca.se/blog/2012/05/26/5-years/"/>
-    <updated>2012-05-26T22:11:00+02:00</updated>
+    <updated>2012-05-26T22:11:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/05/26/5-years</id>
     <content type="html"><![CDATA[<p>So I am sitting here, here being London - 315(ish) miles away from my family, halfway through the <a href="http://nhshackday.com">NHS Hack Day</a> and having a bit of a personal crisis.  I often have these little episodes but this one has been languishing in my dusty old head for a good while - refusing to go away, nagging me every time I have a chance to ponder things.  It's the same old thing - why am I doing any of this stuff I do?  I don't generally get a great amount of opportunity in work to really stretch my creative urges.  That sort of thing happens on my own time and therefore given my other responsibilities (my wife, family and lifes associated activities) is done under a fairly tight deadline.  Add this to the fact I bore easily of things that aren't really benefiting people immediately - I tend to flit, easily, between little unfinished projects.  But wait....  I did it again.  You see back there, about 2 sentences ago I just sidelined my entire life.  Thrown between two looming brackets I relegated my wife and family to a byline yet again.  Oy vey.</p>
 
@@ -31,7 +54,7 @@
   <entry>
     <title type="html"><![CDATA[The Little Sacrifices]]></title>
     <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
-    <updated>2012-04-29T23:24:00+02:00</updated>
+    <updated>2012-04-29T23:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
     <content type="html"><![CDATA[<p>Late night ramblings...</p>
 
@@ -59,7 +82,7 @@
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+02:00</updated>
+    <updated>2012-04-03T17:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -72,7 +95,7 @@
   <entry>
     <title type="html"><![CDATA[Taking the Stairs]]></title>
     <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+01:00</updated>
+    <updated>2012-03-06T23:22:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
     <content type="html"><![CDATA[<p>Ya'll about ready for another silly analogy?  I sure am....</p>
 
@@ -85,35 +108,6 @@
 <p>How does that grab you?</p>
 
 <p>I really need to get off this analogy trip I'm on FFS!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Estimation 4x4]]></title>
-    <link href="http://yobriefca.se/blog/2012/02/12/the-estimation-4x4/"/>
-    <updated>2012-02-12T19:36:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/02/12/the-estimation-4x4</id>
-    <content type="html"><![CDATA[<blockquote><p>This post is dedicated to one of the most influential managers I've ever had the pleasure to work with.</p></blockquote>
-
-<p>I'm of the opinion that the moment you start trying to apply complex mathematical rigour and time to estimation you've entered into a broken system. <!-- more --> You're wasting time trying to protect yourself from finger pointing managers or getting a kicking from old school "us or them" lawyer types. None of that adds anything to the project except a big stick to beat people with and make sure they work themselves to death based a a random stab in the dark that is somehow made more realistic by the application if science. Ultimately though if the initial guesswork is wrong, and it's seldom on the nose, the science means sweet FA. So why bother? You're pleasing the wrong people. But then those people hold a lot of power.  So as long as we can keep them happy with the minimum of effort life should be sweet.</p>
-
-<h2>The Answer</h2>
-
-<p>Ladies and gentlemen I bring you the <strong>Estimation 4x4</strong> - guaranteed to knock those super science estimation techniques out of the park.</p>
-
-<h2>The Science Bit</h2>
-
-<p>Got a project to estimate?  I've done your homework for you - <strong>4 people, 4 weeks</strong>.  BOOM!  Mind Blown!  Now get on with delivering that project bro.  Oh wait it's a big ass project - 4 people, 4 months.  Oh wait you're limited by deadlines and/or resourcing - adjust as needed (3 people, 5 weeks or 5 people, 3 weeks).</p>
-
-<h2>Balancing Act</h2>
-
-<p>Careful now, 9 women dont make a baby in 1 month so don't assume that scaling one side up to cater for the other will get the same results.  Theres a balance that needs addressed.  This is real science after all - repsect the rule and the rule will respect you.</p>
-
-<h2>You Gotta Be Kidding Me</h2>
-
-<p>Dont believe me?  Try it out next time.  Do your pseudo-scientific enterprise-ready finger in the air analysis.  But hey see when that project is finished see how close the 4x4 would have brought you to the real result.  I bet 9 times out of 10 it was as accurate as your real estimate, except you could have started much sooner....</p>
-
-<p> #winning</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,9 +14,884 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Azure Website Workflow for Bosses]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/12/azure-website-workflow-for-bosses/"/>
+    <updated>2012-07-12T12:23:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/12/azure-website-workflow-for-bosses</id>
+    <content type="html"><![CDATA[<blockquote><p>So consider my indefinite hiatus suspended definitely.  I suck at quitting!  But we wont dive into the whys and wherefores  around that now.</p></blockquote>
+
+<p>I&#8217;ve a confession to make, the &#8220;new&#8221; Azure, I like it.  Yeah I do, s&#8217;nice.  I like the way it blends PaaS with IaaS (though I do feel that adding 1st class node.js and PHP support is a bit of a tacked on marketing ploy).  So you dont have the &#8220;Add-On&#8221; model you get from Appharbor and Heroku but thats fine because this blending of &#8220;as a Services&#8221; gives you an alternate approach.  For a start you can just use the external services without them having to be &#8220;Add-Ons&#8221;.  Sure you lose out on the nice automatic integration points for managing your services but it&#8217;s not the end of the world and what happens when you want something that isn&#8217;t available as an Add-On or worse not available as a cloudy SaaS thing?  Well I guess you need to go off to EC2 or similar and host your own (assuming you want to stick with the cloudy infrastructure).  But with Azure you also get another option - you want to use Mongo or some huge enterprisey platform that isn&#8217;t SaaSified?  Stick it on an Azure VM.  Everything managed under one cloud provider.  Thats such a nice thing to have at your disposal.</p>
+
+<p>But thats not the point of this post.  Most posts out there cover a workflow for Azure WebSites that make use of the portal to provision new sites (and then usually <code>git</code> to deploy) but that&#8217;s weak sauce (the portal part at least - gits still aces).  No, no no - You want hyper-productivity, you want automated provisioning,  you want to be hip; node.js hip; and you want to feel like a boss hanging out on your command line while other &#8220;lesser people&#8221; click stuff with a silly little rodent.  I just read your mind, didn&#8217;t I?  Well then - you got that with Azure.</p>
+
+<h2>Setting Up</h2>
+
+<p>First things first you need to install a few things.</p>
+
+<h3>Installing node.js + NPM</h3>
+
+<p><a href="http://nodejs.org/#download">Download</a></p>
+
+<p>The tools are built and deployed in node via NPM, the node package manager so just run the one click installer and you&#8217;ll be all setup.</p>
+
+<h3>Installing Azure CLI Tools</h3>
+
+<p>Install these via NPM so fire up your terminal/command prompt/whatever and type</p>
+
+<pre><code>npm install azure -g
+</code></pre>
+
+<p>Then let NPM install all the dependencies and what not (the <code>-g</code> option just tells NPM to install the tools globally so they are accessible from the command line)</p>
+
+<h3>Adding your account</h3>
+
+<p>Next up you need to tell azure what account to use so fire this command into you command line</p>
+
+<pre><code>azure account download
+</code></pre>
+
+<p>You&#8217;ll then be taken to the Azure website and it should (assuming you&#8217;re logged in already) download a <code>publishsettings</code> file.  Next up you need to import this file into your azure toolchain.</p>
+
+<pre><code>azure account import YOUR_DOWNLOADED_FILE.publishsettings
+</code></pre>
+
+<p>After some scrolling text you&#8217;ll be all set up and ready to deploy.  You&#8217;ll be asked to delete the file you downloaded - probably best to do this :)</p>
+
+<h2>Creating the app</h2>
+
+<p>OK then lets create an app - what we create is irrelevant here so lets just create the default ASP.NET MVC website and use that as our sample app.  Remeber though, if you&#8217;re a cutting edge awesome-addict to switch from .NET 4.5 to 4 or else you&#8217;ll get some issues when deploying your site to Azure.</p>
+
+<p>Once you&#8217;ve created you app and saved it then you&#8217;ll want to intialise an empty repo at the root of the solution,</p>
+
+<pre><code>git init
+</code></pre>
+
+<p>Then we need to create a site on Azure we can push to.</p>
+
+<h2>Creating a new site</h2>
+
+<p>Back to the command line now,</p>
+
+<pre><code>azure site create SITE_NAME
+</code></pre>
+
+<p>If we execute this, again at the root of our solution, it will do a number of things,</p>
+
+<ol>
+<li>Validate the request (site name availability and what not)</li>
+<li>Create a new site on Azure</li>
+<li>Add a new git <code>remote</code> to your <code>.git\config</code> file</li>
+</ol>
+
+
+<h2>Pushing site</h2>
+
+<p>As I&#8217;ve said the last command actually added a remote repo to our git configuration so if we do the usual gitty stuff (you&#8217;ll want to, for neatness sake, set up your <code>.gitignore</code> but we can skip this for brevity),</p>
+
+<pre><code>git add -A
+git commit -m "Boring commit message"
+</code></pre>
+
+<p>Now we push,</p>
+
+<pre><code>git push azure master
+</code></pre>
+
+<p>Done!</p>
+
+<h2>Viewing your site</h2>
+
+<p>You could just browse to your new site but thats just not hip enough, hell no.  Instead lets launch it from the command line&#8230;</p>
+
+<pre><code>azure site browse
+</code></pre>
+
+<p>That will launch our new site without having to touch a silly old, out of date rodent.</p>
+
+<h2>Wrapping up</h2>
+
+<p>Ok so thats the basic workflow for using CLI tools to manage Azure sites.  You can do this with most of the Azure services (VMs, Certs, Cloud Services etc.) aswell.</p>
+
+<p>So apart from making you look all hackery working in the terminal it does have other uses, specifically around the fact terminal command can be easily executed in a headless automated environment.  Think of creating new sites as part of your CI&#8217;s deployment pipeline, or as part of some disaster recovery process.  The possibilities are endless&#8230; heck even write your own UI for managing sites or deploying new sites/VM/whatever!</p>
+
+<p>So lets see -</p>
+
+<ul>
+<li>CLI hackery coolness&#8230; ✓</li>
+<li>Node.js hipster bragging rights&#8230; ✓</li>
+<li>Azure website created and deployed with about 6 commands&#8230; ✓</li>
+</ul>
+
+
+<p>Not bad for a few minutes work!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quitsies, Well Sort Of]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/03/quitsies/"/>
+    <updated>2012-07-03T19:08:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/03/quitsies</id>
+    <content type="html"><![CDATA[<blockquote><p>You know when you start to question why you write these things it&#8217;s probably time to quit, or at least take a break.</p>
+
+<p> ~ me, just there now</p></blockquote>
+
+<p>This more of an FYI to anyone who may read this blog than a horrible diatribe about how I am wasting my life with meaningless exercises or technologies I&#8217;ll never get to use to a bunch of people that don&#8217;t really care, what would be the point?  Plus - it&#8217;s probably not even true.</p>
+
+<p>So rather than pottering on about cool and interesting technologies that will make everyones (read, developers) life infinitely better 100% guaranteed I&#8217;ve decided to devote my time to,</p>
+
+<ol>
+<li>Working on some startup-py type things that have been milling around the back of my head for some time, and,</li>
+<li>Generally getting stuff done</li>
+</ol>
+
+
+<p>Yep, like a hipster band, this little testament to bike-shedding is going on indefinite hiatus.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Quick and Dirty, Super Ugly,] Starter for 10 - Dropwizard]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/03/starter-for-10-dropwizard/"/>
+    <updated>2012-07-03T13:07:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/03/starter-for-10-dropwizard</id>
+    <content type="html"><![CDATA[<p>So once again I&#8217;m writing Java without a gun to my head, and once again I&#8217;m finding it enjoyable.  Don&#8217;t get me wrong Java as a language feels very long winded, old and cumbersome but the frameworks and stuff that exist around it actually make those issues, less prominent, so much so I think I could easily live with the noise that Java brings.</p>
+
+<p>Anywho.</p>
+
+<p><a href="http://dropwizard.codahale.com/">Dropwizard</a> is a framework for creating very simple ReSTful Web Services in Java.  Not just that but it also bundles some nice best practise in with it as well.  Things like pluggable health checks, logging, configuration, content negotiation etc.  And, because it&#8217;s fairly lightweight its fast.  Very fast.</p>
+
+<p>In fact you can think of Dropwizard as a collection of pre-existing tools glued together with some simple features to create a cohesive stack for HTTP+JSON web services.  You&#8217;ve got <a href="http://www.eclipse.org/jetty/">Jetty</a>, <a href="http://jersey.java.net/">Jersey</a>, <a href="http://jackson.codehaus.org/">Jackson</a>, <a href="http://metrics.codahale.com/">Metrics</a>, <a href="http://logback.qos.ch/">Logback</a>, <a href="http://www.jdbi.org/">JDBI</a> and more.  Dropwizard give you the glue that binds these along with a simple pipeline that makes use of these technologies.</p>
+
+<h2>Simple Todo</h2>
+
+<p>I had intended to do something a little more substantial but I am about to make a small annoucemnet that has kind of effectivley stopped me expanding this app much further.  So lets create a simple Todo App.</p>
+
+<h3>pom.xml</h3>
+
+<p>As with most Java projects lets start with the <code>pom.xml</code> which is effectively our project definition.  I&#8217;ll not show you my entire POM, at least not on the first date, but let me reveal the important parts.</p>
+
+<p> Beause it&#8217;s awesome I want to include WebJars so I add my repository,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>    <span class="nt">&lt;repositories&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;repository&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;id&gt;</span>webjars<span class="nt">&lt;/id&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;url&gt;</span>http://webjars.github.com/m2<span class="nt">&lt;/url&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/repository&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/repositories&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next I add my dependencies,</p>
+
+<ol>
+<li>Dropwizard Core which has everything you&#8217;ll need for this</li>
+<li>jQuery from the WebJar repository</li>
+</ol>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>    <span class="nt">&lt;dependencies&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;dependency&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;groupId&gt;</span>com.yammer.dropwizard<span class="nt">&lt;/groupId&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;artifactId&gt;</span>dropwizard-core<span class="nt">&lt;/artifactId&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;version&gt;</span>0.4.2<span class="nt">&lt;/version&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/dependency&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;dependency&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;groupId&gt;</span>com.jquery<span class="nt">&lt;/groupId&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;artifactId&gt;</span>jquery<span class="nt">&lt;/artifactId&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;version&gt;</span>1.7.2-1<span class="nt">&lt;/version&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/dependency&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/dependencies&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I also add the <a href="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</a> which will let me build a Fat Jar (a jar with all my dependencies and what not in it).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>    <span class="nt">&lt;plugin&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;artifactId&gt;</span>maven-shade-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;version&gt;</span>1.6<span class="nt">&lt;/version&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;configuration&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;createDependencyReducedPom&gt;</span>true<span class="nt">&lt;/createDependencyReducedPom&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;filters&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;filter&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;artifact&gt;</span>*:*<span class="nt">&lt;/artifact&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;excludes&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;exclude&gt;</span>META-INF/*.SF<span class="nt">&lt;/exclude&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;exclude&gt;</span>META-INF/*.DSA<span class="nt">&lt;/exclude&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;exclude&gt;</span>META-INF/*.RSA<span class="nt">&lt;/exclude&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;/excludes&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;/filter&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/filters&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/configuration&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;executions&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;execution&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;goals&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;goal&gt;</span>shade<span class="nt">&lt;/goal&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;/goals&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;configuration&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;transformers&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;transformer</span> <span class="na">implementation=</span><span class="s">&quot;org.apache.maven.plugins.shade.resource.ServicesResourceTransformer&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;transformer</span> <span class="na">implementation=</span><span class="s">&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>                            <span class="nt">&lt;mainClass&gt;</span>se.yobriefca.TodoService<span class="nt">&lt;/mainClass&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;/transformer&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;/transformers&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;/configuration&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/execution&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/executions&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/plugin&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Configuration</h3>
+
+<p>Dropwizard has the ability to map configuration options (from a YML or JSON file) into concrete classes that can be accessed by your services.  So first I created a todo.yml at the root of the project (beside the pom.xml) with some basic configuration</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>http:
+</span><span class='line'>    rootPath: &quot;/app/*&quot;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This configuration tells Dropwizard that my services are located at a url starting with  <code>/app</code> - eg <code>/app/todo</code>.  This is necessary as I want to create an asset later that maps to the root url <code>/</code> that is the default of Dropwizard.  At this point I haven&#8217;t needed any of my own configuration but if I did I could create a POJO that maps to proeprties in this file.  The <a href="http://dropwizard.codahale.com/getting-started/#creating-a-configuration-class">official guide</a> has more on this.  For now I will create an empty <code>Configuration</code> class in case I want to extend it later (yeah I know YAGNI YAGNI KISS YAGNI - shutuppayourface!)</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">se</span><span class="o">.</span><span class="na">yobriefca</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.config.Configuration</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoConfiguration</span> <span class="kd">extends</span> <span class="n">Configuration</span> <span class="o">{</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Service</h3>
+
+<p>The service is the core class in our solution.  It&#8217;s the thing that has the <code>main</code> as an entry point.  The thing that &#8220;set us up the resouces&#8221; and registers healthchecks and controls our service lifecycle.  You&#8217;d think there would be loads of code here?  Right?  Wrong!</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">se</span><span class="o">.</span><span class="na">yobriefca</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.Service</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.bundles.AssetsBundle</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.config.Environment</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">se.yobriefca.resources.TodoResource</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoService</span> <span class="kd">extends</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">TodoConfiguration</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">TodoService</span><span class="o">().</span><span class="na">run</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="nf">TodoService</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="s">&quot;todo&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">addBundle</span><span class="o">(</span><span class="k">new</span> <span class="n">AssetsBundle</span><span class="o">(</span><span class="s">&quot;/assets&quot;</span><span class="o">,</span> <span class="s">&quot;/&quot;</span><span class="o">));</span>
+</span><span class='line'>        <span class="n">addBundle</span><span class="o">(</span><span class="k">new</span> <span class="n">AssetsBundle</span><span class="o">(</span><span class="s">&quot;/public&quot;</span><span class="o">,</span> <span class="s">&quot;/public/&quot;</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">TodoConfiguration</span> <span class="n">configuration</span><span class="o">,</span> <span class="n">Environment</span> <span class="n">environment</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">environment</span><span class="o">.</span><span class="na">addResource</span><span class="o">(</span><span class="k">new</span> <span class="n">TodoResource</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So all services extend <code>Service</code> and have a <code>Configuration</code> type (FYI these config types can be nested so its not as restrictive as I first thought).  Basically what we have is a <code>main</code> method that create an instance of our service and runs it.  Upon creation we add two bundles to the service.  A bundle is bascially a bit of functionality and in this case we create two <code>AssetBundles</code> which can be used to serve static content (embedded resources) upon request to a specific URL (think things like CSS, JavaScript, HTML etc.)  You&#8217;ll notice I am mapping 2 things bundles here and this is because I need to map to the WebJars directroy as well.  So when I got to <code>localhost/index.html</code> it will match the url pattern in the first AssetsBundle and look for a file <code>src/main/resources/assets/index.html</code>.</p>
+
+<p>Finally we have the <code>initialize</code> method that allows us to decare mutliple resources and healthchecks against our environment.  We also get handed our configuration class we decalred in advance.</p>
+
+<h3>A bit about healthchecks</h3>
+
+<p>Healthchecks are little classes that perform some sort of test on a part of your solution.  For example we could have a database connectivity check.  These healthchecks are made available on the <a href="http://dropwizard.codahale.com/manual/core/#health-checks">admin section that is bound to another port</a> when your app starts.</p>
+
+<p>Now I didn&#8217;t define any for this example and for that I feel absolutely terrible.  Seriously I kind of feel sick thinkging about it.  And whats worse Dropwizard kindly reminds me everytime I start the app - using LOTS of exclamantion marks and CAPS!!!  IRL you should really not follow my example here.</p>
+
+<h3>Resources</h3>
+
+<p>Resources are resources as they are identified in ReSTy things.  For example a <code>User</code> is a resource or an <code>Order</code> etc.  These things will respond to HTTP requests matched against the URL and the HTTP Method used.  In my example I have defined a resource <code>Todo</code> that can be used to list, create and delete (I didn&#8217;t need anything else for this).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Path</span><span class="o">(</span><span class="s">&quot;/todos&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoResource</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="n">todos</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@GET</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">todos</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@POST</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Todo</span> <span class="nf">add</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Todo</span> <span class="n">todo</span><span class="o">){</span>
+</span><span class='line'>        <span class="n">todos</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">todo</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">todo</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@DELETE</span>
+</span><span class='line'>    <span class="nd">@Path</span><span class="o">(</span><span class="s">&quot;/{id}&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Todo</span> <span class="nf">delete</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="kd">final</span> <span class="n">LongParam</span> <span class="n">id</span><span class="o">){</span>
+</span><span class='line'>        <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="n">todoCopy</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span><span class="n">todos</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">todos</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// loop past all items in the list and replace the changed one</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">Todo</span> <span class="nl">element:</span> <span class="n">todoCopy</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">if</span><span class="o">(</span><span class="n">element</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">!=</span> <span class="n">id</span><span class="o">.</span><span class="na">get</span><span class="o">()){</span>
+</span><span class='line'>                <span class="n">todos</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class='line'>                <span class="n">todo</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">todo</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Again not a great deal of code and what code that is there is fairly straightforward - some would say boilerplate.  We use annotations to map our HTTP Methods <code>@GET</code>, <code>@POST</code> and <code>@DELETE</code> as well as a <code>@Path(...)</code> annotation to specify what url this resource resonds to.  Another nice feature we can see annotated here is we get both validation (via the @Valid annotation which is based on Hibernates Validation framework) and JSON model binding via Jackson and model annotations (get to that in a minute).</p>
+
+<p>For this simple demo I am storing a list of Todos in an ArrayList in memory (top of the class).</p>
+
+<h3>Model</h3>
+
+<p>The model is, bar all the annotations to enable serialisation, fairly POJO-like,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Todo</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Not So Universally Unique!</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">AtomicLong</span> <span class="n">NSUUID</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicLong</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@JsonProperty</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@NotEmpty</span>
+</span><span class='line'>    <span class="nd">@JsonProperty</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@JsonCreator</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Todo</span><span class="o">(</span><span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">&quot;content&quot;</span><span class="o">)</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">NSUUID</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">(){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;ve put this in more for completeness as there is little involved in this.</p>
+
+<h3>index.html</h3>
+
+<p>I am not going to create some elaborate over architected front end here - just a few lines of JavaScript (ignoring the rather large jQuery library included of course) and not styling.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>Demo<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;task&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;addTask&quot;</span><span class="nt">&gt;</span>Add Task<span class="nt">&lt;/button&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;todos&quot;</span><span class="nt">&gt;&lt;/ul&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src=</span><span class="s">&#39;/public/jquery.min.js&#39;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="c1">// load and replace the list</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;/app/todos&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">todos</span><span class="p">){</span>
+</span><span class='line'>          <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#todos&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span>
+</span><span class='line'>              <span class="s2">&quot;&lt;li&gt;&lt;input type=&#39;checkbox&#39; data-id=&#39;&quot;</span> <span class="o">+</span> <span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span> <span class="o">+</span><span class="s2">&quot;&#39;/&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>                <span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">content</span> <span class="o">+</span>
+</span><span class='line'>              <span class="s2">&quot;&lt;/li&gt;&quot;</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// manage adding a new task</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#addTask&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span class='line'>            <span class="nx">url</span><span class="o">:</span>         <span class="s2">&quot;/app/todos&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">type</span><span class="o">:</span>        <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">data</span><span class="o">:</span>        <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#task&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="p">}),</span>
+</span><span class='line'>            <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&quot;application/json; charset=utf-8&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">dataType</span><span class="o">:</span>    <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">success</span><span class="o">:</span>     <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">jqXHR</span><span class="p">){</span>
+</span><span class='line'>              <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#todos&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span>
+</span><span class='line'>                <span class="s2">&quot;&lt;li&gt;&lt;input type=&#39;checkbox&#39; data-id=&#39;&quot;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span><span class="s2">&quot;&#39;/&gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>                  <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="o">+</span>
+</span><span class='line'>                <span class="s2">&quot;&lt;/li&gt;&quot;</span>
+</span><span class='line'>              <span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>          <span class="p">})</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#todos&quot;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s2">&quot;input[type=checkbox]&quot;</span><span class="p">,</span> <span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">chk</span>  <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">item</span> <span class="o">=</span> <span class="nx">chk</span><span class="p">.</span><span class="nx">parent</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">id</span>   <span class="o">=</span> <span class="nx">chk</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span class='line'>            <span class="nx">url</span><span class="o">:</span>         <span class="s2">&quot;/app/todos/&quot;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">type</span><span class="o">:</span>        <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&quot;application/json; charset=utf-8&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">dataType</span><span class="o">:</span>    <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">success</span><span class="o">:</span>     <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">jqXHR</span><span class="p">){</span>
+</span><span class='line'>              <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">item</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span><span class="s2">&quot;text-decoration&quot;</span><span class="o">:</span> <span class="s2">&quot;line-through&quot;</span><span class="p">});</span>
+</span><span class='line'>                <span class="nx">chk</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>          <span class="p">})</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>      <span class="p">})</span>
+</span><span class='line'>    <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And thats it.  Oh wait I also added a boot command that peforms the maven packing and starts the jar.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mvn package;java -jar target/todo-0.1.jar server todo.yml</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just run <code>./boot</code> (assuming you&#8217;ve chmod&#8217;d the file to be executable) and you&#8217;ll have, assuming I (or you) haven&#8217;t made any mistakes, a Todo service running on port 8080 (with admin/diagnostics stuff on port 8081).</p>
+
+<p>As always the <a href="https://github.com/kouphax/dropwizard-todo">example code is available on Github</a>.  Sorry for the rushed nature of this post, I&#8217;ll hopefully keep tweaking the example on Github till it&#8217;s a bit nicer - perhaps even with tests and comments (YEAH RIGHT!!!!)</p>
+
+<p>In short - Dropwizard - simple ReST services, very little config, very nice.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Super Basic Trello API Wrapper for Scala and Play]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/"/>
+    <updated>2012-06-25T14:43:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play</id>
+    <content type="html"><![CDATA[<p>So I am currently doing a bit of work with using Trello as a kind of data store and decided to write a litle app in <a href="http://playframework.org">Play!</a> (the Scala variety of course).  There didn&#8217;t appear to be a library out there to handle some of the basic Trello stuff so over the past 20 minutes I put one together.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.ws.WS</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Trello</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">token</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">host</span> <span class="k">=</span> <span class="s">&quot;https://api.trello.com&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">get</span><span class="o">()</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">post</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">put</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">put</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">delete</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">*</span><span class="o">).</span><span class="n">delete</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">host</span> <span class="o">+</span> <span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="n">uri</span>
+</span><span class='line'>      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">uri</span>
+</span><span class='line'>    <span class="o">})).</span><span class="n">withQueryString</span><span class="o">(</span><span class="n">query</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;key&quot;</span> <span class="o">-&gt;</span> <span class="n">key</span><span class="o">,</span> <span class="s">&quot;token&quot;</span> <span class="o">-&gt;</span> <span class="n">token</span><span class="o">)</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep it&#8217;s very basic and all but the <code>get</code> is untested (it&#8217;s all I&#8217;ve needed so far).  But in the spirit of shipping early this is a good start.  The class makes use of Play!s uberflexible <code>WS</code> class and returns <code>Promise[Request]</code> so you can use it like so (just an example)</p>
+
+<p>A simple API object to wrap the Trello class instance to load cards and map them into my expected objects</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Api</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">api</span> <span class="k">=</span> <span class="nc">Trello</span><span class="o">(</span><span class="nc">KEY</span><span class="o">,</span> <span class="nc">TOKEN</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">implicit</span> <span class="k">object</span> <span class="nc">CardFormat</span> <span class="k">extends</span> <span class="nc">Format</span><span class="o">[</span><span class="kt">Card</span><span class="o">]</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">def</span> <span class="n">reads</span><span class="o">(</span><span class="n">json</span><span class="k">:</span> <span class="kt">JsValue</span><span class="o">)</span><span class="k">:</span> <span class="kt">Card</span> <span class="o">=</span> <span class="nc">Card</span><span class="o">(</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;name&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;due&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>    <span class="k">def</span> <span class="n">writes</span><span class="o">(</span><span class="n">card</span><span class="k">:</span> <span class="kt">Card</span><span class="o">)</span><span class="k">:</span> <span class="kt">JsValue</span> <span class="o">=</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">NotImplementedException</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">getPastTalks</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/1/lists/_____&quot;</span><span class="o">,</span> <span class="s">&quot;cards&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;open&quot;</span><span class="o">,</span> <span class="s">&quot;card_fields&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;desc,name,due&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">res</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;cards&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nc">JsArray</span><span class="o">(</span><span class="n">cards</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">cards</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">_</span><span class="o">.</span><span class="n">as</span><span class="o">[</span><span class="kt">Card</span><span class="o">])</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And calling this bad boy from a controller.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nc">Async</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nc">Api</span><span class="o">.</span><span class="n">getPastTalks</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">talks</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="n">talks</span><span class="o">))</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So - lots of work to do around this - I want to move away from a thin wrapper to something a bit more robust with strong classes for the different entites.</p>
+
+<p>Also if you want to find out where to get the API keys etc. go read the decent <a href="https://trello.com/docs/">API docs from Trello</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Two Hidden Gems in Play 2's Template Engine]]></title>
+    <link href="http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/"/>
+    <updated>2012-06-17T19:06:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine</id>
+    <content type="html"><![CDATA[<p>Poking around some <a href="http://www.playframework.org/">Play 2</a> <a href="http://www.playframework.org/documentation/2.0.1/Samples">samples</a> today I came across some little bits of sugar.  I haven&#8217;t seen mention of them in other places (they must be well hidden) but they are two very common things I&#8217;ve implemented in less elegant ways in the past.  That was reason enough for me to throw a quick post up about them.</p>
+
+<p>Prepare to have your minds blown.  Well not blown - gently nudged probably.</p>
+
+<h2>String.when</h2>
+
+<p><code>"somestring".when(predicate: =&gt; Boolean)</code> allows you conditionally spit out the value of the string it is called on (otherwise returning and empty string).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;returned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>      <span class="c1">// returns &quot;returned_string&quot;</span>
+</span><span class='line'><span class="s">&quot;nonreturned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>  <span class="c1">// returns &quot;&quot; (empty string)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So in the context of views what is this good for?  Lots of things but the most clever use for this little function is conditional css.  Imagine you&#8217;ve got a block of HTML that represents a message area. These messages can be either good or bad and so we need to add the css class of <code>message-bad</code> depending on an argument passed in to the view.  A very quick and dirty way of handling this would be as such</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="nd">@if</span><span class="o">(!</span><span class="n">successful</span><span class="o">){</span> <span class="s">&quot;message-bad&quot;</span> <span class="o">}</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Grand, fine.  It&#8217;s a bit noisy but it works. <code>when()</code> makes this a bit neater IMHO.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="o">@(</span><span class="s">&quot;message-bad&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(!</span><span class="n">successful</span><span class="o">))</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep the line is the same length but it looks more like a single block of conditional code, it flows much better and, I think at least, is much more readable.</p>
+
+<h2>Date.format(&#8220;&lt;date-format>&#8221;)</h2>
+
+<p><code>new java.util.Date().format(pattern: String)</code> allows you to specify how a date should be formatted in the rendered HTML.  It&#8217;s essentially shorthand for the noise-fest that is <code>SimpleDateFormat</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="n">pattern</span><span class="o">).</span><span class="n">format</span><span class="o">(</span><span class="n">date</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the past I&#8217;ve added transient properties to models for displaying the date, or written my own methods on those models.  Both of those approaches should have had me taken out into a field and shot.  <code>format</code> makes things much more straightforward,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">importantDate</span><span class="k">:</span> <span class="kt">java.util.Date</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@importantDate</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">&quot;dd-MM-yyyy&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the output will be along the lines of &#8220;29-01-2013&#8221; or whatever the date was.</p>
+
+<p>OK so neither of these are ground breaking or earth shattering (wait they mean the same thing really dont they???) but they are neat to enough to warrant a shout-out here.  Anyone else have any little nuggets in Play 2 they want to share?</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[.NET on a Diet]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet/"/>
-    <updated>2012-06-07T21:40:00+02:00</updated>
+    <updated>2012-06-07T21:40:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -34,7 +909,7 @@
   <entry>
     <title type="html"><![CDATA[Monotouch: C# + iOS = Good Times]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times/"/>
-    <updated>2012-06-07T21:38:00+02:00</updated>
+    <updated>2012-06-07T21:38:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -56,7 +931,7 @@
   <entry>
     <title type="html"><![CDATA[Mobile, How Do I Develop Thee? Let Me Count the Ways (Long Version)]]></title>
     <link href="http://yobriefca.se/blog/2012/06/07/mobile/"/>
-    <updated>2012-06-07T21:36:00+02:00</updated>
+    <updated>2012-06-07T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/06/07/mobile</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -74,7 +949,7 @@
   <entry>
     <title type="html"><![CDATA[5 Years]]></title>
     <link href="http://yobriefca.se/blog/2012/05/26/5-years/"/>
-    <updated>2012-05-26T22:11:00+02:00</updated>
+    <updated>2012-05-26T22:11:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/05/26/5-years</id>
     <content type="html"><![CDATA[<p>So I am sitting here, here being London - 315(ish) miles away from my family, halfway through the <a href="http://nhshackday.com">NHS Hack Day</a> and having a bit of a personal crisis.  I often have these little episodes but this one has been languishing in my dusty old head for a good while - refusing to go away, nagging me every time I have a chance to ponder things.  It&#8217;s the same old thing - why am I doing any of this stuff I do?  I don&#8217;t generally get a great amount of opportunity in work to really stretch my creative urges.  That sort of thing happens on my own time and therefore given my other responsibilities (my wife, family and lifes associated activities) is done under a fairly tight deadline.  Add this to the fact I bore easily of things that aren&#8217;t really benefiting people immediately - I tend to flit, easily, between little unfinished projects.  But wait&#8230;.  I did it again.  You see back there, about 2 sentences ago I just sidelined my entire life.  Thrown between two looming brackets I relegated my wife and family to a byline yet again.  Oy vey.</p>
 
@@ -89,7 +964,7 @@
   <entry>
     <title type="html"><![CDATA[Starter for 10 - Scala, Play 2 and Mongo]]></title>
     <link href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/"/>
-    <updated>2012-05-08T07:26:00+02:00</updated>
+    <updated>2012-05-08T07:26:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/05/08/starter-for-10-scala</id>
     <content type="html"><![CDATA[<p>This post is going to cover the whole &#8220;getting up an running&#8221; for a simple Scala stack - namely Scala, Play 2 and Mongo.  2012 has been the year of the polyglot for me.  I&#8217;ve been working on projects with .NET, Node.js, Ruby and Scala in the mix.  I&#8217;ve seen how Rails can really boost developer productivity (compared to the likes of ASP.NET MVC or other, less opinionated, frameworks) but I must say - In terms of developer productivity, at least for me, nothing has come close to the Scala/Play/Mongo combo.  I hadn&#8217;t touched functional programming since SML in university but I found Scala allowed me to express myself in a very terse manner.  Combine that with Play and its straightforward, uncomplicated approach to building web apps and Mongo with its schemaless nature then its productivity++ all the way.</p>
 
@@ -589,7 +1464,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[The Little Sacrifices]]></title>
     <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
-    <updated>2012-04-29T23:24:00+02:00</updated>
+    <updated>2012-04-29T23:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
     <content type="html"><![CDATA[<p>Late night ramblings&#8230;</p>
 
@@ -617,7 +1492,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
-    <updated>2012-04-20T21:36:00+02:00</updated>
+    <updated>2012-04-20T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
     <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
 
@@ -656,7 +1531,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+02:00</updated>
+    <updated>2012-04-20T14:52:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
     <content type="html"><![CDATA[<h2>Slides</h2>
 
@@ -754,7 +1629,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
     <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+02:00</updated>
+    <updated>2012-04-17T22:08:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
     <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It&#8217;s fulfils a need I keep having but never really fixing.</p>
 
@@ -808,7 +1683,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
     <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+02:00</updated>
+    <updated>2012-04-13T09:06:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
     <content type="html"><![CDATA[<p>The tragedy being we don&#8217;t use it all the time!</p>
 
@@ -833,7 +1708,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+02:00</updated>
+    <updated>2012-04-03T17:24:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I&#8217;ve thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it&#8217;s working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
 
@@ -846,7 +1721,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Rails is not a gateway drug]]></title>
     <link href="http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug/"/>
-    <updated>2012-04-03T13:30:00+02:00</updated>
+    <updated>2012-04-03T13:30:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug</id>
     <content type="html"><![CDATA[<blockquote><p>WARNING!!! - a negative opinion on Rails lies ahead.  Everything here needs to be taken with an <strong>IMHO</strong> and, if you feel so inclined, tell me to go mind my own business.</p></blockquote>
 
@@ -988,7 +1863,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+02:00</updated>
+    <updated>2012-04-02T15:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I&#8217;ve been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 
@@ -1021,7 +1896,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[Done Spoked at DevWeek]]></title>
     <link href="http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek/"/>
-    <updated>2012-03-28T13:19:00+02:00</updated>
+    <updated>2012-03-28T13:19:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek</id>
     <content type="html"><![CDATA[<p>So I made it through my talk at DevWeek which might sound a little odd but it took a whole bottle of cough syrup to do it.  Not having been sick for most of the winter my body decided a day before DevWeek to go into shut down.  I spent Tuesday in bed with very little voice.  Thankfully the head colds hold on my vocal chords relented this morning and I think I managed to project as best I could.</p>
 
@@ -1053,7 +1928,7 @@ Have fun!
   <entry>
     <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+01:00</updated>
+    <updated>2012-03-22T10:56:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
     <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It&#8217;s and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I&#8217;ve been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little&#8230; odd.</p>
 
@@ -1076,447 +1951,6 @@ Have fun!
 <p><img class="borderless" src="http://yobriefca.se/images/blog/coderunnerruby/after.png"></p>
 
 <p>Blam - global rbenv version is now the goto version for CodeRunner.  OK so it won&#8217;t work with rbenv locals but I am sure you can tweak it to make it work (I haven&#8217;t needed it so never looked).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Slim Generator for Octopress]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress/"/>
-    <updated>2012-03-22T08:21:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/22/slim-generator-for-octopress</id>
-    <content type="html"><![CDATA[<p>So I&#8217;ve been overhauling my web site, which is based on <a href="http://octopress.org">Octopress</a>, lately and have had to jump into the working of Octopress/Jekyll.  It&#8217;s obviously not the most complicated system in the world but hey it was new to me.</p>
-
-<p>Anyway my current setup features a lot of html based pages (the default markdown approach didn&#8217;t fit due to styling needs) and it was getting rather noisy.  So I wrote, as there didn&#8217;t seem to be one out there, a <a href="http://slim-lang.com/">Slim</a> generator.  And here it is,  step back it&#8217;s VERY COMPLEX&#8230;.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Jekyll</span>
-</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;slim&#39;</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">SlimConverter</span> <span class="o">&lt;</span> <span class="no">Converter</span>
-</span><span class='line'>    <span class="n">safe</span> <span class="kp">true</span>
-</span><span class='line'>    <span class="n">priority</span> <span class="ss">:low</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">ext</span> <span class="o">=~</span> <span class="sr">/slim/i</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">output_ext</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
-</span><span class='line'>      <span class="s2">&quot;.html&quot;</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">begin</span>
-</span><span class='line'>        <span class="no">Slim</span><span class="o">::</span><span class="no">Template</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="n">content</span> <span class="p">}</span><span class="o">.</span><span class="n">render</span>
-</span><span class='line'>      <span class="k">rescue</span> <span class="no">StandardError</span> <span class="o">=&gt;</span> <span class="n">e</span>
-</span><span class='line'>        <span class="nb">puts</span> <span class="s2">&quot;!!! SLIM Error: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Just drop this file (call it anything) into your plugins folder in Jekyll/Octopress and any file with the <code>slim</code> extension will use this converter to generate HTML.  No more noisy HTML for me!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tinkering with Spark: A Micro Web Framework for Java]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java/"/>
-    <updated>2012-03-20T21:37:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/20/tinkering-with-spark-a-micro-web-framework-for-java</id>
-    <content type="html"><![CDATA[<div style="text-align:center;margin-bottom:20px;">
-<img src="http://yobriefca.se/images/blog/spark_logo_blue.png" style="border:none; box-shadow:none; -webkit-box-shadow:none;" />
-</div>
-
-
-<p>You can&#8217;t call yourself a language these days without having your own <a href="http://sinatrarb.com">Sinatra</a> clone.  Not even, it seems, if you are Java.  I know - it sounds odd that Java, the language that turns XML into stacktraces, has a micro web framework of it&#8217;s own - <a href="http://sparkjava.com">Spark</a>.  I&#8217;m well aware as of JRE 1.6 has a built in <code>HttpServer</code> class but there is such as thing as <strong>too close</strong> to the metal :)  Also Sparks logo is fairly epic.</p>
-
-<p><a href="http://sparkjava.com">Spark</a>&#8217;s site has a great little piece about the &#8220;why&#8221; and that is what stuck with me.  Especially this bit,</p>
-
-<blockquote><p>Its intention is to be used by Java developers that want or are required to develop in pure Java.</p></blockquote>
-
-<p>I know a few people who are &#8220;required&#8221; to develop in pure Java and anything that might make their lives easier would be welcomed.  Being completely out of loop with Java since before Maven made an appearance I had a lot of catching up to do just to get the project running.  In fact I went with SBT as it made things a lot easier for me and my mavenless brain.  I did have to tinker with the dependencies in the <code>ivy2</code> directory due to a <a href="https://github.com/perwendel/spark/pull/15">known issue</a> but if I can do it anyone interested in this can to - if not give me a shout.</p>
-
-<h2>App.java</h2>
-
-<p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.*;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">spark.*</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nd">@Override</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
-</span><span class='line'>          <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the &#8220;/&#8221; route.  A couple of other things are worth mentioning here,</p>
-
-<ol>
-<li>The <code>Request</code> object gives you access to many things you would expect i.e. the query parameters.  It gives you so much more than this but I&#8217;ll leave the <a href="http://www.sparkjava.com/readme.html#title2">docs</a> to describe this.</li>
-<li>Just like in Sinatra it is possible to simply <code>halt</code> the request chain at any time.  Here I am halting execution unless the request conforms to my very strict and highly secure authentication scheme.</li>
-</ol>
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nd">@Override</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// extract the name from the request</span>
-</span><span class='line'>        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// set the response type</span>
-</span><span class='line'>        <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// return some html</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;&lt;DOCTYPE html&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;&lt;html&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;  &lt;head&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;  &lt;/head&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;  &lt;body&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;    &lt;h1&gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&lt;/h1&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;  &lt;/body&gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>          <span class="s">&quot;&lt;/html&gt;&quot;</span><span class="o">;</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Finally I am defining a route (&#8220;/&#8221;) that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
-
-<h2>SBT Build File</h2>
-
-<p>For the curious among you (you got this far so you must be slightly curious&#8230; and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
-</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
-
-<h2>Mopping Up</h2>
-
-<p>OK so thats the basics of the framework but then again there really isn&#8217;t much other stuff besides picking a port and redirecting.  This means there is some things still missing that would really make this framework really stand out,</p>
-
-<ul>
-<li>View rendering.  Even if it is just plain HTML it would be a big leap forward (turns out an <a href="https://github.com/perwendel/spark/issues/1">issue</a> is already open too).</li>
-<li>Static Content.  Would be nice to define a rule for serving static content without having to define a route or filter manually</li>
-<li>Session support.  Again an <a href="https://github.com/perwendel/spark/pull/12">issue and pull request</a> is already available for this.</li>
-</ul>
-
-
-<p>Good work <a href="https://github.com/perwendel/">perwendel</a> keep it up :)</p>
-
-<p>As always my code samples are available on <a href="https://github.com/kouphax/spark-tinkering">Github</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Speaking at NDC Oslo]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/19/ndc-oslo/"/>
-    <updated>2012-03-19T21:34:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/19/ndc-oslo</id>
-    <content type="html"><![CDATA[<p><img src="http://yobriefca.se/images/blog/ndc.png" style="border:none; box-shadow:none; -webkit-box-shadow:none; width:100%;" /></p>
-
-<p>Mike Cohn, Dan North, Robert C. Martin, Udi Dahan, Gojko Adzic, Billy Hollis, Laurent Bugnion, Venkat Subramaniam, Brad Wilson, Phil Haack, Rob Conery, Greg Young, Zach Holman&#8230;.. and then me.  So someone was drinking when deciding the line up for NDC Oslo right?</p>
-
-<p>Seriously though I&#8217;ve been given one of the best opportunites of my career to talk alongside some of the shining lights of our industry at NDC Oslo so I better not drop the ball.  Thank you to whoever gave me the opportunity.  But hey if I mess up I&#8217;ve got another 2 shots at it&#8230; thats right I&#8217;m speaking not once, not twice but thrice.</p>
-
-<ul>
-<li><a href="http://ndcoslo.oktaset.com/t-4960">.NET On a Diet</a></li>
-<li><a href="http://ndcoslo.oktaset.com/t-4961">MonoTouch - C# + iOS = Good Times</a></li>
-<li><a href="http://ndcoslo.oktaset.com/t-4872">Mobile, How Do I Develop Thee? Let Me Count the Ways</a></li>
-</ul>
-
-
-<p>Still blown away by this, if you can&#8217;t tell - given the calibre of people talking this is going to be a highlight of the year for sure.  Also it couldn&#8217;t have come at a better time - there is so much I&#8217;ve wanted to say about things like the OSS world in .NET, Mono and mobile development. Now I&#8217;ve got the perfect opportunity.</p>
-
-<p>Now whats this .NET thing I keep hearing about :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[sentimentalizer: A Ruby port of Sentan]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/"/>
-    <updated>2012-03-12T19:22:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/12/sentamentalizer</id>
-    <content type="html"><![CDATA[<p>In a bid to be at least 1% less stupid I decided to jump into Ruby.  Properly this time, no tinkering with Rails or watching a few videos.  So the first thing I did was take <a href="https://twitter.com/#!/martinrue">@martinrue</a>&#8217;s <a href="https://github.com/martinrue/Sentan">Sentan</a> project, fork it, made it run on mono (just because), ported it over to Ruby and renamed it <a href="https://github.com/kouphax/sentimentalizer/">sentimentalizer</a> (but keeping all necessary attribution to Martins work in the README of course).<!-- more -->  I did this for two reasons,</p>
-
-<ol>
-<li>I wanted something fairly meaty to actually port over to Ruby in an effort to get a more-than-superficial feel for the language</li>
-<li>I might have a need for such a service in an upcoming hackathon (though the original .NET version would have been fine too)</li>
-</ol>
-
-
-<p>This is in no way some sort of new project or intended for some production environment.</p>
-
-<p>So what is it?  <a href="https://github.com/kouphax/sentimentalizer/">sentamentalizer</a> is a quick and dirty <a href="http://en.wikipedia.org/wiki/Sentiment_analysis">sentiment analysis</a> tool.  With it you can loosley class statements as either positive or negative (and get a breakdown of how that classification was derived).  You &#8220;train&#8221; it with datasets for both negative and positive control statements and then feed it sentences you want analysed.  At the minute the engine sits behind a super super super, did I say super already?, simple sinatra app that you submit statements to and it returns a simple JSON response with the sentiment result (negative, positive, neutral) and probability.  If you want to train the bitch you&#8217;ve got to change the <code>api.rb</code> file or update the files in the <code>data\positive</code> and <code>data\negative</code> folders.</p>
-
-<p>Plans? Yeah I might poke around some more, make into more of a standalone learning service or something (again another feature I might need soon anyway).  But for now - feel free to review my shitey code Rubyists (I assume there are better ways to do things, standard appraoches that I&#8217;m not using etc.) and offer suggestions.</p>
-
-<p>Once again thanks to <a href="https://twitter.com/#!/martinrue">@martinrue</a> for doing all the hard-work on <a href="https://github.com/martinrue/Sentan">Sentan</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tinkering with minion.js]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js/"/>
-    <updated>2012-03-08T13:13:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/08/tinkering-with-minion-dot-js</id>
-    <content type="html"><![CDATA[<p>Yay a technical post&#8230;</p>
-
-<p><a href="https://github.com/gigafied/minion">minion.js</a> is a micro framework providing classical inheritance strategy for JavaScript plus many other goodies.  It can be used in both browsers and <a href="http://nodejs.org">node.js</a>.<!-- more -->  Now I don&#8217;t want to get caught up in any of this classical inheritance for JavaScript is an anti-pattern stuff so just take this framework for what it is - a decent way to define both client and server side models for you JavaScripts!</p>
-
-<p>I&#8217;ve already said it has a host of goodies that can be useful for creating a nice flexible set of models and associated helpers.  This includes,</p>
-
-<ul>
-<li>Class and inheritance support</li>
-<li>Modularity</li>
-<li>A cross model pub/sub mechanism</li>
-<li>Statics, Singletons, static methods and properties</li>
-<li>Dependency management</li>
-<li>Some other stuff I&#8217;ve yet to touch upon&#8230;</li>
-</ul>
-
-
-<p>The code will more or less speak for itself here so lets dive in (the full suite of tests and sample node.js/express implementation can be found on my <a href="https://github.com/kouphax/minion-tinkering">GitHub thingy</a>).</p>
-
-<h2>Classes</h2>
-
-<p>One of the first things I did was try out the whole inheritence thing.  I create a Fruit base class and provided a Strawberry implementation on top of it.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Fruit</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">isInSeason</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inSeason</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Strawberry</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;fruit.Fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">inSeason</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Using the Strawberry class is pretty damn simple.  First thing you need to do is a one off simple configuration of minion,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span>
-</span><span class='line'>  <span class="nx">classPath</span> <span class="o">:</span> <span class="s2">&quot;js&quot;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This just tells minions dependency manager where to start looking for your class implementations.  We can then start using the Strawberry class easily using minions <code>require</code> method</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fruit.Strawberry&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">be</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Static Objects</h2>
-
-<p>Static objects are pre-initialised Singletons in minion.js and that makes a lot of sense.  I created a Grocer static by simply extending another minion type <code>Static</code>.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Grocer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Static&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buy</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">sell</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">--</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">++</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">checkLevels</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty unsuprising but minion will new up a shared instance of this class the first time it is called.  You&#8217;ll see a little hint of the pub/sub mechanism in the <code>init</code> method as well so lets jump on that.</p>
-
-<h2>Pub/Sub</h2>
-
-<p>So minion has a nice little pub/sub mechanism built right into the classes as well.  So lets say a customer buys stuff from the grocer by publishing his/her request - sure beats just taking it without asking!!!</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Customer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Minion once again handles all the internal wiring up of this stuff and it just works.  Nice.</p>
-
-<h2>The Rest</h2>
-
-<p>There is more to minion.js, I&#8217;ve just given you a very high level view but you should dive a bit deeper by looking at the <a href="https://github.com/gigafied/minion/blob/master/docs/getting_started.md">official docs</a>.  There is a few bits of handy sugar sprinkled on the minion types (proxy, scoped setTimeout and setInterval).  The pub/sub also goes a bit further provinding <code>Notifications</code> that allow a sort of async callback/response mechanism which can be handy.</p>
-
-<p>Now I&#8217;ve never been a fan of these sorts of Class frameworks - I&#8217;ve never really seen the need but I must admit minion appeared at about the right time.  I&#8217;ve been playing with a nice way of structuring <a href="mongoosejs.com">mongoose</a> Schemas/Classes and I think minion here might be a nice fit.</p>
-
-<p>Anyway check it out.  Yay a technical blog with more to come!</p>
-
-<p><a href="https://github.com/gigafied/minion">minion.js</a></p>
-
-<p><a href="https://github.com/kouphax/minion-tinkering">Sample Code</a></p>
 ]]></content>
   </entry>
   

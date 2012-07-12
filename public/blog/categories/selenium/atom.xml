@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Selenium | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/selenium/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
     <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+02:00</updated>
+    <updated>2012-04-02T15:21:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
     <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I've been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 

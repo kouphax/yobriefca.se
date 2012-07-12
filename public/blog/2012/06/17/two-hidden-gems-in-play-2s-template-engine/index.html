@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Two Hidden Gems in Play 2's Template Engine - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="Poking around some Play 2 samples today I came across some little bits of sugar. I haven&#8217;t seen mention of them in other places (they must be &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Two Hidden Gems in Play 2's Template Engine</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-17T19:06:00+01:00" pubdate data-updated="true">Jun 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Poking around some <a href="http://www.playframework.org/">Play 2</a> <a href="http://www.playframework.org/documentation/2.0.1/Samples">samples</a> today I came across some little bits of sugar.  I haven&#8217;t seen mention of them in other places (they must be well hidden) but they are two very common things I&#8217;ve implemented in less elegant ways in the past.  That was reason enough for me to throw a quick post up about them.</p>
+
+<p>Prepare to have your minds blown.  Well not blown - gently nudged probably.</p>
+
+<h2>String.when</h2>
+
+<p><code>"somestring".when(predicate: =&gt; Boolean)</code> allows you conditionally spit out the value of the string it is called on (otherwise returning and empty string).</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;returned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>      <span class="c1">// returns &quot;returned_string&quot;</span>
+</span><span class='line'><span class="s">&quot;nonreturned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>  <span class="c1">// returns &quot;&quot; (empty string)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So in the context of views what is this good for?  Lots of things but the most clever use for this little function is conditional css.  Imagine you&#8217;ve got a block of HTML that represents a message area. These messages can be either good or bad and so we need to add the css class of <code>message-bad</code> depending on an argument passed in to the view.  A very quick and dirty way of handling this would be as such</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="nd">@if</span><span class="o">(!</span><span class="n">successful</span><span class="o">){</span> <span class="s">&quot;message-bad&quot;</span> <span class="o">}</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Grand, fine.  It&#8217;s a bit noisy but it works. <code>when()</code> makes this a bit neater IMHO.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="o">@(</span><span class="s">&quot;message-bad&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(!</span><span class="n">successful</span><span class="o">))</span><span class="err">&#39;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@message</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yep the line is the same length but it looks more like a single block of conditional code, it flows much better and, I think at least, is much more readable.</p>
+
+<h2>Date.format(&#8220;&lt;date-format>&#8221;)</h2>
+
+<p><code>new java.util.Date().format(pattern: String)</code> allows you to specify how a date should be formatted in the rendered HTML.  It&#8217;s essentially shorthand for the noise-fest that is <code>SimpleDateFormat</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="n">pattern</span><span class="o">).</span><span class="n">format</span><span class="o">(</span><span class="n">date</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the past I&#8217;ve added transient properties to models for displaying the date, or written my own methods on those models.  Both of those approaches should have had me taken out into a field and shot.  <code>format</code> makes things much more straightforward,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">importantDate</span><span class="k">:</span> <span class="kt">java.util.Date</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="nd">@importantDate</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">&quot;dd-MM-yyyy&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the output will be along the lines of &#8220;29-01-2013&#8221; or whatever the date was.</p>
+
+<p>OK so neither of these are ground breaking or earth shattering (wait they mean the same thing really dont they???) but they are neat to enough to warrant a shout-out here.  Anyone else have any little nuggets in Play 2 they want to share?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-17T19:06:00+01:00" pubdate data-updated="true">Jun 17<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/play-2/' style='text-decoration:none;'><span class='label label-info'>play 2</span></a> <a href='/blog/categories/scala/' style='text-decoration:none;'><span class='label label-info'>scala</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/07/dot-net-on-a-diet/" title="Previous Post: .NET on a Diet">&laquo; .NET on a Diet</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play/" title="next Post: Super Basic Trello API Wrapper for Scala and Play">Super Basic Trello API Wrapper for Scala and Play &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/06/17/two-hidden-gems-in-play-2s-template-engine/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

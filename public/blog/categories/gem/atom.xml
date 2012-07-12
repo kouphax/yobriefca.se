@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>gem | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/gem/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
     <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
-    <updated>2012-04-20T21:36:00+02:00</updated>
+    <updated>2012-04-20T21:36:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
     <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
 
@@ -55,7 +55,7 @@
   <entry>
     <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
     <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+02:00</updated>
+    <updated>2012-04-17T22:08:00+01:00</updated>
     <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
     <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It's fulfils a need I keep having but never really fixing.</p>
 

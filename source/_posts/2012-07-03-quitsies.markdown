@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Quitsies, Well Sort Of"
+date: 2012-07-03 19:08
+comments: true
+categories: [Miscellaneous]
+---
+
+> You know when you start to question why you write these things it's probably time to quit, or at least take a break.  
+>
+>  ~ me, just there now
+
+This more of an FYI to anyone who may read this blog than a horrible diatribe about how I am wasting my life with meaningless exercises or technologies I'll never get to use to a bunch of people that don't really care, what would be the point?  Plus - it's probably not even true. 
+
+So rather than pottering on about cool and interesting technologies that will make everyones (read, developers) life infinitely better 100% guaranteed I've decided to devote my time to, 
+
+1. Working on some startup-py type things that have been milling around the back of my head for some time, and, 
+2. Generally getting stuff done 
+
+Yep, like a hipster band, this little testament to bike-shedding is going on indefinite hiatus.

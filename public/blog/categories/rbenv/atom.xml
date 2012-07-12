@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>rbenv | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/rbenv/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-06-07T21:48:53+02:00</updated>
+  <updated>2012-07-12T13:49:59+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
     <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+01:00</updated>
+    <updated>2012-03-22T10:56:00+00:00</updated>
     <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
     <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It's and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I've been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little... odd.</p>
 
