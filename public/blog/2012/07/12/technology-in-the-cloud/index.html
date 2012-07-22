@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Technology in the Cloud - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="The Cloud. As much as the term has been pummelled into meaningless marketing sputum by the guys in expensive suits and fake smiles it does exist and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Technology in the Cloud</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-12T13:59:00+01:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The Cloud.  As much as the term has been pummelled into meaningless marketing sputum by the guys in expensive suits and fake smiles it does exist and is distinct from a typical &#8220;throw all your stuff in a data center&#8221; setup.</p>
+
+<p>The Cloud is distinct, as well, in terms of how you think about your solution architecture.  The typical old school approach would be to just create big monoliths to process your data but that doesn&#8217;t work out so well in the cloud.  Of course the considerations for the cloud aren&#8217;t new, hell no - things like SOA have been around for an age, but if you want to harness the benefits of the cloud as the internet intended you will be narrowing your options.  No more just cobbling common bits together and crossing your fingers.</p>
+
+<p>So fine - architecting for the cloud has some special considerations but thats not what I want to talk about - there are better people than me to cover that.</p>
+
+<p>What I want to talk about is use of technology within that architecture.  I&#8217;ve never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it&#8217;s worth.  More importantly it&#8217;s really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
+
+<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it&#8217;s probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you&#8217;ve got there&#8230;. every time to deal with a spike and scale that badboy out and you&#8217;re having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request&#8230; ugh you get the point. &#8220;In the cloud the default stack can easily bleed money.&#8221;
+</span></p>
+
+<p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you&#8217;re paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn&#8217;t matter - it does now.</p>
+
+<p>In summary - the cloud has started to make technology decisions more accountable and we need to ensure that those decisions aren&#8217;t costing our stakeholders more money than necessary.</p>
+
+<p>PS.</p>
+
+<p>I&#8217;m not going to sit here and preach about the which specific technologies to use but come on - if your storing Session State in a Oracle database, switch to Riak, or Redis.  If you&#8217;re building a nice scalable API then use something like Scala which promotes immutable state and concurrency out of the box over something like vanilla Java (or perhaps just a better framework Spring-WS vs Dropwizard for example).  JSON over XML or a binary format (Protobuf for example) for machine to machine communication.  A small node.js web site over ASP.NET Webforms for simple sites.  The list goes on.  That is to say consider this advice against the other factors driving technical decisions - dont JUST go for the smallest, lightest tools because it MIGHT be cheaper.  Do the research.</p>
+
+<p>Finally, perhaps you&#8217;ve got another IT team needing to support this new solution?  Bring them along this journey too, educate them as you educate yourself, dont just throw the finished thing over the wall with a 1 week handover and a pat on the back.</p>
+
+<p>Don&#8217;t be afraid - it&#8217;s a super fun world we live in!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-12T13:59:00+01:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/cloud/' style='text-decoration:none;'><span class='label label-info'>cloud</span></a> <a href='/blog/categories/miscellaneous/' style='text-decoration:none;'><span class='label label-info'>miscellaneous</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/12/azure-website-workflow-for-bosses/" title="Previous Post: Azure Website Workflow for Bosses">&laquo; Azure Website Workflow for Bosses</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/15/kotlin-heres-what-i-think/" title="next Post: Kotlin: Here's What I Think (For Now)">Kotlin: Here's What I Think (For Now) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

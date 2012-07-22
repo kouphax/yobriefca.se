@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Kotlin: Extension Functions - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="In any language (that supports the concept) extension functions are nothing more than syntactic sugar. Instead of writing, StringUtils.encrypt( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Kotlin: Extension Functions</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-16T22:04:00+01:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In any language (that supports the concept) extension functions are nothing more than syntactic sugar.  Instead of writing,</p>
+
+<pre><code>StringUtils.encrypt(mystring, "salt")
+</code></pre>
+
+<p>Extension functions allow you to write,</p>
+
+<pre><code>mystring.encrypt("salt")
+</code></pre>
+
+<p>Once you start moving into the world of chaining things get much cleaner.</p>
+
+<pre><code>encrypted = StringUtils.encrypt(mystring, "salt")
+encoded = StringUtils.encode(encrypted, "UTF-8")
+</code></pre>
+
+<p>or worse,</p>
+
+<pre><code>StringUtils.encode(StringUtils.encrypt(mystring, "salt"), "UTF-8")
+</code></pre>
+
+<p>I&#8217;ve seen this done a few times, it happens.  But with sugary sweet extension functions (Extension Methods in C#, Implicit Conversions in Scala) you could just do this,</p>
+
+<pre><code>mystring.encrypt("salt").encode("UTF-8")
+</code></pre>
+
+<p>Much nicer.</p>
+
+<p>Kotlin, unlike crusty old Java, supports extension functions.  Here is how you&#8217;d implement the methods above</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">):</span> <span class="n">String</span> <span class="o">{</span>
+</span><span class='line'>   <span class="k">return</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">:</span> <span class="n">ByteArray</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we can use these, as you&#8217;d expect, like so,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what identified those functions as Extension Functions?  Simple - the prefixing of the method name with the type <code>String.encode</code>.  No need to create implicit wrappers (Scala), no need to create loads of static classes (C#).  And yes it&#8217;s possible to use generics in these methods as well,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span><span class="o">?.</span><span class="na">getOrElse</span><span class="o">(</span><span class="nl">t:</span> <span class="n">T</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span> <span class="o">?:</span> <span class="n">t</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This can be applied to any nullable type.</p>
+
+<h2>Literal Extension Functions</h2>
+
+<p>An interesting little feature that Kotlin has that makes it a bit different is the use of function literal extension functions.  Basically where you can declare a function as a literal (a lambda method if you will) you can also make that literal an extension function,</p>
+
+<p>So we could take our methods we wrote above and bring them right into our <code>main</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encrypt</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()}</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encode</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may seem quite unnecessary at first glance but it become quite powerful when creating DSLs - as demonstrated in the docs around the <a href="http://confluence.jetbrains.net/display/Kotlin/Type-safe+Groovy-style+builders">Groovy Style Builders</a></p>
+
+<p>So Kotlin has extension functions that don&#8217;t require a load of boilerplate (C#) or rather odd implicit syntax (Scala) - cool, right?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-16T22:04:00+01:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/kotlin/' style='text-decoration:none;'><span class='label label-info'>kotlin</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/15/kotlin-heres-what-i-think/" title="Previous Post: Kotlin: Here's What I Think (For Now)">&laquo; Kotlin: Here's What I Think (For Now)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/18/kotlin-nullable-extensions/" title="next Post: Kotlin: Nullable Extensions">Kotlin: Nullable Extensions &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

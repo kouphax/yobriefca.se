@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-12T13:49:59+01:00</updated>
+  <updated>2012-07-18T22:57:55+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,235 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin: Nullable Extensions]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/"/>
+    <updated>2012-07-18T22:26:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions</id>
+    <content type="html"><![CDATA[<p>Haskell doesn&#8217;t have if statements - that blew my mind the first time my old Scala mentor told me it.  <code>if</code>s just don&#8217;t work with a strong function approach.  Plus you know what - <code>if</code>s are rather ugly especially when you need to wrap ALL THE THINGS in a null check.  Scala has a type called <code>Option</code>.  An <code>Option</code> is essentially a collection of none or one instances of a type.  If everything returned an <code>Option</code> nothing would be null and you don&#8217;t need to do any null checks (they are much more powerful than I am making out but for now this is all that is necessary).</p>
+
+<p>Kotlin doesn&#8217;t have the <code>Option</code> type but it does have two things that allow you to act like it does,</p>
+
+<ol>
+<li>Nullable types - e.g. <code>String</code> vs <code>String?</code> , and,</li>
+<li>Nullable Extension Functions</li>
+</ol>
+
+
+<p>Remember the brief definition of an <code>Option</code> - it&#8217;s a list of 0 or 1 instances of a particualr type and as such we can treat it a bit like a list.  Now once we get functional with our badselves this makes null handling unnecessary.  We can use all those nice little functional methods that you get with collections - map, forEach, filter, fold etc.</p>
+
+<p>This means you&#8217;re less inclined to use <code>if</code>s and, more importantly, less inclined to use mutable variables which is great for building performant, scalable soltions.</p>
+
+<p>Lets take a really contrived example to show you what I mean.  OImagine this bit of code&#8230;.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>   <span class="n">val</span> <span class="n">auth</span> <span class="o">=</span> <span class="n">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+</span><span class='line'>   <span class="n">var</span> <span class="n">view</span> <span class="o">:</span> <span class="n">View</span> <span class="o">=</span> <span class="kc">null</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="k">if</span> <span class="o">(</span><span class="n">auth</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
+</span><span class='line'>   <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class='line'>          <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">auth</span><span class="o">)</span>
+</span><span class='line'>   <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="k">return</span> <span class="n">view</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We want to authenticate a user and return a certain view.  Now yes we could refactor this down into something more bitsize but this is a very common state to find code - so bare with me for demonstration purposes.</p>
+
+<p><code>authenticate</code> returns a user if the username and password was correct otherwise it returns null.  With our nullable extensions (by importing <code>kotlin.nullable.*</code>) we can reduce this into something more Scala-like,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="k">return</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">).</span><span class="na">map</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span> <span class="o">?:</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what we have done here is basically take an object (the user), if it exists, and transform it to another object which we return.  Otherwise we return something different.  This is much simpler and avoids having to create a mutable var (yes we could have avoided that in the other example but in many cases its very difficult to achieve this).  In fact I am not even a fan of the elvis operator there (<code>?:</code>) and have a Scala-like syntax <a href="https://github.com/JetBrains/kotlin/pull/100">pull request</a> open for getOrElse.  A small syntactic change that I think allows you create a much neater, chainable block of code.</p>
+
+<p>Thats only the tip of the iceberg on Nullable Extensions - those of you with a functional mind will be able to put these collection-like extensions to great use I reckon.  Not quite Scalas <code>Option</code> type but good enough at providing the common features for me.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin: Extension Functions]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/"/>
+    <updated>2012-07-16T22:04:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions</id>
+    <content type="html"><![CDATA[<p>In any language (that supports the concept) extension functions are nothing more than syntactic sugar.  Instead of writing,</p>
+
+<pre><code>StringUtils.encrypt(mystring, "salt")
+</code></pre>
+
+<p>Extension functions allow you to write,</p>
+
+<pre><code>mystring.encrypt("salt")
+</code></pre>
+
+<p>Once you start moving into the world of chaining things get much cleaner.</p>
+
+<pre><code>encrypted = StringUtils.encrypt(mystring, "salt")
+encoded = StringUtils.encode(encrypted, "UTF-8")
+</code></pre>
+
+<p>or worse,</p>
+
+<pre><code>StringUtils.encode(StringUtils.encrypt(mystring, "salt"), "UTF-8")
+</code></pre>
+
+<p>I&#8217;ve seen this done a few times, it happens.  But with sugary sweet extension functions (Extension Methods in C#, Implicit Conversions in Scala) you could just do this,</p>
+
+<pre><code>mystring.encrypt("salt").encode("UTF-8")
+</code></pre>
+
+<p>Much nicer.</p>
+
+<p>Kotlin, unlike crusty old Java, supports extension functions.  Here is how you&#8217;d implement the methods above</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">):</span> <span class="n">String</span> <span class="o">{</span>
+</span><span class='line'>   <span class="k">return</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">:</span> <span class="n">ByteArray</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we can use these, as you&#8217;d expect, like so,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what identified those functions as Extension Functions?  Simple - the prefixing of the method name with the type <code>String.encode</code>.  No need to create implicit wrappers (Scala), no need to create loads of static classes (C#).  And yes it&#8217;s possible to use generics in these methods as well,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span><span class="o">?.</span><span class="na">getOrElse</span><span class="o">(</span><span class="nl">t:</span> <span class="n">T</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span> <span class="o">?:</span> <span class="n">t</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This can be applied to any nullable type.</p>
+
+<h2>Literal Extension Functions</h2>
+
+<p>An interesting little feature that Kotlin has that makes it a bit different is the use of function literal extension functions.  Basically where you can declare a function as a literal (a lambda method if you will) you can also make that literal an extension function,</p>
+
+<p>So we could take our methods we wrote above and bring them right into our <code>main</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encrypt</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()}</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encode</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
+</span><span class='line'>    <span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may seem quite unnecessary at first glance but it become quite powerful when creating DSLs - as demonstrated in the docs around the <a href="http://confluence.jetbrains.net/display/Kotlin/Type-safe+Groovy-style+builders">Groovy Style Builders</a></p>
+
+<p>So Kotlin has extension functions that don&#8217;t require a load of boilerplate (C#) or rather odd implicit syntax (Scala) - cool, right?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin: Here's What I Think (For Now)]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think/"/>
+    <updated>2012-07-15T16:43:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think</id>
+    <content type="html"><![CDATA[<blockquote><p>Before I go shooting my mouth off here - a word of warning - I haven&#8217;t really done anything with Kotlin.  I&#8217;ve read the docs, played with the <a href="https://github.com/dodyg/Kotlin101">Kotlin 101 samples</a> and written a few small console type apps.  So take what you want from this post.</p></blockquote>
+
+<p>Want to hear something zany?  There actually are people - real living people, with a fully working brain, many much smarter than me - that are &#8220;happy&#8221; with Java.</p>
+
+<p>Seriously.</p>
+
+<p>I made a move from Java to .NET about 5 years ago and have dipped back in a few times over that period.  Trying new languages is a sure fire way, for some at least, to make you realise Java is not a language that makes coding fun, or productive.  Java put me right of the JVM.  Any language that makes woking with collections (something you&#8217;ll do alot) so long winded and noisy deserves to be shunned.  But this isn&#8217;t a Java rant - the JVM is great but it&#8217;s just marketed badly because of Java.</p>
+
+<p>But all the JVM-hate that Java instilled in me 5 years ago; the last 6 months of working with Scala has replaced with love.  So I&#8217;ve been looking around the JVM world and discovered <a href="http://kotlin.jetbrains.org/">Kotlin</a> a new JVM based language from JetBrains.  Its much closer to Java than what Scala or Clojure is (intentionally).</p>
+
+<p>One main thing that Kotlin brings to the table is pragmatism.  Without trying to belittle Kotlin - it&#8217;s almost like CoffeeScript for Java (yep kind of like what <a href="http://www.eclipse.org/xtend/">Xtend</a> is.  Kotlin removes all those annoying necessities in Java that make your code verbose (checked exceptions, semi-colons, null reference checks etc.).  It also adds things that make your life much easier (extension methods, functional collection manipulation etc.).</p>
+
+<p>When you write Ruby for the first time you notice that many things just work out like you&#8217;d expect, the syntax is quite natural.  The same cannot be said for Java - there is just way too much boilerplate.  Kotlin helps reduce that boilerplate.  So, by extension, it could be said that Kotlin makes you more productive.  A person who knows Java will find Kotlin no challenge to start using - the syntax is nicely aligned, just without the noise.</p>
+
+<p>Many people, when trying to get their team to adopt Scala, use the &#8220;you can use Scala like Java til you get used to it&#8221; mantra.  I don&#8217;t agree with that.  Academically it&#8217;s true but the minute you start working with other peoples Scala code - you&#8217;ve just gotta know Scala and when they have a slew of Implicits thrown in your Scala as Java stuff goes out the window.  Kotlin, on the other hand, has some of the nice functional patterns from Scala but none of the &#8220;magic-to-a-newcomer&#8221; features that can make grown men weep.  Now the Kotlin docs themselves even go as far as stating</p>
+
+<blockquote><p>  If you are happy with Scala, you probably don&#8217;t need Kotlin.</p></blockquote>
+
+<p>But I think they are selling themselves short - I think plenty of people use Scala but could easily use Kotlin in its place and find themselves in a better place (easier upskilling, less cryptic codebase).</p>
+
+<p>Anyway this is a bit of a ramble, what I&#8217;m saying is - Kotlin has some really rather nice features (Groovy Like DSL Builders, Pattern Matching, the <code>when</code> expression, lambdas, Kotlin to JavaScript compilation(!) etc.) and people happy with either Java OR Scala should give it a go.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Technology in the Cloud]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/"/>
+    <updated>2012-07-12T13:59:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud</id>
+    <content type="html"><![CDATA[<p>The Cloud.  As much as the term has been pummelled into meaningless marketing sputum by the guys in expensive suits and fake smiles it does exist and is distinct from a typical &#8220;throw all your stuff in a data center&#8221; setup.</p>
+
+<p>The Cloud is distinct, as well, in terms of how you think about your solution architecture.  The typical old school approach would be to just create big monoliths to process your data but that doesn&#8217;t work out so well in the cloud.  Of course the considerations for the cloud aren&#8217;t new, hell no - things like SOA have been around for an age, but if you want to harness the benefits of the cloud as the internet intended you will be narrowing your options.  No more just cobbling common bits together and crossing your fingers.</p>
+
+<p>So fine - architecting for the cloud has some special considerations but thats not what I want to talk about - there are better people than me to cover that.</p>
+
+<p>What I want to talk about is use of technology within that architecture.  I&#8217;ve never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it&#8217;s worth.  More importantly it&#8217;s really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
+
+<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it&#8217;s probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you&#8217;ve got there&#8230;. every time to deal with a spike and scale that badboy out and you&#8217;re having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request&#8230; ugh you get the point. &#8220;In the cloud the default stack can easily bleed money.&#8221;
+</span></p>
+
+<p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you&#8217;re paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn&#8217;t matter - it does now.</p>
+
+<p>In summary - the cloud has started to make technology decisions more accountable and we need to ensure that those decisions aren&#8217;t costing our stakeholders more money than necessary.</p>
+
+<p>PS.</p>
+
+<p>I&#8217;m not going to sit here and preach about the which specific technologies to use but come on - if your storing Session State in a Oracle database, switch to Riak, or Redis.  If you&#8217;re building a nice scalable API then use something like Scala which promotes immutable state and concurrency out of the box over something like vanilla Java (or perhaps just a better framework Spring-WS vs Dropwizard for example).  JSON over XML or a binary format (Protobuf for example) for machine to machine communication.  A small node.js web site over ASP.NET Webforms for simple sites.  The list goes on.  That is to say consider this advice against the other factors driving technical decisions - dont JUST go for the smallest, lightest tools because it MIGHT be cheaper.  Do the research.</p>
+
+<p>Finally, perhaps you&#8217;ve got another IT team needing to support this new solution?  Bring them along this journey too, educate them as you educate yourself, dont just throw the finished thing over the wall with a 1 week handover and a pat on the back.</p>
+
+<p>Don&#8217;t be afraid - it&#8217;s a super fun world we live in!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Azure Website Workflow for Bosses]]></title>
@@ -60,6 +289,16 @@
 <h2>Creating the app</h2>
 
 <p>OK then lets create an app - what we create is irrelevant here so lets just create the default ASP.NET MVC website and use that as our sample app.  Remeber though, if you&#8217;re a cutting edge awesome-addict to switch from .NET 4.5 to 4 or else you&#8217;ll get some issues when deploying your site to Azure.</p>
+
+<blockquote><p><strong>UPDATE</strong> : The next few steps can be condensed, thanks to the feedback from Glenn Block (@gblock),
+<blockquote class="twitter-tweet" data-in-reply-to="224800579388575744"><p>@<a href="https://twitter.com/kouphax">kouphax</a> oh dude, you don&#8217;t need all those steps! Do &#8220;azure site create my site &#8211;git&#8221; It will create the repo for you and add the remote!</p>&mdash; Glenn Block (@gblock) <a href="https://twitter.com/gblock/status/224855192800215040" data-datetime="2012-07-16T13:17:10+00:00">July 16, 2012</a></blockquote></p></blockquote>
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote><p>This sets up your git repo during creation of the site, adds the remote endpoint and even generates a .gitignore file (which you need to edit yourelf for .NET projects.  WIN!!!!</p>
+
+<p>Anyway&#8230;. on with the old post.</p></blockquote>
 
 <p>Once you&#8217;ve created you app and saved it then you&#8217;ll want to intialise an empty repo at the root of the solution,</p>
 
@@ -1715,242 +1954,6 @@ Have fun!
 <p>Alfred to the rescue here, just create a script as shown below and then running alfred and typing <code>l 9000</code> you can launch your default browser at <code>http://localhost:9000</code>.  Very simple but saves me heaps of time at the minute.</p>
 
 <p><img class="borderless" src="http://yobriefca.se/images/blog/alfredscript.png"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails is not a gateway drug]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug/"/>
-    <updated>2012-04-03T13:30:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/03/rails-is-not-a-gateway-drug</id>
-    <content type="html"><![CDATA[<blockquote><p>WARNING!!! - a negative opinion on Rails lies ahead.  Everything here needs to be taken with an <strong>IMHO</strong> and, if you feel so inclined, tell me to go mind my own business.</p></blockquote>
-
-<p>I know I&#8217;m stepping into very dangerous territory here but I&#8217;ve come to the very solid conclusion that <a href="http://rubyonrails.org/">Rails</a>, Ruby&#8217;s heavily opinionated web framework, is not the gateway drug people claim.  I&#8217;ve heard the claims that if you give <a href="http://rubyonrails.org/">Rails</a> a try, coming from some other web stack on any other language, you&#8217;ll fall in love with Ruby and Rails and write a big long blog post about how you are leaving .NET (or Java or whatever) behind.  I really dont get it&#8230;. the only feeling that Rails leaves me with - having been using it in anger for about a month now - is frustration.  But before you drive rusty nails into my hands and feet let me at least explain where I am coming from.</p>
-
-<h2>Previous attempts</h2>
-
-<p>I&#8217;ve been binging on Ruby for the last few months but this hasn&#8217;t been my first time - it&#8217;s been my only successful time but certianly not my first.  A year previous I had given Ruby/Rails a shot and it never stuck (in fact not once but at least twice).  Coming from a predominantly .NET/ASP.NET MVC background I decided the best approach would be to cut my teeth on a medium sized web based project and therefore jumped right into Rails.  It only took a short time before the whole effort felt like a slog full of weird semi-magic behaviour.  I gave up.</p>
-
-<h2>Doing things differently</h2>
-
-<p>This time around I decided to do things a little differently - rather than run with a web project I just tinkered with the language and eventually tried porting a <a href="http://yobriefca.se/blog/2012/03/12/sentamentalizer/">.NET project over to Ruby</a>.  Fair bit of Ruby code and a small <a href="http://sinatrarb.com">sinatra</a> app later - it clicked.  I got the whole Ruby love affair, it was lovely and I was three lines into my <em>&#8220;F**k you .NET, you&#8217;re worse than Java and I hate you and you smell&#8221;</em> blog post (not factual!!) when I realised I needed to give Ruby more time to bed in and, out of fairness, I had to at least experience Rails.</p>
-
-<h2>Present Day</h2>
-
-<p>And with that I discovered that Rails had been my problem.  I find it incredibly frustrating.  I don&#8217;t want to dive into bashing Rails, thats not my intent, - I&#8217;m sure people find it really productive - but it&#8217;s not for me.  So here is a very high level executive summary of the problems I&#8217;ve had with Rails</p>
-
-<p><strong>The Command Line Interface</strong></p>
-
-<p>The CLI stuff has just a little bit too many features and options that make it a difficult thing to approach without extensive research.  When I watched some of the <a href="http://railscasts.com/">Railscasts</a> I found myself going &#8220;wait, HOW did he do that?&#8221; more than once.  Choice is good but surely Rails is supposed to be easy for the beginner?  Yet I feel the default options are not the ones I would have picked.  You know what - I want to be hand-held once in a while, I&#8217;m proud to admit that.</p>
-
-<p><strong>Too Much Magic</strong></p>
-
-<p>Rails is very heavily convention based but often there is simply too much convention and I&#8217;ve been left baffled a few times.  Some of the convention is well documented and some of it less so.  When a convention is not obvious it becomes magic and it really feels Rails has a lot of &#8220;magic&#8221;.  Thats not something I want.  To be honest I&#8217;d rather write the same 2/3 lines of boilerplate if it meant that, to a new developer, they could understand the convention better.  Take this very trivial example,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">index</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And the same in ASP.NET MVC</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">HomeController</span><span class="p">:</span> <span class="n">Controller</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Index</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To me that one line <code>return View()</code> tell me that this action will return a View, and now I can infer the convention of <code>home/index.cshtml</code> that wee bit easier.  When you start adding in more conventions, a little bit of extra code makes all the difference.  Conventions don&#8217;t scale unless clearly marked IMHO.</p>
-
-<p><strong>Bloatyness</strong></p>
-
-<p>When you generate scaffold in a Rails app, as a typical new developer would, you end up with a awful lot of files.  If I generate a new entity for example this is what I am greeted with,</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>→ rails generate scaffold MyEntity name:String age:Int                         !6580
-</span><span class='line'>      invoke  active_record
-</span><span class='line'>      create    db/migrate/20120403130542_create_my_entities.rb
-</span><span class='line'>      create    app/models/my_entity.rb
-</span><span class='line'>      invoke    test_unit
-</span><span class='line'>      create      <span class="nb">test</span>/unit/my_entity_test.rb
-</span><span class='line'>      create      <span class="nb">test</span>/fixtures/my_entities.yml
-</span><span class='line'>       route  resources :my_entities
-</span><span class='line'>      invoke  scaffold_controller
-</span><span class='line'>      create    app/controllers/my_entities_controller.rb
-</span><span class='line'>      invoke    slim
-</span><span class='line'>      create      app/views/my_entities
-</span><span class='line'>      create      app/views/my_entities/index.html.slim
-</span><span class='line'>      create      app/views/my_entities/edit.html.slim
-</span><span class='line'>      create      app/views/my_entities/show.html.slim
-</span><span class='line'>      create      app/views/my_entities/new.html.slim
-</span><span class='line'>      create      app/views/my_entities/_form.html.slim
-</span><span class='line'>      invoke    test_unit
-</span><span class='line'>      create      <span class="nb">test</span>/functional/my_entities_controller_test.rb
-</span><span class='line'>      invoke    helper
-</span><span class='line'>      create      app/helpers/my_entities_helper.rb
-</span><span class='line'>      invoke      test_unit
-</span><span class='line'>      create        <span class="nb">test</span>/unit/helpers/my_entities_helper_test.rb
-</span><span class='line'>      invoke  assets
-</span><span class='line'>      invoke    coffee
-</span><span class='line'>      create      app/assets/javascripts/my_entities.js.coffee
-</span><span class='line'>      invoke    scss
-</span><span class='line'>      create      app/assets/stylesheets/my_entities.css.scss
-</span><span class='line'>      invoke  scss
-</span><span class='line'>      create    app/assets/stylesheets/scaffolds.css.scss
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Don&#8217;t get me wrong - it&#8217;s nice to be given all these things for free, but it&#8217;s ultimatley stuff I end up ripping out anyway.  In .NET there is a running joke that the &#8220;Empty ASP.NET MVC Project&#8221; Template is anything but.  To me this is the same issue except it&#8217;s something that I&#8217;d have to clean up everytime I use the <code>generate scaffold</code> command.  This seems worse to me.</p>
-
-<h2>Current Thoughts</h2>
-
-<p>I&#8217;m not sure were Rails is supposed to stand.  I hear it&#8217;s great for beginners or for big sites but I couldn&#8217;t recommend it for either right now.  I realise I should really give it more time before rejecting it entirely but I feel that would be more time wasted.  Rails doesn&#8217;t make me more productive, at least not right now&#8230; perhaps once I repeat the same steps over and over and they become natural I&#8217;ll see a greater boost in productivity (Ruby on the other hand felt natural and great right away).  Perhaps if I shun the generators and roll my own stuff then I&#8217;ll be more productive - but then why not use another framework that comes without all the gubbins I don&#8217;t need?  Sinatra is nice and simple and I can build upon it rather than breakling it apart.  <a href="http://ramaze.net/">Ramaze</a> seems like a great &#8220;next step up&#8221; from Sinatra but without as much (perceived) bloat as Rails.  I&#8217;ve also followed the recent <a href="http://www.kickstarter.com/projects/1397300529/railsapp">Kickstarter debacle</a> from Yehuda - and I agree with him and his mission.</p>
-
-<p>So what I am trying to say is - if you are a person wanting to give the Ruby world a fair shake - DONT start on Rails.  Start simpler and later, if you want, when you&#8217;ve been throughly sold on the Ruby way, try Rails to see what you think.  Start with Ruby, port some code, write a Sinatra app, watch the <a href="http://railscasts.com/">Railscasts</a> as they are amazing then consider immersing yourself in Rails.</p>
-
-<h2>Educate Me</h2>
-
-<p>Finally - educate me.  I&#8217;m not some sort of oracle proclaiming the death of a framework that thousands of people love.  I&#8217;m not going to make anyone stop and think &#8220;I&#8217;ve been doing wrong all my life - screw Rails&#8221;.  If I&#8217;m wrong - tell me.  If you think I need to give Rails another look - tell me why, tell me how.  If you care - show me what I&#8217;m missing.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
-    <updated>2012-04-02T15:21:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
-    <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I&#8217;ve been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
-
-<p>I looked around the interwebs and didn&#8217;t really find anything - now I&#8217;m not saying it isn&#8217;t out there, I am certain it is, but I couldn&#8217;t find it.  So I decided to document how I did it in case any lone sole is stuck in a similar situation&#8230;</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">driver</span><span class="o">.</span><span class="n">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="n">id</span><span class="o">(</span><span class="s">&quot;year&quot;</span><span class="o">)).</span>
-</span><span class='line'>  <span class="n">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="n">tagName</span><span class="o">(</span><span class="s">&quot;option&quot;</span><span class="o">)).</span>
-</span><span class='line'>  <span class="n">get</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span>
-</span><span class='line'>  <span class="n">setSelected</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So here I am simply finding the second <code>option</code> of the &#8220;year&#8221; <code>select</code> element and setting it selected.  I know it looks obvious now but trust me I was scratching my head for an age on this one.</p>
-
-<p>I hope it helps some one, eventually :)</p>
-
-<div style="text-align:center">
-<img src="http://imgs.xkcd.com/comics/wisdom_of_the_ancients.png">
-</div>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Done Spoked at DevWeek]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek/"/>
-    <updated>2012-03-28T13:19:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/28/done-spoked-at-devweek</id>
-    <content type="html"><![CDATA[<p>So I made it through my talk at DevWeek which might sound a little odd but it took a whole bottle of cough syrup to do it.  Not having been sick for most of the winter my body decided a day before DevWeek to go into shut down.  I spent Tuesday in bed with very little voice.  Thankfully the head colds hold on my vocal chords relented this morning and I think I managed to project as best I could.</p>
-
-<p>So initial thoughts of how it went?  I honestly think I&#8217;m getting better at this presenting thing so that must be a good thing, unless I was TERRIBLE before.  The 2 main annoyances that have been raised thus far have been</p>
-
-<h2>1. Too Short</h2>
-
-<p>I did my usual &#8220;talk really fast and finish earlier than planned&#8221; thing I sometimes do. But there was plenty of discussion afterwards which I tought was interesting.  FWIW when I present this to myself it takes longer.  My internal monologue must be slower than the way I speak.  Apologies to anyone that felt it was &#8220;too short&#8221;.</p>
-
-<h2>2. Not enough Visual Studio</h2>
-
-<p>I opted to play it safe end embed code into my slides rather than code live - I didn&#8217;t go unnoticed and I had a few comments that &#8220;moar codez&#8221; would have been good.  Totally agree.</p>
-
-<h2>Other Stuff</h2>
-
-<p>I opted to change my slide deck between submitting them for print and presenting.  I did it out of desire to devlier a better, more structured, talk (my first set being quite short as I was going for a &#8220;free-form&#8221; type of presentation).  Probably not the most professional approach to do this but at least I can say my heart was in the right place :)  Here are offending articles BTW</p>
-
-<div style="max-width:500px;margin:0 auto;">
-    <script src="http://speakerdeck.com/embed/4f719e7aca692c002101c187.js"></script>
-</div>
-
-
-<p>Code that was presented is available, as always, in/on my <a href="https://github.com/kouphax/bddindotnet-code">Github Repo</a>.  Thanks to all who attended and any other feedback you have throw it my way so I can get better at this talking malarky.</p>
-
-<p>Also thanks to the folks at DevWeek for the opportunity - hopefully you&#8217;ll have me back at some point.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[rbenv and CodeRunner]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner/"/>
-    <updated>2012-03-22T10:56:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/22/rbenv-and-coderunner</id>
-    <content type="html"><![CDATA[<p>You know <a href="http://krillapps.com/coderunner/">CodeRunner</a> right?  If not maybe you should go check it out.  It&#8217;s and aptly named little tool for running code snippets in various languages much like what <a href="http://www.linqpad.net/">LinqPad</a> does for the .NET folks.  I&#8217;ve been using it extensivley recently to test out little Ruby and Scala snippets.  Thing is though - I hit a snag.  By default CodeRunner will run the system ruby executable (1.8 in OSX) and I generally use <a href="https://github.com/sstephenson/rbenv">rbenv</a> along with version 1.9.whatever so some of my scripts started behaving a little&#8230; odd.</p>
-
-<p>But hey it&#8217;s an easy fix,</p>
-
-<ul>
-<li>Open your CodeRunner Preferences</li>
-<li>Select the Languages tab</li>
-<li>Select Ruby in the Language List</li>
-<li>Change the run command from <code>ruby $filename</code> to <code>~/.rbenv/shims/ruby $filename</code></li>
-</ul>
-
-
-<h2>Before</h2>
-
-<p><img class="borderless" src="http://yobriefca.se/images/blog/coderunnerruby/before.png"></p>
-
-<h2>After</h2>
-
-<p><img class="borderless" src="http://yobriefca.se/images/blog/coderunnerruby/after.png"></p>
-
-<p>Blam - global rbenv version is now the goto version for CodeRunner.  OK so it won&#8217;t work with rbenv locals but I am sure you can tweak it to make it work (I haven&#8217;t needed it so never looked).</p>
 ]]></content>
   </entry>
   

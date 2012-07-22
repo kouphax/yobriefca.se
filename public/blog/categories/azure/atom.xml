@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Azure | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/azure/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-12T13:49:59+01:00</updated>
+  <updated>2012-07-18T22:57:55+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -60,6 +60,16 @@
 <h2>Creating the app</h2>
 
 <p>OK then lets create an app - what we create is irrelevant here so lets just create the default ASP.NET MVC website and use that as our sample app.  Remeber though, if you're a cutting edge awesome-addict to switch from .NET 4.5 to 4 or else you'll get some issues when deploying your site to Azure.</p>
+
+<blockquote><p><strong>UPDATE</strong> : The next few steps can be condensed, thanks to the feedback from Glenn Block (@gblock),
+<blockquote class="twitter-tweet" data-in-reply-to="224800579388575744"><p>@<a href="https://twitter.com/kouphax">kouphax</a> oh dude, you don't need all those steps! Do "azure site create my site --git" It will create the repo for you and add the remote!</p>&mdash; Glenn Block (@gblock) <a href="https://twitter.com/gblock/status/224855192800215040" data-datetime="2012-07-16T13:17:10+00:00">July 16, 2012</a></blockquote></p></blockquote>
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote><p>This sets up your git repo during creation of the site, adds the remote endpoint and even generates a .gitignore file (which you need to edit yourelf for .NET projects.  WIN!!!!</p>
+
+<p>Anyway.... on with the old post.</p></blockquote>
 
 <p>Once you've created you app and saved it then you'll want to intialise an empty repo at the root of the solution,</p>
 

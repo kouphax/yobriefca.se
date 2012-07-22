@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-12T13:49:59+01:00</updated>
+  <updated>2012-07-18T22:57:55+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin: Here's What I Think (For Now)]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think/"/>
+    <updated>2012-07-15T16:43:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think</id>
+    <content type="html"><![CDATA[<blockquote><p>Before I go shooting my mouth off here - a word of warning - I haven't really done anything with Kotlin.  I've read the docs, played with the <a href="https://github.com/dodyg/Kotlin101">Kotlin 101 samples</a> and written a few small console type apps.  So take what you want from this post.</p></blockquote>
+
+<p>Want to hear something zany?  There actually are people - real living people, with a fully working brain, many much smarter than me - that are "happy" with Java.</p>
+
+<p>Seriously.</p>
+
+<p>I made a move from Java to .NET about 5 years ago and have dipped back in a few times over that period.  Trying new languages is a sure fire way, for some at least, to make you realise Java is not a language that makes coding fun, or productive.  Java put me right of the JVM.  Any language that makes woking with collections (something you'll do alot) so long winded and noisy deserves to be shunned.  But this isn't a Java rant - the JVM is great but it's just marketed badly because of Java.</p>
+
+<p>But all the JVM-hate that Java instilled in me 5 years ago; the last 6 months of working with Scala has replaced with love.  So I've been looking around the JVM world and discovered <a href="http://kotlin.jetbrains.org/">Kotlin</a> a new JVM based language from JetBrains.  Its much closer to Java than what Scala or Clojure is (intentionally).</p>
+
+<p>One main thing that Kotlin brings to the table is pragmatism.  Without trying to belittle Kotlin - it's almost like CoffeeScript for Java (yep kind of like what <a href="http://www.eclipse.org/xtend/">Xtend</a> is.  Kotlin removes all those annoying necessities in Java that make your code verbose (checked exceptions, semi-colons, null reference checks etc.).  It also adds things that make your life much easier (extension methods, functional collection manipulation etc.).</p>
+
+<p>When you write Ruby for the first time you notice that many things just work out like you'd expect, the syntax is quite natural.  The same cannot be said for Java - there is just way too much boilerplate.  Kotlin helps reduce that boilerplate.  So, by extension, it could be said that Kotlin makes you more productive.  A person who knows Java will find Kotlin no challenge to start using - the syntax is nicely aligned, just without the noise.</p>
+
+<p>Many people, when trying to get their team to adopt Scala, use the "you can use Scala like Java til you get used to it" mantra.  I don't agree with that.  Academically it's true but the minute you start working with other peoples Scala code - you've just gotta know Scala and when they have a slew of Implicits thrown in your Scala as Java stuff goes out the window.  Kotlin, on the other hand, has some of the nice functional patterns from Scala but none of the "magic-to-a-newcomer" features that can make grown men weep.  Now the Kotlin docs themselves even go as far as stating</p>
+
+<blockquote><p>  If you are happy with Scala, you probably don't need Kotlin.</p></blockquote>
+
+<p>But I think they are selling themselves short - I think plenty of people use Scala but could easily use Kotlin in its place and find themselves in a better place (easier upskilling, less cryptic codebase).</p>
+
+<p>Anyway this is a bit of a ramble, what I'm saying is - Kotlin has some really rather nice features (Groovy Like DSL Builders, Pattern Matching, the <code>when</code> expression, lambdas, Kotlin to JavaScript compilation(!) etc.) and people happy with either Java OR Scala should give it a go.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Technology in the Cloud]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/"/>
+    <updated>2012-07-12T13:59:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud</id>
+    <content type="html"><![CDATA[<p>The Cloud.  As much as the term has been pummelled into meaningless marketing sputum by the guys in expensive suits and fake smiles it does exist and is distinct from a typical "throw all your stuff in a data center" setup.</p>
+
+<p>The Cloud is distinct, as well, in terms of how you think about your solution architecture.  The typical old school approach would be to just create big monoliths to process your data but that doesn't work out so well in the cloud.  Of course the considerations for the cloud aren't new, hell no - things like SOA have been around for an age, but if you want to harness the benefits of the cloud as the internet intended you will be narrowing your options.  No more just cobbling common bits together and crossing your fingers.</p>
+
+<p>So fine - architecting for the cloud has some special considerations but thats not what I want to talk about - there are better people than me to cover that.</p>
+
+<p>What I want to talk about is use of technology within that architecture.  I've never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it's worth.  More importantly it's really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
+
+<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. "In the cloud the default stack can easily bleed money."
+</span></p>
+
+<p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you're paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn't matter - it does now.</p>
+
+<p>In summary - the cloud has started to make technology decisions more accountable and we need to ensure that those decisions aren't costing our stakeholders more money than necessary.</p>
+
+<p>PS.</p>
+
+<p>I'm not going to sit here and preach about the which specific technologies to use but come on - if your storing Session State in a Oracle database, switch to Riak, or Redis.  If you're building a nice scalable API then use something like Scala which promotes immutable state and concurrency out of the box over something like vanilla Java (or perhaps just a better framework Spring-WS vs Dropwizard for example).  JSON over XML or a binary format (Protobuf for example) for machine to machine communication.  A small node.js web site over ASP.NET Webforms for simple sites.  The list goes on.  That is to say consider this advice against the other factors driving technical decisions - dont JUST go for the smallest, lightest tools because it MIGHT be cheaper.  Do the research.</p>
+
+<p>Finally, perhaps you've got another IT team needing to support this new solution?  Bring them along this journey too, educate them as you educate yourself, dont just throw the finished thing over the wall with a 1 week handover and a pat on the back.</p>
+
+<p>Don't be afraid - it's a super fun world we live in!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Quitsies, Well Sort Of]]></title>
@@ -76,38 +135,6 @@
 <p>Listen - specifics aren't important here.  You'll have your own small repetitive tasks and you'll be able to find your own ways to automate, improve or refine them - but this is the point.  You probably don't.  At least not as often as you should.  Losing a second here and there on one task means very little in the small.  In the large, across many of these tasks, well thats a different story.  It's hard to justify spending 10 or 20 minutes on something to automate a task that takes 5 seconds to run but even if the time doesn't repay for a while then the fact you have less of a cognitive shift between your primary task and this secondary one should allow you stay in the highly effective, productive mindset to get the job done.</p>
 
 <p>So give it a go, even as a thought experiment - think about the habitual development tasks you do and how you could automate them - you could well suprise yourself (like I have been recently).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
-    <content type="html"><![CDATA[<p>I've been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I've thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it's working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
-
-<p>Alfred to the rescue here, just create a script as shown below and then running alfred and typing <code>l 9000</code> you can launch your default browser at <code>http://localhost:9000</code>.  Very simple but saves me heaps of time at the minute.</p>
-
-<p><img class="borderless" src="/images/blog/alfredscript.png"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Taking the Stairs]]></title>
-    <link href="http://yobriefca.se/blog/2012/03/06/taking-the-stairs/"/>
-    <updated>2012-03-06T23:22:00+00:00</updated>
-    <id>http://yobriefca.se/blog/2012/03/06/taking-the-stairs</id>
-    <content type="html"><![CDATA[<p>Ya'll about ready for another silly analogy?  I sure am....</p>
-
-<p>I work on the 6th floor and recently decided to start taking the stairs.  Mostly because I've let myself go and I really need to drop a few pounds and those stairs are a bit of a hard slog.  But it's worth it.  <!-- more --> It's funny how much of a better understanding of the building layout I get by just putting in the extra effort and going up the stairs.  The stairwell itself is pretty bland but I see extra doors, and I now know were many of doors could lead.</p>
-
-<p>So the analogy... Taking the stairs is a bit like the whole software craftsmanship thing.  Sure I could just take the prescribed route, the default stack so to speak, and as with the stairs I'd probably get where I was going for a lot of the time.  But you know what?  I'd not know much more than the average person.  What if that lift was over capacity, out of order or just smelling of urine - I'd be able to manage just fine without getting stranded on a random floor wondering what to do next, if that door I never tried went were I wanted.  Imagine the stress involved if I was already late for a meeting.  Crickey!</p>
-
-<p>So I put the extra effort in to understand things, and it's already given me a better perspective on things.  It's shown me other options, the ability to decide if the what I am doing is a good approach or perhaps there is a quicker, better, healthier route.</p>
-
-<p>How does that grab you?</p>
-
-<p>I really need to get off this analogy trip I'm on FFS!</p>
 ]]></content>
   </entry>
   

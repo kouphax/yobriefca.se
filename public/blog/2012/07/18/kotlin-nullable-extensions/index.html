@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Kotlin: Nullable Extensions - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="Haskell doesn&#8217;t have if statements - that blew my mind the first time my old Scala mentor told me it. ifs just don&#8217;t work with a strong &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Kotlin: Nullable Extensions</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-18T22:26:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Haskell doesn&#8217;t have if statements - that blew my mind the first time my old Scala mentor told me it.  <code>if</code>s just don&#8217;t work with a strong function approach.  Plus you know what - <code>if</code>s are rather ugly especially when you need to wrap ALL THE THINGS in a null check.  Scala has a type called <code>Option</code>.  An <code>Option</code> is essentially a collection of none or one instances of a type.  If everything returned an <code>Option</code> nothing would be null and you don&#8217;t need to do any null checks (they are much more powerful than I am making out but for now this is all that is necessary).</p>
+
+<p>Kotlin doesn&#8217;t have the <code>Option</code> type but it does have two things that allow you to act like it does,</p>
+
+<ol>
+<li>Nullable types - e.g. <code>String</code> vs <code>String?</code> , and,</li>
+<li>Nullable Extension Functions</li>
+</ol>
+
+
+<p>Remember the brief definition of an <code>Option</code> - it&#8217;s a list of 0 or 1 instances of a particualr type and as such we can treat it a bit like a list.  Now once we get functional with our badselves this makes null handling unnecessary.  We can use all those nice little functional methods that you get with collections - map, forEach, filter, fold etc.</p>
+
+<p>This means you&#8217;re less inclined to use <code>if</code>s and, more importantly, less inclined to use mutable variables which is great for building performant, scalable soltions.</p>
+
+<p>Lets take a really contrived example to show you what I mean.  OImagine this bit of code&#8230;.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>   <span class="n">val</span> <span class="n">auth</span> <span class="o">=</span> <span class="n">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+</span><span class='line'>   <span class="n">var</span> <span class="n">view</span> <span class="o">:</span> <span class="n">View</span> <span class="o">=</span> <span class="kc">null</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="k">if</span> <span class="o">(</span><span class="n">auth</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
+</span><span class='line'>   <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class='line'>          <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">auth</span><span class="o">)</span>
+</span><span class='line'>   <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="k">return</span> <span class="n">view</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We want to authenticate a user and return a certain view.  Now yes we could refactor this down into something more bitsize but this is a very common state to find code - so bare with me for demonstration purposes.</p>
+
+<p><code>authenticate</code> returns a user if the username and password was correct otherwise it returns null.  With our nullable extensions (by importing <code>kotlin.nullable.*</code>) we can reduce this into something more Scala-like,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="k">return</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">).</span><span class="na">map</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span> <span class="o">?:</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what we have done here is basically take an object (the user), if it exists, and transform it to another object which we return.  Otherwise we return something different.  This is much simpler and avoids having to create a mutable var (yes we could have avoided that in the other example but in many cases its very difficult to achieve this).  In fact I am not even a fan of the elvis operator there (<code>?:</code>) and have a Scala-like syntax <a href="https://github.com/JetBrains/kotlin/pull/100">pull request</a> open for getOrElse.  A small syntactic change that I think allows you create a much neater, chainable block of code.</p>
+
+<p>Thats only the tip of the iceberg on Nullable Extensions - those of you with a functional mind will be able to put these collection-like extensions to great use I reckon.  Not quite Scalas <code>Option</code> type but good enough at providing the common features for me.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-18T22:26:00+01:00" pubdate data-updated="true">Jul 18<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/kotlin/' style='text-decoration:none;'><span class='label label-info'>kotlin</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/16/kotlin-extension-functions/" title="Previous Post: Kotlin: Extension Functions">&laquo; Kotlin: Extension Functions</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

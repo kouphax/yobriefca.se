@@ -46,6 +46,13 @@ After some scrolling text you'll be all set up and ready to deploy.  You'll be a
 
 OK then lets create an app - what we create is irrelevant here so lets just create the default ASP.NET MVC website and use that as our sample app.  Remeber though, if you're a cutting edge awesome-addict to switch from .NET 4.5 to 4 or else you'll get some issues when deploying your site to Azure.
 
+> __UPDATE__ : The next few steps can be condensed, thanks to the feedback from Glenn Block (@gblock),
+> <blockquote class="twitter-tweet" data-in-reply-to="224800579388575744"><p>@<a href="https://twitter.com/kouphax">kouphax</a> oh dude, you don't need all those steps! Do "azure site create my site --git" It will create the repo for you and add the remote!</p>&mdash; Glenn Block (@gblock) <a href="https://twitter.com/gblock/status/224855192800215040" data-datetime="2012-07-16T13:17:10+00:00">July 16, 2012</a></blockquote>
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+> This sets up your git repo during creation of the site, adds the remote endpoint and even generates a .gitignore file (which you need to edit yourelf for .NET projects.  WIN!!!!
+>
+> Anyway.... on with the old post.
+
 Once you've created you app and saved it then you'll want to intialise an empty repo at the root of the solution,
 
 	git init
