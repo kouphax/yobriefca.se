@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-18T22:57:55+01:00</updated>
+  <updated>2012-09-13T20:53:34+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,579 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[StackMob Lightning Talk]]></title>
+    <link href="http://yobriefca.se/blog/2012/09/13/stackmob-lightning-talk/"/>
+    <updated>2012-09-13T20:33:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/09/13/stackmob-lightning-talk</id>
+    <content type="html"><![CDATA[<p>So I finally found an opportunity to deliver a quick lightning talk on <a href="http://stackmob.com">StackMob</a> at our
+monthly CodeSlice sessions in work.  Knocked it up today over lunch and presented it tonight.  Would like to
+pull this one out into a more in depth and interactive look&#8230; just waiting for someone to ask :)</p>
+
+<h2>Video</h2>
+
+<iframe src="http://player.vimeo.com/video/49405807?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="500" height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+
+<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="5051d07ffe08c30002031d18" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Securely Serving Static Files on Heroku]]></title>
+    <link href="http://yobriefca.se/blog/2012/08/21/securely-serving-static-files-on-heroku/"/>
+    <updated>2012-08-21T21:00:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/08/21/securely-serving-static-files-on-heroku</id>
+    <content type="html"><![CDATA[<p>More than once I&#8217;ve had a need to host what is essentially static content on Heroku.  For example when building a simple internal web app for my company that used an existing API or Parse.  Invariably in this situation I have also needed to secure this app - nothing to drastic, no need for multiple user accounts or roles or any such nonsense (we generally run our non-essential systems on the honour system).  Basic auth is more than enough.</p>
+
+<p>So, static content plus basic auth.  Heroku itself doesn&#8217;t offer basic auth as an option (why would it?) and so you&#8217;d need to roll it into your app.  Once I hosted my static stuff inside a Scala/Play! app, once a Sinatra app and the other a Rails app - variety is the spice of life.  But each time I did it I felt a little dirty - it was noticeably slower serving this content from within an app and it seemed rather wasteful.  So, in a bid to stamp out technical debt, I&#8217;ve ripped out all those web frameworks an replaced them with good old Apache.</p>
+
+<p>Now anyone with any knowledge of Apache will already be able to deduce the steps required here - but I want to note it for posterity, for myself, when I forget, in about a week.</p>
+
+<h2>BuildPack</h2>
+
+<p>First things first you&#8217;ll want to get your hands on a custom <a href="https://devcenter.heroku.com/articles/buildpacks">Heroku BuildPack</a> - these are the things that prepare your app instance with all the software and support it needs to run.</p>
+
+<p>I recommend you fork and clone the <a href="https://github.com/pearkes/heroku-buildpack-static">heroku-buildpack-static</a> buildpack available from pearkes on GitHub.</p>
+
+<h2>.htpassword</h2>
+
+<p>Next you need to generate your <code>.htpasswd</code> file that will serve as your store for your Basic Auth credentials.  The two simplest ways to generate one of these is to either use <a href="http://www.htaccesstools.com/htpasswd-generator/">htaccesstools.com&#8217;s htpasswd generator</a> or generate on via the command line.</p>
+
+<p>The simplest command to generate one is this,</p>
+
+<pre><code>htpasswd -cb &lt;password_file&gt; &lt;username&gt; &lt;password&gt;
+</code></pre>
+
+<p>For example,</p>
+
+<pre><code>htpasswd -cb .htpasswd james password
+</code></pre>
+
+<p>Will generate a file in the current directory called .htpasswd (the standard name for these files) with a single entry of username = james and password = password.</p>
+
+<h2>Updating the BuildPack</h2>
+
+<p>Either run the above command in the <code>heroku-buildpack-static/conf</code> folder or move your <code>.htpasswd</code> file into the that folder.</p>
+
+<p>Next up you want to configure apache to authenticate against that generate password file.  Adding the following lines to the <code>httpd.conf</code> file in the <code>heroku-buildpack-static/conf</code> will lock all assets under your apps site down,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'>    <span class="nb">AuthType</span>      Basic
+</span><span class='line'>    <span class="nb">AuthName</span>      <span class="s2">&quot;Authentication Required&quot;</span>
+</span><span class='line'>    <span class="nb">AuthUserFile</span>  <span class="s2">&quot;/app/apache/conf/.htpasswd&quot;</span>
+</span><span class='line'>    <span class="nb">Require</span>       valid-user
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This block should be added to the configuration section starting <code>&lt;Directory /&gt;</code> i.e.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'>  <span class="nt">&lt;Directory</span> <span class="s">/</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nb">Options</span> FollowSymLinks
+</span><span class='line'>      <span class="nb">AllowOverride</span> <span class="k">None</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nb">AuthType</span>      Basic
+</span><span class='line'>      <span class="nb">AuthName</span>      <span class="s2">&quot;Authentication Required&quot;</span>
+</span><span class='line'>      <span class="nb">AuthUserFile</span>  <span class="s2">&quot;/app/apache/conf/.htpasswd&quot;</span>
+</span><span class='line'>      <span class="nb">Require</span>       valid-user
+</span><span class='line'>
+</span><span class='line'>      <span class="nb">Order</span> deny,allow
+</span><span class='line'>      <span class="nb">Deny</span> from <span class="k">all</span>
+</span><span class='line'>  <span class="nt">&lt;/Directory&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&#8217;ll notice the <code>AuthUserFile</code> points to the correct absolute path for our custom .htpasswd file.  If you called it anything else please update this line accordingly.</p>
+
+<p>Commit and push that to your forked repo.</p>
+
+<h2>Using the BuildPack</h2>
+
+<p>Finally we need to tell Heroku to use the custom buildpack.  If you have yet to create an app then you can specify the buildpack during creation,</p>
+
+<pre><code>heroku create &lt;app name&gt; --buildpack &lt;url to your repo&gt;
+</code></pre>
+
+<p>If you have created you app already you can add the buildpack through an additional config setting</p>
+
+<pre><code>heroku config:add BUILDPACK_URL=&lt;url to your repo&gt;
+</code></pre>
+
+<p>Push your new or updated site to Heroku and watch in awe as your site is that bit more secure.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dependencies in JavaScript: Constructor, Setter or Global]]></title>
+    <link href="http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor/"/>
+    <updated>2012-08-21T07:59:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor</id>
+    <content type="html"><![CDATA[<p>There has been an interesting conversation on Twitter over the last number of hours between @derickbailey and a number of other people and it all started with this tweet,</p>
+
+<blockquote class="twitter-tweet tw-align-center"><p>anyone have links to articles on why setter injection is evil? /cc <a href="https://twitter.com/jbogard"><s>@</s><b>jbogard</b></a> <a href="https://twitter.com/jeremydmiller"><s>@</s><b>jeremydmiller</b></a> <a href="https://twitter.com/jflanagan"><s>@</s><b>jflanagan</b></a> <a href="https://twitter.com/chadmyers"><s>@</s><b>chadmyers</b></a></p>&mdash; derickbailey (@derickbailey) <a href="https://twitter.com/derickbailey/status/237658824163614720" data-datetime="2012-08-20T21:14:13+00:00">August 20, 2012</a></blockquote>
+
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>The conversation has been around using DI and IoC in JavaScript (yes I know they are not one in the same, and I know a Container is not a necessary part of DI or IoC thank you very much).  Simple answer is this - good patterns have a place in any language provided they aren&#8217;t abused mercilessly.  But lets get back to the discussion - why would you use constructor injection over setter injection?  Is setter injection evil?  Obviously no strategy is actually evil per-say - just used in the wrong place at the wrong time. So lets go back to the first question - constructor injection vs. setter injection.</p>
+
+<h2>Constructor Injection or Setter Injection</h2>
+
+<p>The simplest answer to this was one I gave @derickbailey earlier,</p>
+
+<blockquote class="twitter-tweet tw-align-center" data-in-reply-to="237664796298854401"><p><a href="https://twitter.com/derickbailey"><s>@</s><b>derickbailey</b></a> resolve mandatory dependenciesvia constructor injection, optional dependencies via setter.  This is a common convention.</p>&mdash; James Hughes (@kouphax) <a href="https://twitter.com/kouphax/status/237792703826522112" data-datetime="2012-08-21T06:06:13+00:00">August 21, 2012</a></blockquote>
+
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>This little bit of knowledge I&#8217;ve had since living down in the guts of Spring MVC about 5 years ago and it makes a lot of sense regardless of how those dependencies are getting in there.</p>
+
+<h2>Fail Early</h2>
+
+<p>When your code goes into an invalid state you want to fail as quickly as possible, this makes debugging much easier and prevents an avalanche of unexpected behaviour.  Using constructor injection (and asserting the existence of dependencies) gives you this ability.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">,</span> <span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>  
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you tried to achieve the same thing with setter injection you would be failing much later in the proceedings,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredA</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="nx">requiredA</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="nx">requiredB</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>   
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now imagine that the last two lines are miles apart in code-lines, you&#8217;ve gone and lost all context when debugging.  Sure in this trivial example it would be fairly easy to resolve this but if you&#8217;ve gone and lost the plot and created a heavily nested object graph you&#8217;ll be crying before they day is out.</p>
+
+<p>Now setter injection does have it&#8217;s place - for <strong>optional</strong> dependencies,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">,</span> <span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>  
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setOptionalC</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">optionalC</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">optionalC</span> <span class="o">=</span> <span class="nx">optionalC</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionalC</span><span class="p">)</span> <span class="nx">optionalC</span><span class="p">(</span><span class="s2">&quot;doing a thing...&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">setOptionalC</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">});</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// logs &quot;doing a thing...&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So the extension of the rule is that</p>
+
+<blockquote><p>Anything injected via <strong>setter injection</strong> needs to be either defaulted initially or checked for existence before use.</p></blockquote>
+
+<h2>Readability</h2>
+
+<p>By following this convention, heck by following any agreed convention, you get better visibility of the expected behaviour of your code.  You know what the object needs to get the job done.  That feels like a poor argument but I think it still warrants a mention here.</p>
+
+<h2>Over Engineering and Deep Graphs</h2>
+
+<p>Obviously if you&#8217;ve over-designed your classes or it has grown out of control this approach becomes difficult to manage.  I&#8217;ve seen something akin to this in some projects,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CoordinatorOfAllTheThings</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">c</span><span class="p">,</span><span class="nx">d</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">f</span><span class="p">,</span><span class="nx">g</span><span class="p">,</span><span class="nx">h</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">l</span><span class="p">,</span><span class="nx">m</span><span class="p">,</span><span class="nx">n</span><span class="p">,</span><span class="nx">o</span><span class="p">,</span><span class="nx">p</span><span class="p">....)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Someone has decided to make every bit of functionality it&#8217;s own little class or module and so the dependency graph has become incredibly broad.  In fact this might suggest they are creating a deep graph as well and simply passing the dependencies down the chain.  <strong>If you have a lot of dependencies then there is something wrong with the object you are creating</strong>.</p>
+
+<p>For fine grained, inter-object communication dependency injection is fine but when you are scaling up to more coarse, inter-module or component communication an evented or message based approach is almost always a better option.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="c1">// rest of previous code</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">EventStream</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;doneathing&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">EventStream</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">trigger</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class='line'>      <span class="nx">on</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">OtherThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredD</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">EventStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;doneathing&quot;</span><span class="p">,</span> <span class="nx">requiredD</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThingy</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">other</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OtherThing</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;stuff done&quot;</span><span class="p">);</span> <span class="p">});</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// logs &quot;stuff done&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a rather contrived example but it should server a point.</p>
+
+<h3>The Global Issue</h3>
+
+<p>You&#8217;ll notice the EventStream object in the code above is global, you&#8217;ll also notice I have skipped part of this posts title  (&#8230; or Global).  Lets come to that now.  It is possible to achieve the same results as constructor/setter injection using global scope,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">global</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>    
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">global</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">global</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="nx">global</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So rather than inject the necessary dependencies in we are relying on the fact they exist in global scope.  This works fine in some situations.  The EventStream object above is a global hub that can be used throughout the application.  I&#8217;m ok with that.  The risk of global scope is that it&#8217;s easy for objects to be redefined by other actors in your system so existence or behaviour is never guaranteed.  So use sparingly.</p>
+
+<h2>Moptional</h2>
+
+<p>The other alternative approach would be to make everything Moptional.  That is, anything mandatory should be instantiated with a default and provide setter injection for changing default behaviour.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultRequiredA</span><span class="p">();</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultRequiredB</span><span class="p">();</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredA</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="nx">requiredA</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="nx">requiredB</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">setRequiredB</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomRequiredB</span><span class="p">())</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You kind of get the best of worlds here - not having to worry about default behaviour but have the ability to override this (for example in testing).  But then you need to think about this.  Why are you providing this sort of strategy?  Are you simply hiding all implementation for an object but providing setters and getter to simply aid testing?  If that&#8217;s the case - STOP.  Your code should be testable but you should not change your code to simply aid testing.  Perhaps its time to go back and re-think your strategy?  Also, for testing - it&#8217;s entirely possible, given the dynamic nature of JavaScript, to redefine the internal dependencies prior to them being instantiated in your object anyway.  Don&#8217;t add features or behaviour that you don&#8217;t actually need to deliver the solution.</p>
+
+<h2>Wrap Up</h2>
+
+<p>This was playing over and over on my ride into work this morning (I cycle I have a lot of thinking time) and I wanted to get it out there.  Hopefully be useful to people asking some questions on this topic.</p>
+
+<p>Oh and IoC <strong>Containers</strong> in JavaScript&#8230;&#8230; don&#8217;t.</p>
+
+<p>My $0.02</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Backend as a Service - Part One]]></title>
+    <link href="http://yobriefca.se/blog/2012/08/08/backend-as-a-service-part-one/"/>
+    <updated>2012-08-08T14:10:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/08/08/backend-as-a-service-part-one</id>
+    <content type="html"><![CDATA[<p>I recently wrote an article for <a href="http://cloudspring.com/">CloudSpring</a> (a part of the <a href="http://www.sitepoint.com/">SitePoint</a> family) around what you can expect and what you should think about when going for one of the &#8220;Backend as a Service&#8221; offerings on the market.</p>
+
+<p>The article is <a href="http://cloudspring.com/backend-as-a-service-part-1/">now live</a>.</p>
+
+<h3><a href="http://cloudspring.com/backend-as-a-service-part-1/">CloudSpring: Backend as a Service Part 1</a></h3>
+
+<p>Part 2, the one where I look at whats actually out there, will be ready within the next week.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fear of Code]]></title>
+    <link href="http://yobriefca.se/blog/2012/08/05/fear-of-code/"/>
+    <updated>2012-08-05T20:36:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/08/05/fear-of-code</id>
+    <content type="html"><![CDATA[<p>More silly wishy washy nonsense - take what you will.</p>
+
+<p>Recently Thomas Fuchs has this to say on twitter,</p>
+
+<blockquote class="twitter-tweet"><p>As a programmer, you should be afraid of code, and eliminate as much as possible.</p>&mdash; Thomas Fuchs (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/230871987881390081" data-datetime="2012-08-02T03:45:45+00:00">August 2, 2012</a></blockquote>
+
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Its great, I love this stuff and it got me thinking and I thought why not put my thoughts up here, right?  After all this is what this place is all about.</p>
+
+<p>Rather than describe the emotion as fear (&#8220;be afraid of code&#8221;) i&#8217;d posit that, as a programmer, you should be respectful of code.  Rather than eliminate as much as possible you should conserve it as much as possible - don&#8217;t write it in the first place.</p>
+
+<p>A while back I posted something similar on Twitter - I can&#8217;t find the tweet right now but it went a little something like this,</p>
+
+<blockquote><p>Adding code is great, removing code is greater but not writing the code in the first place is greatest</p></blockquote>
+
+<p>As a developer it is very easy to fall into the trap of creating some sort of highly reusable complex masterpiece that is going to change the way we write code forever.  But down that road, madness lies.  Desigining too much, adding too many features, creating too many abstractions, handling every single edge case, writing too many tests - all this stuff is just extra complexity, extra code that simply muddies the solution and makes it harder for someone to understand the solution.  More code doesn&#8217;t solve the problem faster, more code doesn&#8217;t make things easier, more code doesn&#8217;t help.</p>
+
+<p>In other words - writing too much code, regardless of quality is just a selfish act.  That goes for 3rd party code too.</p>
+
+<p>Quit it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[expect.kt - Testing Library for Kotlin]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin/"/>
+    <updated>2012-07-25T20:31:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin</id>
+    <content type="html"><![CDATA[<p>In a bid to delve into the <a href="http://kotlin.jetbrains.org/">language</a> a bit further than a rake of tiny console apps I decided to do something &#8220;real&#8221; with Kotlin.  With that in mind - welcome <a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
+
+<p>It started purely as a learning venture but I think there is a certain usefulness in the library so its probably worth sharing :).  Now it&#8217;s worth noting that kotlin already has a number of testing statements that you can achieve a lot of this stuff with - this library gives you a few things over and above these statements</p>
+
+<ol>
+<li>Alternative syntax.  Testing is quite a personal thing and some people like to write things in different ways.</li>
+<li>Descriptive assertions.  Some would say <code>expect(2).toBePositive()</code> reads better than <code>assertTrue(2 &gt; 0)</code> or <code>expect(2 &gt; 0) { true }</code>.  Again its all about taste, and variety is the spice of life.</li>
+<li>Chained assertions.  See later</li>
+</ol>
+
+
+<p>Rather than some campaign to replace the inbuilt expectations and assertions this library intended to complement them.</p>
+
+<h2>So what is expect.kt?</h2>
+
+<p>Expect.kt is a set of (growing) assertions/expectations that you can use in your kotlin based tests.  It gives you a number of ways to assert your expectations and gives you quite descriptive methods in which to do it.</p>
+
+<h3>Expect Syntax</h3>
+
+<p>The  expect syntax is the default way to assert things,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">tests</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.junit.Test</span> <span class="n">as</span> <span class="n">test</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">kotlin.expectations.*</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">StringExpectationTests</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">test</span> <span class="n">fun</span> <span class="nf">testHelloWorld</span> <span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Most of that is boilerplate JUnit testy things but the key line is</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reads quite nicely IMHO.</p>
+
+<h3>Should Syntax</h3>
+
+<p>The should syntax offers a more fluent syntax if you want to call it that, if we wanted to write the same test above using the should syntax we could do this,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So rather than wrap your target with an expect you get and extension function to fluently assert it.</p>
+
+<h3>Chaining</h3>
+
+<p>Sometimes making a single assertion on a result isn&#8217;t enough and rather than write <code>assertTrue(...)</code> multiple times you can use extpect.kt&#8217;s chaining support.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">toEndWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Or, with the should syntax,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">endWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s a bit more readable than expect after expect, right?</p>
+
+<p>So thats it for now - there are a number of assertions implemented already on the useful types (Strings, Ints, Doubles, Dates, Booleans for example) and there are more planned on the way.  Currently you&#8217;ll be wanting to build from source (or copy/paste what you need).</p>
+
+<p>Finally - A shout out to .NETs <a href="http://fluentassertions.codeplex.com/">FluentAssertions</a> where a lot of the assertions found their origin!</p>
+
+<p><a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Kotlin: Nullable Extensions]]></title>
@@ -1697,263 +2270,6 @@ Have fun!
 <p>Right about now the solution is done so with a simple <code>play run</code> you should be able to register and view current registrations.  Excellent.  If you want to skip everything and just get my code you can clone the <a href="https://github.com/kouphax/scala-sampleapp">Github Repo</a>.</p>
 
 <p>OK so it&#8217;s not the most useful app in the world - that was never the intention.  But look at the code - it&#8217;s very terse and the time required to write this post was considerably more than the time required to implement the solution.  Joy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Little Sacrifices]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
-    <updated>2012-04-29T23:24:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
-    <content type="html"><![CDATA[<p>Late night ramblings&#8230;</p>
-
-<p>Productivity can plateau very quickly - especially in a technical process.  No matter how good you get at the process or approach, if you keep doing the same thing you can only get so good at it or do it so fast.  It&#8217;s possible, however, by sacrificing some of your precious time to go beyond that plateau.  There are things we, the developers, do as part of our development process that are so small and insignificant that we do them without thinking</p>
-
-<ul>
-<li>Clearing down the values in LocalStorage when debugging a web app</li>
-<li>Copying assets from one folder to another (aka the macgyver deploy)</li>
-<li>Navigating to <code>http://localhost:8000</code> or <code>9000</code> or some other port</li>
-<li>Typing <code>rake generate preview</code> into the terminal about 20 times an hour</li>
-<li>These are but a few things I&#8217;ve had to consider today alone</li>
-</ul>
-
-
-<p>Generally these things are so small we&#8217;d just do them by hand, right?  But if you take the time to automate these processes or even just refine them in some way it can do wonders for you productivity going forward.</p>
-
-<p>For example the clearing of LocalStorage in Chrome - spent a few minutes writing a bookmarklet that you can execute with 1 click.  The macgyver deploy?  Write a rake/make/jake/psake/cake task for it.  Better yet use <a href="https://github.com/guard/guard">Guard</a> or <a href="https://github.com/mynyml/watchr">Watchr</a> and perform the deploy on save!  Navigatin to various different localhost ports?  Try my <a href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/">alfred script</a> to minimise the keystrokes. <code>rake generate preview</code> - alias that bad boy to <code>rgp</code>!  Save yourself those extra keystrokes - you might need them later.</p>
-
-<p>Listen - specifics aren&#8217;t important here.  You&#8217;ll have your own small repetitive tasks and you&#8217;ll be able to find your own ways to automate, improve or refine them - but this is the point.  You probably don&#8217;t.  At least not as often as you should.  Losing a second here and there on one task means very little in the small.  In the large, across many of these tasks, well thats a different story.  It&#8217;s hard to justify spending 10 or 20 minutes on something to automate a task that takes 5 seconds to run but even if the time doesn&#8217;t repay for a while then the fact you have less of a cognitive shift between your primary task and this secondary one should allow you stay in the highly effective, productive mindset to get the job done.</p>
-
-<p>So give it a go, even as a thought experiment - think about the habitual development tasks you do and how you could automate them - you could well suprise yourself (like I have been recently).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Strapping Young Lad v0.1.2 Released]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released/"/>
-    <updated>2012-04-20T21:36:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/20/strapping-young-lad-v0-dot-1-2-released</id>
-    <content type="html"><![CDATA[<p>I have just released version 0.1.2 of <a href="https://github.com/kouphax/strapping-young-lad">Strapping Young Lad</a>.  Now we are getting to something that works a bit better across different platforms (now I just have to prove it to you).  This release sees the inclusion of multiple token replacement.  For example if I create a <code>.ladconfig</code> in the source repo with an array of tokens</p>
-
-<pre><code>token: ['__NAME__', '__NAMESPACE__', '__AUTHOR__']
-</code></pre>
-
-<p>The user will be prompted to specify the values for these tokens before the engine goes off and does the replacement.  The <code>__NAME__</code> token is a bit special - you still need to specify the project name as part of the command line call so if SYL come across this token in the the list of configured tokens it will allow you to default that value without having to type it again, e.g.</p>
-
-<pre><code>lad git@github.com:strapping-young-lad/Loam.git laddy
-
-  Cloning git repository                OK
-  Loading configuration                 OK
-  Parsing tokens and stuff              
-    name (laddy): 
-    namespace: test.lad
-    author: kouphax
-                                        OK
-  Processing files                      OK
-  Processing directories                OK
-  Moving project files                  OK
-
-  Done processing 137 file(s)
-  Done processing 22 directories(s)
-</code></pre>
-
-<p>Notice I didn&#8217;t need to specify the name of the project again and then I was prompted for the second and third token values.  Simple stuff.</p>
-
-<h2>Next up</h2>
-
-<p>So there are a few outstanding efforts to go in now.  Namely push some more templates into the SYL repo and spin up a site that lets you search said templates and document all the little features of SYL.  They will come in time.</p>
-
-<p>This is the life!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Infoshare 2012 Talk]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk/"/>
-    <updated>2012-04-20T14:52:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/20/infoshare-2012-talk</id>
-    <content type="html"><![CDATA[<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4f911c9791b203001f00cc2b" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-
-
-<iframe src="http://player.vimeo.com/video/41132110?title=0&amp;byline=0&amp;portrait=0" width="500" height="275" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-
-<h2>Resources</h2>
-
-<p>I mentioned a lot of technologies during my talk so here are the ones I mentioned</p>
-
-<h3>Web Frameworks</h3>
-
-<ul>
-<li><a href="http://jquerymobile.com/">jQuery Mobile</a></li>
-<li><a href="http://www.sencha.com/products/touch">Sencha Touch</a></li>
-</ul>
-
-
-<h3>Design</h3>
-
-<ul>
-<li><a href="http://codiqa.com/">Codiqa</a></li>
-<li><a href="http://www.sencha.com/products/architect/">Sencha Architect 2</a></li>
-</ul>
-
-
-<h3>Web Containers</h3>
-
-<ul>
-<li><a href="http://phonegap.com/">Phonegap</a></li>
-<li><a href="http://incubator.apache.org/cordova/">Cordova</a></li>
-</ul>
-
-
-<h3>Cross Platform</h3>
-
-<ul>
-<li><a href="http://xamarin.com/monotouch">Monotouch</a></li>
-<li><a href="http://xamarin.com/monoforandroid">Monodroid</a></li>
-<li><a href="http://www.anscamobile.com/corona/">Corona</a></li>
-<li><a href="https://build.phonegap.com/">Phonegap:Build</a></li>
-<li><a href="http://www.appcelerator.com/platform/titanium-sdk">Titanium</a></li>
-</ul>
-
-
-<h3>Server Platforms</h3>
-
-<ul>
-<li><a href="https://parse.com/">Parse</a></li>
-<li><a href="http://www.kinvey.com/">Kinvey</a></li>
-</ul>
-
-
-<h3>Cloud Services</h3>
-
-<ul>
-<li><a href="http://www.flurry.com/">Flurry</a></li>
-<li><a href="http://urbanairship.com/">Urban  Airship</a></li>
-</ul>
-
-
-<h3>Testing &amp; Debugging</h3>
-
-<ul>
-<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>
-<li><a href="https://www.lesspainful.com/">Less Painful</a></li>
-<li><a href="http://www.testingwithfrank.com/">Frank</a></li>
-<li><a href="http://people.apache.org/~pmuellr/weinre/">Weinre</a></li>
-</ul>
-
-
-<h3>Beta Testing</h3>
-
-<ul>
-<li><a href="https://testflightapp.com/">Testflight</a></li>
-<li><a href="http://www.hockeyapp.net/">Hockey</a></li>
-</ul>
-
-
-<h2>Comments</h2>
-
-<p>So how did it go?  From my perspective it could have been better - I&#8217;m not sure why started &#8220;ummmmming&#8221; all the time - I had plenty to say (and I think I talked too fast as well).  I just started in a semi-flustered state for reasons unknown.  I seen a few decent comments on twitter so I guess it was fairly well received thats what matters.  If anyone has any other observations, no matter how harsh, let me know.</p>
-
-<p>One more note - Gdasnk is awesome - the technical people are so engaged and enthusiastic, the place itself is really interesting and I managed try my new favourite shot - <a href="http://www.drinksmixer.com/drink10324.html">Mad Dog</a>.  Thanks for the opportunity Gdasnk and Infoshare.  Hopefully I can back here and spend more time in the city soon.</p>
-
-<p>Na zdrowie</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Strapping Young Lad - Project Template Token Replacer and Bootstrapper]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper/"/>
-    <updated>2012-04-17T22:08:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/17/strapping-young-lad-project-template-token-replacer-and-bootstrapper</id>
-    <content type="html"><![CDATA[<p>Today I have released the super simple, rough-as-hell, barely <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> <a href="https://rubygems.org/gems/lad">Strapping Young Lad</a>(<a href="https://github.com/kouphax/strapping-young-lad">Source</a>).  It&#8217;s fulfils a need I keep having but never really fixing.</p>
-
-<h2>Evelvator Pitch</h2>
-
-<p>SYL, or lad for short, will take a git repo, clone it and replace a bunch of tokens in it with the values you&#8217;ve supplied.</p>
-
-<h2>Say Wha?</h2>
-
-<p>This means you can create a bunch of base solution/project types for any language and SYL will simply do some basic file/folder renaming and file content replacing for a given token.  For example doing the following,</p>
-
-<pre><code>lad /path/to/git/repo MyNewProject
-</code></pre>
-
-<p>Will do the following things,</p>
-
-<ol>
-<li>Clone the repo at <code>path/to/git/repo</code> into a temporary folder</li>
-<li>Remove the <code>.git</code> folder from the repo</li>
-<li>Check for the existence of a <code>.ladconfig</code> in the freshly cloned repo</li>
-<li>If one exists it loads the config setting</li>
-<li>Otherwise it falls back to the defaults</li>
-<li>Replace all instances of the configured token (eg. <code>__NAME__</code>) in all files, directories and file contents with the project name (in our case <code>MyNewProject</code>)</li>
-<li>Copy the new folder over to your current working directory (<code>./MyNewProject</code>)</li>
-</ol>
-
-
-<p>What this allows you to do is have a standard project template for pretty much anything (.NET, Ruby, Scala - listen I mean anything - if it a collection of folders and files in a git repo then you set) and create a new instance with a few keystrokes - saving you time and potential RSI.</p>
-
-<p>SYL was inspired by <a href="https://github.com/chucknorris/warmup">WarmuP</a> which is itself a gem but it requires you to be running .NET which for a lot of my requirement isn&#8217;t going to cut it.</p>
-
-<p>If you want to see what a typical template project looks like try <a href="https://github.com/amirrajan/Loam">Amir&#8217;s Loam repo</a>.  This is a WarmuP project but works just fine.  With SYL you can create a <code>.ladconfig</code> file to override some of the conventions - get the source README linked above.</p>
-
-<h2>Whats Next</h2>
-
-<p>Yep it&#8217;s pretty damn basic right now but it satifies most of my needs right now.  There are a few things I want to add for myself but I didn&#8217;t release this for ME, I am pretty sure this will be of use to someone in some community in some shape or form.  With that in mind here are some features I think would take this to the next level,</p>
-
-<ol>
-<li>Specifiying multiple tokens e.g. <code>__NAME__</code> and <code>__NAMESPACE__</code> and <code>__YEAR__</code> etc. etc.</li>
-<li>Post processing actions (e.g. <code>bundle install</code> or <code>npm install</code> or <code>sbt compile</code> or something like that)</li>
-<li>A catalog - I have a <a href="https://github.com/strapping-young-lad">github organisation</a> with no repos setup right now but this would be a brilliant place to hold a load of templates compatible with SYL, don&#8217;t ya think?  Then I could roll a site like rubygems or npmjs.org and make the projects searchable etc.  If you build it, they will come.  Maybe, who knows.</li>
-</ol>
-
-
-<p>So if you like it - HIGHFIVE - if not - it&#8217;s all good.  Now go break it and criticise me.</p>
-
-<blockquote><p>So we&#8217;ll criticise him, because he can take it&#8230;. [The Dark Knight, Approx.]</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
-    <content type="html"><![CDATA[<p>The tragedy being we don&#8217;t use it all the time!</p>
-
-<p>This presentation is the first part in the 2 part series &#8220;Scala - A Tragedy in Two Parts&#8221;.  In this presentation I go fast and dive into a range of Scala code snippets pointing out some of the weird and wonderful features of the language.</p>
-
-<h2>Recorded Session</h2>
-
-<iframe src="http://player.vimeo.com/video/40255430?title=0&amp;byline=0&amp;portrait=0" width="500" height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-
-<p> <p><a href="http://vimeo.com/40255430">Scala - A Tragedy in Two Parts - Part 1 - The Language</a> from <a href="http://vimeo.com/kouphax">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p>
-
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4f86b1fcd1325b0022019eea" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Alfred Hack for Web Developers]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/"/>
-    <updated>2012-04-03T17:24:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.alfredapp.com/">Alfred</a> for some time and use it to make pretty much everything a keystroke away.  I&#8217;ve thrown a very small little extension that reduces the time to jump between console and newly started web app.  Generally during development we need to run our app jump to <code>localhost:PORT</code> and make sure it&#8217;s working.  If, like me, you have a lot of different apps and platforms (Scala, Jekyll, Rails, Sinatra, Express to name a few) then <code>PORT</code> becomes the one thing you always need to type and the browsers auto predict is generally not that helpful in this situation.</p>
-
-<p>Alfred to the rescue here, just create a script as shown below and then running alfred and typing <code>l 9000</code> you can launch your default browser at <code>http://localhost:9000</code>.  Very simple but saves me heaps of time at the minute.</p>
-
-<p><img class="borderless" src="http://yobriefca.se/images/blog/alfredscript.png"></p>
 ]]></content>
   </entry>
   

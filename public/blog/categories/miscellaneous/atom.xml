@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-18T22:57:55+01:00</updated>
+  <updated>2012-09-13T20:53:34+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Fear of Code]]></title>
+    <link href="http://yobriefca.se/blog/2012/08/05/fear-of-code/"/>
+    <updated>2012-08-05T20:36:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/08/05/fear-of-code</id>
+    <content type="html"><![CDATA[<p>More silly wishy washy nonsense - take what you will.</p>
+
+<p>Recently Thomas Fuchs has this to say on twitter,</p>
+
+<blockquote class="twitter-tweet"><p>As a programmer, you should be afraid of code, and eliminate as much as possible.</p>&mdash; Thomas Fuchs (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/230871987881390081" data-datetime="2012-08-02T03:45:45+00:00">August 2, 2012</a></blockquote>
+
+
+<script src="http://yobriefca.se//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Its great, I love this stuff and it got me thinking and I thought why not put my thoughts up here, right?  After all this is what this place is all about.</p>
+
+<p>Rather than describe the emotion as fear ("be afraid of code") i'd posit that, as a programmer, you should be respectful of code.  Rather than eliminate as much as possible you should conserve it as much as possible - don't write it in the first place.</p>
+
+<p>A while back I posted something similar on Twitter - I can't find the tweet right now but it went a little something like this,</p>
+
+<blockquote><p>Adding code is great, removing code is greater but not writing the code in the first place is greatest</p></blockquote>
+
+<p>As a developer it is very easy to fall into the trap of creating some sort of highly reusable complex masterpiece that is going to change the way we write code forever.  But down that road, madness lies.  Desigining too much, adding too many features, creating too many abstractions, handling every single edge case, writing too many tests - all this stuff is just extra complexity, extra code that simply muddies the solution and makes it harder for someone to understand the solution.  More code doesn't solve the problem faster, more code doesn't make things easier, more code doesn't help.</p>
+
+<p>In other words - writing too much code, regardless of quality is just a selfish act.  That goes for 3rd party code too.</p>
+
+<p>Quit it.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Kotlin: Here's What I Think (For Now)]]></title>
@@ -107,34 +138,6 @@
 <p>Five years ago I married my awesome wife and in that time I've done a heap of things - relocated twice, had two kids bought a house, got promoted, pissed everyone off, seen a few countries and bought/traded three cars (which get smaller every time oddly enough).  And through all this hopping around my wife has been the one true constant.  She thinks, most of the time, I don't care about her - after all I'm in London participating in a hackathon on our 5th wedding anniversary because I stupidly didn't put two and two together and notice the clash.  So yeah it may damn well seem like she comes in a close second to my hobby/career stuff (you know the stuff I already mentioned was pulling into crisis mode).  But it's not true.  I can't help the fact I am "emotionally retarded", as my sister once called it, but perhaps once in a while I really should let her know that she means more than she thinks she does.  And here it is.  A little bit of emotional letting if you will.</p>
 
 <p>Dear Emma - happy anniversary, I hope we have plenty more, thank you for putting up with me, you're aces.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Little Sacrifices]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/29/the-little-sacrifices/"/>
-    <updated>2012-04-29T23:24:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/29/the-little-sacrifices</id>
-    <content type="html"><![CDATA[<p>Late night ramblings...</p>
-
-<p>Productivity can plateau very quickly - especially in a technical process.  No matter how good you get at the process or approach, if you keep doing the same thing you can only get so good at it or do it so fast.  It's possible, however, by sacrificing some of your precious time to go beyond that plateau.  There are things we, the developers, do as part of our development process that are so small and insignificant that we do them without thinking</p>
-
-<ul>
-<li>Clearing down the values in LocalStorage when debugging a web app</li>
-<li>Copying assets from one folder to another (aka the macgyver deploy)</li>
-<li>Navigating to <code>http://localhost:8000</code> or <code>9000</code> or some other port</li>
-<li>Typing <code>rake generate preview</code> into the terminal about 20 times an hour</li>
-<li>These are but a few things I've had to consider today alone</li>
-</ul>
-
-
-<p>Generally these things are so small we'd just do them by hand, right?  But if you take the time to automate these processes or even just refine them in some way it can do wonders for you productivity going forward.</p>
-
-<p>For example the clearing of LocalStorage in Chrome - spent a few minutes writing a bookmarklet that you can execute with 1 click.  The macgyver deploy?  Write a rake/make/jake/psake/cake task for it.  Better yet use <a href="https://github.com/guard/guard">Guard</a> or <a href="https://github.com/mynyml/watchr">Watchr</a> and perform the deploy on save!  Navigatin to various different localhost ports?  Try my <a href="http://yobriefca.se/blog/2012/04/03/alfred-hack-for-web-developers/">alfred script</a> to minimise the keystrokes. <code>rake generate preview</code> - alias that bad boy to <code>rgp</code>!  Save yourself those extra keystrokes - you might need them later.</p>
-
-<p>Listen - specifics aren't important here.  You'll have your own small repetitive tasks and you'll be able to find your own ways to automate, improve or refine them - but this is the point.  You probably don't.  At least not as often as you should.  Losing a second here and there on one task means very little in the small.  In the large, across many of these tasks, well thats a different story.  It's hard to justify spending 10 or 20 minutes on something to automate a task that takes 5 seconds to run but even if the time doesn't repay for a while then the fact you have less of a cognitive shift between your primary task and this secondary one should allow you stay in the highly effective, productive mindset to get the job done.</p>
-
-<p>So give it a go, even as a thought experiment - think about the habitual development tasks you do and how you could automate them - you could well suprise yourself (like I have been recently).</p>
 ]]></content>
   </entry>
   

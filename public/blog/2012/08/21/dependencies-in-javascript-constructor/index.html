@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Dependencies in JavaScript: Constructor, Setter or Global - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="There has been an interesting conversation on Twitter over the last number of hours between @derickbailey and a number of other people and it all &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Dependencies in JavaScript: Constructor, Setter or Global</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-21T07:59:00+01:00" pubdate data-updated="true">Aug 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>There has been an interesting conversation on Twitter over the last number of hours between @derickbailey and a number of other people and it all started with this tweet,</p>
+
+<blockquote class="twitter-tweet tw-align-center"><p>anyone have links to articles on why setter injection is evil? /cc <a href="https://twitter.com/jbogard"><s>@</s><b>jbogard</b></a> <a href="https://twitter.com/jeremydmiller"><s>@</s><b>jeremydmiller</b></a> <a href="https://twitter.com/jflanagan"><s>@</s><b>jflanagan</b></a> <a href="https://twitter.com/chadmyers"><s>@</s><b>chadmyers</b></a></p>&mdash; derickbailey (@derickbailey) <a href="https://twitter.com/derickbailey/status/237658824163614720" data-datetime="2012-08-20T21:14:13+00:00">August 20, 2012</a></blockquote>
+
+
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>The conversation has been around using DI and IoC in JavaScript (yes I know they are not one in the same, and I know a Container is not a necessary part of DI or IoC thank you very much).  Simple answer is this - good patterns have a place in any language provided they aren&#8217;t abused mercilessly.  But lets get back to the discussion - why would you use constructor injection over setter injection?  Is setter injection evil?  Obviously no strategy is actually evil per-say - just used in the wrong place at the wrong time. So lets go back to the first question - constructor injection vs. setter injection.</p>
+
+<h2>Constructor Injection or Setter Injection</h2>
+
+<p>The simplest answer to this was one I gave @derickbailey earlier,</p>
+
+<blockquote class="twitter-tweet tw-align-center" data-in-reply-to="237664796298854401"><p><a href="https://twitter.com/derickbailey"><s>@</s><b>derickbailey</b></a> resolve mandatory dependenciesvia constructor injection, optional dependencies via setter.  This is a common convention.</p>&mdash; James Hughes (@kouphax) <a href="https://twitter.com/kouphax/status/237792703826522112" data-datetime="2012-08-21T06:06:13+00:00">August 21, 2012</a></blockquote>
+
+
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>This little bit of knowledge I&#8217;ve had since living down in the guts of Spring MVC about 5 years ago and it makes a lot of sense regardless of how those dependencies are getting in there.</p>
+
+<h2>Fail Early</h2>
+
+<p>When your code goes into an invalid state you want to fail as quickly as possible, this makes debugging much easier and prevents an avalanche of unexpected behaviour.  Using constructor injection (and asserting the existence of dependencies) gives you this ability.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">,</span> <span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>  
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you tried to achieve the same thing with setter injection you would be failing much later in the proceedings,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredA</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="nx">requiredA</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="nx">requiredB</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>   
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now imagine that the last two lines are miles apart in code-lines, you&#8217;ve gone and lost all context when debugging.  Sure in this trivial example it would be fairly easy to resolve this but if you&#8217;ve gone and lost the plot and created a heavily nested object graph you&#8217;ll be crying before they day is out.</p>
+
+<p>Now setter injection does have it&#8217;s place - for <strong>optional</strong> dependencies,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">,</span> <span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>  
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setOptionalC</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">optionalC</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">optionalC</span> <span class="o">=</span> <span class="nx">optionalC</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">optionalC</span><span class="p">)</span> <span class="nx">optionalC</span><span class="p">(</span><span class="s2">&quot;doing a thing...&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">setOptionalC</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">});</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// logs &quot;doing a thing...&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So the extension of the rule is that</p>
+
+<blockquote><p>Anything injected via <strong>setter injection</strong> needs to be either defaulted initially or checked for existence before use.</p></blockquote>
+
+<h2>Readability</h2>
+
+<p>By following this convention, heck by following any agreed convention, you get better visibility of the expected behaviour of your code.  You know what the object needs to get the job done.  That feels like a poor argument but I think it still warrants a mention here.</p>
+
+<h2>Over Engineering and Deep Graphs</h2>
+
+<p>Obviously if you&#8217;ve over-designed your classes or it has grown out of control this approach becomes difficult to manage.  I&#8217;ve seen something akin to this in some projects,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CoordinatorOfAllTheThings</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">c</span><span class="p">,</span><span class="nx">d</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">f</span><span class="p">,</span><span class="nx">g</span><span class="p">,</span><span class="nx">h</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">l</span><span class="p">,</span><span class="nx">m</span><span class="p">,</span><span class="nx">n</span><span class="p">,</span><span class="nx">o</span><span class="p">,</span><span class="nx">p</span><span class="p">....)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Someone has decided to make every bit of functionality it&#8217;s own little class or module and so the dependency graph has become incredibly broad.  In fact this might suggest they are creating a deep graph as well and simply passing the dependencies down the chain.  <strong>If you have a lot of dependencies then there is something wrong with the object you are creating</strong>.</p>
+
+<p>For fine grained, inter-object communication dependency injection is fine but when you are scaling up to more coarse, inter-module or component communication an evented or message based approach is almost always a better option.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="c1">// rest of previous code</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">EventStream</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;doneathing&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">EventStream</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">trigger</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class='line'>      <span class="nx">on</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">OtherThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredD</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">EventStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;doneathing&quot;</span><span class="p">,</span> <span class="nx">requiredD</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThingy</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">other</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OtherThing</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;stuff done&quot;</span><span class="p">);</span> <span class="p">});</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span> <span class="c1">// logs &quot;stuff done&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a rather contrived example but it should server a point.</p>
+
+<h3>The Global Issue</h3>
+
+<p>You&#8217;ll notice the EventStream object in the code above is global, you&#8217;ll also notice I have skipped part of this posts title  (&#8230; or Global).  Lets come to that now.  It is possible to achieve the same results as constructor/setter injection using global scope,</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">global</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>    
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">global</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">)</span> <span class="k">throw</span> <span class="s2">&quot;Missing Dependency&quot;</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">global</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="nx">global</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span> <span class="c1">// FAIL FAIL FAIL</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So rather than inject the necessary dependencies in we are relying on the fact they exist in global scope.  This works fine in some situations.  The EventStream object above is a global hub that can be used throughout the application.  I&#8217;m ok with that.  The risk of global scope is that it&#8217;s easy for objects to be redefined by other actors in your system so existence or behaviour is never guaranteed.  So use sparingly.</p>
+
+<h2>Moptional</h2>
+
+<p>The other alternative approach would be to make everything Moptional.  That is, anything mandatory should be instantiated with a default and provide setter injection for changing default behaviour.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">MyThingy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultRequiredA</span><span class="p">();</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultRequiredB</span><span class="p">();</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// rest of my code</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredA</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredA</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span> <span class="o">=</span> <span class="nx">requiredA</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setRequiredB</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requiredB</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span> <span class="o">=</span> <span class="nx">requiredB</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">MyThingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doAThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredA</span><span class="p">.</span><span class="nx">magic</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">requiredB</span><span class="p">.</span><span class="nx">beepboop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyThing</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">setRequiredB</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomRequiredB</span><span class="p">())</span>
+</span><span class='line'>  <span class="nx">thing</span><span class="p">.</span><span class="nx">doAThing</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You kind of get the best of worlds here - not having to worry about default behaviour but have the ability to override this (for example in testing).  But then you need to think about this.  Why are you providing this sort of strategy?  Are you simply hiding all implementation for an object but providing setters and getter to simply aid testing?  If that&#8217;s the case - STOP.  Your code should be testable but you should not change your code to simply aid testing.  Perhaps its time to go back and re-think your strategy?  Also, for testing - it&#8217;s entirely possible, given the dynamic nature of JavaScript, to redefine the internal dependencies prior to them being instantiated in your object anyway.  Don&#8217;t add features or behaviour that you don&#8217;t actually need to deliver the solution.</p>
+
+<h2>Wrap Up</h2>
+
+<p>This was playing over and over on my ride into work this morning (I cycle I have a lot of thinking time) and I wanted to get it out there.  Hopefully be useful to people asking some questions on this topic.</p>
+
+<p>Oh and IoC <strong>Containers</strong> in JavaScript&#8230;&#8230; don&#8217;t.</p>
+
+<p>My $0.02</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-21T07:59:00+01:00" pubdate data-updated="true">Aug 21<span>st</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/design-patterns/' style='text-decoration:none;'><span class='label label-info'>design patterns</span></a> <a href='/blog/categories/javascript/' style='text-decoration:none;'><span class='label label-info'>javascript</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/08/backend-as-a-service-part-one/" title="Previous Post: Backend as a Service - Part One">&laquo; Backend as a Service - Part One</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/21/securely-serving-static-files-on-heroku/" title="next Post: Securely Serving Static Files on Heroku">Securely Serving Static Files on Heroku &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/08/21/dependencies-in-javascript-constructor/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

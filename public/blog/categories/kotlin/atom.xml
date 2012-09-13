@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Kotlin | Yo Briefcase!]]></title>
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>kotlin | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/kotlin/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-07-18T22:57:55+01:00</updated>
+  <updated>2012-09-13T20:53:34+01:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,25 +14,30 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Kotlin: Nullable Extensions]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions/"/>
-    <updated>2012-07-18T22:26:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/18/kotlin-nullable-extensions</id>
-    <content type="html"><![CDATA[<p>Haskell doesn't have if statements - that blew my mind the first time my old Scala mentor told me it.  <code>if</code>s just don't work with a strong function approach.  Plus you know what - <code>if</code>s are rather ugly especially when you need to wrap ALL THE THINGS in a null check.  Scala has a type called <code>Option</code>.  An <code>Option</code> is essentially a collection of none or one instances of a type.  If everything returned an <code>Option</code> nothing would be null and you don't need to do any null checks (they are much more powerful than I am making out but for now this is all that is necessary).</p>
+    <title type="html"><![CDATA[expect.kt - Testing Library for Kotlin]]></title>
+    <link href="http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin/"/>
+    <updated>2012-07-25T20:31:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin</id>
+    <content type="html"><![CDATA[<p>In a bid to delve into the <a href="http://kotlin.jetbrains.org/">language</a> a bit further than a rake of tiny console apps I decided to do something "real" with Kotlin.  With that in mind - welcome <a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
 
-<p>Kotlin doesn't have the <code>Option</code> type but it does have two things that allow you to act like it does,</p>
+<p>It started purely as a learning venture but I think there is a certain usefulness in the library so its probably worth sharing :).  Now it's worth noting that kotlin already has a number of testing statements that you can achieve a lot of this stuff with - this library gives you a few things over and above these statements</p>
 
 <ol>
-<li>Nullable types - e.g. <code>String</code> vs <code>String?</code> , and,</li>
-<li>Nullable Extension Functions</li>
+<li>Alternative syntax.  Testing is quite a personal thing and some people like to write things in different ways.</li>
+<li>Descriptive assertions.  Some would say <code>expect(2).toBePositive()</code> reads better than <code>assertTrue(2 &gt; 0)</code> or <code>expect(2 &gt; 0) { true }</code>.  Again its all about taste, and variety is the spice of life.</li>
+<li>Chained assertions.  See later</li>
 </ol>
 
 
-<p>Remember the brief definition of an <code>Option</code> - it's a list of 0 or 1 instances of a particualr type and as such we can treat it a bit like a list.  Now once we get functional with our badselves this makes null handling unnecessary.  We can use all those nice little functional methods that you get with collections - map, forEach, filter, fold etc.</p>
+<p>Rather than some campaign to replace the inbuilt expectations and assertions this library intended to complement them.</p>
 
-<p>This means you're less inclined to use <code>if</code>s and, more importantly, less inclined to use mutable variables which is great for building performant, scalable soltions.</p>
+<h2>So what is expect.kt?</h2>
 
-<p>Lets take a really contrived example to show you what I mean.  OImagine this bit of code....</p>
+<p>Expect.kt is a set of (growing) assertions/expectations that you can use in your kotlin based tests.  It gives you a number of ways to assert your expectations and gives you quite descriptive methods in which to do it.</p>
+
+<h3>Expect Syntax</h3>
+
+<p>The  expect syntax is the default way to assert things,</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -47,204 +52,60 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>   <span class="n">val</span> <span class="n">auth</span> <span class="o">=</span> <span class="n">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
-</span><span class='line'>   <span class="n">var</span> <span class="n">view</span> <span class="o">:</span> <span class="n">View</span> <span class="o">=</span> <span class="kc">null</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">tests</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="k">if</span> <span class="o">(</span><span class="n">auth</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">org.junit.Test</span> <span class="n">as</span> <span class="n">test</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">kotlin.expectations.*</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">class</span> <span class="nc">StringExpectationTests</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="o">}</span><span class="k">else</span><span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">view</span> <span class="o">=</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">auth</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="k">return</span> <span class="n">view</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>We want to authenticate a user and return a certain view.  Now yes we could refactor this down into something more bitsize but this is a very common state to find code - so bare with me for demonstration purposes.</p>
-
-<p><code>authenticate</code> returns a user if the username and password was correct otherwise it returns null.  With our nullable extensions (by importing <code>kotlin.nullable.*</code>) we can reduce this into something more Scala-like,</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="k">return</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">).</span><span class="na">map</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">index</span><span class="o">(</span><span class="n">it</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span> <span class="o">?:</span> <span class="n">views</span><span class="o">.</span><span class="na">html</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="s">&quot;Invalid Username or Password&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>So what we have done here is basically take an object (the user), if it exists, and transform it to another object which we return.  Otherwise we return something different.  This is much simpler and avoids having to create a mutable var (yes we could have avoided that in the other example but in many cases its very difficult to achieve this).  In fact I am not even a fan of the elvis operator there (<code>?:</code>) and have a Scala-like syntax <a href="https://github.com/JetBrains/kotlin/pull/100">pull request</a> open for getOrElse.  A small syntactic change that I think allows you create a much neater, chainable block of code.</p>
-
-<p>Thats only the tip of the iceberg on Nullable Extensions - those of you with a functional mind will be able to put these collection-like extensions to great use I reckon.  Not quite Scalas <code>Option</code> type but good enough at providing the common features for me.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Kotlin: Extension Functions]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions/"/>
-    <updated>2012-07-16T22:04:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/16/kotlin-extension-functions</id>
-    <content type="html"><![CDATA[<p>In any language (that supports the concept) extension functions are nothing more than syntactic sugar.  Instead of writing,</p>
-
-<pre><code>StringUtils.encrypt(mystring, "salt")
-</code></pre>
-
-<p>Extension functions allow you to write,</p>
-
-<pre><code>mystring.encrypt("salt")
-</code></pre>
-
-<p>Once you start moving into the world of chaining things get much cleaner.</p>
-
-<pre><code>encrypted = StringUtils.encrypt(mystring, "salt")
-encoded = StringUtils.encode(encrypted, "UTF-8")
-</code></pre>
-
-<p>or worse,</p>
-
-<pre><code>StringUtils.encode(StringUtils.encrypt(mystring, "salt"), "UTF-8")
-</code></pre>
-
-<p>I've seen this done a few times, it happens.  But with sugary sweet extension functions (Extension Methods in C#, Implicit Conversions in Scala) you could just do this,</p>
-
-<pre><code>mystring.encrypt("salt").encode("UTF-8")
-</code></pre>
-
-<p>Much nicer.</p>
-
-<p>Kotlin, unlike crusty old Java, supports extension functions.  Here is how you'd implement the methods above</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">):</span> <span class="n">String</span> <span class="o">{</span>
-</span><span class='line'>   <span class="k">return</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span>
-</span><span class='line'><span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">fun</span> <span class="n">String</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">:</span> <span class="n">ByteArray</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">test</span> <span class="n">fun</span> <span class="n">testHelloWorld</span> <span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>And we can use these, as you'd expect, like so,</p>
+<p>Most of that is boilerplate JUnit testy things but the key line is</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
-</span><span class='line'><span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>So what identified those functions as Extension Functions?  Simple - the prefixing of the method name with the type <code>String.encode</code>.  No need to create implicit wrappers (Scala), no need to create loads of static classes (C#).  And yes it's possible to use generics in these methods as well,</p>
+<p>Reads quite nicely IMHO.</p>
+
+<h3>Should Syntax</h3>
+
+<p>The should syntax offers a more fluent syntax if you want to call it that, if we wanted to write the same test above using the should syntax we could do this,</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span><span class="o">?.</span><span class="na">getOrElse</span><span class="o">(</span><span class="nl">t:</span> <span class="n">T</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="k">this</span> <span class="o">?:</span> <span class="n">t</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>This can be applied to any nullable type.</p>
+<p>So rather than wrap your target with an expect you get and extension function to fluently assert it.</p>
 
-<h2>Literal Extension Functions</h2>
+<h3>Chaining</h3>
 
-<p>An interesting little feature that Kotlin has that makes it a bit different is the use of function literal extension functions.  Basically where you can declare a function as a literal (a lambda method if you will) you can also make that literal an extension function,</p>
-
-<p>So we could take our methods we wrote above and bring them right into our <code>main</code></p>
+<p>Sometimes making a single assertion on a result isn't enough and rather than write <code>assertTrue(...)</code> multiple times you can use extpect.kt's chaining support.</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">fun</span> <span class="nf">main</span><span class="o">(</span><span class="nl">args:</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">val</span> <span class="n">encrypt</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">salt:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salt</span><span class="o">)?.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">()}</span>
-</span><span class='line'><span class="n">val</span> <span class="n">encode</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span><span class="o">.(</span><span class="nl">encoding:</span> <span class="n">String</span><span class="o">)</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">encoding</span><span class="o">)</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">val</span> <span class="n">mystring</span> <span class="o">=</span> <span class="s">&quot;james&quot;</span>
-</span><span class='line'><span class="n">val</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">mystring</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">&quot;salt&quot;</span><span class="o">).</span><span class="na">encode</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">toEndWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>This may seem quite unnecessary at first glance but it become quite powerful when creating DSLs - as demonstrated in the docs around the <a href="http://confluence.jetbrains.net/display/Kotlin/Type-safe+Groovy-style+builders">Groovy Style Builders</a></p>
+<p>Or, with the should syntax,</p>
 
-<p>So Kotlin has extension functions that don't require a load of boilerplate (C#) or rather odd implicit syntax (Scala) - cool, right?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Kotlin: Here's What I Think (For Now)]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think/"/>
-    <updated>2012-07-15T16:43:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/15/kotlin-heres-what-i-think</id>
-    <content type="html"><![CDATA[<blockquote><p>Before I go shooting my mouth off here - a word of warning - I haven't really done anything with Kotlin.  I've read the docs, played with the <a href="https://github.com/dodyg/Kotlin101">Kotlin 101 samples</a> and written a few small console type apps.  So take what you want from this post.</p></blockquote>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">endWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Want to hear something zany?  There actually are people - real living people, with a fully working brain, many much smarter than me - that are "happy" with Java.</p>
+<p>It's a bit more readable than expect after expect, right?</p>
 
-<p>Seriously.</p>
+<p>So thats it for now - there are a number of assertions implemented already on the useful types (Strings, Ints, Doubles, Dates, Booleans for example) and there are more planned on the way.  Currently you'll be wanting to build from source (or copy/paste what you need).</p>
 
-<p>I made a move from Java to .NET about 5 years ago and have dipped back in a few times over that period.  Trying new languages is a sure fire way, for some at least, to make you realise Java is not a language that makes coding fun, or productive.  Java put me right of the JVM.  Any language that makes woking with collections (something you'll do alot) so long winded and noisy deserves to be shunned.  But this isn't a Java rant - the JVM is great but it's just marketed badly because of Java.</p>
+<p>Finally - A shout out to .NETs <a href="http://fluentassertions.codeplex.com/">FluentAssertions</a> where a lot of the assertions found their origin!</p>
 
-<p>But all the JVM-hate that Java instilled in me 5 years ago; the last 6 months of working with Scala has replaced with love.  So I've been looking around the JVM world and discovered <a href="http://kotlin.jetbrains.org/">Kotlin</a> a new JVM based language from JetBrains.  Its much closer to Java than what Scala or Clojure is (intentionally).</p>
-
-<p>One main thing that Kotlin brings to the table is pragmatism.  Without trying to belittle Kotlin - it's almost like CoffeeScript for Java (yep kind of like what <a href="http://www.eclipse.org/xtend/">Xtend</a> is.  Kotlin removes all those annoying necessities in Java that make your code verbose (checked exceptions, semi-colons, null reference checks etc.).  It also adds things that make your life much easier (extension methods, functional collection manipulation etc.).</p>
-
-<p>When you write Ruby for the first time you notice that many things just work out like you'd expect, the syntax is quite natural.  The same cannot be said for Java - there is just way too much boilerplate.  Kotlin helps reduce that boilerplate.  So, by extension, it could be said that Kotlin makes you more productive.  A person who knows Java will find Kotlin no challenge to start using - the syntax is nicely aligned, just without the noise.</p>
-
-<p>Many people, when trying to get their team to adopt Scala, use the "you can use Scala like Java til you get used to it" mantra.  I don't agree with that.  Academically it's true but the minute you start working with other peoples Scala code - you've just gotta know Scala and when they have a slew of Implicits thrown in your Scala as Java stuff goes out the window.  Kotlin, on the other hand, has some of the nice functional patterns from Scala but none of the "magic-to-a-newcomer" features that can make grown men weep.  Now the Kotlin docs themselves even go as far as stating</p>
-
-<blockquote><p>  If you are happy with Scala, you probably don't need Kotlin.</p></blockquote>
-
-<p>But I think they are selling themselves short - I think plenty of people use Scala but could easily use Kotlin in its place and find themselves in a better place (easier upskilling, less cryptic codebase).</p>
-
-<p>Anyway this is a bit of a ramble, what I'm saying is - Kotlin has some really rather nice features (Groovy Like DSL Builders, Pattern Matching, the <code>when</code> expression, lambdas, Kotlin to JavaScript compilation(!) etc.) and people happy with either Java OR Scala should give it a go.</p>
+<p><a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
 ]]></content>
   </entry>
   
