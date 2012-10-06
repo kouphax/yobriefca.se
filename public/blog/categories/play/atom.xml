@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Play | Yo Briefcase!]]></title>
+  <link href="http://yobriefca.se/blog/categories/play/atom.xml" rel="self"/>
+  <link href="http://yobriefca.se/"/>
+  <updated>2012-10-06T10:26:40+01:00</updated>
+  <id>http://yobriefca.se/</id>
+  <author>
+    <name><![CDATA[James Hughes]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Learning Resources for Scala, Play! and Mongo]]></title>
+    <link href="http://yobriefca.se/blog/2012/10/06/learning-resources-for-scala/"/>
+    <updated>2012-10-06T10:17:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/10/06/learning-resources-for-scala</id>
+    <content type="html"><![CDATA[<p>I've been asked a lot recently for some resources on various technologies, namely Scala, Play! (2.0) and Mongo so I thought I'd share the wealth (so to speak).</p>
+
+<p>Got any good resources that I haven't listed here?  Let me know.</p>
+
+<h2>Scala</h2>
+
+<ul>
+<li><a href="http://www.scala-lang.org/">Official Site</a></li>
+<li><a href="https://vimeo.com/40255430">Screencast</a></li>
+<li><a href="http://www.scala-lang.org/node/1305">Various Links from the official site</a></li>
+<li><a href="http://scalatron.github.com/">Scalatron</a> - learn Scala by programming a game</li>
+<li><a href="http://twitter.github.com/scala_school/">Scala School</a> - Twitters learning resource</li>
+<li><a href="http://typesafe.com/resources/book/scala-for-the-impatient">Scala for the Impatient</a> - excellent "lite" version of a great book.</li>
+<li><a href="http://typesafe.com/resources/videos">Scala Videos</a></li>
+<li><a href="https://www.coursera.org/course/progfun">Coursera Course</a> - Scala course on Coursera by Martin Odersky. Only good for five weeks or so but during that time anyone can sign up and download the video lectures and materials.</li>
+</ul>
+
+
+<h2>Play!</h2>
+
+<ul>
+<li><a href="http://www.playframework.org/">Official Site</a></li>
+<li><a href="http://www.playframework.org/documentation/2.0.3/ScalaHome">Official Docs</a> - Excellent resource</li>
+<li><a href="https://github.com/playframework/Play20/tree/master/samples/scala">Scala Code Samples</a> - Some nice examples from the official Github repo.</li>
+<li><a href="http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/">Scala, Play! and Mongo</a> - Blog post on writing a simple app using all those technologies.</li>
+<li><a href="http://www.artima.com/articles/play2_scala_squeryl.html">Getting Started with Play! 2, Scala and Squeryl</a></li>
+<li><a href="http://www.jamesward.com/2012/02/21/play-framework-2-with-scala-anorm-json-coffeescript-jquery-heroku">Play! 2 Getting Started</a></li>
+</ul>
+
+
+<h2>Mongo</h2>
+
+<ul>
+<li><a href="http://www.mongodb.org/">Official Website</a></li>
+<li><a href="http://try.mongodb.org/">Try Mongo</a> - A Tiny MongoDB Browser Shell (mini tutorial included)</li>
+<li><a href="http://openmymind.net/mongodb.pdf">Little Book of Mongo</a> (<a href="http://openmymind.net/mongodb.epub">epub</a>) - Book about Mongo</li>
+<li><a href="http://mongly.com/">Mongly</a> - Various tutorials and essays on MongoDB</li>
+<li><a href="https://speakerdeck.com/u/kouphax/p/mongodb">Presentation</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
