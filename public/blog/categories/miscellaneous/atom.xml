@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Technology Techsmology]]></title>
+    <link href="http://yobriefca.se/blog/2012/11/05/technology-techsmology/"/>
+    <updated>2012-11-05T08:48:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/11/05/technology-techsmology</id>
+    <content type="html"><![CDATA[<p>There is an old adage,</p>
+
+<blockquote><p>Projects don't fail because of technology decisions</p></blockquote>
+
+<p>The younger me would have got defensive when they heard this statement.  As a developer/architect type whose main goal is to make key technology decisions on a project and also as a person who considers themselves a craftsman (yes, yes overly grandiose but still, we all dream of importance) this does seem rather belittling.  Are you telling me all my decisions are fairly irrelevant?  I'll just stay in bed then shall I?</p>
+
+<p>But you know what?  The statement is also completely true.</p>
+
+<p>But hey, wait - do you want to know something else? Yes? Good.</p>
+
+<p>The world of technology is not black and white, projects aren't either a success or a failure, it's simply not a binary system.  Projects may not fail, but they could be late.  They could be well over budget.  They could have code bases so toxic that you need to hire contractors to do the work because no one wants to touch it.  They could be so overly laden in patterns and complex architecture that even small changes take weeks or months to implement (and who foots the bill for that?).</p>
+
+<p>Technology decisions can indirectly ruin the morale of your staff, muddy the relationship with your customers and generate really high turnover of staff in your company (which may be a good fit for some companies but you can never foster excellence if you don't nurture talent).</p>
+
+<p>This statement can also be used as a weapon.  A weapon to mask bad decisions and hold back change.  People cling to technologies that they used in the past, for fear of more pain with other technologies.  They shoehorn their existing skillset into problem domains that aren't a good fit.  When this happens, at the extreme you end up with specialists that simply can't adapt to shifts in technology fast enough.</p>
+
+<p>So yeah, projects don't fail because of technology decisions.  But you know what - if your dentist turned round to you with an evil grin and a rusty chisel and <a href="http://en.wikipedia.org/wiki/Law_of_the_instrument">Maslow's Hammer</a> citing - "No surgery ever went wrong because of a lack of anesthetic" - you're not likely to get in to that chair and open wide.  And even if you did (maybe, you're drunk, maybe people keep telling you this dentist is the best, whatever) the experience would be painful, recovery time would be longer and subsequent treatments would probably be more painful.  A rather shambling metaphor I admit but I write what my brain dictates - I have not choice in the matter.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fear of Code]]></title>
@@ -86,8 +111,8 @@
 
 <p>What I want to talk about is use of technology within that architecture.  I've never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it's worth.  More importantly it's really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
 
-<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. "In the cloud the default stack can easily bleed money."
-</span></p>
+<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  {% pullquote %} In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. {" "In the cloud the default stack can easily bleed money." "}
+{% endpullquote %}</p>
 
 <p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you're paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn't matter - it does now.</p>
 
@@ -123,21 +148,6 @@
 
 
 <p>Yep, like a hipster band, this little testament to bike-shedding is going on indefinite hiatus.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[5 Years]]></title>
-    <link href="http://yobriefca.se/blog/2012/05/26/5-years/"/>
-    <updated>2012-05-26T22:11:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/05/26/5-years</id>
-    <content type="html"><![CDATA[<p>So I am sitting here, here being London - 315(ish) miles away from my family, halfway through the <a href="http://nhshackday.com">NHS Hack Day</a> and having a bit of a personal crisis.  I often have these little episodes but this one has been languishing in my dusty old head for a good while - refusing to go away, nagging me every time I have a chance to ponder things.  It's the same old thing - why am I doing any of this stuff I do?  I don't generally get a great amount of opportunity in work to really stretch my creative urges.  That sort of thing happens on my own time and therefore given my other responsibilities (my wife, family and lifes associated activities) is done under a fairly tight deadline.  Add this to the fact I bore easily of things that aren't really benefiting people immediately - I tend to flit, easily, between little unfinished projects.  But wait....  I did it again.  You see back there, about 2 sentences ago I just sidelined my entire life.  Thrown between two looming brackets I relegated my wife and family to a byline yet again.  Oy vey.</p>
-
-<p>And this brings me, neatly enough, to the point of this entire ramble.</p>
-
-<p>Five years ago I married my awesome wife and in that time I've done a heap of things - relocated twice, had two kids bought a house, got promoted, pissed everyone off, seen a few countries and bought/traded three cars (which get smaller every time oddly enough).  And through all this hopping around my wife has been the one true constant.  She thinks, most of the time, I don't care about her - after all I'm in London participating in a hackathon on our 5th wedding anniversary because I stupidly didn't put two and two together and notice the clash.  So yeah it may damn well seem like she comes in a close second to my hobby/career stuff (you know the stuff I already mentioned was pulling into crisis mode).  But it's not true.  I can't help the fact I am "emotionally retarded", as my sister once called it, but perhaps once in a while I really should let her know that she means more than she thinks she does.  And here it is.  A little bit of emotional letting if you will.</p>
-
-<p>Dear Emma - happy anniversary, I hope we have plenty more, thank you for putting up with me, you're aces.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>minion.js | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/minion-js/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -40,117 +40,75 @@
 
 <p>One of the first things I did was try out the whole inheritence thing.  I create a Fruit base class and provided a Strawberry implementation on top of it.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Fruit</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">isInSeason</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inSeason</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:javascript %}
+minion.define("fruit", {
+  Fruit: minion.extend("minion.Class", {</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Strawberry</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;fruit.Fruit&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">inSeason</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<pre><code>isInSeason: function(){
+  return this.inSeason;
+}
+</code></pre>
+
+<p>  })
+});
+{% endcodeblock %}</p>
+
+<p>{% codeblock lang:javascript %}
+minion.define("fruit", {
+  Strawberry: minion.extend("fruit.Fruit", {</p>
+
+<pre><code>inSeason: true
+</code></pre>
+
+<p>  })
+});
+{% endcodeblock %}</p>
 
 <p>Using the Strawberry class is pretty damn simple.  First thing you need to do is a one off simple configuration of minion,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span>
-</span><span class='line'>  <span class="nx">classPath</span> <span class="o">:</span> <span class="s2">&quot;js&quot;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:javascript %}
+minion.configure({
+  classPath : "js"
+});
+{% endcodeblock %}</p>
 
 <p>This just tells minions dependency manager where to start looking for your class implementations.  We can then start using the Strawberry class easily using minions <code>require</code> method</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fruit.Strawberry&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">Strawberry</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">be</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:javascript %}
+minion.require("fruit.Strawberry", function(Strawberry){
+  expect(Strawberry).to.not.be(null);
+});
+{% endcodeblock %}</p>
 
 <h2>Static Objects</h2>
 
 <p>Static objects are pre-initialised Singletons in minion.js and that makes a lot of sense.  I created a Grocer static by simply extending another minion type <code>Static</code>.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Grocer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Static&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">stock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">buy</span><span class="p">);</span>
-</span><span class='line'><span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">sell</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">--</span>
-</span><span class='line'><span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="o">++</span>
-</span><span class='line'><span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">checkLevels</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stock</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:javascript %}
+minion.define("fruit", {
+  Grocer: minion.extend("minion.Static", {</p>
+
+<pre><code>init: function(){
+  this.stock = 0;
+  this.subscribe("purchase", this.buy);
+},
+
+sell: function(){
+  this.stock--
+},
+
+buy: function(){
+  this.stock++
+},
+
+checkLevels: function(){
+  return this.stock;
+}
+</code></pre>
+
+<p>  })
+});
+{% endcodeblock %}</p>
 
 <p>Pretty unsuprising but minion will new up a shared instance of this class the first time it is called.  You'll see a little hint of the pub/sub mechanism in the <code>init</code> method as well so lets jump on that.</p>
 
@@ -158,27 +116,18 @@
 
 <p>So minion has a nice little pub/sub mechanism built right into the classes as well.  So lets say a customer buys stuff from the grocer by publishing his/her request - sure beats just taking it without asking!!!</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">minion</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;fruit&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">Customer</span><span class="o">:</span> <span class="nx">minion</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="s2">&quot;minion.Class&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">buy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:javascript %}
+minion.define("fruit", {
+  Customer: minion.extend("minion.Class", {</p>
+
+<pre><code>buy: function(){
+  this.publish("purchase")
+}
+</code></pre>
+
+<p>  })
+});
+{% endcodeblock %}</p>
 
 <p>Minion once again handles all the internal wiring up of this stuff and it just works.  Nice.</p>
 

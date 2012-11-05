@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>rbenv | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/rbenv/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -32,11 +32,11 @@
 
 <h2>Before</h2>
 
-<p><img class="borderless" src="/images/blog/coderunnerruby/before.png"></p>
+<p>{% img borderless /images/blog/coderunnerruby/before.png %}</p>
 
 <h2>After</h2>
 
-<p><img class="borderless" src="/images/blog/coderunnerruby/after.png"></p>
+<p>{% img borderless /images/blog/coderunnerruby/after.png %}</p>
 
 <p>Blam - global rbenv version is now the goto version for CodeRunner.  OK so it won't work with rbenv locals but I am sure you can tweak it to make it work (I haven't needed it so never looked).</p>
 ]]></content>

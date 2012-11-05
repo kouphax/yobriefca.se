@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Spark | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/spark/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -35,57 +35,33 @@
 
 <p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.&lt;</span><span class="n">em</span><span class="o">&gt;;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">spark.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:java %}
+import static spark.Spark.<em>;
+import spark.</em>;
+import java.io.*;</p>
+
+<p>public class App {</p>
+
+<p>  public static void main(String[] args)  {</p>
+
+<p>{% endcodeblock %}</p>
 
 <p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="nd">@Override</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
-</span><span class='line'>      <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">});</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:java %}</p>
+
+<pre><code>before(new Filter("/") {
+  @Override
+  public void handle(Request request, Response response) {
+    boolean authenticated = request.queryParams("password").equals("secret");
+    if(!authenticated){
+      halt(403, "Incorrect password, hacker alert, hacker alert!!!!");
+    }
+  }
+});
+</code></pre>
+
+<p>{% endcodeblock %}</p>
 
 <p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the "/" route.  A couple of other things are worth mentioning here,</p>
 
@@ -95,63 +71,35 @@
 </ol>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="nd">@Override</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// extract the name from the request</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// set the response type</span>
-</span><span class='line'>    <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// return some html</span>
-</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;&amp;lt;DOCTYPE html&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;&amp;lt;html&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;  &amp;lt;head&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;  &amp;lt;/head&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;  &amp;lt;body&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;    &amp;lt;h1&amp;gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&amp;lt;/h1&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;  &amp;lt;/body&amp;gt;&quot;</span> <span class="o">+</span>
-</span><span class='line'>      <span class="s">&quot;&amp;lt;/html&amp;gt;&quot;</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">});</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:java %}</p>
+
+<pre><code>get(new Route("/") {
+  @Override
+  public Object handle(Request request, Response response) {
+
+    // extract the name from the request
+    String name = request.queryParams("name");
+
+    // set the response type
+    response.type("text/html");
+
+    // return some html
+    return "" +
+      "&lt;DOCTYPE html&gt;" +
+      "&lt;html&gt;" +
+      "  &lt;head&gt;" +
+      "  &lt;/head&gt;" +
+      "  &lt;body&gt;" +
+      "    &lt;h1&gt;Hello " + name + ", Spark here.  Howrya?&lt;/h1&gt;" +
+      "  &lt;/body&gt;" +
+      "&lt;/html&gt;";
+  }
+});
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>Finally I am defining a route ("/") that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
 
@@ -159,17 +107,13 @@
 
 <p>For the curious among you (you got this far so you must be slightly curious... and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
-</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+resolvers += "Spark Repository" at "http://www.sparkjava.com/nexus/content/repositories/spark/"</p>
+
+<p>libraryDependencies ++= Seq(
+  "spark" % "spark"  % "0.9.9.3-SNAPSHOT" exclude("org.apache.commons", "commons-io")
+)
+{% endcodeblock %}</p>
 
 <p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
 

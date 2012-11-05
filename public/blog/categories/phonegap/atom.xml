@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>PhoneGap | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/phonegap/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -44,108 +44,63 @@
 
 <p>Using a simple Single View iPhone Project in MonoDevelop I added some local resources.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>|
-</span><span class='line'>|_ www
-</span><span class='line'>| |_ index.html
-</span><span class='line'>|
-</span><span class='line'>|_ AppDelegate.cs
-</span><span class='line'>|_ MainViewController.cs
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock %}</p>
+
+<pre><code>|
+|_ www
+| |_ index.html
+|
+|_ AppDelegate.cs
+|_ MainViewController.cs
+</code></pre>
+
+<p>{% endcodeblock %}</p>
 
 <p>For now the index.html file has some basic content</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
-</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>body<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>h1<span class="ni">&amp;gt;</span>Hello UIWebView<span class="ni">&amp;lt;</span>/h1<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/body<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:html %}
+&lt;!DOCTYPE html>
+<html></p>
+
+<pre><code>&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello UIWebView&lt;/h1&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p></html>
+{% endcodeblock %}</p>
 
 <p>Next up I created a full screen <code>UIWebView</code> and asked it to point to the <code>index.html</code> I just created in <code>wwww</code> folder (which by the way should be set as "Content".</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">ViewDidLoad</span> <span class="p">()</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">base</span><span class="p">.</span><span class="n">ViewDidLoad</span> <span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">using</span> <span class="p">(</span><span class="n">UIWebView</span> <span class="n">view</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWebView</span><span class="p">(</span><span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">320f</span><span class="p">,</span> <span class="m">460f</span><span class="p">)))</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// obtain path to actual content file</span>
-</span><span class='line'>    <span class="kt">string</span> <span class="n">path</span> <span class="p">=</span> <span class="n">NSBundle</span><span class="p">.</span><span class="n">MainBundle</span><span class="p">.</span><span class="n">PathForResource</span><span class="p">(</span><span class="s">&quot;www/index&quot;</span><span class="p">,</span> <span class="s">&quot;html&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// create an address and escape whitespace</span>
-</span><span class='line'>    <span class="kt">string</span> <span class="n">address</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;file:{0}&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;%20&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// create url and request</span>
-</span><span class='line'>    <span class="n">NSUrl</span> <span class="n">url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrl</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">NSUrlRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSUrlRequest</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// load request and add to main ?view</span>
-</span><span class='line'>    <span class="n">view</span><span class="p">.</span><span class="n">LoadRequest</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">.</span><span class="n">AddSubview</span><span class="p">(</span><span class="n">view</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public override void ViewDidLoad ()
+{</p>
+
+<pre><code>base.ViewDidLoad ();
+
+using (UIWebView view = new UIWebView(new RectangleF(0f, 0f, 320f, 460f)))
+{
+    // obtain path to actual content file
+    string path = NSBundle.MainBundle.PathForResource("www/index", "html");
+
+    // create an address and escape whitespace
+    string address = string.Format("file:{0}", path).Replace(" ", "%20");
+
+    // create url and request
+    NSUrl url = new NSUrl(address);
+    NSUrlRequest request = new NSUrlRequest(url);
+
+    // load request and add to main ?view
+    view.LoadRequest(request);
+    this.View.AddSubview(view);
+}
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>Running this gives us what we would expect (I hope you expect this otherwise I'd be worried).</p>
 
@@ -159,133 +114,73 @@
 
 <p>In the AppDelegate class I created a basic HttpListener that simply returns a simple JSON response of true if a request is made.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">HttpListener</span> <span class="n">listener</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">void</span> <span class="n">HandleRequest</span> <span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">result</span><span class="p">)</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">//Get the listener context</span>
-</span><span class='line'><span class="n">HttpListenerContext</span> <span class="n">context</span> <span class="p">=</span> <span class="n">listener</span><span class="p">.</span><span class="n">EndGetContext</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Start listening for the next request</span>
-</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">string</span> <span class="n">response</span> <span class="p">=</span> <span class="s">&quot;true&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="kt">byte</span><span class="p">[]</span> <span class="n">responseBytes</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/json&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">;</span>
-</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentLength64</span> <span class="p">=</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
-</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">responseBytes</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">responseBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
-</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">OutputStream</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="n">FinishedLaunching</span> <span class="p">(</span><span class="n">UIApplication</span> <span class="n">app</span><span class="p">,</span> <span class="n">NSDictionary</span> <span class="n">options</span><span class="p">)</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">window</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UIWindow</span> <span class="p">(</span><span class="n">UIScreen</span><span class="p">.</span><span class="n">MainScreen</span><span class="p">.</span><span class="n">Bounds</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">viewController</span> <span class="p">=</span> <span class="k">new</span> <span class="n">JsBridgeViewController</span> <span class="p">();</span>
-</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">RootViewController</span> <span class="p">=</span> <span class="n">viewController</span><span class="p">;</span>
-</span><span class='line'><span class="n">window</span><span class="p">.</span><span class="n">MakeKeyAndVisible</span> <span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpListener</span><span class="p">();</span>
-</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Prefixes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;http://*:30001/&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">listener</span><span class="p">.</span><span class="n">BeginGetContext</span><span class="p">(</span><span class="k">new</span> <span class="n">AsyncCallback</span><span class="p">(</span><span class="n">HandleRequest</span><span class="p">),</span> <span class="n">listener</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public HttpListener listener;</p>
+
+<p>public void HandleRequest (IAsyncResult result)
+{</p>
+
+<pre><code>//Get the listener context
+HttpListenerContext context = listener.EndGetContext(result);
+
+//Start listening for the next request
+listener.BeginGetContext(new AsyncCallback(HandleRequest), listener);
+
+string response = "true";
+byte[] responseBytes = System.Text.Encoding.UTF8.GetBytes(response);
+
+context.Response.ContentType = "text/json";
+context.Response.StatusCode = (int)HttpStatusCode.OK;
+context.Response.ContentLength64 = responseBytes.Length;
+context.Response.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+context.Response.OutputStream.Close();
+</code></pre>
+
+<p>}</p>
+
+<p>public override bool FinishedLaunching (UIApplication app, NSDictionary options)
+{</p>
+
+<pre><code>window = new UIWindow (UIScreen.MainScreen.Bounds);
+
+viewController = new JsBridgeViewController ();
+window.RootViewController = viewController;
+window.MakeKeyAndVisible ();
+
+listener = new HttpListener();
+listener.Prefixes.Add("http://*:30001/");
+listener.Start();
+
+listener.BeginGetContext(new AsyncCallback(HandleRequest), listener);
+
+return true;
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <h3>The Final Step - The Bridge</h3>
 
 <p>So we need to talk to this "server" from our JavaScript.  Easy stuff - for now we just make a simple ajax call to our endpoint in the <code>index.html</code> (synchronous for code simplicity).</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;http://127.0.0.1:30001/&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">request</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">responseText</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span><span class="p">{</span>
-</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:html %}</p>
+
+<script type="text/javascript">
+    var request = new XMLHttpRequest();
+    request.open('GET','http://127.0.0.1:30001/', false);
+    request.send();
+
+    if(request.status == 200){
+        alert(JSON.parse(request.responseText));
+    }
+    else{
+        alert("Error");
+    }
+
+</script>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>Running this once again reveals that all is sweet...</p>
 

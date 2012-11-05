@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>testing | Yo Briefcase!]]></title>
+  <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Testing | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/testing/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -14,98 +14,83 @@
 
   
   <entry>
-    <title type="html"><![CDATA[expect.kt - Testing Library for Kotlin]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin/"/>
-    <updated>2012-07-25T20:31:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/25/expect-dot-kt-testing-library-for-kotlin</id>
-    <content type="html"><![CDATA[<p>In a bid to delve into the <a href="http://kotlin.jetbrains.org/">language</a> a bit further than a rake of tiny console apps I decided to do something "real" with Kotlin.  With that in mind - welcome <a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
+    <title type="html"><![CDATA[Setting the Selected Option in a Select with Selenium in Scala]]></title>
+    <link href="http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala/"/>
+    <updated>2012-04-02T15:21:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2012/04/02/setting-the-selected-option-in-a-select-with-selenium-in-scala</id>
+    <content type="html"><![CDATA[<p>Almost a perfect bit of alliteration there in that title - right?  Anyway I've been doing a bit of work with bare-metal Selenium stuff in Scala recently and one of the things that kept me stumped for a while was setting the selected <code>option</code> for a particular <code>select</code> element.</p>
 
-<p>It started purely as a learning venture but I think there is a certain usefulness in the library so its probably worth sharing :).  Now it's worth noting that kotlin already has a number of testing statements that you can achieve a lot of this stuff with - this library gives you a few things over and above these statements</p>
+<p>I looked around the interwebs and didn't really find anything - now I'm not saying it isn't out there, I am certain it is, but I couldn't find it.  So I decided to document how I did it in case any lone sole is stuck in a similar situation...</p>
 
-<ol>
-<li>Alternative syntax.  Testing is quite a personal thing and some people like to write things in different ways.</li>
-<li>Descriptive assertions.  Some would say <code>expect(2).toBePositive()</code> reads better than <code>assertTrue(2 &gt; 0)</code> or <code>expect(2 &gt; 0) { true }</code>.  Again its all about taste, and variety is the spice of life.</li>
-<li>Chained assertions.  See later</li>
-</ol>
+<p>{% codeblock lang:scala %}
+driver.findElement(By.id("year")).</p>
+
+<pre><code>findElements(By.tagName("option")).
+get(2).
+setSelected()
+</code></pre>
+
+<p>{% endcodeblock %}</p>
+
+<p>So here I am simply finding the second <code>option</code> of the "year" <code>select</code> element and setting it selected.  I know it looks obvious now but trust me I was scratching my head for an age on this one.</p>
+
+<p>I hope it helps some one, eventually :)</p>
+
+<div style="text-align:center">
+{% img http://imgs.xkcd.com/comics/wisdom_of_the_ancients.png %}
+</div>
 
 
-<p>Rather than some campaign to replace the inbuilt expectations and assertions this library intended to complement them.</p>
 
-<h2>So what is expect.kt?</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chutzpah 1.3 Released]]></title>
+    <link href="http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released/"/>
+    <updated>2011-11-27T09:51:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2011/11/27/chutzpah-1-dot-3-released</id>
+    <content type="html"><![CDATA[<p>I missed the announcement last week the <a href="http://matthewmanela.com/blog/chutzpah-1-3-0-released/">Chutzpah 1.3 has been released</a>.  This is a big release as it brings support for <a href="http://pivotal.github.com/jasmine">Jasmine</a> - my BDD framework of choice for JavaScript.</p>
 
-<p>Expect.kt is a set of (growing) assertions/expectations that you can use in your kotlin based tests.  It gives you a number of ways to assert your expectations and gives you quite descriptive methods in which to do it.</p>
+<!-- more -->
 
-<h3>Expect Syntax</h3>
 
-<p>The  expect syntax is the default way to assert things,</p>
+<p><a href="http://chutzpah.codeplex.com/">Chutzpah</a> is available as a plugin for Visual Studio but more importantly as a command line runner which allows us to integrate JavaScript testing into our continuious integration builds.  Excellent stuff!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Speaking at DevWeek 2012]]></title>
+    <link href="http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012/"/>
+    <updated>2011-11-17T00:00:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2011/11/17/speaking-at-devweek-2012</id>
+    <content type="html"><![CDATA[<p><img src="http://www.devweek.com/pix/dwbanner2012c.jpg" style="width:100%" /></p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">tests</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">org.junit.Test</span> <span class="n">as</span> <span class="n">test</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">kotlin.expectations.*</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">class</span> <span class="nc">StringExpectationTests</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">test</span> <span class="n">fun</span> <span class="n">testHelloWorld</span> <span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>So it's been officially announced that I am talking at <a href="http://devweek.com">DevWeek</a> 2012 in London (26th - 30th March).  Looking at the names on the billing it's quite weird seeing my name thrown in there, perhaps some one made a mistake :-P</p>
 
-<p>Most of that is boilerplate JUnit testy things but the key line is</p>
+<!--more-->
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Reads quite nicely IMHO.</p>
+<blockquote><h3>BDD and .NET</h3>
 
-<h3>Should Syntax</h3>
+<p>Behaviour Driven Design/Development is an interesting premise, but does it really work? What benefits does it offer and how can we successfully apply its principles in the .NET world? We can answer these questions by reviewing the principles around BDD and diving into the technologies that exist in the .NET world that support these principles.</p>
 
-<p>The should syntax offers a more fluent syntax if you want to call it that, if we wanted to write the same test above using the should syntax we could do this,</p>
+<p>From low-level unit focused testing technologies all the way up to the more abstract integration and acceptance level suite of specifications, automated testing and continuous integration, we will see that .NET isn’t lacking in choice. As a bonus we will address the oft ignored testing of our JavaScript project components using tools such as Jasmine and QUnit.</p></blockquote>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>The brief was written in haste and sounds a bit boilerplate but I will be giving it my all and really pull off an engaging session.  I've been at the attendee end of a few bad sessions and I will do my damnedest not to put anyone through that kind of ordeal.</p>
 
-<p>So rather than wrap your target with an expect you get and extension function to fluently assert it.</p>
+<p>The <a href="http://www.devweek.com/sessions/">line-up for DevWeek</a> looks excellent and the pre/post conference workshops all look stellar - so much choice, I just need to find a way to clone myself.</p>
 
-<h3>Chaining</h3>
-
-<p>Sometimes making a single assertion on a result isn't enough and rather than write <code>assertTrue(...)</code> multiple times you can use extpect.kt's chaining support.</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">expect</span><span class="o">(</span><span class="s">&quot;Hello World&quot;</span><span class="o">).</span><span class="na">toStartWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">toEndWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Or, with the should syntax,</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="s">&quot;Hello World&quot;</span><span class="o">.</span><span class="na">should</span><span class="o">.</span><span class="na">startWith</span><span class="o">(</span><span class="s">&quot;Hell&quot;</span><span class="o">).</span><span class="na">and</span><span class="o">.</span><span class="na">endWith</span><span class="o">(</span><span class="s">&quot;rld&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>It's a bit more readable than expect after expect, right?</p>
-
-<p>So thats it for now - there are a number of assertions implemented already on the useful types (Strings, Ints, Doubles, Dates, Booleans for example) and there are more planned on the way.  Currently you'll be wanting to build from source (or copy/paste what you need).</p>
-
-<p>Finally - A shout out to .NETs <a href="http://fluentassertions.codeplex.com/">FluentAssertions</a> where a lot of the assertions found their origin!</p>
-
-<p><a href="https://github.com/kouphax/expect.kt">expect.kt</a>.</p>
+<p>If you're going - see you there, catch up with me and come throw tomatoes and/or abuse during my session.  If you're not going, well sucks to be you then!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Debugging NSpec Tests: The DebuggerShim]]></title>
+    <link href="http://yobriefca.se/blog/2011/07/05/nspec-debuggershim/"/>
+    <updated>2011-07-05T00:00:00+01:00</updated>
+    <id>http://yobriefca.se/blog/2011/07/05/nspec-debuggershim</id>
+    <content type="html"><![CDATA[<p>  <p>Busy busy busy.  I&#8217;ve been working away on a lot of projects and not had a lot of time to stick anything up on this blog in a while.  I&#8217;ve got a growing &#8220;To Blog&#8221; list but no time to do it, woe is me!!!<br><img src="http://yobriefca.se/images/woeisme.png" style="float:right;"></p><p>Enough about my perfectly normal life, well almost.  Some of my current work has me going full tilt with <span class="caps">TDD</span> on a little C# project and I decided that <a href="http://nspec.org">NSpec</a> would help me with unit testing.  So I went about writing failing tests, writing code, passing tests on and on and on.  Things went along fairly well until I hit a little bit of a wall around a little edge case.  My tests kept failing and I couldn&#8217;t understand why.  The stack trace made little to no sense and my code looked sound.  The problem I had was that <a href="http://nspec.org">NSpec</a>, out of the box at least, doesn&#8217;t have any nice integration with Visual Studio or TestDriven.<span class="caps">NET</span>.  Initially I was using a throw away console application and debugging through it but as you can imagine that was time consuming.</p><p>It wasn&#8217;t long though until I was pointed in the <a href="http://twitter.com/#!/amirrajan/status/87174922782253056">right direction</a>.</p><p><!-- http://twitter.com/#!/amirrajan/status/87174922782253056 --> <style type='text/css'>.bbpBox87174922782253056 {background:url(http://a0.twimg.com/images/themes/theme1/bg.png) #C0DEED;padding:20px;} p.bbpTweet{background:#fff;padding:10px 12px 10px 12px;margin:0;min-height:48px;color:#000;font-size:18px !important;line-height:22px;-moz-border-radius:5px;-webkit-border-radius:5px} p.bbpTweet span.metadata{display:block;width:100%;clear:both;margin-top:8px;padding-top:12px;height:40px;border-top:1px solid #fff;border-top:1px solid #e6e6e6} p.bbpTweet span.metadata span.author{line-height:19px} p.bbpTweet span.metadata span.author img{float:left;margin:0 7px 0 0px;width:38px;height:38px} p.bbpTweet a:hover{text-decoration:underline}p.bbpTweet span.timestamp{font-size:12px;display:block}</style> <div class='bbpBox87174922782253056'><p class='bbpTweet'>If you want to have debugger support for you NSpec specifications, use this: <a href="http://t.co/6SwZcVL" rel="nofollow">http://t.co/6SwZcVL</a> /cc @<a class="tweet-url username" href="http://twitter.com/kouphax" rel="nofollow">kouphax</a> @<a class="tweet-url username" href="http://twitter.com/mattflo" rel="nofollow">mattflo</a><span class='timestamp'><a title='Sat Jul 02 15:04:55 +0000 2011' href='http://twitter.com/#!/amirrajan/status/87174922782253056'>less than a minute ago</a> via web <a href='http://twitter.com/intent/favorite?tweet_id=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/favorite.png'> Favorite</a> <a href='http://twitter.com/intent/retweet?tweet_id=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/retweet.png'> Retweet</a> <a href='http://twitter.com/intent/tweet?in_reply_to=87174922782253056'><img src='http://si0.twimg.com/images/dev/cms/intents/icons/reply.png'> Reply</a></span><span class='metadata'><span class='author'><a href='http://twitter.com/amirrajan'><img src='http://a2.twimg.com/profile_images/1326219901/1613d80124a605829d755d9df0fc8b9e_normal.jpeg'></a><strong><a href='http://twitter.com/amirrajan'>Amir Rajan</a></strong><br>amirrajan</span></span></p></div> <!-- end of tweet --></p><p>The gist, in full below, provides a simple debugger shim over nspec that allows you to hook into the Visual Studio debugger (through something like TestDriven.<span class="caps">NET</span> for example).  I simply right clicked on the shim and select &#8220;Run With Debugger&#8221; and boom my stupid mistake was displayed to me rather quickly.</p><script src='https://gist.github.com/1065724.js?file=DebuggerShim.cs'></script><noscript><pre><code>using System;using NUnit.Framework;using NSpec.Domain;using System.Reflection;using NSpec;namespace DynamicBlog.Tests{    [TestFixture]    public class DebuggerShim    {        [Test]        public void debug()        {            //the specification class you want to test            //this can be a regular expression            var testClassYouWantToDebug = "describe_Blog";            //initialize NSpec's specfinder            var finder = new SpecFinder(                Assembly.GetExecutingAssembly().Location,                 new Reflector(),                 testClassYouWantToDebug);                        //initialize NSpec's builder            var builder = new ContextBuilder(                finder,                 new DefaultConventions());            //this line runs the tests you specified in the filter            new ContextRunner(builder).Run();        }    }}</code></pre></noscript><p>Handy until a more concrete solution appears.  One more thing &#8211; really enjoying nspec, it seems to be fitting well with the way I work.</p></p>
 ]]></content>
   </entry>
   

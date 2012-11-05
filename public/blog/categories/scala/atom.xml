@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Scala | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -68,135 +68,79 @@
     <id>http://yobriefca.se/blog/2012/06/25/super-basic-trello-api-wrapper-for-scala-and-play</id>
     <content type="html"><![CDATA[<p>So I am currently doing a bit of work with using Trello as a kind of data store and decided to write a litle app in <a href="http://playframework.org">Play!</a> (the Scala variety of course).  There didn't appear to be a library out there to handle some of the basic Trello stuff so over the past 20 minutes I put one together.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.ws.WS</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">case</span> <span class="k">class</span> <span class="nc">Trello</span><span class="o">(</span><span class="n">key</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">token</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">val</span> <span class="n">host</span> <span class="k">=</span> <span class="s">&quot;https://api.trello.com&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">get</span><span class="o">()</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">post</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">put</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">put</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">delete</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)&lt;</span><span class="n">em</span><span class="o">&gt;)</span> <span class="k">=</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">query</span><span class="k">:_</span><span class="kt">&lt;/em&gt;</span><span class="o">).</span><span class="n">delete</span><span class="o">()&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">private</span> <span class="k">def</span> <span class="n">request</span><span class="o">(</span><span class="n">uri</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">query</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span><span class="kt">String</span><span class="o">)*)</span> <span class="k">=</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="n">host</span> <span class="o">+</span> <span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="n">startsWith</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="kc">true</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">uri</span>
-</span><span class='line'>  <span class="k">case</span> <span class="kc">false</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">uri</span>
-</span><span class='line'><span class="o">})).</span><span class="n">withQueryString</span><span class="o">(</span><span class="n">query</span> <span class="o">++</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;key&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">key</span><span class="o">,</span> <span class="s">&quot;token&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">token</span><span class="o">)</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+import play.api.libs.ws.WS</p>
+
+<p>case class Trello(key: String, token: String) {</p>
+
+<p>  val host = "https://api.trello.com"</p>
+
+<p>  def get(uri: String, query: (String,String)<em>) = request(uri, query:_</em>).get()
+  def post(uri: String, query: (String,String)<em>) = request(uri, query:_</em>).post("")
+  def put(uri: String, query: (String,String)<em>) = request(uri, query:_</em>).put("")
+  def delete(uri: String, query: (String,String)<em>) = request(uri, query:_</em>).delete()</p>
+
+<p>  private def request(uri: String, query: (String,String)*) = {</p>
+
+<pre><code>WS.url(host + (uri.startsWith("/") match {
+  case true =&gt; uri
+  case false =&gt; "/" + uri
+})).withQueryString(query ++ Seq("key" -&gt; key, "token" -&gt; token): _*)
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>Yep it's very basic and all but the <code>get</code> is untested (it's all I've needed so far).  But in the spirit of shipping early this is a good start.  The class makes use of Play!s uberflexible <code>WS</code> class and returns <code>Promise[Request]</code> so you can use it like so (just an example)</p>
 
 <p>A simple API object to wrap the Trello class instance to load cards and map them into my expected objects</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Api</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">val</span> <span class="n">api</span> <span class="k">=</span> <span class="nc">Trello</span><span class="o">(</span><span class="nc">KEY</span><span class="o">,</span> <span class="nc">TOKEN</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">implicit</span> <span class="k">object</span> <span class="nc">CardFormat</span> <span class="k">extends</span> <span class="nc">Format</span><span class="o">[</span><span class="kt">Card</span><span class="o">]</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="n">reads</span><span class="o">(</span><span class="n">json</span><span class="k">:</span> <span class="kt">JsValue</span><span class="o">)</span><span class="k">:</span> <span class="kt">Card</span> <span class="o">=</span> <span class="nc">Card</span><span class="o">(</span>
-</span><span class='line'>  <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;name&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
-</span><span class='line'>  <span class="o">(</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;due&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
-</span><span class='line'><span class="o">)</span>
-</span><span class='line'><span class="k">def</span> <span class="n">writes</span><span class="o">(</span><span class="n">card</span><span class="k">:</span> <span class="kt">Card</span><span class="o">)</span><span class="k">:</span> <span class="kt">JsValue</span> <span class="o">=</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">NotImplementedException</span><span class="o">()</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">getPastTalks</span> <span class="k">=</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/1/lists/_____&quot;</span><span class="o">,</span> <span class="s">&quot;cards&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;open&quot;</span><span class="o">,</span> <span class="s">&quot;card_fields&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;desc,name,due&quot;</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="n">res</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="n">json</span> <span class="o">\</span> <span class="s">&quot;cards&quot;</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="nc">JsArray</span><span class="o">(</span><span class="n">cards</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">cards</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">_</span><span class="o">.</span><span class="n">as</span><span class="o">[</span><span class="kt">Card</span><span class="o">])</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+object Api {</p>
+
+<p>  val api = Trello(KEY, TOKEN)</p>
+
+<p>  implicit object CardFormat extends Format[Card] {</p>
+
+<pre><code>def reads(json: JsValue): Card = Card(
+  (json \ "name").as[String]
+  (json \ "due").as[String]
+)
+def writes(card: Card): JsValue = throw new NotImplementedException()
+</code></pre>
+
+<p>  }</p>
+
+<p>  def getPastTalks = {</p>
+
+<pre><code>api.get("/1/lists/_____", "cards" -&gt; "open", "card_fields" -&gt; "desc,name,due").map { res =&gt;
+  (res.json \ "cards") match {
+    case JsArray(cards) =&gt; cards.map(_.as[Card])
+  }
+}
+</code></pre>
+
+<p>  }
+}
+{%endcodeblock%}</p>
 
 <p>And calling this bad boy from a controller.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Async</span> <span class="o">{</span>
-</span><span class='line'>  <span class="nc">Api</span><span class="o">.</span><span class="n">getPastTalks</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">talks</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span>
-</span><span class='line'>    <span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="n">talks</span><span class="o">))</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+object Application extends Controller {
+  def index = Action {</p>
+
+<pre><code>Async {
+  Api.getPastTalks.map { talks =&gt;
+    Ok(views.html.index(talks))
+  }
+}
+</code></pre>
+
+<p>  }
+}
+{%endcodeblock%}</p>
 
 <p>So - lots of work to do around this - I want to move away from a thin wrapper to something a bit more robust with strong classes for the different entites.</p>
 
@@ -217,51 +161,34 @@
 
 <p><code>"somestring".when(predicate: =&gt; Boolean)</code> allows you conditionally spit out the value of the string it is called on (otherwise returning and empty string).</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;returned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>      <span class="c1">// returns &quot;returned_string&quot;</span>
-</span><span class='line'><span class="s">&quot;nonreturned_string&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>  <span class="c1">// returns &quot;&quot; (empty string)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+"returned_string".when(true)      // returns "returned_string"
+"nonreturned_string".when(false)  // returns "" (empty string)
+{% endcodeblock %}</p>
 
 <p>So in the context of views what is this good for?  Lots of things but the most clever use for this little function is conditional css.  Imagine you've got a block of HTML that represents a message area. These messages can be either good or bad and so we need to add the css class of <code>message-bad</code> depending on an argument passed in to the view.  A very quick and dirty way of handling this would be as such</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="nd">@if</span><span class="o">(!</span><span class="n">successful</span><span class="o">){</span> <span class="s">&quot;message-bad&quot;</span> <span class="o">}</span><span class="err">&#39;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="nd">@message</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+@(message: String, successful: Boolean)</p>
+
+<div class='message @if(!successful){ "message-bad" }'>
+  @message
+</div>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>Grand, fine.  It's a bit noisy but it works. <code>when()</code> makes this a bit neater IMHO.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">message</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">successful</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="-Symbol">&#39;message</span> <span class="o">@(</span><span class="s">&quot;message-bad&quot;</span><span class="o">.</span><span class="n">when</span><span class="o">(!</span><span class="n">successful</span><span class="o">))</span><span class="err">&#39;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="nd">@message</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+@(message: String, successful: Boolean)</p>
+
+<div class='message @("message-bad".when(!successful))'>
+  @message
+</div>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>Yep the line is the same length but it looks more like a single block of conditional code, it flows much better and, I think at least, is much more readable.</p>
 
@@ -269,29 +196,21 @@
 
 <p><code>new java.util.Date().format(pattern: String)</code> allows you to specify how a date should be formatted in the rendered HTML.  It's essentially shorthand for the noise-fest that is <code>SimpleDateFormat</code></p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="n">pattern</span><span class="o">).</span><span class="n">format</span><span class="o">(</span><span class="n">date</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+new java.text.SimpleDateFormat(pattern).format(date)
+{% endcodeblock %}</p>
 
 <p>In the past I've added transient properties to models for displaying the date, or written my own methods on those models.  Both of those approaches should have had me taken out into a field and shot.  <code>format</code> makes things much more straightforward,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">@(</span><span class="n">importantDate</span><span class="k">:</span> <span class="kt">java.util.Date</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="nd">@importantDate</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">&quot;dd-MM-yyyy&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+@(importantDate: java.util.Date)</p>
+
+<p>
+  @importantDate.format("dd-MM-yyyy")
+</p>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>And the output will be along the lines of "29-01-2013" or whatever the date was.</p>
 
@@ -396,53 +315,34 @@ Have fun!
 
 <p>Our model is super simple,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Registration</span><span class="o">(</span>
-</span><span class='line'>  <span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
-</span><span class='line'>  <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
-</span><span class='line'>  <span class="n">confirm</span><span class="k">:</span>  <span class="kt">String</span><span class="o">,</span>
-</span><span class='line'>  <span class="n">realName</span><span class="k">:</span> <span class="kt">String</span>
-</span><span class='line'><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+case class Registration(
+  username: String,
+  password: String,
+  confirm:  String,
+  realName: String
+)
+{% endcodeblock %}</p>
 
 <p>Now to the interesting part.  To persist this in a Mongo data store we need to make use of the two libraries we imported previously,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">com.mongodb.casbah.Imports.</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span>
-</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span>
-</span><span class='line'><span class="k">import</span> <span class="nn">com.novus.salat.global._&lt;/p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">object</span> <span class="nc">Registrations</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">registrations</span> <span class="k">=</span> <span class="nc">MongoConnection</span><span class="o">()(</span><span class="s">&quot;sampleapp&quot;</span><span class="o">)(</span><span class="s">&quot;registrations&quot;</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">all</span> <span class="k">=</span> <span class="n">registrations</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asObject</span><span class="o">(</span><span class="n">_</span><span class="o">)).</span><span class="n">toList</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="k">:</span> <span class="kt">Registration</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">registrations</span> <span class="o">+=</span> <span class="n">grater</span><span class="o">[</span><span class="kt">Registration</span><span class="o">].</span><span class="n">asDBObject</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+import com.mongodb.casbah.Imports.<em>
+import com.novus.salat.</em>
+import com.novus.salat.global._</p>
+
+<p>object Registrations {
+  val registrations = MongoConnection()("sampleapp")("registrations")</p>
+
+<p>  def all = registrations.map(grater[Registration].asObject(_)).toList
+  def create(registration: Registration) {</p>
+
+<pre><code>registrations += grater[Registration].asDBObject(registration)
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>First things first we create a connection using the <code>MongoConnection</code> class and grabs the <code>registrations</code> collection from the <code>sampleapp</code> store.  Now it's worth noting that provided Mongo is up and running we don't actually need to create either the store or the collection - the act of acting on a collection is enough to create both.</p>
 
@@ -460,169 +360,100 @@ Have fun!
 
 <p>Next up we want to add a register controller and update the existing <code>Application</code> controller.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="nc">Registrations</span><span class="o">.</span><span class="n">all</span><span class="o">))</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+object Application extends Controller {
+  def index = Action { implicit request =></p>
+
+<pre><code>Ok(views.html.index(Registrations.all))
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>The only difference here is the <code>Registrations.all</code> so we can list the registrations in the UI.  Lets jump over the the register controller</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Register</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">mapping</span><span class="o">(</span>
-</span><span class='line'>  <span class="s">&quot;username&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'>  <span class="s">&quot;password&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'>  <span class="s">&quot;confirm&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'>  <span class="s">&quot;realName&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">text</span>
-</span><span class='line'><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">})</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">registrationForm</span><span class="o">))</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="n">register</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">request</span> <span class="o">=&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
-</span><span class='line'>  <span class="n">form</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
-</span><span class='line'>  <span class="n">registration</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
-</span><span class='line'>    <span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span><span class="s">&quot;message&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;User Registered!&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+object Register extends Controller {
+  def registrationForm = Form(</p>
+
+<pre><code>mapping(
+  "username" -&gt; nonEmptyText,
+  "password" -&gt; nonEmptyText,
+  "confirm" -&gt; nonEmptyText,
+  "realName" -&gt; text
+)(Registration.apply)(Registration.unapply)
+  verifying("Passwords must match", fields =&gt; fields match {
+    case Registration(_, password, confirmation, _) =&gt; password.equals(confirmation)
+  })
+</code></pre>
+
+<p>  )</p>
+
+<p>  def index = Action { implicit request =></p>
+
+<pre><code>Ok(views.html.register(registrationForm))
+</code></pre>
+
+<p>  }</p>
+
+<p>  def register = Action { implicit request =></p>
+
+<pre><code>registrationForm.bindFromRequest.fold(
+  form =&gt; BadRequest(views.html.register(form)),
+  registration =&gt; {
+    Registrations.create(registration)
+    Redirect(routes.Application.index()).flashing("message" -&gt; "User Registered!")
+  }
+)
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>OK thats a lot to take in so lets break it down a bit.</p>
 
 <h3>The Form</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">registrationForm</span> <span class="k">=</span> <span class="nc">Form</span><span class="o">(</span>
-</span><span class='line'>  <span class="n">mapping</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;username&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'><span class="s">&quot;password&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'><span class="s">&quot;confirm&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">nonEmptyText</span><span class="o">,</span>
-</span><span class='line'><span class="s">&quot;realName&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">text</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">apply</span><span class="o">)(</span><span class="nc">Registration</span><span class="o">.</span><span class="n">unapply</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">verifying</span><span class="o">(</span><span class="s">&quot;Passwords must match&quot;</span><span class="o">,</span> <span class="n">fields</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">fields</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Registration</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">confirmation</span><span class="o">,</span> <span class="n">_</span><span class="o">)</span> <span class="o">=&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">password</span><span class="o">.</span><span class="n">equals</span><span class="o">(</span><span class="n">confirmation</span><span class="o">)</span>
-</span><span class='line'><span class="o">})</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+def registrationForm = Form(
+  mapping(</p>
+
+<pre><code>"username" -&gt; nonEmptyText,
+"password" -&gt; nonEmptyText,
+"confirm" -&gt; nonEmptyText,
+"realName" -&gt; text
+</code></pre>
+
+<p>  )(Registration.apply)(Registration.unapply)</p>
+
+<pre><code>verifying("Passwords must match", fields =&gt; fields match {
+  case Registration(_, password, confirmation, _) =&gt; password.equals(confirmation)
+})
+</code></pre>
+
+<p>)
+{% endcodeblock %}</p>
 
 <p>The Form concept in Play is a bit like a ViewModel of sorts.  It defines validation and mapping rules and allows you to pass a structured object between the controller and the view (inluding error information etc.).  In fact you aren't even obliged to bind this to a class, they can exists as themselves.  My example above shows you how to bind to and from our <code>Registration</code> class as well as some field and crossfield/global validation.</p>
 
 <h3>Model Binding</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">registrationForm</span><span class="o">.</span><span class="n">bindFromRequest</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span>
-</span><span class='line'>  <span class="n">form</span> <span class="k">=&gt;</span> <span class="nc">BadRequest</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">form</span><span class="o">)),</span>
-</span><span class='line'>  <span class="n">registration</span> <span class="k">=&gt;</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Registrations</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="n">registration</span><span class="o">)</span>
-</span><span class='line'><span class="nc">Redirect</span><span class="o">(</span><span class="n">routes</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span><span class="o">()).</span><span class="n">flashing</span><span class="o">(</span>
-</span><span class='line'>  <span class="s">&quot;message&quot;</span> <span class="o">-&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="s">&quot;User Registered!&quot;</span>
-</span><span class='line'><span class="o">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
-</span><span class='line'><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+registrationForm.bindFromRequest.fold(
+  form => BadRequest(views.html.register(form)),
+  registration => {</p>
+
+<pre><code>Registrations.create(registration)
+Redirect(routes.Application.index()).flashing(
+  "message" -&gt; "User Registered!"
+)
+</code></pre>
+
+<p>  }
+)
+{% endcodeblock %}</p>
 
 <p>This little functional approach allows us to bind a request to our <code>registrationForm</code> and react to invalid input.  In the case of an invalid bind the first argument into <code>fold</code> is executed which returns a bad request with an instance of the form.  In the case of the happy path we simply push our <code>registration</code> instance into the data store and redirect to the <code>index</code> action along with a flash message.</p>
 
@@ -634,41 +465,24 @@ Have fun!
 
 <p>Routes in Play are written into the <code>config/routes</code> file and this is used as a basis to generate reverse routes (this gives is us statically typed routes via the <code>routes</code> object).</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Routes</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">This</span> <span class="n">file</span> <span class="n">defines</span> <span class="n">all</span> <span class="n">application</span> <span class="n">routes</span> <span class="o">(</span><span class="nc">Higher</span> <span class="n">priority</span> <span class="n">routes</span> <span class="n">first</span><span class="o">)&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;~~~~&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Home</span> <span class="n">page</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">GET</span>     <span class="o">/</span>                           <span class="n">controllers</span><span class="o">.</span><span class="nc">Application</span><span class="o">.</span><span class="n">index</span>
-</span><span class='line'><span class="nc">GET</span>     <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">index</span>
-</span><span class='line'><span class="nc">POST</span>    <span class="o">/</span><span class="n">register</span>                   <span class="n">controllers</span><span class="o">.</span><span class="nc">Register</span><span class="o">.</span><span class="n">register</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Map</span> <span class="n">static</span> <span class="n">resources</span> <span class="n">from</span> <span class="n">the</span> <span class="o">/</span><span class="n">public</span> <span class="n">folder</span> <span class="n">to</span> <span class="n">the</span> <span class="o">/</span><span class="n">assets</span> <span class="nc">URL</span> <span class="n">path</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">GET</span>     <span class="o">/</span><span class="n">assets</span><span class="cm">/*file               controllers.Assets.at(path=&quot;/public&quot;, file)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}</p>
+
+<h1>Routes</h1>
+
+<h1>This file defines all application routes (Higher priority routes first)</h1>
+
+<h1>~~~~</h1>
+
+<h1>Home page</h1>
+
+<p>GET     /                           controllers.Application.index
+GET     /register                   controllers.Register.index
+POST    /register                   controllers.Register.register</p>
+
+<h1>Map static resources from the /public folder to the /assets URL path</h1>
+
+<p>GET     /assets/*file               controllers.Assets.at(path="/public", file)
+{% endcodeblock %}</p>
 
 <p>So I added two new routes for register that allows us to view and submit our registration form.</p>
 
@@ -678,195 +492,113 @@ Have fun!
 
 <p>First thing we want to do is update our <code>Build.scala</code> file with webjars resolver and our bootstrap dependency</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
-</span><span class='line'>  <span class="s">&quot;com.github.twitter&quot;</span> <span class="o">%</span>  <span class="s">&quot;bootstrap&quot;</span>  <span class="o">%</span> <span class="s">&quot;2.0.2&quot;</span><span class="o">,</span>
-</span><span class='line'>  <span class="c1">// other deps...</span>
-</span><span class='line'><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">val</span> <span class="n">main</span> <span class="k">=</span> <span class="nc">PlayProject</span><span class="o">(</span><span class="n">appName</span><span class="o">,</span> <span class="n">appVersion</span><span class="o">,</span> <span class="n">appDependencies</span><span class="o">,</span> <span class="n">mainLang</span> <span class="k">=</span> <span class="nc">SCALA</span><span class="o">).</span><span class="n">settings</span><span class="o">(</span>
-</span><span class='line'>  <span class="n">resolvers</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;webjars&quot;</span>          <span class="n">at</span> <span class="s">&quot;http://webjars.github.com/m2&quot;</span><span class="o">,</span>
-</span><span class='line'><span class="c1">// other resolvers...</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">)</span>
-</span><span class='line'><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:scala %}
+val appDependencies = Seq(
+  "com.github.twitter" %  "bootstrap"  % "2.0.2",
+  // other deps...
+)</p>
+
+<p>val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
+  resolvers ++= Seq(</p>
+
+<pre><code>"webjars"          at "http://webjars.github.com/m2",
+// other resolvers...
+</code></pre>
+
+<p>  )
+)
+{% endcodeblock %}</p>
 
 <p>Then in our <code>main.scala.html</code> we can reference the bootstrap assets in the normal way,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">href=</span><span class="s">&quot;@routes.Assets.at(&quot;</span><span class="na">stylesheets</span><span class="err">/</span><span class="na">bootstrap</span><span class="err">.</span><span class="na">min</span><span class="err">.</span><span class="na">css</span><span class="err">&quot;)&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:html %}
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+{% endcodeblock %}</p>
 
 <h3>Index (index.scala.html)</h3>
 
 <p>Here we simply list the current registered people,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrations: List[Registration])(implicit flash: Flash)
-</span><span class='line'>@main(&quot;Super Simple Sample&quot;) {
-</span><span class='line'>  @if(flash.data.contains(&quot;message&quot;)){<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div class=&quot;alert alert-success&quot;<span class="ni">&amp;gt;</span>@flash.get(&quot;message&quot;)<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  }
-</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;@routes.Register.index&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="nt">&gt;</span>Register<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;table table-bordered&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>thead<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>tr<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>th<span class="ni">&amp;gt;</span>Username<span class="ni">&amp;lt;</span>/th<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>th<span class="ni">&amp;gt;</span>Real Name<span class="ni">&amp;lt;</span>/th<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>/tr<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/thead<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>tbody<span class="ni">&amp;gt;</span>
-</span><span class='line'>  @registrations.map { registration =<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>tr<span class="ni">&amp;gt;</span>
-</span><span class='line'>      <span class="ni">&amp;lt;</span>td<span class="ni">&amp;gt;</span>@registration.username<span class="ni">&amp;lt;</span>/td<span class="ni">&amp;gt;</span>
-</span><span class='line'>      <span class="ni">&amp;lt;</span>td<span class="ni">&amp;gt;</span>@registration.realName<span class="ni">&amp;lt;</span>/td<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>/tr<span class="ni">&amp;gt;</span>
-</span><span class='line'>  }
-</span><span class='line'><span class="ni">&amp;lt;</span>/tbody<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/table&gt;</span>
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:html %}
+@(registrations: List[Registration])(implicit flash: Flash)
+@main("Super Simple Sample") {
+  @if(flash.data.contains("message")){</p>
+
+<pre><code>&lt;div class="alert alert-success"&gt;@flash.get("message")&lt;/div&gt;
+</code></pre>
+
+<p>  }
+  <a href="@routes.Register.index" class="btn btn-primary">Register</a>
+  <table class="table table-bordered"></p>
+
+<pre><code>&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Username&lt;/th&gt;
+    &lt;th&gt;Real Name&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  @registrations.map { registration =&gt; 
+    &lt;tr&gt;
+      &lt;td&gt;@registration.username&lt;/td&gt;
+      &lt;td&gt;@registration.realName&lt;/td&gt;
+    &lt;/tr&gt;
+  }
+&lt;/tbody&gt;
+</code></pre>
+
+<p>  </table>
+}
+{% endcodeblock %}</p>
 
 <p>The interesting thing about Play 2 views is that they are just Scala.  Yep neat.  In fact any .NETters will feel quite at home as they are reminiscent of Razor views too.</p>
 
 <h3>Register (register.scala.html)</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>@(registrationForm: Form[models.Registration])(implicit flash: Flash)<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>@import play.api.i18n.<span class="nt">&lt;em&gt;</span>
-</span><span class='line'>@import views.html.helper.<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>@input(field: Field, label: String, fieldType: Symbol = &#39;text) = {
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group @if(field.hasErrors) {error}&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>label class=&quot;control-label&quot; for=&quot;@field.id&quot;<span class="ni">&amp;gt;</span>@label<span class="ni">&amp;lt;</span>/label<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>div class=&quot;controls&quot;<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>input type=&quot;@fieldType.name&quot; value=&quot;@field.value&quot; name=&quot;@field.id&quot; /<span class="ni">&amp;gt;</span>
-</span><span class='line'>  @if(field.hasErrors){
-</span><span class='line'>    <span class="ni">&amp;lt;</span>span class=&quot;help-inline&quot;<span class="ni">&amp;gt;</span>
-</span><span class='line'>      @Messages(field.error.head.message)
-</span><span class='line'>    <span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span>
-</span><span class='line'>  }
-</span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'>}<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>@main(&quot;Super Simple Sample&quot;) {
-</span><span class='line'>  @form(action = routes.Register.register, &#39;class -&gt; &quot;form-horizontal&quot;) {<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>fieldset<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="ni">&amp;lt;</span>legend<span class="ni">&amp;gt;</span>Registration<span class="ni">&amp;lt;</span>/legend<span class="ni">&amp;gt;</span>
-</span><span class='line'>  @registrationForm.globalError.map { error =<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>div class=&#39;row&#39;<span class="ni">&amp;gt;</span>
-</span><span class='line'>      <span class="ni">&amp;lt;</span>div class=&quot;alert alert-error&quot;<span class="ni">&amp;gt;</span>@error.message<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
-</span><span class='line'>    <span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
-</span><span class='line'>  }
-</span><span class='line'>  @input(registrationForm(&quot;name&quot;), &quot;Username&quot;)
-</span><span class='line'>  @input(registrationForm(&quot;password&quot;), &quot;Password&quot;, &#39;password)
-</span><span class='line'>  @input(registrationForm(&quot;confirm&quot;), &quot;Confirm Password&quot;, &#39;password)
-</span><span class='line'>  @input(registrationForm(&quot;realName&quot;), &quot;Real Name&quot;)
-</span><span class='line'><span class="ni">&amp;lt;</span>/fieldset<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>input type=&quot;submit&quot; class=&quot;btn&quot; value=&quot;Register&quot;/<span class="ni">&amp;gt;</span>
-</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>  }
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:html %}
+@(registrationForm: Form[models.Registration])(implicit flash: Flash)</p>
+
+<p>@import play.api.i18n.<em>
+@import views.html.helper.</em></p>
+
+<p>@input(field: Field, label: String, fieldType: Symbol = 'text) = {
+  <div class="control-group @if(field.hasErrors) {error}"></p>
+
+<pre><code>&lt;label class="control-label" for="@field.id"&gt;@label&lt;/label&gt;
+&lt;div class="controls"&gt;
+  &lt;input type="@fieldType.name" value="@field.value" name="@field.id" /&gt;
+  @if(field.hasErrors){
+    &lt;span class="help-inline"&gt;
+      @Messages(field.error.head.message)
+    &lt;/span&gt;
+  }
+&lt;/div&gt;
+</code></pre>
+
+<p>  </div>
+}</p>
+
+<p>@main("Super Simple Sample") {
+  @form(action = routes.Register.register, 'class -> "form-horizontal") {</p>
+
+<pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Registration&lt;/legend&gt;
+  @registrationForm.globalError.map { error =&gt; 
+    &lt;div class='row'&gt;
+      &lt;div class="alert alert-error"&gt;@error.message&lt;/div&gt;
+    &lt;/div&gt;
+  }
+  @input(registrationForm("name"), "Username")
+  @input(registrationForm("password"), "Password", 'password)
+  @input(registrationForm("confirm"), "Confirm Password", 'password)
+  @input(registrationForm("realName"), "Real Name")
+&lt;/fieldset&gt;
+&lt;input type="submit" class="btn" value="Register"/&gt;
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
 
 <p>You can see from the source there that I've crafted my own helper function to keep things nice and DRY and avoid having to write out the twitter bootstrap required structure over and over.</p>
 

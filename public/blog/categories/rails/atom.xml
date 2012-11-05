@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Rails | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-10-06T10:26:40+01:00</updated>
+  <updated>2012-11-05T08:53:00+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -42,39 +42,27 @@
 
 <p>Rails is very heavily convention based but often there is simply too much convention and I've been left baffled a few times.  Some of the convention is well documented and some of it less so.  When a convention is not obvious it becomes magic and it really feels Rails has a lot of "magic".  Thats not something I want.  To be honest I'd rather write the same 2/3 lines of boilerplate if it meant that, to a new developer, they could understand the convention better.  Take this very trivial example,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="no">ApplicationController</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">index</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:ruby %}
+class HomeController &lt; ApplicationController
+  def index
+  end
+end
+{% endcodeblock %}</p>
 
 <p>And the same in ASP.NET MVC</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">HomeController</span><span class="p">:</span> <span class="n">Controller</span>
-</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Index</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:csharp %}
+public class HomeController: Controller
+{</p>
+
+<pre><code>public ActionResult Index()
+{
+    return View();
+}
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
 
 <p>To me that one line <code>return View()</code> tell me that this action will return a View, and now I can infer the convention of <code>home/index.cshtml</code> that wee bit easier.  When you start adding in more conventions, a little bit of extra code makes all the difference.  Conventions don't scale unless clearly marked IMHO.</p>
 
@@ -82,75 +70,41 @@
 
 <p>When you generate scaffold in a Rails app, as a typical new developer would, you end up with a awful lot of files.  If I generate a new entity for example this is what I am greeted with,</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>→ rails generate scaffold MyEntity name:String age:Int                         !6580&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;  invoke  active_record
-</span><span class='line'>  create    db/migrate/20120403130542_create_my_entities.rb
-</span><span class='line'>  create    app/models/my_entity.rb
-</span><span class='line'>  invoke    test_unit
-</span><span class='line'>  create      <span class="nb">test</span>/unit/my_entity_test.rb
-</span><span class='line'>  create      <span class="nb">test</span>/fixtures/my_entities.yml
-</span><span class='line'>   route  resources :my_entities
-</span><span class='line'>  invoke  scaffold_controller
-</span><span class='line'>  create    app/controllers/my_entities_controller.rb
-</span><span class='line'>  invoke    slim
-</span><span class='line'>  create      app/views/my_entities
-</span><span class='line'>  create      app/views/my_entities/index.html.slim
-</span><span class='line'>  create      app/views/my_entities/edit.html.slim
-</span><span class='line'>  create      app/views/my_entities/show.html.slim
-</span><span class='line'>  create      app/views/my_entities/new.html.slim
-</span><span class='line'>  create      app/views/my_entities/_form.html.slim
-</span><span class='line'>  invoke    test_unit
-</span><span class='line'>  create      <span class="nb">test</span>/functional/my_entities_controller_test.rb
-</span><span class='line'>  invoke    helper
-</span><span class='line'>  create      app/helpers/my_entities_helper.rb
-</span><span class='line'>  invoke      test_unit
-</span><span class='line'>  create        <span class="nb">test</span>/unit/helpers/my_entities_helper_test.rb
-</span><span class='line'>  invoke  assets
-</span><span class='line'>  invoke    coffee
-</span><span class='line'>  create      app/assets/javascripts/my_entities.js.coffee
-</span><span class='line'>  invoke    scss
-</span><span class='line'>  create      app/assets/stylesheets/my_entities.css.scss
-</span><span class='line'>  invoke  scss
-</span><span class='line'>  create    app/assets/stylesheets/scaffolds.css.scss
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:bash %}
+→ rails generate scaffold MyEntity name:String age:Int                         !6580</p>
+
+<pre><code>  invoke  active_record
+  create    db/migrate/20120403130542_create_my_entities.rb
+  create    app/models/my_entity.rb
+  invoke    test_unit
+  create      test/unit/my_entity_test.rb
+  create      test/fixtures/my_entities.yml
+   route  resources :my_entities
+  invoke  scaffold_controller
+  create    app/controllers/my_entities_controller.rb
+  invoke    slim
+  create      app/views/my_entities
+  create      app/views/my_entities/index.html.slim
+  create      app/views/my_entities/edit.html.slim
+  create      app/views/my_entities/show.html.slim
+  create      app/views/my_entities/new.html.slim
+  create      app/views/my_entities/_form.html.slim
+  invoke    test_unit
+  create      test/functional/my_entities_controller_test.rb
+  invoke    helper
+  create      app/helpers/my_entities_helper.rb
+  invoke      test_unit
+  create        test/unit/helpers/my_entities_helper_test.rb
+  invoke  assets
+  invoke    coffee
+  create      app/assets/javascripts/my_entities.js.coffee
+  invoke    scss
+  create      app/assets/stylesheets/my_entities.css.scss
+  invoke  scss
+  create    app/assets/stylesheets/scaffolds.css.scss
+</code></pre>
+
+<p>{% endcodeblock %}</p>
 
 <p>Don't get me wrong - it's nice to be given all these things for free, but it's ultimatley stuff I end up ripping out anyway.  In .NET there is a running joke that the "Empty ASP.NET MVC Project" Template is anything but.  To me this is the same issue except it's something that I'd have to clean up everytime I use the <code>generate scaffold</code> command.  This seems worse to me.</p>
 
