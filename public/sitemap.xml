@@ -632,7 +632,17 @@
     </url>
     <url>
         <loc>http://yobriefca.se/blog/2012/11/05/technology-techsmology/</loc>
-        <lastmod>2012-11-05T08:53:00+00:00</lastmod>
+        <lastmod>2012-11-05T17:36:57+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/</loc>
+        <lastmod>2012-11-17T22:56:41+00:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://yobriefca.se/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development/
+        </loc>
+        <lastmod>2012-12-12T14:41:52+00:00</lastmod>
     </url>
     <url>
         <loc>http://yobriefca.se/404.html</loc>
@@ -640,15 +650,15 @@
     </url>
     <url>
         <loc>http://yobriefca.se/blog/archives/</loc>
-        <lastmod>2012-11-05T08:53:00+00:00</lastmod>
+        <lastmod>2012-12-12T14:41:52+00:00</lastmod>
     </url>
     <url>
         <loc>http://yobriefca.se/feed/</loc>
-        <lastmod>2012-11-05T08:53:00+00:00</lastmod>
+        <lastmod>2012-12-12T14:41:52+00:00</lastmod>
     </url>
     <url>
         <loc>http://yobriefca.se/</loc>
-        <lastmod>2012-11-05T08:53:00+00:00</lastmod>
+        <lastmod>2012-12-12T14:41:52+00:00</lastmod>
     </url>
     <url>
         <loc>http://yobriefca.se/projects/</loc>
@@ -660,6 +670,6 @@
     </url>
     <url>
         <loc>http://yobriefca.se/talks/</loc>
-        <lastmod>2012-09-13T20:37:00+01:00</lastmod>
+        <lastmod>2012-12-12T14:43:18+00:00</lastmod>
     </url>
 </urlset>

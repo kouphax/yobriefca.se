@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vertical vs Horizontal Thinking - Yo Briefcase!</title>
+  <meta name="author" content="James Hughes">
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Fresca' rel='stylesheet' type='text/css'>
+
+  
+  <meta name="description" content="I&#8217;m not quite sure were this ramble is going to lead, it&#8217;s been a while since I&#8217;ve felt like writing something that hasn&#8217;t &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/feed" rel="alternate" title="Yo Briefcase!" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19143623-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="thingyattop" style="height:1px; background-color: #AAA; border-bottom: 1px solid #E0E0E0"></div>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+   
+  <header>
+                <span style="float:right">
+      <a href="/" style="text-decoration:none;"><span class="label label-inverse">Home</span></a>
+      <a href="/talks" style="text-decoration:none;"><span class="label label-inverse">Talks</span></a>
+      <a href="/feed" style="text-decoration:none;"><span class="label">RSS</span></a>
+      <a href="http://twitter.com/kouphax" style="text-decoration:none;"><span class="label">Twitter</span></a>
+      <a href="http://github.com/kouphax" style="text-decoration:none;"><span class="label">Github</span></a>
+    </span>
+    
+      <h1 class="entry-title">Vertical vs Horizontal Thinking</h1>
+    
+
+    
+      <p class="meta">
+        
+          <span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>
+         
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T22:48:00+00:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;m not quite sure were this ramble is going to lead, it&#8217;s been a while since I&#8217;ve felt like writing something that hasn&#8217;t been clearly defined by my half conscious brain but lets take the journey anyway shall we?</p>
+
+<p>This is going to be loosely related to agility, not necessarily the &#8220;agile method or process&#8221; but more simply about adapting to change and embracing transparency in a software project.  More often than not this can be simply referred to as &#8220;common sense&#8221; and it&#8217;s a great thing.</p>
+
+<p>But I digress,</p>
+
+<p>In a vertical world you deliver features by implementing vertical spikes through each layer of the system architecture.  It doesn&#8217;t have to be right, but it does need to be good enough for now.  Sure it may not deliver the best user experience or maybe there are more HTTP requests or database calls than necessary but it&#8217;s useable.  Its shippable.</p>
+
+<p>In the horizontal world layers of the architecture are tackled by (possibly pseudo) specialists and delivered en masse.  This is very typical of the Big Design Upfront, Plan Based, Waterfall approach to delivery but its visible in a lot of projects in various guises and it&#8217;s rather natural to many people.</p>
+
+<p>Now, on the surface, getting specialists to deliver what they know best and then smash them altogether actually sounds great.  You know your DB person is going to produce a wonderful hyper-normalised schema for you, your UI/UX person will deliver a gorgeous mockup of the site and your middle layer app people will deliver the best truly ReSTful service layer known to man.  But then you spend an insane amount of time (or many many little periods of time) doing the actual integration and making this vision a reality.  The testing, the regressions, the edge cases the performance hits and sacrifices through integrating perfect works of horizontal art.  Best case you get it done eventually, worst case someone else gets it done by layering hack upon hack at integration points just to get it working.</p>
+
+<p>Now imagine your DB person gets eaten by a badger, or your UI person decides they&#8217;ve had enough and goes to live in a free-love commune and drink the spiked kool-aid?  I&#8217;ve overly dramatised the <a href="http://en.wikipedia.org/wiki/Bus_factor">Bus Factor</a> here but the point is still made.  You&#8217;ve lost siloed knowledge forever and you need to spend time building it up again, and time and quality slip.</p>
+
+<p>Finally - projects that deliver horizontally are, more often than not, projects that have limited customer/stakeholder visibility.  Sometimes even less for end-users.  So delivering a mockup of the UI and a DB schema that can be exported as a nice UML diagram is enough to satisfy people that work is on-going and going well.  Even if it isn&#8217;t.  It&#8217;s not a lie but it is a false impression, and it&#8217;s an impression that doesn&#8217;t work for long especially if you have shorter release cycles with ongoing customer interaction.  A page of beautiful buttons that don&#8217;t do anything will create an impression that you are nearly done and can easily generate disappointment at subsequent demos.  Is it worth it?</p>
+
+<p>Don&#8217;t get me wrong it is very possible to successfully deliver software in this manner, on time and on budget but so many things must fall into place and all the stars must be aligned that it&#8217;s a rather big risk, but a risk that people seem to ignore.</p>
+
+<p>So I&#8217;m saying vertical is better and there are many reasons for that and I&#8217;ll touch on some of them here but there is one very fundamental reason it&#8217;s better.  Working and thinking vertically allows you to create a shippable product early.  It&#8217;s not all done, far from it.  It probably looks like ass as well but still it&#8217;s usable enough to get the job done, right?  Imagine using a new product that looked amazing but only had 3 working features and the rest of the buttons and knobs didn&#8217;t do anything.  Wow factor is for kids and sales men.</p>
+
+<p>Why else is vertical thinking better?</p>
+
+<p>For one everyone on the team works across all layers of the solution.  You don&#8217;t have huge silos of knowledge contained in a single brain of some crazy bus magnet.  Sure you may involve specialists to ensure you&#8217;re not doing it totally wrong but at least you&#8217;d be working WITH them and picking up parts of the vast knowledge they may have.</p>
+
+<p>By delivering something &#8220;good enough for now&#8221; you actually reduce waste.  True you may re-write a few things to get it right but you haven&#8217;t spent hours crafting perfection only to tear it apart.  Even better the first iteration may make users realise - &#8220;Actually you know what?  That super whizzy button thing - we don&#8217;t need it&#8221;.  Waterfall attempts to &#8220;manage change&#8221; because change in waterfall is scary expensive.  Embrace it early and often and it much less costly.</p>
+
+<p>Finally, the solution evolves rather than being dragged into existence from a 189 page document of business rules and textual assumptions.  This allows you to experiment and try things, throw them away or discover a better way of doing things.  You can adapt the solution at anytime to suit the changing nature of the environment it lives in.</p>
+
+<p>Vertical thinking is a proven pattern in many other aspects of the software world.  TDD for example. Rather than writing reams of code and testing it manually later, you create a solution bit by bit and adapt it fearlessly as you go.  UI designers never just bang out one design and leave it there.  Smaller feedback loops are essential to flow and success and vertical thinking gives you this.  Break the habit of wowing people and replace it with the habit of delivering - it&#8217;s a better, longer lasting feeling of win.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T22:48:00+00:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+      
+
+<span style="float:right">
+  
+    <a href='/blog/categories/miscellaneous/' style='text-decoration:none;'><span class='label label-info'>miscellaneous</span></a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/" data-via="kouphax" data-counturl="http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/05/technology-techsmology/" title="Previous Post: Technology Techsmology">&laquo; Technology Techsmology</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development/" title="next Post: Neo4J Talk: Using Graphs to Analyse Public Spending on International Development">Neo4J Talk: Using Graphs to Analyse Public Spending on International Development &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <script>var dis_inpost = true;</script>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kouphax';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/';
+        var disqus_url = 'http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

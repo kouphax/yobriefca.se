@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Alfred | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/alfred/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:53:00+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -22,7 +22,7 @@
 
 <p>Alfred to the rescue here, just create a script as shown below and then running alfred and typing <code>l 9000</code> you can launch your default browser at <code>http://localhost:9000</code>.  Very simple but saves me heaps of time at the minute.</p>
 
-<p>{% img borderless /images/blog/alfredscript.png %}</p>
+<p><img class="borderless" src="/images/blog/alfredscript.png"></p>
 ]]></content>
   </entry>
   

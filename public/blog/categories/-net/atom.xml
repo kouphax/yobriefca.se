@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>.NET | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/-net/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:53:00+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -215,20 +215,31 @@ git commit -m "Boring commit message"
 
 <h2>Sample Uses</h2>
 
-<p>{% codeblock lang:csharp %}
-// create your parsley API
-Parsley parsley = new Parsley(applicationId, masterKey);</p>
-
-<p>// create new class
-dynamic response = parsley.Create("MyClass", new { CoolProperty = 1  });</p>
-
-<p>// do other cool stuff
-parsley.Update("MyClass", response.objectId, new { CoolProperty = 4});</p>
-
-<p>dyanmic myObject = parsley.Retrieve("MyClass", response.objectId);</p>
-
-<p>parsley.Delete(myObject.objectId);
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// create your parsley API</span>
+</span><span class='line'><span class="n">Parsley</span> <span class="n">parsley</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Parsley</span><span class="p">(</span><span class="n">applicationId</span><span class="p">,</span> <span class="n">masterKey</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// create new class</span>
+</span><span class='line'><span class="n">dynamic</span> <span class="n">response</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">1</span>  <span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="c1">// do other cool stuff</span>
+</span><span class='line'><span class="n">parsley</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CoolProperty</span> <span class="p">=</span> <span class="m">4</span><span class="p">});&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">dyanmic</span> <span class="n">myObject</span> <span class="p">=</span> <span class="n">parsley</span><span class="p">.</span><span class="n">Retrieve</span><span class="p">(</span><span class="s">&quot;MyClass&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">objectId</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">parsley</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">myObject</span><span class="p">.</span><span class="n">objectId</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>Outstanding Tasks</h2>
 
@@ -261,37 +272,39 @@ parsley.Update("MyClass", response.objectId, new { CoolProperty = 4});</p>
     <id>http://yobriefca.se/blog/2011/11/16/wednesday-.net-tip</id>
     <content type="html"><![CDATA[<p>Ever written code that looks quite like this?</p>
 
-<p>{% codeblock lang:csharp %}
-Dictionary&lt;string, KeyValuePair&lt;string, string>> cache = new Dictionary&lt;string, KeyValuePair&lt;string,string>();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;&gt;</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I have.  Ugly and noisy isn't it!  <!--more--> OK you could make it <em>slightly</em> less noisy by using <code>var</code></p>
 
-<p>{% codeblock lang:csharp %}
-var cache = new Dictionary&lt;string, KeyValuePair&lt;string,string>();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">var</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Or I suppose you could ahead and create yet another random type to abstract the implementation out of the way but thats just too much work for something internal to a class.</p>
 
 <p>Turns out you can make use of alises.  I've always known about using alises for namespaces to either resolve possible type conflicts or to make code a bit more understandable</p>
 
-<p>{% codeblock lang:csharp %}
-using CoreWeb = System.Web
-...
-var x = new CoreWeb.Request()
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">CoreWeb</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="n">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CoreWeb</span><span class="p">.</span><span class="n">Request</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So this works with namespaces <strong>AND</strong> types.</p>
 
-<p>{% codeblock lang:csharp %}
-using Cache = Dictionary&lt;string, KeyValuePair&lt;string,string>();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">Cache</span> <span class="p">=</span> <span class="n">Dictionary</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span> <span class="n">KeyValuePair</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">string</span><span class="p">,</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This allows us to make the declaration above in a much nicer manner,</p>
 
-<p>{% codeblock lang:csharp %}
-Cache cache = new Cache();
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Cache</span> <span class="n">cache</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Cache</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>OK so there are way to many uses of the word cache there but you get the gist.  Handy to know.  Never knew this until today #youlearnsomethingneweveryday</p>
 ]]></content>

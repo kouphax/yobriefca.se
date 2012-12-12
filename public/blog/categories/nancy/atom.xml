@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Nancy | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/nancy/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:53:00+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -47,60 +47,105 @@
 <!-- more -->
 
 
-<p>{% codeblock lang:csharp %}
-public abstract class RailslikeControllerFor<TEntity> : NancyModule where TEntity : class
-{</p>
-
-<pre><code>public RailslikeControllerFor() : base("/" + typeof(TEntity).Name + "s")
-{
-    Get[@"/"] = Index;
-    Get[@"/new"] = New;
-    Post[@"/"] = Create;
-    Get[@"/(?&lt;id&gt;[\d])"] = Show;
-    Get[@"/(?&lt;id&gt;[\d])/edit"] = Edit;
-    Put[@"/(?&lt;id&gt;[\d])"] = Update;
-    Delete[@"/(?&lt;id&gt;[\d])"] = Destroy;
-}
-
-protected virtual Nancy.Response Index(dynamic context) { return 404; }
-protected virtual Nancy.Response New(dynamic context) { return 404; }
-protected virtual Nancy.Response Create(dynamic context) { return 404; }
-protected virtual Nancy.Response Show(dynamic context) { return 404; }
-protected virtual Nancy.Response Edit(dynamic context) { return 404; }
-protected virtual Nancy.Response Update(dynamic context) { return 404; }
-protected virtual Nancy.Response Destroy(dynamic context) { return 404; }
-
-protected Nancy.Response AsView(object model = null)
-{
-    string method = new StackTrace().GetFrame(1).GetMethod().Name;
-    string entity = typeof(TEntity).Name;
-
-    return View[string.Format("{0}/{1}", entity, method), model];
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">TEntity</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">NancyModule</span> <span class="n">where</span> <span class="n">TEntity</span> <span class="p">:</span> <span class="k">class</span>
+</span><span class='line'><span class="err">{&lt;/</span><span class="nc">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="n">RailslikeControllerFor</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span> <span class="p">+</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Index</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/new&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">New</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Post</span><span class="p">[</span><span class="s">@&quot;/&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Create</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Show</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Get</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])/edit&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Edit</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Put</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Update</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Delete</span><span class="p">[</span><span class="s">@&quot;/(?&amp;lt;id&amp;gt;[\d])&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">Destroy</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">New</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Create</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Show</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Edit</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Update</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">protected</span> <span class="k">virtual</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">Destroy</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="m">404</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="n">Nancy</span><span class="p">.</span><span class="n">Response</span> <span class="n">AsView</span><span class="p">(</span><span class="kt">object</span> <span class="n">model</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">method</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StackTrace</span><span class="p">().</span><span class="n">GetFrame</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">().</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">entity</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TEntity</span><span class="p">).</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">View</span><span class="p">[</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;{0}/{1}&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span> <span class="n">model</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>To use it you just subclass the class and override the necessary methods.  Like so.</p>
 
-<p>{% codeblock lang:csharp %}
-public class QuestionModule : RailslikeControllerFor<Question>
-{</p>
-
-<pre><code>IQuestionsRepository questions;
-
-public QuestionModule(IQuestionsRepository questions)
-    : base() { this.questions = questions; }
-
-protected override Response Index(dynamic context)
-{
-    return AsView(questions.GetAll());
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">QuestionModule</span> <span class="p">:</span> <span class="n">RailslikeControllerFor</span><span class="p">&lt;</span><span class="n">Question</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="nf">QuestionModule</span><span class="p">(</span><span class="n">IQuestionsRepository</span> <span class="n">questions</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">questions</span> <span class="p">=</span> <span class="n">questions</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">override</span> <span class="n">Response</span> <span class="nf">Index</span><span class="p">(</span><span class="n">dynamic</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">AsView</span><span class="p">(</span><span class="n">questions</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>What the base class does is create the necessary CRUDdy urls with a base route starting with the name of the entity you pass in, pluralised in the easiest way possible.  In this case <code>/questions</code>.  The rules match what you wold get for a controller in Rails.</p>
 
@@ -183,59 +228,103 @@ protected override Response Index(dynamic context)
 
 <p>I took the same approach as the existing hooks (using the SassAndCoffee one as my implementation pattern) so created a static <code>Hooks</code> class with an <code>Enable</code> method that simply adds a new item to the end of the pipeline</p>
 
-<p>{% codeblock lang:csharp %}
-/// <summary>
-/// Enable JSONP support in the application
-/// </summary>
-/// <param name="pipeline">Application Pipeline to Hook into</param>
-public static void Enable(IApplicationPipelines pipeline)
-{</p>
-
-<pre><code>pipeline.AfterRequest.AddItemToEndOfPipeline(PrepareJsonp);
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Enable JSONP support in the application</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;pipeline&quot;&gt;Application Pipeline to Hook into&lt;/param&gt;</span>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Enable</span><span class="p">(</span><span class="n">IApplicationPipelines</span> <span class="n">pipeline</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">pipeline</span><span class="p">.</span><span class="n">AfterRequest</span><span class="p">.</span><span class="n">AddItemToEndOfPipeline</span><span class="p">(</span><span class="n">PrepareJsonp</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The meat of the work lies in the <code>PrepareJsonp</code> method</p>
 
-<p>{% codeblock lang:csharp %}
-/// <summary>
-/// Transmogrify original response and apply JSONP Padding
-/// </summary>
-/// <param name="context">Current Nancy Context</param>
-private static void PrepareJsonp(NancyContext context)
-{</p>
-
-<pre><code>bool isJson = context.Response.ContentType == "application/json";
-bool hasCallback = context.Request.Query["callback"].HasValue;
-
-if (isJson &amp;&amp; hasCallback)
-{
-    // grab original contents for running later
-    Action&lt;Stream&gt; original = context.Response.Contents;
-    string callback = context.Request.Query["callback"].Value;
-
-    // set content type to application/javascript so browsers can handle it by default
-    // http://stackoverflow.com/questions/111302/best-content-type-to-serve-jsonp
-    context.Response.ContentType = "application/javascript";
-    context.Response.Contents = stream =&gt;
-    {
-        // disposing of stream is handled elsewhere
-        StreamWriter writer = new StreamWriter(stream)
-        {
-            AutoFlush = true
-        };
-
-        writer.Write("{0}(", callback);
-        original(stream);
-        writer.Write(");");
-    };
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Transmogrify original response and apply JSONP Padding</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;param name=&quot;context&quot;&gt;Current Nancy Context&lt;/param&gt;</span>
+</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">PrepareJsonp</span><span class="p">(</span><span class="n">NancyContext</span> <span class="n">context</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// grab original contents for running later</span>
+</span><span class='line'>    <span class="n">Action</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Stream</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">original</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">string</span> <span class="n">callback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// set content type to application/javascript so browsers can handle it by default</span>
+</span><span class='line'>    <span class="c1">// http://stackoverflow.com/questions/111302/best-content-type-to-serve-jsonp</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'>        <span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Let me highlight a few of the key areas here.</p>
 
@@ -251,41 +340,59 @@ if (isJson &amp;&amp; hasCallback)
 
 <p>Here is what we need to satisfy that,</p>
 
-<p>{% codeblock lang:csharp %}
-bool isJson = context.Response.ContentType == "application/json";
-bool hasCallback = context.Request.Query["callback"].HasValue;</p>
-
-<p>if (isJson &amp;&amp; hasCallback)
-{
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">bool</span> <span class="n">isJson</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">==</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">bool</span> <span class="n">hasCallback</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Query</span><span class="p">[</span><span class="s">&quot;callback&quot;</span><span class="p">].</span><span class="n">HasValue</span><span class="p">;&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">isJson</span> <span class="p">&amp;</span><span class="n">amp</span><span class="p">;&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">hasCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I am sure this could be refined and open to suggestion (perhaps more applicable content types or extra possible configuration for the callback parameter).  I wonder if it is a bit safer to restrict requests that are GET requests seeing as that is the only way to do JSONP? Hmmmm.</p>
 
 <p>Next thing I set the content type to <code>application/javascript</code> as that makes perfect sense</p>
 
-<p>{% codeblock lang:csharp %}
-context.Response.ContentType = "application/javascript";
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/javascript&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Finally I wrap the original responses content in the JSONP "padding" (the callback function) and write everything out.</p>
 
-<p>{% codeblock lang:csharp %}
-context.Response.Contents = stream =>
-{</p>
-
-<pre><code>// disposing of stream is handled elsewhere
-StreamWriter writer = new StreamWriter(stream)
-{
-    AutoFlush = true
-};
-
-writer.Write("{0}(", callback);
-original(stream);
-writer.Write(");");
-</code></pre>
-
-<p>};
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Contents</span> <span class="p">=</span> <span class="n">stream</span> <span class="p">=&gt;</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="c1">// disposing of stream is handled elsewhere</span>
+</span><span class='line'><span class="n">StreamWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">AutoFlush</span> <span class="p">=</span> <span class="k">true</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0}(&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+</span><span class='line'><span class="n">original</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;);&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So all in all very simple but damn I'm proud that I got off my arse and contributed to such a stellar community. hopefully someone finds this useful.</p>
 ]]></content>

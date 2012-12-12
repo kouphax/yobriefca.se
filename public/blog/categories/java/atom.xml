@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Java | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:53:00+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -36,17 +36,29 @@
 
 <p> Beause it's awesome I want to include WebJars so I add my repository,</p>
 
-<p>{%codeblock lang:xml%}</p>
-
-<pre><code>&lt;repositories&gt;
-    &lt;repository&gt;
-        &lt;id&gt;webjars&lt;/id&gt;
-        &lt;url&gt;http://webjars.github.com/m2&lt;/url&gt;
-    &lt;/repository&gt;
-&lt;/repositories&gt;
-</code></pre>
-
-<p>{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>repositories<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>repository<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>id<span class="ni">&amp;gt;</span>webjars<span class="ni">&amp;lt;</span>/id<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>url<span class="ni">&amp;gt;</span>http://webjars.github.com/m2<span class="ni">&amp;lt;</span>/url<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/repository<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/repositories<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Next I add my dependencies,</p>
 
@@ -56,122 +68,217 @@
 </ol>
 
 
-<p>{%codeblock lang:xml%}</p>
-
-<pre><code>&lt;dependencies&gt;
-    &lt;dependency&gt;
-      &lt;groupId&gt;com.yammer.dropwizard&lt;/groupId&gt;
-      &lt;artifactId&gt;dropwizard-core&lt;/artifactId&gt;
-      &lt;version&gt;0.4.2&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-      &lt;groupId&gt;com.jquery&lt;/groupId&gt;
-      &lt;artifactId&gt;jquery&lt;/artifactId&gt;
-      &lt;version&gt;1.7.2-1&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre>
-
-<p>{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>dependencies<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>dependency<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>groupId<span class="ni">&amp;gt;</span>com.yammer.dropwizard<span class="ni">&amp;lt;</span>/groupId<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>artifactId<span class="ni">&amp;gt;</span>dropwizard-core<span class="ni">&amp;lt;</span>/artifactId<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>version<span class="ni">&amp;gt;</span>0.4.2<span class="ni">&amp;lt;</span>/version<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/dependency<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>dependency<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>groupId<span class="ni">&amp;gt;</span>com.jquery<span class="ni">&amp;lt;</span>/groupId<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>artifactId<span class="ni">&amp;gt;</span>jquery<span class="ni">&amp;lt;</span>/artifactId<span class="ni">&amp;gt;</span>
+</span><span class='line'>      <span class="ni">&amp;lt;</span>version<span class="ni">&amp;gt;</span>1.7.2-1<span class="ni">&amp;lt;</span>/version<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/dependency<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/dependencies<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I also add the <a href="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</a> which will let me build a Fat Jar (a jar with all my dependencies and what not in it).</p>
 
-<p>{%codeblock lang:xml%}</p>
-
-<pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.6&lt;/version&gt;
-    &lt;configuration&gt;
-        &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
-        &lt;filters&gt;
-            &lt;filter&gt;
-                &lt;artifact&gt;*:*&lt;/artifact&gt;
-                &lt;excludes&gt;
-                    &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
-                &lt;/excludes&gt;
-            &lt;/filter&gt;
-        &lt;/filters&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;phase&gt;package&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;shade&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;transformers&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
-                        &lt;mainClass&gt;se.yobriefca.TodoService&lt;/mainClass&gt;
-                    &lt;/transformer&gt;
-                &lt;/transformers&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;
-</code></pre>
-
-<p>{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>plugin<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>groupId<span class="ni">&amp;gt;</span>org.apache.maven.plugins<span class="ni">&amp;lt;</span>/groupId<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>artifactId<span class="ni">&amp;gt;</span>maven-shade-plugin<span class="ni">&amp;lt;</span>/artifactId<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>version<span class="ni">&amp;gt;</span>1.6<span class="ni">&amp;lt;</span>/version<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>configuration<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>createDependencyReducedPom<span class="ni">&amp;gt;</span>true<span class="ni">&amp;lt;</span>/createDependencyReducedPom<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>filters<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>filter<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>artifact<span class="ni">&amp;gt;</span>*:*<span class="ni">&amp;lt;</span>/artifact<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>excludes<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>exclude<span class="ni">&amp;gt;</span>META-INF/*.SF<span class="ni">&amp;lt;</span>/exclude<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>exclude<span class="ni">&amp;gt;</span>META-INF/*.DSA<span class="ni">&amp;lt;</span>/exclude<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>exclude<span class="ni">&amp;gt;</span>META-INF/*.RSA<span class="ni">&amp;lt;</span>/exclude<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>/excludes<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>/filter<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>/filters<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/configuration<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>executions<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>execution<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>phase<span class="ni">&amp;gt;</span>package<span class="ni">&amp;lt;</span>/phase<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>goals<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>goal<span class="ni">&amp;gt;</span>shade<span class="ni">&amp;lt;</span>/goal<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>/goals<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>configuration<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>transformers<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ServicesResourceTransformer&quot;/<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>                        <span class="ni">&amp;lt;</span>mainClass<span class="ni">&amp;gt;</span>se.yobriefca.TodoService<span class="ni">&amp;lt;</span>/mainClass<span class="ni">&amp;gt;</span>
+</span><span class='line'>                    <span class="ni">&amp;lt;</span>/transformer<span class="ni">&amp;gt;</span>
+</span><span class='line'>                <span class="ni">&amp;lt;</span>/transformers<span class="ni">&amp;gt;</span>
+</span><span class='line'>            <span class="ni">&amp;lt;</span>/configuration<span class="ni">&amp;gt;</span>
+</span><span class='line'>        <span class="ni">&amp;lt;</span>/execution<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/executions<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/plugin<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>Configuration</h3>
 
 <p>Dropwizard has the ability to map configuration options (from a YML or JSON file) into concrete classes that can be accessed by your services.  So first I created a todo.yml at the root of the project (beside the pom.xml) with some basic configuration</p>
 
-<p>{%codeblock lang:xml%}
-http:</p>
-
-<pre><code>rootPath: "/app/*"
-</code></pre>
-
-<p>{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>http:<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>rootPath: &quot;/app/*&quot;
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This configuration tells Dropwizard that my services are located at a url starting with  <code>/app</code> - eg <code>/app/todo</code>.  This is necessary as I want to create an asset later that maps to the root url <code>/</code> that is the default of Dropwizard.  At this point I haven't needed any of my own configuration but if I did I could create a POJO that maps to proeprties in this file.  The <a href="http://dropwizard.codahale.com/getting-started/#creating-a-configuration-class">official guide</a> has more on this.  For now I will create an empty <code>Configuration</code> class in case I want to extend it later (yeah I know YAGNI YAGNI KISS YAGNI - shutuppayourface!)</p>
 
-<p>{%codeblock lang:java%}
-package se.yobriefca;</p>
-
-<p>import com.yammer.dropwizard.config.Configuration;</p>
-
-<p>public class TodoConfiguration extends Configuration {
-}
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">se</span><span class="o">.</span><span class="na">yobriefca</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.config.Configuration</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoConfiguration</span> <span class="kd">extends</span> <span class="n">Configuration</span> <span class="o">{</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>Service</h3>
 
 <p>The service is the core class in our solution.  It's the thing that has the <code>main</code> as an entry point.  The thing that "set us up the resouces" and registers healthchecks and controls our service lifecycle.  You'd think there would be loads of code here?  Right?  Wrong!</p>
 
-<p>{%codeblock lang:java%}
-package se.yobriefca;</p>
-
-<p>import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.bundles.AssetsBundle;
-import com.yammer.dropwizard.config.Environment;
-import se.yobriefca.resources.TodoResource;</p>
-
-<p>public class TodoService extends Service<TodoConfiguration> {</p>
-
-<pre><code>public static void main(String[] args) throws Exception {
-    new TodoService().run(args);
-}
-
-private TodoService() {
-    super("todo");
-
-    addBundle(new AssetsBundle("/assets", "/"));
-    addBundle(new AssetsBundle("/public", "/public/"));
-}
-
-@Override
-protected void initialize(TodoConfiguration configuration, Environment environment) {
-    environment.addResource(new TodoResource());
-}
-</code></pre>
-
-<p>}
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">se</span><span class="o">.</span><span class="na">yobriefca</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.Service</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.bundles.AssetsBundle</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.yammer.dropwizard.config.Environment</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">se.yobriefca.resources.TodoResource</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoService</span> <span class="kd">extends</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">TodoConfiguration</span><span class="o">&gt;</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nf">TodoService</span><span class="o">().</span><span class="na">run</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="nf">TodoService</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">super</span><span class="o">(</span><span class="s">&quot;todo&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">addBundle</span><span class="o">(</span><span class="k">new</span> <span class="n">AssetsBundle</span><span class="o">(</span><span class="s">&quot;/assets&quot;</span><span class="o">,</span> <span class="s">&quot;/&quot;</span><span class="o">));</span>
+</span><span class='line'>    <span class="n">addBundle</span><span class="o">(</span><span class="k">new</span> <span class="n">AssetsBundle</span><span class="o">(</span><span class="s">&quot;/public&quot;</span><span class="o">,</span> <span class="s">&quot;/public/&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">TodoConfiguration</span> <span class="n">configuration</span><span class="o">,</span> <span class="n">Environment</span> <span class="n">environment</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">environment</span><span class="o">.</span><span class="na">addResource</span><span class="o">(</span><span class="k">new</span> <span class="n">TodoResource</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>So all services extend <code>Service</code> and have a <code>Configuration</code> type (FYI these config types can be nested so its not as restrictive as I first thought).  Basically what we have is a <code>main</code> method that create an instance of our service and runs it.  Upon creation we add two bundles to the service.  A bundle is bascially a bit of functionality and in this case we create two <code>AssetBundles</code> which can be used to serve static content (embedded resources) upon request to a specific URL (think things like CSS, JavaScript, HTML etc.)  You'll notice I am mapping 2 things bundles here and this is because I need to map to the WebJars directroy as well.  So when I got to <code>localhost/index.html</code> it will match the url pattern in the first AssetsBundle and look for a file <code>src/main/resources/assets/index.html</code>.</p>
 
@@ -187,47 +294,85 @@ protected void initialize(TodoConfiguration configuration, Environment environme
 
 <p>Resources are resources as they are identified in ReSTy things.  For example a <code>User</code> is a resource or an <code>Order</code> etc.  These things will respond to HTTP requests matched against the URL and the HTTP Method used.  In my example I have defined a resource <code>Todo</code> that can be used to list, create and delete (I didn't need anything else for this).</p>
 
-<p>{%codeblock lang:java%}
-@Path("/todos")
-@Produces(MediaType.APPLICATION_JSON)
-public class TodoResource {</p>
-
-<pre><code>private static final ArrayList&lt;Todo&gt; todos = Lists.newArrayList();
-
-@GET
-public Collection&lt;Todo&gt; list() {
-    return todos;
-}
-
-@POST
-public Todo add(@Valid Todo todo){
-    todos.add(todo);
-    return todo;
-}
-
-@DELETE
-@Path("/{id}")
-public Todo delete(@PathParam("id") final LongParam id){
-    Todo todo = null;
-    List&lt;Todo&gt; todoCopy = Lists.newArrayList(todos);
-
-    todos.clear();
-
-    // loop past all items in the list and replace the changed one
-    for (Todo element: todoCopy) {
-        if(element.getId() != id.get()){
-            todos.add(element);
-        }else{
-            todo = element;
-        }
-    }
-
-    return todo;
-}
-</code></pre>
-
-<p>}
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Path</span><span class="o">(</span><span class="s">&quot;/todos&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoResource</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">ArrayList</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">Todo</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">todos</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@GET</span>
+</span><span class='line'><span class="kd">public</span> <span class="n">Collection</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">Todo</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">list</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">todos</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@POST</span>
+</span><span class='line'><span class="kd">public</span> <span class="n">Todo</span> <span class="nf">add</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Todo</span> <span class="n">todo</span><span class="o">){</span>
+</span><span class='line'>    <span class="n">todos</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">todo</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">todo</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@DELETE</span>
+</span><span class='line'><span class="nd">@Path</span><span class="o">(</span><span class="s">&quot;/{id}&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="n">Todo</span> <span class="nf">delete</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)</span> <span class="kd">final</span> <span class="n">LongParam</span> <span class="n">id</span><span class="o">){</span>
+</span><span class='line'>    <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">List</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">Todo</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">todoCopy</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span><span class="n">todos</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">todos</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// loop past all items in the list and replace the changed one</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">Todo</span> <span class="nl">element:</span> <span class="n">todoCopy</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span><span class="o">(</span><span class="n">element</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">!=</span> <span class="n">id</span><span class="o">.</span><span class="na">get</span><span class="o">()){</span>
+</span><span class='line'>            <span class="n">todos</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class='line'>            <span class="n">todo</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">todo</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Again not a great deal of code and what code that is there is fairly straightforward - some would say boilerplate.  We use annotations to map our HTTP Methods <code>@GET</code>, <code>@POST</code> and <code>@DELETE</code> as well as a <code>@Path(...)</code> annotation to specify what url this resource resonds to.  Another nice feature we can see annotated here is we get both validation (via the @Valid annotation which is based on Hibernates Validation framework) and JSON model binding via Jackson and model annotations (get to that in a minute).</p>
 
@@ -237,36 +382,63 @@ public Todo delete(@PathParam("id") final LongParam id){
 
 <p>The model is, bar all the annotations to enable serialisation, fairly POJO-like,</p>
 
-<p>{%codeblock lang:java%}
-public class Todo {</p>
-
-<pre><code>// Not So Universally Unique!
-private static final AtomicLong NSUUID = new AtomicLong();
-
-@JsonProperty
-private final Long id;
-
-@NotEmpty
-@JsonProperty
-private final String content;
-
-@JsonCreator
-public Todo(@JsonProperty("content") String content) {
-    this.id = NSUUID.incrementAndGet();
-    this.content = content;
-}
-
-public String getContent() {
-    return content;
-}
-
-public Long getId(){
-    return id;
-}
-</code></pre>
-
-<p>}
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Todo</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// Not So Universally Unique!</span>
+</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">AtomicLong</span> <span class="n">NSUUID</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicLong</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@JsonProperty</span>
+</span><span class='line'><span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@NotEmpty</span>
+</span><span class='line'><span class="nd">@JsonProperty</span>
+</span><span class='line'><span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@JsonCreator</span>
+</span><span class='line'><span class="kd">public</span> <span class="nf">Todo</span><span class="o">(</span><span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">&quot;content&quot;</span><span class="o">)</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">NSUUID</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>I've put this in more for completeness as there is little involved in this.</p>
 
@@ -274,84 +446,152 @@ public Long getId(){
 
 <p>I am not going to create some elaborate over architected front end here - just a few lines of JavaScript (ignoring the rather large jQuery library included of course) and not styling.</p>
 
-<p>{%codeblock lang:html%}
-&lt;!DOCTYPE html>
-<html>
-  <head></p>
-
-<pre><code>&lt;title&gt;Demo&lt;/title&gt;
-</code></pre>
-
-<p>  </head>
-  <body></p>
-
-<pre><code>&lt;div&gt;
-  &lt;input type="text" id="task" /&gt; &lt;button id="addTask"&gt;Add Task&lt;/button&gt;
-&lt;/div&gt;
-&lt;ul id="todos"&gt;&lt;/ul&gt;
-&lt;script type='text/javascript' src='http://yobriefca.se/public/jquery.min.js'&gt;&lt;/script&gt;
-&lt;script&gt;
-  $(function(){
-    // load and replace the list
-    $.getJSON("/app/todos", function(todos){
-      for(var i = 0; i &lt; todos.length; i++){
-        $("#todos").append(
-          "&lt;li&gt;&lt;input type='checkbox' data-id='" + todos[i].id +"'/&gt;" +
-            todos[i].content +
-          "&lt;/li&gt;"
-        )
-      }
-    });
-
-    // manage adding a new task
-    $("#addTask").click(function(){
-      $.ajax({
-        url:         "/app/todos",
-        type:        "POST",
-        data:        JSON.stringify({ content: $("#task").val() }),
-        contentType: "application/json; charset=utf-8",
-        dataType:    "json",
-        success:     function(data, textStatus, jqXHR){
-          $("#todos").append(
-            "&lt;li&gt;&lt;input type='checkbox' data-id='" + data.id +"'/&gt;" +
-              data.content +
-            "&lt;/li&gt;"
-          )
-        }
-      })
-    })
-
-    $("#todos").delegate("input[type=checkbox]", "click", function(){
-      var chk  = $(this),
-      item = chk.parent("li"),
-      id   = chk.data("id");
-
-      $.ajax({
-        url:         "/app/todos/" + id,
-        type:        "DELETE",
-        contentType: "application/json; charset=utf-8",
-        dataType:    "json",
-        success:     function(data, textStatus, jqXHR){
-          if(data.id === id){
-            item.css({"text-decoration": "line-through"});
-            chk.remove();
-          }
-        }
-      })
-    })
-  })
-&lt;/script&gt;
-</code></pre>
-
-<p>  </body>
-</html>
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Demo<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>input type=&quot;text&quot; id=&quot;task&quot; /<span class="ni">&amp;gt;</span> <span class="ni">&amp;lt;</span>button id=&quot;addTask&quot;<span class="ni">&amp;gt;</span>Add Task<span class="ni">&amp;lt;</span>/button<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>ul id=&quot;todos&quot;<span class="ni">&amp;gt;&amp;lt;</span>/ul<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script type=&#39;text/javascript&#39; src=&#39;http://yobriefca.se/public/jquery.min.js&#39;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>
+</span><span class='line'>  $(function(){
+</span><span class='line'>    // load and replace the list
+</span><span class='line'>    $.getJSON(&quot;/app/todos&quot;, function(todos){
+</span><span class='line'>      for(var i = 0; i <span class="ni">&amp;lt;</span> todos.length; i++){
+</span><span class='line'>        $(&quot;#todos&quot;).append(
+</span><span class='line'>          &quot;<span class="ni">&amp;lt;</span>li<span class="ni">&amp;gt;&amp;lt;</span>input type=&#39;checkbox&#39; data-id=&#39;&quot; + todos[i].id +&quot;&#39;/<span class="ni">&amp;gt;</span>&quot; +
+</span><span class='line'>            todos[i].content +
+</span><span class='line'>          &quot;<span class="ni">&amp;lt;</span>/li<span class="ni">&amp;gt;</span>&quot;
+</span><span class='line'>        )
+</span><span class='line'>      }
+</span><span class='line'>    });
+</span><span class='line'>
+</span><span class='line'>    // manage adding a new task
+</span><span class='line'>    $(&quot;#addTask&quot;).click(function(){
+</span><span class='line'>      $.ajax({
+</span><span class='line'>        url:         &quot;/app/todos&quot;,
+</span><span class='line'>        type:        &quot;POST&quot;,
+</span><span class='line'>        data:        JSON.stringify({ content: $(&quot;#task&quot;).val() }),
+</span><span class='line'>        contentType: &quot;application/json; charset=utf-8&quot;,
+</span><span class='line'>        dataType:    &quot;json&quot;,
+</span><span class='line'>        success:     function(data, textStatus, jqXHR){
+</span><span class='line'>          $(&quot;#todos&quot;).append(
+</span><span class='line'>            &quot;<span class="ni">&amp;lt;</span>li<span class="ni">&amp;gt;&amp;lt;</span>input type=&#39;checkbox&#39; data-id=&#39;&quot; + data.id +&quot;&#39;/<span class="ni">&amp;gt;</span>&quot; +
+</span><span class='line'>              data.content +
+</span><span class='line'>            &quot;<span class="ni">&amp;lt;</span>/li<span class="ni">&amp;gt;</span>&quot;
+</span><span class='line'>          )
+</span><span class='line'>        }
+</span><span class='line'>      })
+</span><span class='line'>    })
+</span><span class='line'>
+</span><span class='line'>    $(&quot;#todos&quot;).delegate(&quot;input[type=checkbox]&quot;, &quot;click&quot;, function(){
+</span><span class='line'>      var chk  = $(this),
+</span><span class='line'>      item = chk.parent(&quot;li&quot;),
+</span><span class='line'>      id   = chk.data(&quot;id&quot;);
+</span><span class='line'>
+</span><span class='line'>      $.ajax({
+</span><span class='line'>        url:         &quot;/app/todos/&quot; + id,
+</span><span class='line'>        type:        &quot;DELETE&quot;,
+</span><span class='line'>        contentType: &quot;application/json; charset=utf-8&quot;,
+</span><span class='line'>        dataType:    &quot;json&quot;,
+</span><span class='line'>        success:     function(data, textStatus, jqXHR){
+</span><span class='line'>          if(data.id === id){
+</span><span class='line'>            item.css({&quot;text-decoration&quot;: &quot;line-through&quot;});
+</span><span class='line'>            chk.remove();
+</span><span class='line'>          }
+</span><span class='line'>        }
+</span><span class='line'>      })
+</span><span class='line'>    })
+</span><span class='line'>  })
+</span><span class='line'><span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>And thats it.  Oh wait I also added a boot command that peforms the maven packing and starts the jar.</p>
 
-<p>{%codeblock%}
-mvn package;java -jar target/todo-0.1.jar server todo.yml
-{%endcodeblock%}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mvn package;java -jar target/todo-0.1.jar server todo.yml</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Just run <code>./boot</code> (assuming you've chmod'd the file to be executable) and you'll have, assuming I (or you) haven't made any mistakes, a Todo service running on port 8080 (with admin/diagnostics stuff on port 8081).</p>
 
@@ -383,33 +623,57 @@ mvn package;java -jar target/todo-0.1.jar server todo.yml
 
 <p>A Spark app simply uses <code>main</code> as an entry point.  Within the method you can call certain methods to set up routes and filters and whatnots that your app will respond to.  For example</p>
 
-<p>{% codeblock lang:java %}
-import static spark.Spark.<em>;
-import spark.</em>;
-import java.io.*;</p>
-
-<p>public class App {</p>
-
-<p>  public static void main(String[] args)  {</p>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">spark</span><span class="o">.</span><span class="na">Spark</span><span class="o">.&lt;</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">spark.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Standard Java stuff here, bringing in some of the necessary <code>spark</code> resources,</p>
 
-<p>{% codeblock lang:java %}</p>
-
-<pre><code>before(new Filter("/") {
-  @Override
-  public void handle(Request request, Response response) {
-    boolean authenticated = request.queryParams("password").equals("secret");
-    if(!authenticated){
-      halt(403, "Incorrect password, hacker alert, hacker alert!!!!");
-    }
-  }
-});
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">before</span><span class="o">(</span><span class="k">new</span> <span class="n">Filter</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">boolean</span> <span class="n">authenticated</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;password&quot;</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;secret&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(!</span><span class="n">authenticated</span><span class="o">){</span>
+</span><span class='line'>      <span class="n">halt</span><span class="o">(</span><span class="mi">403</span><span class="o">,</span> <span class="s">&quot;Incorrect password, hacker alert, hacker alert!!!!&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Spark allows us to define filters that run before and after requests.  It is also possbile to restrict them to certain routes or simply catch all routes - for example my filter only matches the "/" route.  A couple of other things are worth mentioning here,</p>
 
@@ -419,35 +683,63 @@ import java.io.*;</p>
 </ol>
 
 
-<p>{% codeblock lang:java %}</p>
-
-<pre><code>get(new Route("/") {
-  @Override
-  public Object handle(Request request, Response response) {
-
-    // extract the name from the request
-    String name = request.queryParams("name");
-
-    // set the response type
-    response.type("text/html");
-
-    // return some html
-    return "" +
-      "&lt;DOCTYPE html&gt;" +
-      "&lt;html&gt;" +
-      "  &lt;head&gt;" +
-      "  &lt;/head&gt;" +
-      "  &lt;body&gt;" +
-      "    &lt;h1&gt;Hello " + name + ", Spark here.  Howrya?&lt;/h1&gt;" +
-      "  &lt;/body&gt;" +
-      "&lt;/html&gt;";
-  }
-});
-</code></pre>
-
-<p>  }
-}
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get</span><span class="o">(</span><span class="k">new</span> <span class="n">Route</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Override</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// extract the name from the request</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">queryParams</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// set the response type</span>
+</span><span class='line'>    <span class="n">response</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// return some html</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;DOCTYPE html&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;html&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;head&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;/head&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;body&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;    &amp;lt;h1&amp;gt;Hello &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, Spark here.  Howrya?&amp;lt;/h1&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;  &amp;lt;/body&amp;gt;&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="s">&quot;&amp;lt;/html&amp;gt;&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Finally I am defining a route ("/") that responds to the GET verb and introspects the query parameters returning a very complex view.  Routes can also be parameterized (<code>/user/:name</code> for example). Even given the slightly verbose nature of Java syntax this example seems clean enough (albeit a rather simple example).</p>
 
@@ -455,13 +747,17 @@ import java.io.*;</p>
 
 <p>For the curious among you (you got this far so you must be slightly curious... and rather odd) the SBT file required to get this bad boy running is nice and simple,</p>
 
-<p>{% codeblock lang:scala %}
-resolvers += "Spark Repository" at "http://www.sparkjava.com/nexus/content/repositories/spark/"</p>
-
-<p>libraryDependencies ++= Seq(
-  "spark" % "spark"  % "0.9.9.3-SNAPSHOT" exclude("org.apache.commons", "commons-io")
-)
-{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">resolvers</span> <span class="o">+=</span> <span class="s">&quot;Spark Repository&quot;</span> <span class="n">at</span> <span class="s">&quot;http://www.sparkjava.com/nexus/content/repositories/spark/&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="s">&quot;spark&quot;</span> <span class="o">%</span> <span class="s">&quot;spark&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.9.9.3-SNAPSHOT&quot;</span> <span class="n">exclude</span><span class="o">(</span><span class="s">&quot;org.apache.commons&quot;</span><span class="o">,</span> <span class="s">&quot;commons-io&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>A quick <code>sbt run</code> command and we are running a standalone Spark app (powered by an embedded Jetty server).  Aces.</p>
 

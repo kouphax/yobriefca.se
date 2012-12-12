@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Neo4J | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/neo4j/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:52:05+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Neo4J Talk: Using Graphs to Analyse Public Spending on International Development]]></title>
+    <link href="http://yobriefca.se/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development/"/>
+    <updated>2012-12-12T11:38:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development</id>
+    <content type="html"><![CDATA[<p>Better late than ever, right?  So a few weeks ago I presented a bit of a case study on my use of Neo4J in a UK government project focused on increasing transparency around how the UK disburses foreign aid.  This post is a collection of all the useful resources mentioned in the talk.</p>
+
+<ul>
+<li><a href="https://speakerdeck.com/kouphax/neo4j-a-case-study">Slides on SpeakerDeck</a></li>
+<li><a href="http://skillsmatter.com/podcast/nosql/using-graphs-to-analyse-public-spending-on-international-development">Video on Skills Matter</a></li>
+</ul>
+
+
+<p>Plenty of acronyms were thrown about and here are the useful links to some of the key ones.</p>
+
+<ul>
+<li><a href="http://digital.cabinetoffice.gov.uk/category/gds/">GDS (Government Digital Service)</a></li>
+<li><a href="http://www.dfid.gov.uk/">DFID (Department for International Development)</a></li>
+<li>IATI (International Aid Transparency Initiative) - <a href="http://iatiregistry.org/">Registry</a> and <a href="iatistandard.org">Standard</a></li>
+<li>OIPA (Open IATI Parser and API) - <a href="http://oipa.openaidsearch.org/api/v2/">Open Aid Site</a> and <a href="https://github.com/openaid-IATI/OIPA-V2">Source</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Neo4J Talk in November]]></title>

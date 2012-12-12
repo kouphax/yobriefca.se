@@ -4,7 +4,7 @@
   <title><![CDATA[Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/feed/index.html" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:52:05+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,68 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Neo4J Talk: Using Graphs to Analyse Public Spending on International Development]]></title>
+    <link href="http://yobriefca.se/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development/"/>
+    <updated>2012-12-12T11:38:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/12/12/neo4j-talk-using-graphs-to-analyse-public-spending-on-international-development</id>
+    <content type="html"><![CDATA[<p>Better late than ever, right?  So a few weeks ago I presented a bit of a case study on my use of Neo4J in a UK government project focused on increasing transparency around how the UK disburses foreign aid.  This post is a collection of all the useful resources mentioned in the talk.</p>
+
+<ul>
+<li><a href="https://speakerdeck.com/kouphax/neo4j-a-case-study">Slides on SpeakerDeck</a></li>
+<li><a href="http://skillsmatter.com/podcast/nosql/using-graphs-to-analyse-public-spending-on-international-development">Video on Skills Matter</a></li>
+</ul>
+
+
+<p>Plenty of acronyms were thrown about and here are the useful links to some of the key ones.</p>
+
+<ul>
+<li><a href="http://digital.cabinetoffice.gov.uk/category/gds/">GDS (Government Digital Service)</a></li>
+<li><a href="http://www.dfid.gov.uk/">DFID (Department for International Development)</a></li>
+<li>IATI (International Aid Transparency Initiative) - <a href="http://iatiregistry.org/">Registry</a> and <a href="iatistandard.org">Standard</a></li>
+<li>OIPA (Open IATI Parser and API) - <a href="http://oipa.openaidsearch.org/api/v2/">Open Aid Site</a> and <a href="https://github.com/openaid-IATI/OIPA-V2">Source</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vertical vs Horizontal Thinking]]></title>
+    <link href="http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/"/>
+    <updated>2012-11-17T22:48:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking</id>
+    <content type="html"><![CDATA[<p>I&#8217;m not quite sure were this ramble is going to lead, it&#8217;s been a while since I&#8217;ve felt like writing something that hasn&#8217;t been clearly defined by my half conscious brain but lets take the journey anyway shall we?</p>
+
+<p>This is going to be loosely related to agility, not necessarily the &#8220;agile method or process&#8221; but more simply about adapting to change and embracing transparency in a software project.  More often than not this can be simply referred to as &#8220;common sense&#8221; and it&#8217;s a great thing.</p>
+
+<p>But I digress,</p>
+
+<p>In a vertical world you deliver features by implementing vertical spikes through each layer of the system architecture.  It doesn&#8217;t have to be right, but it does need to be good enough for now.  Sure it may not deliver the best user experience or maybe there are more HTTP requests or database calls than necessary but it&#8217;s useable.  Its shippable.</p>
+
+<p>In the horizontal world layers of the architecture are tackled by (possibly pseudo) specialists and delivered en masse.  This is very typical of the Big Design Upfront, Plan Based, Waterfall approach to delivery but its visible in a lot of projects in various guises and it&#8217;s rather natural to many people.</p>
+
+<p>Now, on the surface, getting specialists to deliver what they know best and then smash them altogether actually sounds great.  You know your DB person is going to produce a wonderful hyper-normalised schema for you, your UI/UX person will deliver a gorgeous mockup of the site and your middle layer app people will deliver the best truly ReSTful service layer known to man.  But then you spend an insane amount of time (or many many little periods of time) doing the actual integration and making this vision a reality.  The testing, the regressions, the edge cases the performance hits and sacrifices through integrating perfect works of horizontal art.  Best case you get it done eventually, worst case someone else gets it done by layering hack upon hack at integration points just to get it working.</p>
+
+<p>Now imagine your DB person gets eaten by a badger, or your UI person decides they&#8217;ve had enough and goes to live in a free-love commune and drink the spiked kool-aid?  I&#8217;ve overly dramatised the <a href="http://en.wikipedia.org/wiki/Bus_factor">Bus Factor</a> here but the point is still made.  You&#8217;ve lost siloed knowledge forever and you need to spend time building it up again, and time and quality slip.</p>
+
+<p>Finally - projects that deliver horizontally are, more often than not, projects that have limited customer/stakeholder visibility.  Sometimes even less for end-users.  So delivering a mockup of the UI and a DB schema that can be exported as a nice UML diagram is enough to satisfy people that work is on-going and going well.  Even if it isn&#8217;t.  It&#8217;s not a lie but it is a false impression, and it&#8217;s an impression that doesn&#8217;t work for long especially if you have shorter release cycles with ongoing customer interaction.  A page of beautiful buttons that don&#8217;t do anything will create an impression that you are nearly done and can easily generate disappointment at subsequent demos.  Is it worth it?</p>
+
+<p>Don&#8217;t get me wrong it is very possible to successfully deliver software in this manner, on time and on budget but so many things must fall into place and all the stars must be aligned that it&#8217;s a rather big risk, but a risk that people seem to ignore.</p>
+
+<p>So I&#8217;m saying vertical is better and there are many reasons for that and I&#8217;ll touch on some of them here but there is one very fundamental reason it&#8217;s better.  Working and thinking vertically allows you to create a shippable product early.  It&#8217;s not all done, far from it.  It probably looks like ass as well but still it&#8217;s usable enough to get the job done, right?  Imagine using a new product that looked amazing but only had 3 working features and the rest of the buttons and knobs didn&#8217;t do anything.  Wow factor is for kids and sales men.</p>
+
+<p>Why else is vertical thinking better?</p>
+
+<p>For one everyone on the team works across all layers of the solution.  You don&#8217;t have huge silos of knowledge contained in a single brain of some crazy bus magnet.  Sure you may involve specialists to ensure you&#8217;re not doing it totally wrong but at least you&#8217;d be working WITH them and picking up parts of the vast knowledge they may have.</p>
+
+<p>By delivering something &#8220;good enough for now&#8221; you actually reduce waste.  True you may re-write a few things to get it right but you haven&#8217;t spent hours crafting perfection only to tear it apart.  Even better the first iteration may make users realise - &#8220;Actually you know what?  That super whizzy button thing - we don&#8217;t need it&#8221;.  Waterfall attempts to &#8220;manage change&#8221; because change in waterfall is scary expensive.  Embrace it early and often and it much less costly.</p>
+
+<p>Finally, the solution evolves rather than being dragged into existence from a 189 page document of business rules and textual assumptions.  This allows you to experiment and try things, throw them away or discover a better way of doing things.  You can adapt the solution at anytime to suit the changing nature of the environment it lives in.</p>
+
+<p>Vertical thinking is a proven pattern in many other aspects of the software world.  TDD for example. Rather than writing reams of code and testing it manually later, you create a solution bit by bit and adapt it fearlessly as you go.  UI designers never just bang out one design and leave it there.  Smaller feedback loops are essential to flow and success and vertical thinking gives you this.  Break the habit of wowing people and replace it with the habit of delivering - it&#8217;s a better, longer lasting feeling of win.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Technology Techsmology]]></title>
@@ -22,7 +84,7 @@
 
 <blockquote><p>Projects don&#8217;t fail because of technology decisions</p></blockquote>
 
-<p>The younger me would have got defensive when they heard this statement.  As a developer/architect type whose main goal is to make key technology decisions on a project and also as a person who considers themselves a craftsman (yes, yes overly grandiose but still, we all dream of importance) this does seem rather belittling.  Are you telling me all my decisions are fairly irrelevant?  I&#8217;ll just stay in bed then shall I?</p>
+<p>The younger me would have got all uppity and defensive when he heard this statement.  As a developer/architect type whose main goal is to make key technology decisions on a project (not to mention as a person who likes to grandiously consider themselves a craftsman) this does seem rather belittling.  Are you telling me all my decisions are fairly irrelevant?  I&#8217;ll just stay in bed then shall I?</p>
 
 <p>But you know what?  The statement is also completely true.</p>
 
@@ -32,9 +94,11 @@
 
 <p>Technology decisions can indirectly ruin the morale of your staff, muddy the relationship with your customers and generate really high turnover of staff in your company (which may be a good fit for some companies but you can never foster excellence if you don&#8217;t nurture talent).</p>
 
-<p>This statement can also be used as a weapon.  A weapon to mask bad decisions and hold back change.  People cling to technologies that they used in the past, for fear of more pain with other technologies.  They shoehorn their existing skillset into problem domains that aren&#8217;t a good fit.  When this happens, at the extreme you end up with specialists that simply can&#8217;t adapt to shifts in technology fast enough.</p>
+<p>This statement can also be used as a weapon - a weapon to excuse bad decisions and hold back change (both good and bad, in short it stiffles learning).  People cling to technologies that they used in the past, for fear of more pain with other technologies.  They shoehorn their existing skillset into problem domains that aren&#8217;t a good fit.  When this happens, at the extreme you end up with specialists that simply can&#8217;t adapt to shifts in technology fast enough.</p>
 
-<p>So yeah, projects don&#8217;t fail because of technology decisions.  But you know what - if your dentist turned round to you with an evil grin and a rusty chisel and <a href="http://en.wikipedia.org/wiki/Law_of_the_instrument">Maslow&#8217;s Hammer</a> citing - &#8220;No surgery ever went wrong because of a lack of anesthetic&#8221; - you&#8217;re not likely going to get in to that chair and open wide.  And even if you did (maybe, you&#8217;re drunk, maybe people keep telling you this dentist is the best, whatever) the experience would be painful, recovery time would be longer and subsequent treatments would probably be more painful.  A rather shambling metaphor I admit but my finger write what my brain decides - I have not choice in the matter.</p>
+<p>So yeah, projects don&#8217;t fail because of technology decisions.  But you know what - if your dentist turned round to you with an evil grin and a rusty chisel and <a href="http://en.wikipedia.org/wiki/Law_of_the_instrument">Maslow&#8217;s Hammer</a> citing - &#8220;No surgery ever went wrong because of a lack of anesthetic&#8221; - you&#8217;re not likely to get in to that chair and open wide.  And even if you did (maybe, you&#8217;re drunk, maybe people keep telling you this dentist is the best, whatever) the experience would be painful, recovery time would be longer and subsequent treatments would probably be more painful.  A rather shambling metaphor I admit but I write what my brain dictates - I have not choice in the matter.</p>
+
+<p>Finally, I fully accept that many of these decisions are out of our control.  Customers, especially big ones, generally have the final say, they&#8217;ve potentially invested a lot of time on a certain stack and have a lot of legacy (read: code that still works) solutions in play.  True, but one of our goals is to at least inform these people of the alternatives and let them make an informed decision - maybe not today but soon enough the cost of developing and maintaining new systems built on out-of-support JDKs will come under scrutiny and they&#8217;ll need to consider alternatives, alternatives that you&#8217;ve already enlightened them about.</p>
 ]]></content>
   </entry>
   
@@ -1803,46 +1867,6 @@ git commit -m "Boring commit message"
 <p>And the output will be along the lines of &#8220;29-01-2013&#8221; or whatever the date was.</p>
 
 <p>OK so neither of these are ground breaking or earth shattering (wait they mean the same thing really dont they???) but they are neat to enough to warrant a shout-out here.  Anyone else have any little nuggets in Play 2 they want to share?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[.NET on a Diet]]></title>
-    <link href="http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet/"/>
-    <updated>2012-06-07T21:40:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/06/07/dot-net-on-a-diet</id>
-    <content type="html"><![CDATA[<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4fd0fb8d3bb27c001f0309b7" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-<h2>Description</h2>
-
-<p>There are plenty of framework options in .NET. We have the big mainstream web frameworks like ASP.NET WebForms and MVC, the ORM abstractions and DataMappers in the form of Entity Framework, NHibernate and iBatis and services such as WCF requiring large amounts of careful configuration to get right. Unfortunately these frameworks can get in the way, abstractions breakdown and leak and eventually we end up fighting against the frameworks limitations.</p>
-
-<p>This session will take a look at the feature-fit lightweight alternatives and how they can be used to compose a technology stack that is cruft-free and fit for purpose.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Monotouch: C# + iOS = Good Times]]></title>
-    <link href="http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times/"/>
-    <updated>2012-06-07T21:38:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/06/07/monotouch-c-number-plus-ios-equals-good-times</id>
-    <content type="html"><![CDATA[<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4fd0fb533bb27c0022030674" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-<h2>Code</h2>
-
-<p><a href="https://github.com/kouphax/monotouch-samples-ndc2012">https://github.com/kouphax/monotouch-samples-ndc2012</a></p>
-
-<h2>Description</h2>
-
-<p>MonoTouch allows you to harness all those C# skills and most of those handy .NET/Mono libraries to create truly native apps for iOS with a sprinkle of cross-platform support. But why not just use objective-c you cry? Choice is nice, so is C# and so is the range of libraries available for mono!</p>
-
-<p>In this talk I will dive in to what makes MonoTouch so compelling for .NET developers wanting to break into iOS development and even how these skills can be harnessed to create cross platform native applications for iOS, Android and WP7 through a shared codebase.</p>
 ]]></content>
   </entry>
   

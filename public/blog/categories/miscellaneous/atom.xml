@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-11-05T08:53:00+00:00</updated>
+  <updated>2012-12-12T14:43:29+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vertical vs Horizontal Thinking]]></title>
+    <link href="http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking/"/>
+    <updated>2012-11-17T22:48:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/11/17/vertical-vs-horizontal-thinking</id>
+    <content type="html"><![CDATA[<p>I'm not quite sure were this ramble is going to lead, it's been a while since I've felt like writing something that hasn't been clearly defined by my half conscious brain but lets take the journey anyway shall we?</p>
+
+<p>This is going to be loosely related to agility, not necessarily the "agile method or process" but more simply about adapting to change and embracing transparency in a software project.  More often than not this can be simply referred to as "common sense" and it's a great thing.</p>
+
+<p>But I digress,</p>
+
+<p>In a vertical world you deliver features by implementing vertical spikes through each layer of the system architecture.  It doesn't have to be right, but it does need to be good enough for now.  Sure it may not deliver the best user experience or maybe there are more HTTP requests or database calls than necessary but it's useable.  Its shippable.</p>
+
+<p>In the horizontal world layers of the architecture are tackled by (possibly pseudo) specialists and delivered en masse.  This is very typical of the Big Design Upfront, Plan Based, Waterfall approach to delivery but its visible in a lot of projects in various guises and it's rather natural to many people.</p>
+
+<p>Now, on the surface, getting specialists to deliver what they know best and then smash them altogether actually sounds great.  You know your DB person is going to produce a wonderful hyper-normalised schema for you, your UI/UX person will deliver a gorgeous mockup of the site and your middle layer app people will deliver the best truly ReSTful service layer known to man.  But then you spend an insane amount of time (or many many little periods of time) doing the actual integration and making this vision a reality.  The testing, the regressions, the edge cases the performance hits and sacrifices through integrating perfect works of horizontal art.  Best case you get it done eventually, worst case someone else gets it done by layering hack upon hack at integration points just to get it working.</p>
+
+<p>Now imagine your DB person gets eaten by a badger, or your UI person decides they've had enough and goes to live in a free-love commune and drink the spiked kool-aid?  I've overly dramatised the <a href="http://en.wikipedia.org/wiki/Bus_factor">Bus Factor</a> here but the point is still made.  You've lost siloed knowledge forever and you need to spend time building it up again, and time and quality slip.</p>
+
+<p>Finally - projects that deliver horizontally are, more often than not, projects that have limited customer/stakeholder visibility.  Sometimes even less for end-users.  So delivering a mockup of the UI and a DB schema that can be exported as a nice UML diagram is enough to satisfy people that work is on-going and going well.  Even if it isn't.  It's not a lie but it is a false impression, and it's an impression that doesn't work for long especially if you have shorter release cycles with ongoing customer interaction.  A page of beautiful buttons that don't do anything will create an impression that you are nearly done and can easily generate disappointment at subsequent demos.  Is it worth it?</p>
+
+<p>Don't get me wrong it is very possible to successfully deliver software in this manner, on time and on budget but so many things must fall into place and all the stars must be aligned that it's a rather big risk, but a risk that people seem to ignore.</p>
+
+<p>So I'm saying vertical is better and there are many reasons for that and I'll touch on some of them here but there is one very fundamental reason it's better.  Working and thinking vertically allows you to create a shippable product early.  It's not all done, far from it.  It probably looks like ass as well but still it's usable enough to get the job done, right?  Imagine using a new product that looked amazing but only had 3 working features and the rest of the buttons and knobs didn't do anything.  Wow factor is for kids and sales men.</p>
+
+<p>Why else is vertical thinking better?</p>
+
+<p>For one everyone on the team works across all layers of the solution.  You don't have huge silos of knowledge contained in a single brain of some crazy bus magnet.  Sure you may involve specialists to ensure you're not doing it totally wrong but at least you'd be working WITH them and picking up parts of the vast knowledge they may have.</p>
+
+<p>By delivering something "good enough for now" you actually reduce waste.  True you may re-write a few things to get it right but you haven't spent hours crafting perfection only to tear it apart.  Even better the first iteration may make users realise - "Actually you know what?  That super whizzy button thing - we don't need it".  Waterfall attempts to "manage change" because change in waterfall is scary expensive.  Embrace it early and often and it much less costly.</p>
+
+<p>Finally, the solution evolves rather than being dragged into existence from a 189 page document of business rules and textual assumptions.  This allows you to experiment and try things, throw them away or discover a better way of doing things.  You can adapt the solution at anytime to suit the changing nature of the environment it lives in.</p>
+
+<p>Vertical thinking is a proven pattern in many other aspects of the software world.  TDD for example. Rather than writing reams of code and testing it manually later, you create a solution bit by bit and adapt it fearlessly as you go.  UI designers never just bang out one design and leave it there.  Smaller feedback loops are essential to flow and success and vertical thinking gives you this.  Break the habit of wowing people and replace it with the habit of delivering - it's a better, longer lasting feeling of win.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Technology Techsmology]]></title>
@@ -22,7 +59,7 @@
 
 <blockquote><p>Projects don't fail because of technology decisions</p></blockquote>
 
-<p>The younger me would have got defensive when they heard this statement.  As a developer/architect type whose main goal is to make key technology decisions on a project and also as a person who considers themselves a craftsman (yes, yes overly grandiose but still, we all dream of importance) this does seem rather belittling.  Are you telling me all my decisions are fairly irrelevant?  I'll just stay in bed then shall I?</p>
+<p>The younger me would have got all uppity and defensive when he heard this statement.  As a developer/architect type whose main goal is to make key technology decisions on a project (not to mention as a person who likes to grandiously consider themselves a craftsman) this does seem rather belittling.  Are you telling me all my decisions are fairly irrelevant?  I'll just stay in bed then shall I?</p>
 
 <p>But you know what?  The statement is also completely true.</p>
 
@@ -32,9 +69,11 @@
 
 <p>Technology decisions can indirectly ruin the morale of your staff, muddy the relationship with your customers and generate really high turnover of staff in your company (which may be a good fit for some companies but you can never foster excellence if you don't nurture talent).</p>
 
-<p>This statement can also be used as a weapon.  A weapon to mask bad decisions and hold back change.  People cling to technologies that they used in the past, for fear of more pain with other technologies.  They shoehorn their existing skillset into problem domains that aren't a good fit.  When this happens, at the extreme you end up with specialists that simply can't adapt to shifts in technology fast enough.</p>
+<p>This statement can also be used as a weapon - a weapon to excuse bad decisions and hold back change (both good and bad, in short it stiffles learning).  People cling to technologies that they used in the past, for fear of more pain with other technologies.  They shoehorn their existing skillset into problem domains that aren't a good fit.  When this happens, at the extreme you end up with specialists that simply can't adapt to shifts in technology fast enough.</p>
 
 <p>So yeah, projects don't fail because of technology decisions.  But you know what - if your dentist turned round to you with an evil grin and a rusty chisel and <a href="http://en.wikipedia.org/wiki/Law_of_the_instrument">Maslow's Hammer</a> citing - "No surgery ever went wrong because of a lack of anesthetic" - you're not likely to get in to that chair and open wide.  And even if you did (maybe, you're drunk, maybe people keep telling you this dentist is the best, whatever) the experience would be painful, recovery time would be longer and subsequent treatments would probably be more painful.  A rather shambling metaphor I admit but I write what my brain dictates - I have not choice in the matter.</p>
+
+<p>Finally, I fully accept that many of these decisions are out of our control.  Customers, especially big ones, generally have the final say, they've potentially invested a lot of time on a certain stack and have a lot of legacy (read: code that still works) solutions in play.  True, but one of our goals is to at least inform these people of the alternatives and let them make an informed decision - maybe not today but soon enough the cost of developing and maintaining new systems built on out-of-support JDKs will come under scrutiny and they'll need to consider alternatives, alternatives that you've already enlightened them about.</p>
 ]]></content>
   </entry>
   
@@ -111,8 +150,8 @@
 
 <p>What I want to talk about is use of technology within that architecture.  I've never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it's worth.  More importantly it's really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
 
-<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  {% pullquote %} In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. {" "In the cloud the default stack can easily bleed money." "}
-{% endpullquote %}</p>
+<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. "In the cloud the default stack can easily bleed money."
+</span></p>
 
 <p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you're paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn't matter - it does now.</p>
 
@@ -125,29 +164,6 @@
 <p>Finally, perhaps you've got another IT team needing to support this new solution?  Bring them along this journey too, educate them as you educate yourself, dont just throw the finished thing over the wall with a 1 week handover and a pat on the back.</p>
 
 <p>Don't be afraid - it's a super fun world we live in!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Quitsies, Well Sort Of]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/03/quitsies/"/>
-    <updated>2012-07-03T19:08:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/03/quitsies</id>
-    <content type="html"><![CDATA[<blockquote><p>You know when you start to question why you write these things it's probably time to quit, or at least take a break.</p>
-
-<p> ~ me, just there now</p></blockquote>
-
-<p>This more of an FYI to anyone who may read this blog than a horrible diatribe about how I am wasting my life with meaningless exercises or technologies I'll never get to use to a bunch of people that don't really care, what would be the point?  Plus - it's probably not even true.</p>
-
-<p>So rather than pottering on about cool and interesting technologies that will make everyones (read, developers) life infinitely better 100% guaranteed I've decided to devote my time to,</p>
-
-<ol>
-<li>Working on some startup-py type things that have been milling around the back of my head for some time, and,</li>
-<li>Generally getting stuff done</li>
-</ol>
-
-
-<p>Yep, like a hipster band, this little testament to bike-shedding is going on indefinite hiatus.</p>
 ]]></content>
   </entry>
   
