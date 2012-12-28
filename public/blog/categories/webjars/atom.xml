@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>webjars | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/webjars/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-12-12T14:43:29+00:00</updated>
+  <updated>2012-12-28T20:10:10+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -101,6 +101,13 @@ Have fun!
      "repo.novus snaps" at "http://repo.novus.com/snapshots/")
  )
 </code></pre>
+
+<blockquote><p>UPDATE:  Since this article is a bit old but still getting plenty of hits I have noticed that people are having issues resolving dependencies on salat and casbah - this is because of a reporsitory change.  Simple fix just add the following line to the resolvers Seq above,</p></blockquote>
+
+<pre><code>"casbah" at "https://oss.sonatype.org/content/groups/scala-tools/"
+</code></pre>
+
+<blockquote><p>This should be enough to get you going with the rest of this article however there will be some major changes expected in Scala 2.10 that may well fundamentally alter the need to use Salat etc.  Be warned.</p></blockquote>
 
 <p>And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!</p>
 

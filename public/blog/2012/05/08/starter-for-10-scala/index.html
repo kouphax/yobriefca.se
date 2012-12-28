@@ -175,6 +175,13 @@ Have fun!
  )
 </code></pre>
 
+<blockquote><p>UPDATE:  Since this article is a bit old but still getting plenty of hits I have noticed that people are having issues resolving dependencies on salat and casbah - this is because of a reporsitory change.  Simple fix just add the following line to the resolvers Seq above,</p></blockquote>
+
+<pre><code>"casbah" at "https://oss.sonatype.org/content/groups/scala-tools/"
+</code></pre>
+
+<blockquote><p>This should be enough to get you going with the rest of this article however there will be some major changes expected in Scala 2.10 that may well fundamentally alter the need to use Salat etc.  Be warned.</p></blockquote>
+
 <p>And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!</p>
 
 <h2>The Model &amp; Data Access</h2>

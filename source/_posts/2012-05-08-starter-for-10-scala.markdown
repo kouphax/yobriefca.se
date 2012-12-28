@@ -80,6 +80,12 @@ Then you'll need to add the `resolvers` to the `main` project declaration,
          "repo.novus snaps" at "http://repo.novus.com/snapshots/")
      )
 
+> UPDATE:  Since this article is a bit old but still getting plenty of hits I have noticed that people are having issues resolving dependencies on salat and casbah - this is because of a reporsitory change.  Simple fix just add the following line to the resolvers Seq above,
+
+    "casbah" at "https://oss.sonatype.org/content/groups/scala-tools/"
+
+> This should be enough to get you going with the rest of this article however there will be some major changes expected in Scala 2.10 that may well fundamentally alter the need to use Salat etc.  Be warned.
+
 And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!
 
 ## The Model & Data Access

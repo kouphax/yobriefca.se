@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Scala | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-12-12T14:43:29+00:00</updated>
+  <updated>2012-12-28T20:10:10+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,316 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Eg. Play 2.1 + Scala + Guice + GlobalSettings#getControllerInstance]]></title>
+    <link href="http://yobriefca.se/blog/2012/12/18/eg-play-2-dot-1-plus-scala-plus-guice-plus-globalsettings-number-getcontrollerinstance/"/>
+    <updated>2012-12-18T19:27:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/12/18/eg-play-2-dot-1-plus-scala-plus-guice-plus-globalsettings-number-getcontrollerinstance</id>
+    <content type="html"><![CDATA[<blockquote><p>TL;DR Here is some <a href="https://github.com/kouphax/play21guice">sample code</a> of how to use Play 2.1s GlobalSettings#getControllerInstance feature with Google Guice.</p></blockquote>
+
+<p>I've had the chance to take Play 2.1 RC 1 out for a spin recently and in a bid to make my project a bit more testable I decided to go ahead and give dependency injection a bit of a spin again.  While things like the cake pattern and general dynamic composition are alright I've never been happy with the code that I produce using them. So I decided to give <a href="https://code.google.com/p/google-guice/">Guice</a> a blast as it seemed very much aligned with how I approached DI in the .NET world.</p>
+
+<p>My main need was to create instances of controllers and given Plays appraoch in the past (singleton <code>object</code>s for controllers) 2.1 new <code>GlobalSettings#getControllerInstance</code> feature was what I needed.</p>
+
+<p>First things first we need to add a project dependency to <a href="https://code.google.com/p/google-guice/">Guice</a> and while we could just add the Guice dependencies directly I went with a library that offered slightly neater syntax in Scala - <a href="https://github.com/sptz45/sse-guice">SSE-Guice</a>.  In short this means instead of writing this sort of noisy code</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">bind</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Service</span><span class="o">]).</span><span class="n">to</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">ServiceImpl</span><span class="o">]).</span><span class="n">in</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Singleton</span><span class="o">])</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We get to write it like this,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">bind</span><span class="o">[</span><span class="kt">Service</span><span class="o">].</span><span class="n">to</span><span class="o">[</span><span class="kt">ServiceImpl</span><span class="o">].</span><span class="n">in</span><span class="o">[</span><span class="kt">Singleton</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So lets add the reference to the <code>Build.scala</code> file (assuming we just generated a our Play project) for sse-guice</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">appDependencies</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>  <span class="n">jdbc</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">anorm</span><span class="o">,&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c1">// Add your project dependencies here,</span>
+</span><span class='line'>  <span class="s">&quot;com.tzavellas&quot;</span> <span class="o">%</span> <span class="s">&quot;sse-guice&quot;</span> <span class="o">%</span> <span class="s">&quot;0.7.0&quot;</span>
+</span><span class='line'><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next up we need to modify the Application controller a bit</p>
+
+<ul>
+<li>It needs to take a dependency</li>
+<li>It needs to bo be instantiable (e.g. not an <code>object</code> - this might be doable but the default approach in Guice seems to conflict with Plays approach to defining an instantiable controller)</li>
+</ul>
+
+
+<p>So we want to go from this,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Application</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="s">&quot;Some Message&quot;</span><span class="o">))</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>To this,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Application</span> <span class="nd">@Inject</span><span class="o">()(</span><span class="k">val</span> <span class="n">messeger</span><span class="k">:</span> <span class="kt">Messeger</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">index</span> <span class="k">=</span> <span class="nc">Action</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nc">Ok</span><span class="o">(</span><span class="n">views</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">index</span><span class="o">(</span><span class="n">messeger</span><span class="o">.</span><span class="n">getMessage</span><span class="o">))</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>A few things of note here</p>
+
+<ul>
+<li>We use the <code>@Inject()</code> attribute here to mark this constructor as our default one (need by Guice to satisfy constructor injection)</li>
+<li>Application is now a class.  Small change (a Levenshtein Distance of 6 even!) big difference.  Rather than having a singleton we now have something we can construct when we want (even in tests) and set it up really simply.  Construction and lifecycle can be handled via our DI library easily.</li>
+<li>We are passing in some sort of dependency - in this case it's a simple string barfer (<code>Messeger</code> is a trait) and the impl looks like this</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Messeger</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">getMessage</span> <span class="k">:</span> <span class="kt">String</span>
+</span><span class='line'><span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">object</span> <span class="nc">MessegerImpl</span> <span class="k">extends</span> <span class="nc">Messeger</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">getMessage</span> <span class="k">=</span> <span class="s">&quot;The Best Super Message&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then we need to create our Guice module that will wire up our dependencies,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">com.tzavellas.sse.guice.ScalaModule</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">SimpleModule</span> <span class="k">extends</span> <span class="nc">ScalaModule</span><span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">configure</span><span class="o">()</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">bind</span><span class="o">[</span><span class="kt">Messeger</span><span class="o">].</span><span class="n">toInstance</span><span class="o">(</span><span class="nc">MessegerImpl</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The <code>ScalaModule</code> declaration is a Scala-fied version of Guices <code>AbstractModule</code> with some helper and whatnot.  Guice applies some common sense to wiring so we don't need to declare each controller type here etc.</p>
+
+<p>Finally we need to start the DI mechanism and provide a way to instantiate controllers.  We do this via the Play feature of <code>GlobalSettings</code>.  In our <code>app</code> package we just put a <code>Global</code> object and set it up as needed</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Global</span> <span class="k">extends</span> <span class="nc">GlobalSettings</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">private</span> <span class="k">lazy</span> <span class="k">val</span> <span class="n">injector</span> <span class="k">=</span> <span class="nc">Guice</span><span class="o">.</span><span class="n">createInjector</span><span class="o">(</span><span class="k">new</span> <span class="nc">SimpleModule</span><span class="o">)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">override</span> <span class="k">def</span> <span class="n">getControllerInstance</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;controllerClass:%20Class[A]&quot;</span><span class="o">&gt;</span><span class="n">A</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">=</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">injector</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="n">controllerClass</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We use a <code>lazy</code> val to instantiate the <code>injector</code> with our <code>SimpleModule</code> and override the <code>getControllerInstance</code> method of our <code>GlobalSettings</code> class to use Guices injector.</p>
+
+<p>Oh one last thing.  We need to tell Play what controllers we want to use this feature (it's not an all or nothing thing which I guess is good).  We do this by marking the route declaration with an <code>@</code> in the <code>routes</code> file.  So it becomes this (notice the <code>@</code>)</p>
+
+<pre><code># Home page
+GET     /     @controllers.Application.index
+</code></pre>
+
+<p>Running the app gives us exactly what we expect but why stop there?  We need to test this stuff right?  Cool.  Testing is made easier - we can simply make use of the various helpers in Play like <code>FakeApplication</code> and <code>FakeRequest</code>,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ApplicationSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{</span>
+</span><span class='line'>  <span class="s">&quot;Using FakeApplication&quot;</span> <span class="n">should</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;get the default message&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">running</span><span class="o">(</span><span class="nc">FakeApplication</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">home</span> <span class="k">=</span> <span class="n">route</span><span class="o">(</span><span class="nc">FakeRequest</span><span class="o">(</span><span class="nc">GET</span><span class="o">,</span> <span class="s">&quot;/&quot;</span><span class="o">)).</span><span class="n">get</span>
+</span><span class='line'>    <span class="n">contentAsString</span><span class="o">(</span><span class="n">home</span><span class="o">)</span> <span class="n">must</span> <span class="n">contain</span> <span class="o">(</span><span class="s">&quot;The Best Super Message&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Or we can create a custom <code>Global</code> object with a <code>FakeApplication</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ApplicationSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">object</span> <span class="nc">DummyMessenger</span> <span class="k">extends</span> <span class="nc">Messeger</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="n">getMessage</span> <span class="k">=</span> <span class="s">&quot;Dummy Message&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="s">&quot;Using FakeApplication&quot;</span> <span class="n">should</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">object</span> <span class="nc">DummyGlobal</span> <span class="k">extends</span> <span class="n">play</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="nc">GlobalSettings</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">override</span> <span class="k">def</span> <span class="n">getControllerInstance</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">c</span><span class="k">:</span> <span class="kt">Class</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nc">Application</span><span class="o">(</span><span class="nc">DummyMessenger</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">&quot;get the an injected message&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">running</span><span class="o">(</span><span class="nc">FakeApplication</span><span class="o">(</span><span class="n">withGlobal</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">DummyGlobal</span><span class="o">)))</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">home</span> <span class="k">=</span> <span class="n">route</span><span class="o">(</span><span class="nc">FakeRequest</span><span class="o">(</span><span class="nc">GET</span><span class="o">,</span> <span class="s">&quot;/&quot;</span><span class="o">)).</span><span class="n">get</span>
+</span><span class='line'>    <span class="n">contentAsString</span><span class="o">(</span><span class="n">home</span><span class="o">)</span> <span class="n">must</span> <span class="n">contain</span> <span class="o">(</span><span class="s">&quot;Dummy Message&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And even lighter we can just test the controller as if it was just another class,</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ApplicationSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">object</span> <span class="nc">DummyMessenger</span> <span class="k">extends</span> <span class="nc">Messeger</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="n">getMessage</span> <span class="k">=</span> <span class="s">&quot;Dummy Message&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="s">&quot;Using direct controller testing&quot;</span> <span class="n">should</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;return the dummy message&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">controller</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Application</span><span class="o">(</span><span class="nc">DummyMessenger</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">index</span><span class="o">()(</span><span class="nc">FakeRequest</span><span class="o">())</span>
+</span><span class='line'>  <span class="n">contentAsString</span><span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="n">must</span> <span class="n">contain</span> <span class="o">(</span><span class="s">&quot;Dummy Message&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Hopefully this gives you a good starter for using the new Play 2.1 <code>getContollerInstance</code> feature along with Guice.  As above you can find the code for this post on <a href="GlobalSettings#getControllerInstance">Ye 'Ole Github</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Learning Resources for Scala, Play! and Mongo]]></title>
@@ -387,6 +697,13 @@ Have fun!
      "repo.novus snaps" at "http://repo.novus.com/snapshots/")
  )
 </code></pre>
+
+<blockquote><p>UPDATE:  Since this article is a bit old but still getting plenty of hits I have noticed that people are having issues resolving dependencies on salat and casbah - this is because of a reporsitory change.  Simple fix just add the following line to the resolvers Seq above,</p></blockquote>
+
+<pre><code>"casbah" at "https://oss.sonatype.org/content/groups/scala-tools/"
+</code></pre>
+
+<blockquote><p>This should be enough to get you going with the rest of this article however there will be some major changes expected in Scala 2.10 that may well fundamentally alter the need to use Salat etc.  Be warned.</p></blockquote>
 
 <p>And thats the project set up with all its dependencies ready to hack on.  So lets drive a spike through this stack and see what it looks like shall we?  Yes why not, tallyho old bean!</p>
 
@@ -875,31 +1192,6 @@ Have fun!
 <p>Right about now the solution is done so with a simple <code>play run</code> you should be able to register and view current registrations.  Excellent.  If you want to skip everything and just get my code you can clone the <a href="https://github.com/kouphax/scala-sampleapp">Github Repo</a>.</p>
 
 <p>OK so it's not the most useful app in the world - that was never the intention.  But look at the code - it's very terse and the time required to write this post was considerably more than the time required to implement the solution.  Joy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Scala - A Tragedy in Two Parts - Part 1]]></title>
-    <link href="http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1/"/>
-    <updated>2012-04-13T09:06:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/04/13/scala-a-tragedy-in-two-parts-part-1</id>
-    <content type="html"><![CDATA[<p>The tragedy being we don't use it all the time!</p>
-
-<p>This presentation is the first part in the 2 part series "Scala - A Tragedy in Two Parts".  In this presentation I go fast and dive into a range of Scala code snippets pointing out some of the weird and wonderful features of the language.</p>
-
-<h2>Recorded Session</h2>
-
-<iframe src="http://player.vimeo.com/video/40255430?title=0&amp;byline=0&amp;portrait=0" width="500" height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-
-<p> <p><a href="http://vimeo.com/40255430">Scala - A Tragedy in Two Parts - Part 1 - The Language</a> from <a href="http://vimeo.com/kouphax">James Hughes</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p>
-
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4f86b1fcd1325b0022019eea" data-ratio="1.3333333333333333" src="http://yobriefca.se//speakerdeck.com/assets/embed.js"></script>
-
-
-
 ]]></content>
   </entry>
   

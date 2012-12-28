@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Trello | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/trello/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-12-12T14:43:29+00:00</updated>
+  <updated>2012-12-28T20:10:10+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Trello Cards: Materialising Trello Boards]]></title>
+    <link href="http://yobriefca.se/blog/2012/12/28/trello-cards-materialising-trello-boards/"/>
+    <updated>2012-12-28T19:34:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2012/12/28/trello-cards-materialising-trello-boards</id>
+    <content type="html"><![CDATA[<blockquote><p>TL;DR I ported <a href="https://github.com/psd/pivotal-cards">pivotal-cards</a> to <a href="http://yobriefca.se/trello-cards">trello-cards</a></p></blockquote>
+
+<p>I recently did a spot of work with the awesome and brilliant people of the <a href="http://digital.cabinetoffice.gov.uk/category/gds/">Government Digital Service</a> and being big fans of getting stuff done they make use of whiteboards and index cards to visualise the flow of work on the various projects.  Thats all well and good but it makes reporting to senior managers, stakeholders and remote people a bit difficult (and for the uber paranoid - what about auditing!!!).  To that end this flow of work was also mirrored online - and in GDS's case the tool of choice was usually <a href="http://pivotaltracker.com">Pivotal Tracker</a>.  In order to bridge the gap between the online and "real" one of the smart chaps at GDS wrote <a href="https://github.com/psd/pivotal-cards">pivotal-cards</a> which lets you generate printable index cards from you pivotal board.  Lovely stuff</p>
+
+<p><a href="http://www.flickr.com/photos/psd/7160723862/" title="Pivotal Cards by psd, on Flickr"><img src="http://farm8.staticflickr.com/7223/7160723862_ef5d8e59a7.jpg" width="500" height="442" alt="Pivotal Cards"></a></p>
+
+<p>Anyway - I spent some time today porting this little project to Trello.  I have been using Trello more and more on recent projects but always miss the physicality of real index cards and I'm usually strapped for time to start writing them out myself.</p>
+
+<p>So here it is - <a href="http://yobriefca.se/trello-cards">trello-cards</a>, I've tried to keep it pretty much 1:1 with pivotal-cards but there are some <code>TODO</code>s still outstanding - the current card make up looks a bit like this.</p>
+
+<p><img src="http://yobriefca.se/images/blog/cardmocks.png" /></p>
+
+<p>So basically follow the instructions on the <a href="http://yobriefca.se/trello-cards/">project page</a> and hopefully it should all work out.  If it doesn't - <a href="https://github.com/kouphax/trello-cards">FORK IT 'N FIX IT</a> or <a href="https://github.com/kouphax/trello-cards/issues">complain</a> and I'll fix it for you :)</p>
+
+<p>Some other points worth noting,</p>
+
+<ul>
+<li>Currently tested on Chrome 25 (OSX)</li>
+<li>Could do with some basic tests around it</li>
+<li>Currently no markdown support for descriptions</li>
+<li>Story points use the <a href="https://chrome.google.com/webstore/detail/jdbcdblgjdpmfninkoogcfpnkjmndgje?utm_source=chrome-ntp-icon">Trello Scrum Chrome Extension</a> convention of <code>(POINTS)</code> at the start of the card name/title.  If you use that plugin then good for you, if not you can still make use of the points convention</li>
+<li>Tasks are derived from the first checklist on the card</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Super Basic Trello API Wrapper for Scala and Play]]></title>
