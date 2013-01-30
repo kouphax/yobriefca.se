@@ -4,7 +4,7 @@
   <title><![CDATA[<span class="label" style="margin-right:10px;"><a href="/" style="text-decoration:none; text-transform:none; color:#fff">&larr;</a></span>Miscellaneous | Yo Briefcase!]]></title>
   <link href="http://yobriefca.se/blog/categories/miscellaneous/atom.xml" rel="self"/>
   <link href="http://yobriefca.se/"/>
-  <updated>2012-12-28T20:10:10+00:00</updated>
+  <updated>2013-01-21T12:00:38+00:00</updated>
   <id>http://yobriefca.se/</id>
   <author>
     <name><![CDATA[James Hughes]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[yobriefcasts: Screencasts with a JVM flavour]]></title>
+    <link href="http://yobriefca.se/blog/2013/01/21/yobriefcasts-screencasts-with-a-jvm-flavour/"/>
+    <updated>2013-01-21T11:03:00+00:00</updated>
+    <id>http://yobriefca.se/blog/2013/01/21/yobriefcasts-screencasts-with-a-jvm-flavour</id>
+    <content type="html"><![CDATA[<p>Today sees the inaugural launch of a new project/passion of mine - <a href="http://yobriefcasts.tv">yobriefcasts.tv</a>.  There is a launch post about it on the <a href="http://yobriefcasts.tv">site</a> as well as the first in a series of screencasts around Play! 2 (more being edited as you read this no doubt).  Initially I never set out to focus on the world of the JVM but after building a list of potential topics and doing some research there is just so much there and so little audio/visual coverage of it that I think it deserves some attention.</p>
+
+<p>As it stands right now there is an [optional] price associated with the productions - you can stream everything to your hearts content or you can pay a minimal sum to get a high quality download of the screencast - you can do both if you want.  It took a while to come to an acceptable price point and structure because I have an end goal here - I want to feed any money earned back into the project to get better equipment and thusly produce better quality screencasts.  Futhermore I'd eventually like to turn this into a (mostly) full time gig and move to a subscription model with frequent (weekly) releases - but thats a long way away yet - for now I want to see if I can build something people want and enjoy.</p>
+
+<p>But hopefully the site can speak for itself - I've already got an extensive list of releases coming up over the next while so stay tuned, follow us on <a href="http://twitter.com/yobriefcasts">twitter as @yobriefcasts</a> and enjoy the <a href="http://yobriefcasts.tv">site</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vertical vs Horizontal Thinking]]></title>
@@ -134,36 +147,6 @@
 <p>But I think they are selling themselves short - I think plenty of people use Scala but could easily use Kotlin in its place and find themselves in a better place (easier upskilling, less cryptic codebase).</p>
 
 <p>Anyway this is a bit of a ramble, what I'm saying is - Kotlin has some really rather nice features (Groovy Like DSL Builders, Pattern Matching, the <code>when</code> expression, lambdas, Kotlin to JavaScript compilation(!) etc.) and people happy with either Java OR Scala should give it a go.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Technology in the Cloud]]></title>
-    <link href="http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud/"/>
-    <updated>2012-07-12T13:59:00+01:00</updated>
-    <id>http://yobriefca.se/blog/2012/07/12/technology-in-the-cloud</id>
-    <content type="html"><![CDATA[<p>The Cloud.  As much as the term has been pummelled into meaningless marketing sputum by the guys in expensive suits and fake smiles it does exist and is distinct from a typical "throw all your stuff in a data center" setup.</p>
-
-<p>The Cloud is distinct, as well, in terms of how you think about your solution architecture.  The typical old school approach would be to just create big monoliths to process your data but that doesn't work out so well in the cloud.  Of course the considerations for the cloud aren't new, hell no - things like SOA have been around for an age, but if you want to harness the benefits of the cloud as the internet intended you will be narrowing your options.  No more just cobbling common bits together and crossing your fingers.</p>
-
-<p>So fine - architecting for the cloud has some special considerations but thats not what I want to talk about - there are better people than me to cover that.</p>
-
-<p>What I want to talk about is use of technology within that architecture.  I've never been a fan of the one-size-fits-all-painful-or-not technology stack driven almost solely by a need to avoid unnecessary education of developers.  And, now I feel the cloud is strengthening my view that a default stack is more trouble than it's worth.  More importantly it's really adding momentum to the whole polyglot architecture, or simply using the right tools for the job.</p>
-
-<p>Let me explain.  Any default stack, by definition, needs to cater to many user cases and as such brings a certain amount of sacrifice with it.  Sacrifices come in many forms but usually in performance, memory footprint and/or verbose configuration.  In the cloud you are, in essence, in a Pay-As-You-Go model, every clock cycle and every bit of storage costs.  Now that heavy ORM with its less than ideal queries and slow relationship mapping is starting to cost you money EVERY request.  <span class='pullquote-right' data-pullquote='"In the cloud the default stack can easily bleed money." '> In fact, it's probably backed by that storage heavy relational database for all your non-relational data.  Same for that rather large web framework you've got there.... every time to deal with a spike and scale that badboy out and you're having to use medium instances rather than small.  That SOAP based webservice that requires triple the bandwidth to service a request... ugh you get the point. "In the cloud the default stack can easily bleed money."
-</span></p>
-
-<p>I guess this is less about the default stack and more about just using the right tools to get the job done in the most effective manner - afterall you're paying for this stuff now.  You kind of were before but in such a coarse grained manner it didn't matter - it does now.</p>
-
-<p>In summary - the cloud has started to make technology decisions more accountable and we need to ensure that those decisions aren't costing our stakeholders more money than necessary.</p>
-
-<p>PS.</p>
-
-<p>I'm not going to sit here and preach about the which specific technologies to use but come on - if your storing Session State in a Oracle database, switch to Riak, or Redis.  If you're building a nice scalable API then use something like Scala which promotes immutable state and concurrency out of the box over something like vanilla Java (or perhaps just a better framework Spring-WS vs Dropwizard for example).  JSON over XML or a binary format (Protobuf for example) for machine to machine communication.  A small node.js web site over ASP.NET Webforms for simple sites.  The list goes on.  That is to say consider this advice against the other factors driving technical decisions - dont JUST go for the smallest, lightest tools because it MIGHT be cheaper.  Do the research.</p>
-
-<p>Finally, perhaps you've got another IT team needing to support this new solution?  Bring them along this journey too, educate them as you educate yourself, dont just throw the finished thing over the wall with a 1 week handover and a pat on the back.</p>
-
-<p>Don't be afraid - it's a super fun world we live in!</p>
 ]]></content>
   </entry>
   
