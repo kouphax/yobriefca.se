@@ -1,4 +1,5 @@
-.pygments-cache/
-.sass-cache/
-_deploy/
+.DS_Store
+.pygments-cache
 node_modules/
+_deploy/
+.sass-cache
