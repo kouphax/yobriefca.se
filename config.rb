@@ -21,9 +21,11 @@ class Article
   @@dir         = "#{Dir.pwd}/source/data/articles/"
   @@date_range  = @@dir.size..@@dir.size+10
 
-  attr_accessor :year, :month, :day, :title, :file, :url, :slug, :date, :type
+  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type
 
   def initialize(resource)
+
+    @published = resource.metadata[:page]["published"] || true
 
     # assumption that the file is named correctly!
     date_parts = resource.source_file[@@date_range].split('-')
@@ -100,8 +102,11 @@ ready do
     case res.source_file 
     when /^#{Regexp.quote(Article.dir)}/
       article = Article.new(res)
-      articles.unshift article
-      proxy "#{article.url}/index.html", article.file
+
+      if article.published then
+        articles.unshift article
+        proxy "#{article.url}/index.html", article.file
+      end
     when /^#{Regexp.quote(Screencast.dir)}/
       screencast = Screencast.new(res)
       screencasts.unshift screencast
