@@ -1,5 +1,6 @@
 require "redcarpet"
 require "stringex"
+require 'builder'
 
 set :markdown_engine , :redcarpet
 set :markdown        , :fenced_code_blocks => true, :smartypants => true
@@ -21,7 +22,7 @@ class Article
   @@dir         = "#{Dir.pwd}/source/data/articles/"
   @@date_range  = @@dir.size..@@dir.size+10
 
-  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type
+  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type, :body
 
   def initialize(resource)
 
@@ -39,6 +40,7 @@ class Article
     @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
     @slug  = resource.metadata[:page]["slug"] || "" 
     @type  = :article
+    @body  = resource.render
   end
 
   def self.dir 
@@ -51,7 +53,7 @@ class Screencast
   @@dir        = "#{Dir.pwd}/source/data/screencasts/"
   @@date_range = @@dir.size..@@dir.size+10
 
-  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot
+  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body
 
   def initialize(resource)
     @title      = resource.metadata[:page]["title"]
@@ -62,6 +64,7 @@ class Screencast
     @subtitle   = resource.metadata[:page]["subtitle"] || ""
     @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
     @type       = :screencast
+    @body       = resource.render
   end
 
   def self.dir 
@@ -74,7 +77,7 @@ class Talk
   @@dir        = "#{Dir.pwd}/source/data/talks/"
   @@date_range = @@dir.size..@@dir.size+10
 
-  attr_accessor :type, :date, :title, :location, :video, :presentation, :url
+  attr_accessor :type, :date, :title, :location, :video, :presentation, :url, :body
 
   def initialize(resource)
     @date         = resource.metadata[:page]["date"]
@@ -85,6 +88,7 @@ class Talk
     @presentation = resource.metadata[:page]["presentation"]
     @url          = @video || @presentation
     @location     = resource.metadata[:page]["location"]
+    @body         = ""
   end
 
   def self.dir 
@@ -102,7 +106,6 @@ ready do
     case res.source_file 
     when /^#{Regexp.quote(Article.dir)}/
       article = Article.new(res)
-
       if article.published then
         articles.unshift article
         proxy "#{article.url}/index.html", article.file
@@ -134,6 +137,8 @@ ready do
     :recent_screencasts => screencasts[0..2],
     :recent_talks       => talks[0..2]
   }
+
+  proxy "/feed/index.xml", "/feed.xml", :locals => { :items => (articles + screencasts + talks).sort_by { |item| item.date }.reverse }
 
   ignore "/writings.html"
   ignore "/dashboard.html"
