@@ -1,0 +1,19 @@
+---
+title: yobriefca.se
+---
+
+div#content.container.row
+  == partial 'partials/header'
+
+  header.row
+    hgroup
+      div.dots &nbsp
+      h2.col.span_12
+        a href="." Screencasts
+
+  - screencasts.each_slice(2) do |group|
+    section.content_wrap.row
+      - for screencast in group do
+        article.col.span_6
+          a href=screencast.url title=screencast.title
+            img style="width:100%" src=screencast.screenshot

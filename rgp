@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-bundle exec rake generate preview

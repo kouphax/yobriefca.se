@@ -1,20 +1,10 @@
-source "http://rubygems.org"
+# If you have OpenSSL installed, we recommend updating
+# the following line to use "https"
+source 'https://rubygems.org'
 
-group :development do
-  gem 'rake'
-  gem 'rack'
-  gem 'jekyll'
-  gem 'rdiscount'
-  gem 'pygments.rb'
-  gem 'RedCloth'
-  gem 'haml', '>= 3.1'
-  gem 'compass', '>= 0.11'
-  gem 'rubypants'
-  gem 'rb-fsevent'
-  gem 'stringex'
-  gem 'liquid', '2.2.2'
-  gem 'slim'
-end
-
-gem 'sinatra', '1.2.6'
-gem 'coffee-script'
+gem "middleman", "~>3.0.12"
+gem "middleman-livereload", "~> 3.0.1"
+gem "slim", "~> 1.3.6"
+gem "redcarpet", "~> 2.2.2"
+gem "middleman-syntax", "~> 1.1.0"
+gem "stringex", "~> 1.5.1"

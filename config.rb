@@ -1,16 +1,138 @@
-# Require any additional compass plugins here.
-project_type = :stand_alone
+require "redcarpet"
+require "stringex"
 
-# Publishing paths
-http_path = "/"
-http_images_path = "/images"
-http_fonts_path = "/fonts"
-css_dir = "public/stylesheets"
+set :markdown_engine , :redcarpet
+set :markdown        , :fenced_code_blocks => true, :smartypants => true
+set :css_dir         , 'stylesheets'
+set :js_dir          , 'javascripts'
+set :images_dir      , 'images'
 
-# Local development paths
-sass_dir = "sass"
-images_dir = "source/images"
-fonts_dir = "source/fonts"
+activate :livereload
+activate :syntax
 
-line_comments = false
-output_style = :compressed
+configure :build do
+  activate :minify_css
+  activate :minify_javascript
+  activate :cache_buster
+end
+
+class Article
+
+  @@dir         = "#{Dir.pwd}/source/data/articles/"
+  @@date_range  = @@dir.size..@@dir.size+10
+
+  attr_accessor :year, :month, :day, :title, :file, :url, :slug, :date, :type
+
+  def initialize(resource)
+
+    # assumption that the file is named correctly!
+    date_parts = resource.source_file[@@date_range].split('-')
+
+    @year  = date_parts[0]
+    @month = date_parts[1]
+    @day   = date_parts[2]
+    @date  = Date.new(@year.to_i, @month.to_i, @day.to_i)
+    @title = resource.metadata[:page]["title"]
+    @file  = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.erb$/, '').sub(/\.markdown$/, '')
+    @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
+    @slug  = resource.metadata[:page]["slug"] || "" 
+    @type  = :article
+  end
+
+  def self.dir 
+    @@dir
+  end
+end
+
+class Screencast
+
+  @@dir        = "#{Dir.pwd}/source/data/screencasts/"
+  @@date_range = @@dir.size..@@dir.size+10
+
+  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot
+
+  def initialize(resource)
+    @title      = resource.metadata[:page]["title"]
+    @file       = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.erb$/, '').sub(/\.markdown$/, '')
+    @screenshot = resource.metadata[:page]["screenshot"] || ""
+    @sequence   = resource.metadata[:page]["sequence"]
+    @date       = resource.metadata[:page]["date"]
+    @subtitle   = resource.metadata[:page]["subtitle"] || ""
+    @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
+    @type       = :screencast
+  end
+
+  def self.dir 
+    @@dir
+  end
+end
+
+class Talk
+
+  @@dir        = "#{Dir.pwd}/source/data/talks/"
+  @@date_range = @@dir.size..@@dir.size+10
+
+  attr_accessor :type, :date, :title, :location, :video, :presentation, :url
+
+  def initialize(resource)
+    @date         = resource.metadata[:page]["date"]
+    @title        = resource.metadata[:page]["title"]
+    @file         = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.markdown$/, '')
+    @type         = :talk
+    @video        = resource.metadata[:page]["video"]
+    @presentation = resource.metadata[:page]["presentation"]
+    @url          = @video || @presentation
+    @location     = resource.metadata[:page]["location"]
+  end
+
+  def self.dir 
+    @@dir
+  end
+end
+
+ready do
+
+  articles    = []
+  screencasts = []
+  talks       = []
+
+  sitemap.resources.each do |res| 
+    case res.source_file 
+    when /^#{Regexp.quote(Article.dir)}/
+      article = Article.new(res)
+      articles.unshift article
+      proxy "#{article.url}/index.html", article.file
+    when /^#{Regexp.quote(Screencast.dir)}/
+      screencast = Screencast.new(res)
+      screencasts.unshift screencast
+      proxy "#{screencast.url}/index.html", screencast.file
+    when /^#{Regexp.quote(Talk.dir)}/
+      talks.unshift Talk.new(res)
+    end
+  end
+
+  latest = [
+    articles.first, 
+    screencasts.first, 
+    talks.first
+  ].sort_by { |thing| 
+    puts thing.date.to_s
+    thing.date  
+  }.last
+
+  proxy "/blog/index.html",        "/writings.html",    :locals => { :articles => articles }
+  proxy "/screencasts/index.html", "/screencasts.html", :locals => { :screencasts => screencasts }
+  proxy "/talks/index.html",       "/talks.html",       :locals => { :talks => talks }
+  proxy "/index.html",             "/dashboard.html",   :locals => { 
+    :latest             => latest,
+    :recent_articles    => articles[0..2],
+    :recent_screencasts => screencasts[0..2],
+    :recent_talks       => talks[0..2]
+  }
+
+  ignore "/writings.html"
+  ignore "/dashboard.html"
+  ignore "/talks.html"
+  ignore "/screencasts.html"
+  ignore "/data/*"
+end
