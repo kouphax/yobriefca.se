@@ -26,7 +26,12 @@ class Article
 
   def initialize(resource)
 
-    @published = resource.metadata[:page]["published"] || true
+    @resource  = resource
+    @published = resource.metadata[:page]["published"]
+
+    if @published == nil then
+      @published = true
+    end
 
     # assumption that the file is named correctly!
     date_parts = resource.source_file[@@date_range].split('-')
@@ -40,7 +45,10 @@ class Article
     @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
     @slug  = resource.metadata[:page]["slug"] || "" 
     @type  = :article
-    @body  = resource.render(:layout => false)
+  end
+
+  def body 
+    @resource.render(:layout => false)
   end
 
   def self.dir 
@@ -56,6 +64,8 @@ class Screencast
   attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body
 
   def initialize(resource)
+
+    @resource   = resource
     @title      = resource.metadata[:page]["title"]
     @file       = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.erb$/, '').sub(/\.markdown$/, '')
     @screenshot = resource.metadata[:page]["screenshot"] || ""
@@ -64,7 +74,11 @@ class Screencast
     @subtitle   = resource.metadata[:page]["subtitle"] || ""
     @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
     @type       = :screencast
-    @body       = resource.render( :layout => false )
+  end
+
+
+  def body 
+    @resource.render(:layout => false)
   end
 
   def self.dir 

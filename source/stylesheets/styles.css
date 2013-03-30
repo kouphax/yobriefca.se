@@ -4,6 +4,14 @@ body {
   padding:20px;
 }
 
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
 #content {
   max-width: 600px;
   margin: 0 auto;
