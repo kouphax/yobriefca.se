@@ -12,3 +12,6 @@
 
 # Ignore Sass' cache
 /.sass-cache
+
+# Ignore the Mac crap
+.DS_Store

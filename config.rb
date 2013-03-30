@@ -40,7 +40,7 @@ class Article
     @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
     @slug  = resource.metadata[:page]["slug"] || "" 
     @type  = :article
-    @body  = resource.render
+    @body  = resource.render(:layout => false)
   end
 
   def self.dir 
@@ -64,7 +64,7 @@ class Screencast
     @subtitle   = resource.metadata[:page]["subtitle"] || ""
     @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
     @type       = :screencast
-    @body       = resource.render
+    @body       = resource.render( :layout => false )
   end
 
   def self.dir 
@@ -141,6 +141,7 @@ ready do
   proxy "/feed/index.xml", "/feed.xml", :locals => { :items => (articles + screencasts + talks).sort_by { |item| item.date }.reverse }
 
   ignore "/writings.html"
+  ignore "/feed.xml"
   ignore "/dashboard.html"
   ignore "/talks.html"
   ignore "/screencasts.html"
