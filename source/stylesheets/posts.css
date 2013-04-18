@@ -45,9 +45,11 @@ blockquote {
   font-style: italic;
 }
 
+.highlight span { display: inline-block;}
 .highlight pre  { overflow-x: scroll; margin-left: 10px; line-height: 1.4em; }
-.highlight .hll { background-color: #ffffcc }
 .highlight      { background: #f8f8f8;  margin-bottom:30px; }
+
+.highlight .hll { background-color: #ffffcc }
 .highlight .c   { color: #408080; font-style: italic } /* Comment */
 .highlight .err {  } /* Error */
 .highlight .k  { color: #008000; font-weight: bold } /* Keyword */
