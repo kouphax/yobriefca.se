@@ -138,7 +138,6 @@ ready do
     screencasts.first, 
     talks.first
   ].sort_by { |thing| 
-    puts thing.date.to_s
     thing.date  
   }.last
 
