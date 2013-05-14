@@ -67,7 +67,7 @@ Micro Service based systems aren't without their problems of course.  For one th
 
 Another issue that I touched on earlier is the fact, left unchecked you could have hundreds of small services written in hundreds of languages.  Simply managing that sort of estate of languages and platforms with their different installations, package managers and requirements can stop a project dead in its tracks.
 
-An anti-pattern has emerged from the MSA approach - often called the Nano-Service architecture.  These are systems built on services that are so small that duplication of effort is prevalent and it becomes almost impossible to reason about any particular are of a system easily.
+An anti-pattern has emerged from the MSA approach - often called the Nano-Service architecture.  These are systems built on services that are so small that duplication of effort is prevalent and it becomes almost impossible to reason about any particular area of a system easily.
 
 ## Macro Post for Micro Services
 

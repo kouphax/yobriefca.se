@@ -48,4 +48,4 @@ Already, even at this high level you're getting overlaps and in many ways everyo
 
 You don't need fancy, lofty titles because you have a single purpose. Titles only force attribution of responsibility to particular people, they enforce specialism and defensive attitudes.  Titles shouldn't affect the delivery of a solution.
 
-So, no, "agile" is not just for developers, it's for the facilitators, the stakeholder & the implementors, it's an all-encompassing first step on the road to refocusing our goals from following a process to delivering the right thing quickly and painlessly.  I say first step of course because typically "going agile" can often result in projects just following a _different_ process with little to no impact but thats another issue entirely.
+So, no, "agile" is not just for developers, it's for the facilitators, the stakeholder & the implementors, it's an all-encompassing first step on the road to refocusing our goals from following a process to delivering the right thing quickly and painlessly. 
