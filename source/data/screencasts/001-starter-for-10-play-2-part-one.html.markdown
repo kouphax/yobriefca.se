@@ -12,7 +12,7 @@ screenshot: "/images/screencast/001-play2.png"
 Play! 2 is a Java/Scala framework based on a lightweight, stateless, web-friendly architecture for highly-scalable applications. In this episode we will look at
 
 - Introduction to Play! 2,
-- Downloading & Installating Play!
+- Downloading & Installing Play!
 - Using PVM (Play Version Manager) to Install Play!
 - A brief tour of the command line interface.
 
