@@ -6,10 +6,22 @@ html
 
     title = data.page.title || "yobriefca.se"
 
-    link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'
-    == stylesheet_link_tag "reset", "styles", "responsive-gs-12col"
+    link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'
+    == stylesheet_link_tag "normalize", "foundation", "main"
   body
-    == yield
+
+    div.row
+      div.large-8.large-centered.columns
+        div.page.tokens
+          a href="https://github.com/kouphax" Github
+          a href="http://twitter.com/kouphax" Twitter
+          a href="http://yobriefca.se" About
+    div#main.row
+      div.large-8.large-centered.columns
+        div.page
+          h1.title Yo! Briefcase
+          div.filter James Hughes, Consultant at Kainos Software
+          == yield
 
     javascript:
       var _gaq = _gaq || [];

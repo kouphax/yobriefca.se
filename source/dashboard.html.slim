@@ -2,70 +2,13 @@
 title: yobriefca.se
 ---
 
-div#content.container.row
-  == partial 'partials/header'
+div#filter-container
 
-  == partial 'partials/section', :locals => { :link => latest.url, :title => "The Last Thing I Did" }
-  section.content_wrap.row
-    - if latest.type == :article
-      article.col.span_4
-        h3 style="font-size:200%;text-align:center;" = latest.title
-      article.col.span_8
-        p style="font-size:120%;padding-left:20px;text-align:justify;" = latest.slug
-    - if latest.type == :screencast
-      article.col.span_6
-        img style="width:100%" src=latest.screenshot
-      article.col.span_6
-        h3 style="font-size:200%;padding-left:20px;" = latest.title
-        - if latest.subtitle 
-          h4 style="padding-left:20px;" = latest.subtitle
-    - if latest.type == :talk
-      article.col.span_4 style="text-align:center;padding-top:10px;"
-        a href=latest.presentation
-          img src="/images/slides-large.png" title="Slidedeck"
-        - if latest.video
-          a href=latest.video
-            img src="/images/video-large.png" title="Video"
-      article.col.span_8
-        h4 style="padding-left:20px;font-size: 150%;" 
-          | Spoke at 
-          span = latest.location
-          |  on
-        h3 style="font-size:200%;padding-left:20px;" = latest.title
+div.entries
+	- for thingie in entries do
+		a.latest href="#{thingie.url}" data-type="#{thingie.type}"
+			h1 = thingie.title
+			span.type = thingie.type
+			span Published on #{thingie.date}
 
-  == partial 'partials/section', :locals => { :link => "/screencasts", :title => "Recent Screencasts" }
-
-  section.content_wrap.row
-    - for screencast in recent_screencasts do    
-      article.col.span_4
-        a href=screencast.url title=screencast.title
-          img style="width:100%" src=screencast.screenshot
-       
-  == partial 'partials/section', :locals => { :link => "/blog", :title => "Recent Writings" }
-
-  - for article in recent_articles do
-    section.content_wrap.row style="font-size:110%"
-      article.col.span_3
-         h3 = "#{article.day}/#{article.month}/#{article.year}"
-      article.col.span_9
-        h3 
-          a href=article.url
-            = article.title
-        p = article.slug
-
-  == partial 'partials/section', :locals => { :link => "/talks", :title => "Recent Talks" }
-
-  - for talk in recent_talks do
-    section.content_wrap.row style="font-size:110%"
-      article.col.span_3
-        h3 = "#{Time.parse(talk.date.to_s).strftime '%d/%m/%Y'}"
-      article.col.span_7
-        h3 = talk.title
-        p = talk.location
-      article.col.span_1
-        a href=talk.presentation
-          img src="/images/slides.png" title="Slidedeck"
-      article.col.span_1
-        - if talk.video
-          a href=talk.video
-            img src="/images/video.png" title="Video"
+== javascript_include_tag 'filter'
