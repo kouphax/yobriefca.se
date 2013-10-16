@@ -1,32 +1,36 @@
+- require "open-uri"
 doctype html
 html
   head
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
-    meta name="description" content="#{data.page.title} : #{data.page.slug}"
 
     title = data.page.title || "yobriefca.se"
 
-    link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'
-    == stylesheet_link_tag "reset", "styles", "responsive-gs-12col", "posts"
+    link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'
+    == stylesheet_link_tag "normalize", "foundation", "main", "posts"
   body
-    div#content.container.row
-      header.row
-        hgroup
-          h1.col.span_12.clr style="font-size:150%;" 
-            a href="/" yobriefca.se
 
-      header.row
-        hgroup
-          h1.col.span_12.clr = current_page.data.title
+    div.row
+      div.large-8.large-centered.columns
+        div.page.tokens
+          a href="https://github.com/kouphax" Github
+          a href="http://twitter.com/kouphax" Twitter
+          a href="http://yobriefca.se" About
+    div#main.row
+      div.large-8.large-centered.columns
+        div.page
+          a href="/"
+            h1.title Yo! Briefcase
+            div.filter James Hughes, Consultant at Kainos Software
+          div.entry
+            h1.post-title = current_page.data.title
+            section
+              == yield
 
-      section#post.row
-        == yield
+              a.twitter target="_blank" href="https://twitter.com/intent/tweet?#{URI::encode_www_form("url" => "http://yobriefca.se" + current_page.url, "text" => current_page.data.title, "via" => "kouphax")}" Tweet This
 
-        a href="https://twitter.com/share" class="twitter-share-button" data-via="kouphax" Tweet
-        javascript:
-          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    
+
     javascript:
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-19143623-5']);

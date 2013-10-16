@@ -43,15 +43,15 @@ class Article
     @title = resource.metadata[:page]["title"]
     @file  = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.erb$/, '').sub(/\.markdown$/, '')
     @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
-    @slug  = resource.metadata[:page]["slug"] || "" 
+    @slug  = resource.metadata[:page]["slug"] || ""
     @type  = :article
   end
 
-  def body 
+  def body
     @resource.render(:layout => false)
   end
 
-  def self.dir 
+  def self.dir
     @@dir
   end
 end
@@ -77,11 +77,11 @@ class Screencast
   end
 
 
-  def body 
+  def body
     @resource.render(:layout => false)
   end
 
-  def self.dir 
+  def self.dir
     @@dir
   end
 end
@@ -105,7 +105,7 @@ class Talk
     @body         = ""
   end
 
-  def self.dir 
+  def self.dir
     @@dir
   end
 end
@@ -116,8 +116,8 @@ ready do
   screencasts = []
   talks       = []
 
-  sitemap.resources.each do |res| 
-    case res.source_file 
+  sitemap.resources.each do |res|
+    case res.source_file
     when /^#{Regexp.quote(Article.dir)}/
       article = Article.new(res)
       if article.published then
@@ -133,25 +133,10 @@ ready do
     end
   end
 
-  latest = [
-    articles.first, 
-    screencasts.first, 
-    talks.first
-  ].sort_by { |thing| 
-    thing.date  
-  }.last
+  zipped = (articles + screencasts + talks).sort_by { |item| item.date }.reverse
 
-  proxy "/blog/index.html",        "/writings.html",    :locals => { :articles => articles }
-  proxy "/screencasts/index.html", "/screencasts.html", :locals => { :screencasts => screencasts }
-  proxy "/talks/index.html",       "/talks.html",       :locals => { :talks => talks }
-  proxy "/index.html",             "/dashboard.html",   :locals => { 
-    :latest             => latest,
-    :recent_articles    => articles[0..2],
-    :recent_screencasts => screencasts[0..2],
-    :recent_talks       => talks[0..2]
-  }
-
-  proxy "/feed/index.xml", "/feed.xml", :locals => { :items => (articles + screencasts + talks).sort_by { |item| item.date }.reverse }
+  proxy "/index.html", "/dashboard.html", :locals => { :entries => zipped }
+  proxy "/feed/index.xml", "/feed.xml", :locals => { :items => zipped }
 
   ignore "/writings.html"
   ignore "/feed.xml"
