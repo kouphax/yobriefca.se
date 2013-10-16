@@ -4,3 +4,31 @@ div.filter a.active {
   font-weight: bold;
   text-decoration: underline;
 }
+
+body.all div.entries a.thingie {
+  display: block;
+}
+
+body.screencast div.entries a.thingie {
+  display:none;
+}
+
+body.screencast div.entries a.thingie[data-type="screencast"] {
+  display: block;
+}
+
+body.talk div.entries a.thingie {
+  display:none;
+}
+
+body.talk div.entries a.thingie[data-type="talk"] {
+  display: block;
+}
+
+body.article div.entries a.thingie {
+  display:none;
+}
+
+body.article div.entries a.thingie[data-type="article"] {
+  display: block;
+}

@@ -6,7 +6,7 @@ div#filter-container
 
 div.entries
 	- for thingie in entries do
-		a.latest href="#{thingie.url}" data-type="#{thingie.type}"
+		a.thingie href="#{thingie.url}" data-type="#{thingie.type}"
 			h1 = thingie.title
 			span.type = thingie.type
 			span Published on #{thingie.date}
