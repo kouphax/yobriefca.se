@@ -2,7 +2,15 @@
 title: yobriefca.se
 ---
 
-div#filter-container
+div#filter.filter.active
+  | Filter &rarr; &nbsp;
+  a class=('active' if filter == 'all') data-filter='all' href='/' All
+  | &nbsp; &#124; &nbsp;
+  a class=('active' if filter == 'articles') data-filter='article' href='/articles/' Articles
+  | &nbsp; &#124; &nbsp;
+  a class=('active' if filter == 'talks') data-filter='talk' href='/talks/' Talks
+  | &nbsp; &#124; &nbsp;
+  a class=('active' if filter == 'screencast') data-filter='screencast' href='/screencasts/' Screencasts
 
 div.entries
 	- for thingie in entries do
@@ -11,4 +19,5 @@ div.entries
 			span.type = thingie.type
 			span Published on #{thingie.date}
 
-== javascript_include_tag 'filter'
+- if filter == 'all'
+  == javascript_include_tag 'filter'
