@@ -3,7 +3,7 @@ layout: screencast
 title: "Micro Web Frameworks in .NET - Jessica - Views"
 sequence: "000"
 date: 2011-05-20
-categories: Miscellaneous
+categories: [.NET]
 video_url: 24014537
 screenshot: "https://secure-b.vimeocdn.com/ts/156/895/156895073_295.jpg"
 ---

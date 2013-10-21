@@ -3,7 +3,7 @@ title:      Try Things
 published:  true
 layout:     post
 date:       2013-07-24
-categories: Miscellaneous
+categories: [Craftsmanship]
 slug:       "Try Things is a hands-on meet up format aimed at the technically curious. I'll be running some in London and Belfast soon."
 ---
 <p><img alt="Try Things Flow" src="/images/blog/trythings.png?1381339182"></p>

@@ -22,7 +22,7 @@ class Article
   @@dir         = "#{Dir.pwd}/source/data/articles/"
   @@date_range  = @@dir.size..@@dir.size+10
 
-  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type, :body
+  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type, :body, :categories
 
   def initialize(resource)
 
@@ -45,6 +45,13 @@ class Article
     @url   = "/blog/#{@year}/#{@month}/#{@day}/#{@title.to_url}"
     @slug  = resource.metadata[:page]["slug"] || ""
     @type  = :article
+
+    raw_categories = resource.metadata[:page]["categories"] || []
+    if raw_categories.is_a? String then
+      @categories = raw_categories.split(' ')
+    else
+      @categories = raw_categories
+    end
   end
 
   def body
@@ -61,7 +68,7 @@ class Screencast
   @@dir        = "#{Dir.pwd}/source/data/screencasts/"
   @@date_range = @@dir.size..@@dir.size+10
 
-  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body
+  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body, :categories
 
   def initialize(resource)
 
@@ -74,6 +81,13 @@ class Screencast
     @subtitle   = resource.metadata[:page]["subtitle"] || ""
     @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
     @type       = :screencast
+
+    raw_categories = resource.metadata[:page]["categories"] || []
+    if raw_categories.is_a? String then
+      @categories = raw_categories.split(' ')
+    else
+      @categories = raw_categories
+    end
   end
 
 
@@ -91,7 +105,7 @@ class Talk
   @@dir        = "#{Dir.pwd}/source/data/talks/"
   @@date_range = @@dir.size..@@dir.size+10
 
-  attr_accessor :type, :date, :title, :location, :video, :presentation, :url, :body
+  attr_accessor :type, :date, :title, :location, :video, :presentation, :url, :body, :categories
 
   def initialize(resource)
     @date         = resource.metadata[:page]["date"]
@@ -103,6 +117,13 @@ class Talk
     @url          = @video || @presentation
     @location     = resource.metadata[:page]["location"]
     @body         = ""
+
+    raw_categories = resource.metadata[:page]["categories"] || []
+    if raw_categories.is_a? String then
+      @categories = raw_categories.split(' ')
+    else
+      @categories = raw_categories
+    end
   end
 
   def self.dir
@@ -135,11 +156,91 @@ ready do
 
   zipped = (articles + screencasts + talks).sort_by { |item| item.date }.reverse
 
-  proxy "/index.html", "/dashboard.html", :locals => { :entries => zipped, :filter => 'all' }
-  proxy "/talks/index.html", "/dashboard.html", :locals => { :entries => talks, :filter => 'talks'  }
-  proxy "/screencasts/index.html", "/dashboard.html", :locals => { :entries => screencasts, :filter => 'screencasts'  }
-  proxy "/articles/index.html", "/dashboard.html", :locals => { :entries => articles, :filter => 'articles'  }
-  proxy "/feed/index.xml", "/feed.xml", :locals => { :items => zipped }
+  proxy "/index.html"             , "/dashboard.html" , :locals => { :entries => zipped      , :filter => 'all' }
+  proxy "/talks/index.html"       , "/dashboard.html" , :locals => { :entries => talks       , :filter => 'talks'  }
+  proxy "/screencasts/index.html" , "/dashboard.html" , :locals => { :entries => screencasts , :filter => 'screencasts'  }
+  proxy "/articles/index.html"    , "/dashboard.html" , :locals => { :entries => articles    , :filter => 'articles'  }
+  proxy "/feed/index.xml"         , "/feed.xml"       , :locals => { :items => zipped }
+
+
+  # Calculate some statistics that we can use in the about page
+  stats_all_time = zipped
+    .flat_map { |entry| entry.categories }
+    .group_by { |entry| entry }
+    .map      { |category, group| [category, group.count] }
+    .sort_by  { |category, count| -count }
+    .take     5
+
+  six_months_ago = (Time.now - 182 * 24 * 60 * 60).to_date # about 6 months in days
+  stats_last_6_months = zipped
+    .take_while { |entry| entry.date > six_months_ago }
+    .flat_map { |entry| entry.categories }
+    .group_by { |entry| entry }
+    .map      { |category, group| [category, group.count] }
+    .sort_by  { |category, count| -count }
+    .take     5
+
+  # Create analytical time slices
+  earliest_date           = zipped.last.date
+  latest_date             = zipped.first.date
+  earliest_date_in_months = earliest_date.year * 12 + earliest_date.month
+  latest_date_in_months   = latest_date.year * 12 + latest_date.month
+  slices                  = earliest_date_in_months.upto(latest_date_in_months)
+
+  categories = zipped
+    .flat_map { |entry| entry.categories }
+    .uniq
+    .sort_by { |category| category }
+
+  slice_per_categories = categories
+    .map { |category|
+      count_per_slice = slices
+        .map { |month|
+          zipped
+            .select { |entry| ((entry.date.year * 12 + entry.date.month) == month) && entry.categories.include?(category) }
+            .size
+        }
+      accumulated_count = count_per_slice.reduce([0]) { |memo, slice|
+        memo + [memo.last + slice]
+      }
+
+      [category, count_per_slice]
+    }
+
+
+  proxy "/stats/index.html", "/stats.html", :locals => {
+    :latest_topics    => stats_last_6_months,
+    :all_topics       => stats_all_time,
+    :article_count    => articles.size,
+    :talk_count       => talks.size,
+    :screencast_count => screencasts.size,
+    :trends           => slice_per_categories
+  }
+
+  # generate some category pages
+  categories
+    .each { |category|
+      entries = zipped
+        .select { |entry| entry.categories.include? category }
+      proxy "/category/#{category.downcase.gsub(' ', '-')}/index.html",
+            "/dashboard.html" ,
+            :locals => { :entries => entries, :filter => 'all' }
+    }
+
+  #empty_slice_categories  = Hash[categories.map { |category| [category, 0] }]
+  #categories_per_slice = slices
+  #  .map { |month|
+  #     current = Hash[
+  #       zipped
+  #        .select   { |entry| (entry.date.year * 12 + entry.date.month) == month }
+  #        .flat_map { |entry| entry.categories }
+  #        .group_by { |entry| entry }
+  #        .map      { |category, group| [category, group.size] }
+  #     ]
+  #     empty_slice_categories.merge(current)
+  #  }
+  #
+  # puts categories_per_slice.to_json
 
   ignore "/writings.html"
   ignore "/feed.xml"

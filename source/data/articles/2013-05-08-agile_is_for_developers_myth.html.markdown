@@ -3,7 +3,7 @@ title:      The Old "Agile is for Developers" Myth
 published:  true
 layout:     post
 date:       2013-05-08
-categories: Miscellaneous
+categories: [Agile]
 slug:       "There is a common misconception among people who are just starting out on the agile path that the agile model favors developers and downplays other roles.  While it is true that agile puts a greater focus and added responsibility on developers it also broadens the definition of developer"
 ---
 

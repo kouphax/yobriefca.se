@@ -3,7 +3,7 @@ title:      Disciplined Agile Delivery
 published:  true
 layout:     post
 date:       2013-05-28
-categories: Miscellaneous
+categories: [Agile]
 slug:       "Thanks to Liberty I had the opportunity to attend a morning session by Scott Ambler around Disciplined Agile Delivery..."
 ---
 

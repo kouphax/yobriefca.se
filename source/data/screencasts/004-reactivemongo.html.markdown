@@ -3,7 +3,7 @@ layout: screencast
 title: "ReactiveMongo"
 sequence: "004"
 date: 2013-02-11
-categories: Miscellaneous
+categories: [Scala, MongoDB]
 video_url: 62324769
 screenshot: "/images/screencast/004-reactivemongo.png"
 ---

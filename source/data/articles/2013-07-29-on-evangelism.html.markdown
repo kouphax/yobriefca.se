@@ -3,7 +3,7 @@ title:      On Evangelism...
 published:  true
 layout:     post
 date:       2013-07-29
-categories: Miscellaneous
+categories: [Craftsmanship]
 slug:       "So I've been given the role of Developer Evangelist for Kainos. Cool. So what does that mean in the grand scheme of things?"
 ---
 

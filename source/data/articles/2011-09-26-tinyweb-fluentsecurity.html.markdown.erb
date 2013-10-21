@@ -2,7 +2,7 @@
 layout:     post
 title:      Tinyweb Fluent Security
 published:  true
-categories: [Tinyweb, ".NET", Web, Security]
+categories: [.NET]
 ---
 
 I've been working on a little project recently that is using Tinyweb.  It's a typical little CRUDdy app and makes use of typical security features in a web app.  Tinyweb itself doesn't provide any sort of custom security features out of the box but as it sits on top of ASP.NET you can avail of all the normal membership stuff.  Problem is though - the default membership stuff, when working directly with it, is a bit cumbersome.  I recently tinkered with a project for ASP.NET MVC called [FluentSecurity](http://www.fluentsecurity.net/) that added a fluent syntax to configuring security for ASP.NET MVC applications.  Taking a healthy dose of inspiration from this project I rolled a lightweight Tinyweb version of my own.  I figure this might be useful to someone else so I have now created a new project specifically for this.  It's probably totally broken in areas but the areas I've written tests around appear to work.  

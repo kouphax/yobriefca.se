@@ -4,7 +4,7 @@ title: "Starter for 10: Play! 2 - Part Three"
 subtitle: "Forms, Helpers & Validation"
 sequence: "003"
 date: 2013-02-04
-categories: Miscellaneous
+categories: [Scala]
 video_url: 62325270
 screenshot: "/images/screencast/003-play2.png"
 ---

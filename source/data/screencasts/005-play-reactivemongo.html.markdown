@@ -4,7 +4,7 @@ title: "play-reactivemongo"
 subtitle: "ReactiveMongo Plugin for Play! 2"
 sequence: "005"
 date: 2013-02-18
-categories: Miscellaneous
+categories: [Scala, MongoDB]
 video_url: 62324768
 screenshot: "/images/screencast/005-play-reactivemongo.png"
 ---

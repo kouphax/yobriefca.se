@@ -3,7 +3,7 @@ title:      Micro Service Architecture
 published:  true
 layout:     post
 date:       2013-04-29
-categories: Miscellaneous
+categories: [Architecture]
 slug:       "Micro Service Architecture is an architectural concept that aims to decouple a solution by decomposing functionality into discrete services"
 ---
 

@@ -3,7 +3,7 @@ title:      Culture Bubbles Up
 published:  true
 layout:     post
 date:       2013-06-02
-categories: Miscellaneous
+categories: [Craftsmanship]
 slug:       "Once an organisation reaches the way by which culture is formed and played out changes.  As a company grows and diversifies culture becomes more broken down or siloed across the projects or locations."
 ---
 

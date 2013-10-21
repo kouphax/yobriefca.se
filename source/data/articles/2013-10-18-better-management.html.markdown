@@ -3,13 +3,13 @@ title:      Better Management Through Agile Teams
 published:  true
 layout:     post
 date:       2013-10-18
-categories: Miscellaneous
+categories: [Agile]
 slug:       "Teams delivering solutions in smaller incremental batches are easier to manage"
 ---
 
 Wait is waste!  Value stream mapping, as [Wikipedia reads](http://en.wikipedia.org/wiki/Value_stream_mapping), is a lean manufacturing technique used to analyse and design the flow of materials and information required to bring a product or service to a consumer.
 
-The process of visualising a value stream is valuable for many reasons, one of which is that it can highlight bottlenecks or wait states.  A wait state is a period of time in which actors in the value stream are waiting for something to happen, e.g. waiting for another dependent actor to finish their task.  Actors in a wait state are typically not being utilised and therefore wasting time and money.  Visualising the stream and quantifying the cost of these wait periods can often lead to fundamnetal organisational change.
+The process of visualising a value stream is valuable for many reasons, one of which is that it can highlight bottlenecks or wait states.  A wait state is a period of time in which actors in the value stream are waiting for something to happen, e.g. waiting for another dependent actor to finish their task.  Actors in a wait state are typically not being utilised and therefore wasting time and money.  Visualising the stream and quantifying the cost of these wait periods can often lead to fundamental organisational change.
 
 In plan based or waterfall delivery wait states are ever present, at least from a single project perspective.  All phases have a certain lead time while actors (analysts, developers, ops, testers etc.) start work and feed back more work to the other actors.  The larger the phases, the longer that lead time is (within limits of course).  Developers develop while testers wait, Testers test while developers wait.  So how do you deal with these wait states?  Typically speaking a customer isn’t going to be to fond of paying for people to twiddle their thumbs.  Depending on the period of time the wait state is expected to last you’re either going to have to take the hit or repurpose the actors elsewhere.  Repurposing is a very common practise - you’ll see analysts swoop in at the start of a project write up a big document and slingshot onto the next project, resourcing has be carefully orchestrated so that a developer can roll off one project onto another that is about to start development and of course this all requires that the project goes according to plan - its like a giant game of Jenga.  In the middle of a riot.
 

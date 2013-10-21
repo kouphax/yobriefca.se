@@ -4,7 +4,7 @@ title: "Starter for 10: Play! 2 - Part Two"
 subtitle: "Controllers, Actions, Views & Routes"
 sequence: "002"
 date: 2013-01-27
-categories: Miscellaneous
+categories: [Scala]
 video_url: 62324770
 screenshot: "/images/screencast/002-play2.png"
 ---

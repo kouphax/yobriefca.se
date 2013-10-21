@@ -1,0 +1,40 @@
+---
+title: Facts & Figures
+layout: post
+---
+br
+hr
+div.large-4.columns.big-stat
+  h1
+    a href="/articles/" = article_count
+  h2 Articles
+div.large-4.columns.big-stat
+  h1
+    a href="/talks/" = talk_count
+  h2 Talks
+div.large-4.columns.big-stat
+  h1
+    a href="/screencasts/" = screencast_count
+  h2 Screencasts
+hr
+h2 Trending
+p
+  - for topic in latest_topics.take(4) do
+    a href="/category/#{topic.first.downcase.gsub(' ', '-')}/" = topic.first
+    | &#32;
+  a href="/category/#{latest_topics.last.first.downcase.gsub(' ', '-')}/" = latest_topics.last.first
+hr
+h2 style="margin-bottom:0px;" Categories
+div.entries
+  - for category in trends do
+    a.thingie href="/category/#{category.first.downcase.gsub(' ','-')}"
+      h1
+        div.row
+          div.large-6.columns = category.first
+          div.large-6.columns
+            span.chartjunk = category.last.join(',')
+br
+br
+== javascript_include_tag 'lodash.custom', 'chartjunk'
+javascript:
+  junkify('chartjunk')

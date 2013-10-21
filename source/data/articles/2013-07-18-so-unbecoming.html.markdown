@@ -3,7 +3,7 @@ title:      So Unbecoming
 published:  true
 layout:     post
 date:       2013-07-18
-categories: Miscellaneous
+categories: [Scala]
 slug:       "Comparing and contrasting strategies for creating and managing simple state machines using Akka FSM and become/unbecome"
 ---
 

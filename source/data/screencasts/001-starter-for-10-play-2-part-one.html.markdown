@@ -4,7 +4,7 @@ title: "Starter for 10: Play! 2 - Part One"
 subtitle: "Introduction, Installation & The CLI"
 sequence: "001"
 date: 2013-01-21
-categories: Miscellaneous
+categories: [Scala]
 video_url: 62324767
 screenshot: "/images/screencast/001-play2.png"
 ---
