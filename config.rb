@@ -247,5 +247,6 @@ ready do
   ignore "/dashboard.html"
   ignore "/talks.html"
   ignore "/screencasts.html"
+  ignore "/stats.html"
   ignore "/data/*"
 end

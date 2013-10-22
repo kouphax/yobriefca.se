@@ -26,15 +26,25 @@ p
 hr
 h2 style="margin-bottom:0px;" Categories
 div.entries
-  - for category in trends do
-    a.thingie href="/category/#{category.first.downcase.gsub(' ','-')}"
-      h1
-        div.row
-          div.large-6.columns = category.first
-          div.large-6.columns
-            span.chartjunk = category.last.join(',')
+  - for category in trends.each_slice(2) do
+    div.row
+      div.large-6.columns
+        a.thingie href="/category/#{category.first.first.downcase.gsub(' ','-')}"
+          h1
+            div = category.first.first
+            div.stat style="display:none;"
+              span.chartjunk = category.first.last.join(',')
+      - if category.length == 2
+        div.large-6.columns
+          a.thingie href="/category/#{category.last.first.downcase.gsub(' ','-')}"
+            h1
+              div = category.last.first
+              div.stat style="display:none;"
+                span.chartjunk = category.last.last.join(',')
+
 br
 br
 == javascript_include_tag 'lodash.custom', 'chartjunk'
 javascript:
   junkify('chartjunk')
+  Array.prototype.forEach.call(document.querySelectorAll('div.stat'), function(el){ el.style.display = 'block' });
