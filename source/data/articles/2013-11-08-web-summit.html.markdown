@@ -3,7 +3,7 @@ title:      Web Summit
 published:  true
 layout:     post
 date:       2013-11-08
-categories: [Craftmanship]
+categories: [Craftsmanship]
 slug:       "Some notes from the Dublin Web Summit"
 ---
 

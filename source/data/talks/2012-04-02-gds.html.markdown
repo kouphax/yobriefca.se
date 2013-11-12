@@ -1,0 +1,8 @@
+---
+layout:       talk
+title:        "Government Digital Service"
+location:     "Kainos, Belfast"
+date:         2012-04-02
+presentation: "https://speakerdeck.com/kouphax/government-digital-services-proof-the-pigs-can-indeed-fly"
+categories: [Agile, Craftsmanship]
+---
