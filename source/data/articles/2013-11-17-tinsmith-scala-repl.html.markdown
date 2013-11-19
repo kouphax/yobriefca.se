@@ -28,7 +28,3 @@ to use some common techs to produce a slightly different experience.
 This is in no way meant to act as competition to the clearly better [codebrew.io](http://codebrew.io) - it's simply something I needed quickly
 and decided other people might benefit from it as well.  Afterall it's just the [scala-codesheet](https://github.com/jedesah/scala-codesheet-api) and
 [codemirror](http://codemirror.net/index.html) thrown together with a bit of webby glue.
-
-## Demo <sup><a href="http://tinsmith.herokuapp.com" target="_blank">Fullscreen</a></sup>
-
-<iframe src="http://tinsmith.herokuapp.com/" style="width:100%; height: 400px; border:none;"></iframe>
