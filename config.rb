@@ -249,4 +249,5 @@ ready do
   ignore "/screencasts.html"
   ignore "/stats.html"
   ignore "/data/*"
+  ignore "/GenerateIndicies.scala"
 end
