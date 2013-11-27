@@ -89,10 +89,10 @@ div.filter a.active {
   text-decoration : underline;
 }
 
-body.all div.entries a.thingie,body.screencast div.entries a.thingie[data-type=screencast],body.talk div.entries a.thingie[data-type=talk],body.article div.entries a.thingie[data-type=article] {
+body.all div.entries a.thingie,body.screencast div.entries a.thingie[data-type=screencast],body.talk div.entries a.thingie[data-type=talk],body.article div.entries a.thingie[data-type=article],body.project div.entries a.thingie[data-type=project] {
   display : block;
 }
 
-body.screencast div.entries a.thingie,body.talk div.entries a.thingie,body.article div.entries a.thingie {
+body.screencast div.entries a.thingie,body.talk div.entries a.thingie,body.article div.entries a.thingie,body.project div.entries a.thingie {
   display : none;
 }

@@ -1,0 +1,8 @@
+---
+layout:       talk
+name:        "tinsmith"
+description:  "Self Hosted Scala REPL"
+date:         2013-11-13
+url:          "http://yobriefca.se/tinsmith/"
+categories:   [Scala]
+---

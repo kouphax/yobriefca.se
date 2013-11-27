@@ -1,0 +1,8 @@
+---
+layout:       talk
+name:        "biomatic"
+description:  "Twitter Bio Generator for Realz!"
+date:         2013-11-07
+url:          "http://biomatic.herokuapp.com/"
+categories:   [Random]
+---

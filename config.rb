@@ -131,12 +131,43 @@ class Talk
   end
 end
 
+class Project
+
+  @@dir        = "#{Dir.pwd}/source/data/projects/"
+  @@date_range = @@dir.size..@@dir.size+10
+
+  attr_accessor :type, :date, :title, :name, :description, :url, :body, :categories
+
+  def initialize(resource)
+    @date         = resource.metadata[:page]["date"]
+    @name         = resource.metadata[:page]["name"]
+    @description  = resource.metadata[:page]["description"]
+    @title        = "#{@name}: #{@description}"
+    @file         = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.markdown$/, '')
+    @type         = :project
+    @url          = resource.metadata[:page]["url"]
+    @body         = ""
+
+    raw_categories = resource.metadata[:page]["categories"] || []
+    if raw_categories.is_a? String then
+      @categories = raw_categories.split(' ')
+    else
+      @categories = raw_categories
+    end
+  end
+
+  def self.dir
+    @@dir
+  end
+end
+
 ready do
 
   articles    = []
   screencasts = []
   talks       = []
-
+  projects    = []
+projects
   sitemap.resources.each do |res|
     case res.source_file
     when /^#{Regexp.quote(Article.dir)}/
@@ -151,15 +182,18 @@ ready do
       proxy "#{screencast.url}/index.html", screencast.file
     when /^#{Regexp.quote(Talk.dir)}/
       talks.unshift Talk.new(res)
+    when /^#{Regexp.quote(Project.dir)}/
+      projects.unshift Project.new(res)
     end
   end
 
-  zipped = (articles + screencasts + talks).sort_by { |item| item.date }.reverse
+  zipped = (articles + screencasts + talks + projects).sort_by { |item| item.date }.reverse
 
   proxy "/index.html"             , "/dashboard.html" , :locals => { :entries => zipped      , :filter => 'all' }
   proxy "/talks/index.html"       , "/dashboard.html" , :locals => { :entries => talks       , :filter => 'talks'  }
   proxy "/screencasts/index.html" , "/dashboard.html" , :locals => { :entries => screencasts , :filter => 'screencasts'  }
   proxy "/articles/index.html"    , "/dashboard.html" , :locals => { :entries => articles    , :filter => 'articles'  }
+  proxy "/projects/index.html"    , "/dashboard.html" , :locals => { :entries => projects    , :filter => 'projects'  }
   proxy "/feed/index.xml"         , "/feed.xml"       , :locals => { :items => zipped }
 
 
@@ -214,6 +248,7 @@ ready do
     :article_count    => articles.size,
     :talk_count       => talks.size,
     :screencast_count => screencasts.size,
+    :project_count    => projects.size,
     :trends           => slice_per_categories
   }
 

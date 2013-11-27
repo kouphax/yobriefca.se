@@ -11,6 +11,8 @@ div#filter.filter.active
   a class=('active' if filter == 'talks') data-filter='talk' href='/talks/' Talks
   | &nbsp; &#124; &nbsp;
   a class=('active' if filter == 'screencast') data-filter='screencast' href='/screencasts/' Screencasts
+  | &nbsp; &#124; &nbsp;
+  a class=('active' if filter == 'projects') data-filter='project' href='/projects/' Projects
 
 div.entries
 	- for thingie in entries do

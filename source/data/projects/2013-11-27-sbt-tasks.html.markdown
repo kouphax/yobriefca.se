@@ -1,0 +1,8 @@
+---
+layout:       talk
+name:        "sbt-tasks"
+description:  "Rails/Rake custom tasks for SBT"
+date:         2013-11-27
+url:          "http://yobriefca.se/sbt-tasks/"
+categories:   [Scala, SBT]
+---
