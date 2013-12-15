@@ -22,7 +22,7 @@ class Article
   @@dir         = "#{Dir.pwd}/source/data/articles/"
   @@date_range  = @@dir.size..@@dir.size+10
 
-  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type, :body, :categories
+  attr_accessor :published, :year, :month, :day, :title, :file, :url, :slug, :date, :type, :body, :categories, :resource
 
   def initialize(resource)
 
@@ -167,7 +167,7 @@ ready do
   screencasts = []
   talks       = []
   projects    = []
-projects
+
   sitemap.resources.each do |res|
     case res.source_file
     when /^#{Regexp.quote(Article.dir)}/
@@ -276,6 +276,55 @@ projects
   #  }
   #
   # puts categories_per_slice.to_json
+
+  # exported_posts = articles.map do |article|
+  #   {
+  #     "title"            => article.title,
+  #     "slug"             => article.slug,
+  #     "markdown"         => File.read(article.resource.source_file).split("---").last,
+  #     "html"             => article.body,
+  #     "image"            => nil,
+  #     "featured"         => 0,
+  #     "page"             => 0,
+  #     "status"           => "published",
+  #     "language"         => "en_US",
+  #     "meta_title"       => nil,
+  #     "meta_description" => nil,
+  #     "author_id"        => 1,
+  #     "created_at"       => article.date.to_time.to_i,
+  #     "created_by"       => 1,
+  #     "updated_at"       => article.date.to_time.to_i,
+  #     "updated_by"       => 1,
+  #     "published_at"     => article.date.to_time.to_i,
+  #     "published_by"     => 1,
+  #     "tags"             => article.categories.map { |category| { "name" => category } }
+  #   }
+  # end
+  # 
+  # exported_tags = articles.map { |article| article.categories }
+  #                         .flatten
+  #                         .uniq
+  #                         .each_with_index
+  #                         .map { |category, index|
+  #                             {
+  #                                 "id"          => index,
+  #                                 "name"        => category,
+  #                                 "slug"        => category.downcase,
+  #                                 "description" => ""
+  #                             }
+  #                         }
+  # 
+  # export_object = {
+  #     "meta" => {
+  #         "exported_on" => Time.now.to_i * 1000,
+  #         "version"     => "000"
+  #     },
+  #     "data" => {
+  #         "posts" => exported_posts
+  #     }
+  # }
+  # 
+  # File.write('ghost_export.json', JSON.generate(export_object))
 
   ignore "/writings.html"
   ignore "/feed.xml"
