@@ -68,7 +68,7 @@ class Screencast
   @@dir        = "#{Dir.pwd}/source/data/screencasts/"
   @@date_range = @@dir.size..@@dir.size+10
 
-  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body, :categories
+  attr_accessor :type, :date, :title, :subtitle, :file, :url, :screenshot, :body, :categories, :external
 
   def initialize(resource)
 
@@ -76,10 +76,15 @@ class Screencast
     @title      = resource.metadata[:page]["title"]
     @file       = resource.source_file["#{Dir.pwd}/source".size..-1].sub(/\.erb$/, '').sub(/\.markdown$/, '')
     @screenshot = resource.metadata[:page]["screenshot"] || ""
+    @external   = resource.metadata[:page]["external"] || false
     @sequence   = resource.metadata[:page]["sequence"]
     @date       = resource.metadata[:page]["date"]
     @subtitle   = resource.metadata[:page]["subtitle"] || ""
-    @url        = "/screencasts/#{@sequence}-#{@title.to_url}"
+    @url        = if external then
+      resource.metadata[:page]["url"]
+    else
+      "/screencasts/#{@sequence}-#{@title.to_url}"
+    end
     @type       = :screencast
 
     raw_categories = resource.metadata[:page]["categories"] || []
@@ -174,12 +179,14 @@ ready do
       article = Article.new(res)
       if article.published then
         articles.unshift article
-        proxy "#{article.url}/index.html", article.file
+        proxy "#{article.url}/index.html", article.file, :locals => { :article => article }
       end
     when /^#{Regexp.quote(Screencast.dir)}/
       screencast = Screencast.new(res)
       screencasts.unshift screencast
-      proxy "#{screencast.url}/index.html", screencast.file
+      if !screencast.external then
+        proxy "#{screencast.url}/index.html", screencast.file, :locals => {:screencast => screencast}
+      end
     when /^#{Regexp.quote(Talk.dir)}/
       talks.unshift Talk.new(res)
     when /^#{Regexp.quote(Project.dir)}/
@@ -189,13 +196,14 @@ ready do
 
   zipped = (articles + screencasts + talks + projects).sort_by { |item| item.date }.reverse
 
-  proxy "/index.html"             , "/dashboard.html" , :locals => { :entries => zipped      , :filter => 'all' }
-  proxy "/talks/index.html"       , "/dashboard.html" , :locals => { :entries => talks       , :filter => 'talks'  }
-  proxy "/screencasts/index.html" , "/dashboard.html" , :locals => { :entries => screencasts , :filter => 'screencasts'  }
-  proxy "/articles/index.html"    , "/dashboard.html" , :locals => { :entries => articles    , :filter => 'articles'  }
-  proxy "/projects/index.html"    , "/dashboard.html" , :locals => { :entries => projects    , :filter => 'projects'  }
-  proxy "/feed/index.xml"         , "/feed.xml"       , :locals => { :items => zipped }
-
+  proxy "/index.html"              , "/dashboard.html"    , :locals => { :entries => zipped  }
+  proxy "/talks/index.html"        , "/thingies.html"     , :locals => { :entries => talks, :title => "Talks" }
+  proxy "/screencasts/index.html"  , "/thingies.html"     , :locals => { :entries => screencasts, :title => "Screencasts" }
+  proxy "/articles/index.html"     , "/thingies.html"     , :locals => { :entries => articles, :title => "Articles" }
+  proxy "/projects/index.html"     , "/thingies.html"     , :locals => { :entries => projects, :title => "Projects" }
+  proxy "/feed/index.xml"          , "/feed.xml"          , :locals => { :items => zipped }
+  proxy "/testimonials/index.html" , "/testimonials.html"
+  proxy "/background/index.html"   , "/background.html"
 
   # Calculate some statistics that we can use in the about page
   stats_all_time = zipped
@@ -226,31 +234,31 @@ ready do
     .uniq
     .sort_by { |category| category }
 
-  slice_per_categories = categories
-    .map { |category|
-      count_per_slice = slices
-        .map { |month|
-          zipped
-            .select { |entry| ((entry.date.year * 12 + entry.date.month) == month) && entry.categories.include?(category) }
-            .size
-        }
-      accumulated_count = count_per_slice.reduce([0]) { |memo, slice|
-        memo + [memo.last + slice]
-      }
+#  slice_per_categories = categories
+#    .map { |category|
+#      count_per_slice = slices
+#        .map { |month|
+#          zipped
+#            .select { |entry| ((entry.date.year * 12 + entry.date.month) == month) && entry.categories.include?(category) }
+#            .size
+#        }
+#      accumulated_count = count_per_slice.reduce([0]) { |memo, slice|
+#        memo + [memo.last + slice]
+#      }
+#
+#      [category, count_per_slice]
+#    }
 
-      [category, count_per_slice]
-    }
 
-
-  proxy "/stats/index.html", "/stats.html", :locals => {
-    :latest_topics    => stats_last_6_months,
-    :all_topics       => stats_all_time,
-    :article_count    => articles.size,
-    :talk_count       => talks.size,
-    :screencast_count => screencasts.size,
-    :project_count    => projects.size,
-    :trends           => slice_per_categories
-  }
+#  proxy "/stats/index.html", "/stats.html", :locals => {
+#    :latest_topics    => stats_last_6_months,
+#    :all_topics       => stats_all_time,
+#    :article_count    => articles.size,
+#    :talk_count       => talks.size,
+#    :screencast_count => screencasts.size,
+#    :project_count    => projects.size,
+#    :trends           => slice_per_categories
+#  }
 
   # generate some category pages
   categories
@@ -258,8 +266,8 @@ ready do
       entries = zipped
         .select { |entry| entry.categories.include? category }
       proxy "/category/#{category.downcase.gsub(' ', '-')}/index.html",
-            "/dashboard.html" ,
-            :locals => { :entries => entries, :filter => 'all' }
+            "/thingies.html" ,
+            :locals => { :entries => entries, :title => category }
     }
 
   #empty_slice_categories  = Hash[categories.map { |category| [category, 0] }]
@@ -328,6 +336,7 @@ ready do
 
   ignore "/writings.html"
   ignore "/feed.xml"
+  ignore "/thingies.html"
   ignore "/dashboard.html"
   ignore "/talks.html"
   ignore "/screencasts.html"

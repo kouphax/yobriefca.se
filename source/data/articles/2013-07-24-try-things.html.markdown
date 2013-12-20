@@ -6,13 +6,13 @@ date:       2013-07-24
 categories: [Craftsmanship]
 slug:       "Try Things is a hands-on meet up format aimed at the technically curious. I'll be running some in London and Belfast soon."
 ---
-<p><img alt="Try Things Flow" src="/images/blog/trythings.png?1381339182"></p>
-
 <p>I've always been a tinkerer.  I value understanding different things. Even if the net result is “eugh that's a terrible idea”. I enjoy challenging my assumptions and opinions because being proven wrong means I've learnt something and that's good.  And while I may never use the language or tech I've tinkered with there may well be principles or practises I can apply to whatever I'm doing presently. Generalism is in my blood.  But tinkering can be a lonely old game, finding like minded people wanting to tinker with the same things with the same availability is a thankless task.</p>
 
 <p>It's time to try something new - it's time to Try Things.  Try Things is a hands-on meet up format aimed at the technically curious.</p>
 
 <h2>How It Works</h2>
+
+<p><img alt="Try Things Flow" src="/images/blog/trythings.png?1381339182"></p>
 
 <p>Try Things is a relatively informal concept but the general flow of an event is outlined below.  It is a technically focused event so a computer is somewhat essential for attendees.</p>
 

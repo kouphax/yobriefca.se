@@ -7,22 +7,14 @@ html
 
     title = data.page.title || "yobriefca.se"
 
-    link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'
-    == stylesheet_link_tag "normalize", "foundation", "main"
+    link href="http://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans" rel="stylesheet" type="text/css"
+    == stylesheet_link_tag "fontello", "styles", "syntax"
   body
-
     div.row
-      div.large-8.large-centered.columns
-        div.page.tokens
-          a href="https://github.com/kouphax" Github
-          a href="http://twitter.com/kouphax" Twitter
-          a href="/stats/" Stats
-    div#main.row
-      div.large-8.large-centered.columns
-        div.page
-          h1.title Yo! Briefcase
-          div.filter James Hughes, Software Consultant
-          == yield
+      ==yield
+    div.homer
+      a href="/"
+        i.icon-briefcase style="font-size:32px;"
 
     javascript:
       var _gaq = _gaq || [];

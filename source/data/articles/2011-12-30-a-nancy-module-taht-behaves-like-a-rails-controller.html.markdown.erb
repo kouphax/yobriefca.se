@@ -8,8 +8,6 @@ categories: [.NET]
 
 If [Nancy](http://nancyfx.org) is inspired by Sinatra I thought I'd have a little fun a create an abstract class that created modules that kind of mimic the behaviour of Rails controllers.  Code first, ask questions later...
 
-<!-- more -->
-
 ```csharp 
 public abstract class RailslikeControllerFor<TEntity> : NancyModule where TEntity : class
 {

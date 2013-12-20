@@ -7,9 +7,9 @@ categories: [Architecture]
 slug:       "Micro Service Architecture is an architectural concept that aims to decouple a solution by decomposing functionality into discrete services"
 ---
 
-![Micro Service Architecture](/images/blog/micro-service-architecture.png)
-
 Micro Service Architecture is an architectural concept that aims to decouple a solution by decomposing functionality into discrete services.  Think of it as applying many of the principles of [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design\)) at an architectural level, instead of classes you've got services.
+
+![Micro Service Architecture](/images/blog/micro-service-architecture.png)
 
 Conceptually speaking MSA is not particularly difficult to grasp but in practice it does raise many questions.  How do these services communicate? What about latency between services? How do you test the services?  How do you detect and respond to failure? How do you manage deployments when you have a bunch of interdependencies?  So lets expand on some of these throughout this post and see if MSA really is worth the effort.
 
