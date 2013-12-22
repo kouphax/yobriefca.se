@@ -43,6 +43,24 @@ blockquote {
 	color: #fff;
 }
 
+.homer-inline {
+	font-size: 2rem;
+	height:71px;
+	width:71px;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	top:-26px;
+	border-radius: 2.5rem;
+	background-color:#333;
+	margin-right: 20px;
+	font-weight: normal;
+}
+
+.homer-inline a {
+	color: #fff;
+}
+
 div.elevator-pitch {
 	margin-top:-1rem;
 }
@@ -155,6 +173,13 @@ h1.testimonial-header {
 	font-weight: normal;
 }
 
+#avatars img {
+	height: 71px;
+	width: 71px;
+	border-radius: 71px;
+	margin-right: 20px;
+}
+
 @media (min-width: 400px) {
 	.row {
 		padding: 0 2.618rem;
@@ -174,12 +199,12 @@ h1.testimonial-header {
 }
 
 @media (max-width: 800px) {
-.testimonial {
-	padding-right:0rem;
-}
+	.testimonial {
+		padding-right:0rem;
+	}
 
-.testimonial div {
-	padding-right: 1rem;
-}
+	.testimonial div {
+		padding-right: 1rem;
+	}
 }
 
