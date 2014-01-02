@@ -180,6 +180,12 @@ h1.testimonial-header {
 	margin-right: 20px;
 }
 
+a.twitter {
+	background-color: #DBF7F8;
+	color: #2D6491;
+	padding: 1%;
+}
+
 @media (min-width: 400px) {
 	.row {
 		padding: 0 2.618rem;

@@ -1,6 +1,7 @@
 - wrap_layout :layout do 
   h1=data.page.title
   == yield
+  a.twitter target="_blank" href="https://twitter.com/intent/tweet?#{URI::encode_www_form("url" => "http://yobriefca.se" + current_page.url, "text" => current_page.data.title, "via" => "kouphax")}" Tweet This
   div.dater=article.date.strftime("%B %d, %Y")
   div.categories
     | Published in
