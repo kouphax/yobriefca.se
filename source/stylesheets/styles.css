@@ -173,7 +173,10 @@ h1.testimonial-header {
 	font-weight: normal;
 }
 
-#avatars img {
+#headshot {
+	display: inline;
+}
+#headshot img {
 	height: 71px;
 	width: 71px;
 	border-radius: 71px;
