@@ -14,7 +14,7 @@ Talking to teams and stakeholders within organisations over the last few years I
 
 The goal of continuous delivery isn’t actually about automating everything (it just so happens that in many cases automation has significant benefits).  Continuous delivery is about reducing the time to deliver a single change to production so to establish a tighter feedback loop between your company or product and your users.  
 
-However a lot of the time taken to deploy a release may well be out of your control, usually for the reasons quoted above.  The thing is though, things change.  It takes time but things always change.  To quote Dr. Ian Malcolm - "[Life finds a way](http://www.youtube.com/watch?v=SkWeMvrNiOM)".  For example - your QA department might well suddenly discover the joys of automating a lot of their manual regression tests, your service management contract may expire and some new executive might suggest you try this new fangled "agile cloud as a serivce stuff" on the back of promises like 10x productivity<a name="_1"></a>[<sup>1</sup>](#1).  There are lots of reasons, and most of them a blessing in disguise even if they are a bit ill-informed.  __Being ready allows you to capitalise on this organistational change__ and make it last.
+However a lot of the time taken to deploy a release may well be out of your control, usually for the reasons quoted above.  The thing is though, things change.  It takes time but things always change.  To quote Dr. Ian Malcolm - "[Life finds a way](http://www.youtube.com/watch?v=SkWeMvrNiOM)".  For example - your QA department might well suddenly discover the joys of automating a lot of their manual regression tests, your service management contract may expire and some new executive might suggest you try this new fangled "agile cloud as a service stuff" on the back of promises like 10x productivity<a name="_1"></a>[<sup>1</sup>](#1).  There are lots of reasons, and most of them a blessing in disguise even if they are a bit ill-informed.  __Being ready allows you to capitalise on this organistational change__ and make it last.
 
 ## Visualise your Pipeline
 
@@ -26,7 +26,7 @@ So you may not have hugely reduced the time to a __production__ release but you'
 
 ## Boy Scouting
 
-But a lot of this work is far from trivial and right now it might be hard to sell it to the people holding the purse strings and Gannt charts so what can you do?  Well, a few years ago Robert C. Martin (Uncle Bob) suggested that you can [apply the Boy Scout rule to code bases](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule).
+But a lot of this work is far from trivial and right now it might be hard to sell it to the people holding the purse strings and Gantt charts so what can you do?  Well, a few years ago Robert C. Martin (Uncle Bob) suggested that you can [apply the Boy Scout rule to code bases](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule).
 
 > The Boy Scouts have a rule: "Always leave the campground cleaner than you found it." If you find a mess on the ground, you clean it up regardless of who might have made the mess. You intentionally improve the environment for the next group of campers.
 
