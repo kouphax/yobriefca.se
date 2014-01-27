@@ -1,14 +1,8 @@
 #!/bin/bash
 rm -rf build
-mkdir build
-cd build
-git init
-git remote add origin git@github.com:kouphax/kouphax.github.com.git
-git pull origin master
-rm -rf *
-cd ..
-bundle exec middleman build
+git clone git@github.com:kouphax/kouphax.github.com.git ./build
+bundle exec "middleman build --clean"
 cd build
 git add -A
-git commit -m "New push"
+git commit -m "[automated] pushing updated site"
 git push origin master
