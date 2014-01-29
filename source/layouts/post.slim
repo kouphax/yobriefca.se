@@ -1,11 +1,12 @@
-- wrap_layout :layout do 
+- wrap_layout :layout do
   h1=data.page.title
-  == yield
+  div.post
+    == yield
   a.twitter target="_blank" href="https://twitter.com/intent/tweet?#{URI::encode_www_form("url" => "http://yobriefca.se" + current_page.url, "text" => current_page.data.title, "via" => "kouphax")}" Tweet This
   div.dater=article.date.strftime("%B %d, %Y")
   div.categories
     | Published in
     - for category in article.categories do
       a.category href="/category/#{category.downcase.gsub(' ', '-')}/" #{category}&nbsp;
-    |  on 
+    |  on
     = article.date.strftime("%B %d, %Y")

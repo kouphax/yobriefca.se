@@ -185,6 +185,10 @@ a.twitter {
 	padding: 1%;
 }
 
+div.post img {
+	max-width:100%;
+}
+
 @media (min-width: 400px) {
 	.row {
 		padding: 0 2.618rem;
