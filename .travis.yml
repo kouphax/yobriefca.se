@@ -2,9 +2,12 @@ language: ruby
 rvm:
   - 2.1.1
 script:  bundle exec middleman build
+branches:
+  only:
+    - master
 env:
   global:
-    secure: higi4lfhTlp7w2yJ5dVJpjnIYf9ohFcgdf6XCkE1B6staIqFSryvgL/v0Mb37wHAHjW5t3O0TjRY2azTiD6PMaCdj699uD2TpHD2rJIVfIlYwnt6L5aYWLcmzgDluiWkjGH13EJimmwz1p3GoXfYcWVlRkt8cS2weQ9v0ORtj5A=
+    secure: GHO+y9Tl4sI0nzlT0aY2QG8rC+gyJc2nslW4DCvwuC9cH5ykJRwZ0Uzn3+76I/DXfc7e4WN82cgpIFz50dAgpw3LFk5++ulAzp4cYOnLgGwkSJn+8aZobWtXj98VTBkE49rcnuEORr6x6YmWv92CMQO8NMVgOo3j+EHnOEt9fBU=
 after_script:
   - cd build
   - git config --global user.email "james@yobriefca.se"
@@ -12,7 +15,7 @@ after_script:
   - git init
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${DEPLOY_TOKEN}:@github.com" > .git/credentials  
-  - git remote add origin https://github.com/kouphax/travis-test.git
+  - git remote add origin https://github.com/kouphax/kouphax.github.com.git
   - git add -A
   - git commit -m "Automated push from travis"
   - git push --force origin master
