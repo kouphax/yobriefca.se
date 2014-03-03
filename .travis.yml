@@ -10,4 +10,3 @@ after_script:
   - git init
   - git remote add origin https://kouphax:$DEPLOY_TOKEN@github.com/kouphax/travis-test.git
   - git push --force origin master
-	
