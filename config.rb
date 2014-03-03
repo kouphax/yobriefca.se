@@ -1,5 +1,5 @@
-require "redcarpet"
-require "stringex"
+require 'redcarpet'
+require 'stringex'
 require 'builder'
 
 set :markdown_engine , :redcarpet
