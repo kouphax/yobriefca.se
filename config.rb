@@ -197,6 +197,7 @@ ready do
   articles    = articles.sort_by { |item| item.date }.reverse
   screencasts = screencasts.sort_by { |item| item.date }.reverse
   projects    = projects.sort_by { |item| item.date }.reverse
+  talks       = talks.sort_by { |item| item.date }.reverse
   zipped      = (articles + screencasts + talks + projects).sort_by { |item| item.date }.reverse
 
   proxy "/index.html"              , "/dashboard.html"    , :locals => { :entries => zipped  }
