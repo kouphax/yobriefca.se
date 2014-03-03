@@ -9,4 +9,5 @@ after_script:
   - cd build
   - git init
   - git remote add origin https://kouphax:$DEPLOY_TOKEN@github.com/kouphax/travis-test.git
+  - git add -am "Automated push from travis"
   - git push --force origin master
