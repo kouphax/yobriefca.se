@@ -1,6 +1,6 @@
 ---
 title: Defocus
-published: false
+published: true
 layout: post
 date: 2014-03-04
 categories: 
