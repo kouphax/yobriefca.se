@@ -1,0 +1,61 @@
+---
+title: Defocus
+published: false
+layout: post
+date: 2014-03-04
+categories: 
+  - Craftsmanship
+slug: Sometimes the best way forward is to go off on a tangent.
+---
+
+Let me tell you a story.  It's one of those stories you look back on and laugh at how ridiculously clueless you had been.  It's not a great story, it's a bit silly in fact.
+
+In my first year of my Software Engineering course at university we were introduced to a number of languages including but not entirely limited to Java, Ada95, Pascal, Prolog, Standard ML and JavaScript.  The intent behind this exposure to so many languages in one go was to get us to understand the various language styles such as object orineted, logic and functional.  My previous experience of languages was limted to breaking everything in JavaScript, Pascal, Visual Basic and its subset VBA.  It wasn't easy, jumping between styles and syntax and concepts.  But you keep going and eventually you get it. So eventually I got it.  Just in time to move to the next language.  
+
+In particular I really enjoyed working with ML, I still own [Elements of ML Programming](http://www.amazon.com/Elements-Programming-ML97-Edition-2nd/dp/0137903871) with it's bizarre front cover resembling a treasure map.  The functional approach it used, and the power of this appraoch for building terse solutions was a breath of fresh air compared to the Java 1.2 stuff we were using on another course.  I enjoyed it so much I wanted to do well in it and so would work through the course material, the optional material and then some other stuff during the practical lectures.  Nothing big, just little functions that did factorials and the usual stuff.
+
+One day I was going through the usual exercises determined to get the mandatory exercises done and crack on with the optional ones (usually more interesting).  About an hour and a half in I was trying to write a function that given a number would return the number if it was less than 10 otherwise it would return 1.  Simple, right?  I got about this far.
+
+```ml
+(* do some number adjustment magic *)
+fun adjust number = if number < 10 
+                        then number 
+                        else <???????>;
+
+adjust 3; (* expects 3 *)
+adjust 10;(* expects 1 *)
+```
+
+I'm head down learning new things, trying to understand the syntax of ML and I'm stumped because I don't know how to return 1 from a function.  I thought and thought and thought about it.  Nothing.  Eventually I remembered dividing a number by itself yield 1.  Pure. Unadulterated. Genius.
+
+```ml
+fun adjust number = if number < 10 
+                        then number 
+                        else number/number;
+```
+
+But nooooooooo.  Running this gives us the following error,
+
+```shell
+Standard ML of New Jersey v110.74 [built: Fri Jan 24 17:53:58 2000]
+- stdIn:4.30-4.43 Error: operator and operand don't agree [literal]
+  operator domain: real * real
+  operand:         int * int
+  in expression:
+    number / number
+- 
+```
+
+My ML-fu was still weak and this had me stumped.  I tried various tweaks of the same thing but I could not get this thing to return a 1.  Defeated by a dumb number I left the class early and went for a walk.
+
+About 10 minutes into the walk I'd forgotten about the class and the absolutely mind bending puzzle of returning 1 from a function.  Hmmmmm Returning 1.  Just return 1. `else 1`.  Wait, wait you can just return things.  1 is a thing.  Return the thing that is 1.  The thing that is 1 is 1.  Return 1.
+
+Ffffffffffffffffffffffffffffffffffffffacepalm
+
+It only took about 11 or 12 minutes of extracting myself out of that narrow focus I was in.  A focus so narrow that fundamental programming concepts such as literals weren't even in my periphery.  I simply stopped thinking correctly.  I could have sat there until the class finished and burnt more time.
+
+Of course I'm not saying anything new here.  I'm recounting a 14 year old story that still happens to me today.  But I think now I've matured enough to know that my continued effort is becoming net negative and to walk away.  It feels like common sense now and you may think the same thing.  But its a point worth reminding yourself of sometimes.
+
+Focusing on a single point for too long will blind you to alternatives. Take time to reflect, take time to think AWAY from the problem.  Use a shower, hammock or long walk.  Do some exercise.  Talk to a third party such as a rubber duck or a real person.  Ask yourself "how would I do this in something I'm familiar with?".
+
+Defocus.
