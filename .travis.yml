@@ -2,3 +2,12 @@ language: ruby
 rvm:
   - 2.1.1
 script:  bundle exec middleman build
+env:
+  global:
+    secure: higi4lfhTlp7w2yJ5dVJpjnIYf9ohFcgdf6XCkE1B6staIqFSryvgL/v0Mb37wHAHjW5t3O0TjRY2azTiD6PMaCdj699uD2TpHD2rJIVfIlYwnt6L5aYWLcmzgDluiWkjGH13EJimmwz1p3GoXfYcWVlRkt8cS2weQ9v0ORtj5A=
+after_script:
+  - cd build
+  - git init
+  - git remote add origin https://kouphax:$DEPLOY_TOKEN@github.com/kouphax/travis-test.git
+  - git push --force origin master
+	
