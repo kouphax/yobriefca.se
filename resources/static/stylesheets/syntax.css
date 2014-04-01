@@ -1,0 +1,122 @@
+.highlight .hll {
+background-color:#ffc;
+}
+
+.highlight .cp {
+color:#BC7A00;
+}
+
+.highlight .gd {
+color:#A00000;
+}
+
+.highlight .gr {
+color:red;
+}
+
+.highlight .gi {
+color:#00A000;
+}
+
+.highlight .go {
+color:gray;
+}
+
+.highlight .gs {
+}
+
+.highlight .gu {
+color:purple;
+}
+
+.highlight .gt {
+color:#0040D0;
+}
+
+.highlight .kt {
+color:#606;
+}
+
+.highlight .na {
+color:#7D9029;
+}
+
+.highlight .no {
+color:#800;
+}
+
+.highlight .nd {
+color:#A2F;
+}
+
+.highlight .ni {
+color:#999;
+}
+
+.highlight .ne {
+color:#D2413A;
+}
+
+.highlight .nf {
+color:#00F;
+}
+
+.highlight .nl {
+color:#A0A000;
+}
+
+.highlight .ow {
+color:#A2F;
+}
+
+.highlight .w {
+color:#bbb;
+}
+
+.highlight .sd {
+color:#BA2121;
+}
+
+.highlight .se {
+color:#B62;
+}
+
+.highlight .si {
+color:#B68;
+}
+
+.highlight .sr {
+color:#B68;
+}
+
+.highlight .c,.highlight .cm,.highlight .c1,.highlight .cs {
+color:#408080;
+}
+
+.highlight .k,.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kr,.highlight .nt {
+color:#008;
+}
+
+.highlight .o,.highlight .m,.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo,.highlight .il {
+color:#666;
+}
+
+.highlight .gh,.highlight .gp {
+color:navy;
+}
+
+.highlight .kp,.highlight .nb,.highlight .sx,.highlight .bp {
+color:green;
+}
+
+.highlight .s,.highlight .sb,.highlight .sc,.highlight .s2,.highlight .sh,.highlight .s1 {
+color:#080;
+}
+
+.highlight .nc,.highlight .nn {
+color:#606;
+}
+
+.highlight .nv,.highlight .ss,.highlight .vc,.highlight .vg,.highlight .vi {
+color:#19177C;
+}

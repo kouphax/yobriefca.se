@@ -1,9 +1,0 @@
----
-layout:       talk
-title:        "Mobile, How Do I Develop Thee? Let Me Count the Ways (Short Version)"
-location:     "Infoshare, Gdansk"
-date:         2012-04-20
-presentation: "http://speakerdeck.com/u/kouphax/p/mobile-how-do-i-develop-thee-let-me-count-the-ways-short-version"
-video:        "http://vimeo.com/41132110"
-categories: [Mobile]
----

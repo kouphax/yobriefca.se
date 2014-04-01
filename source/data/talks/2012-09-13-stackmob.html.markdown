@@ -1,9 +1,0 @@
----
-layout:       talk
-title:        "StackMob: Baas meets PaaS (Lightning Talk)"
-location:     "CodeSlice, Belfast"
-date:         2012-09-13
-presentation: "https://speakerdeck.com/u/kouphax/p/stackmob2"
-video:        "https://vimeo.com/49405807"
-categories: [Cloud]
----

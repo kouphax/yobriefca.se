@@ -1,8 +1,0 @@
----
-layout:       talk
-title:        "refORM: Death to ORMs in .NET"
-location:     "DeveloperDeveloperDeveloper, Belfast"
-date:         2011-10-10
-presentation: "http://speakerdeck.com/u/kouphax/p/reform-death-to-orms-in-net"
-categories: [.NET]
----

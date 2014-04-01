@@ -1,8 +1,0 @@
----
-layout:       talk
-name:        "flic"
-description:  "Simple feature toggles"
-date:         2014-03-13
-url:          "http://yobriefca.se/flic/"
-categories:   [Clojure]
----

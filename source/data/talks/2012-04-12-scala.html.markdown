@@ -1,9 +1,0 @@
----
-layout:       talk
-title:        "Scala - A Tragedy in Two Parts"
-location:     "CodeSlice, Belfast"
-date:         2012-04-12
-presentation: "http://speakerdeck.com/u/kouphax/p/scala-a-tragedy-in-two-parts"
-video:        "https://vimeo.com/40255430"
-categories: [Scala]
----

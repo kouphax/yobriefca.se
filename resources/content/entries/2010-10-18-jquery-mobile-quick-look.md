@@ -1,0 +1,57 @@
+---
+date: 2010-10-17T23:00:00Z
+title: jQuery Mobile Quick Look
+published: true
+categories: [JavaScript, Mobile]
+type: article
+external: false
+---
+<p>jQuery Mobile was <span style="color: #1f497d;"><a href="http://jquerymobile.com/2010/10/jquery-mobile-alpha-1-released/">released</a></span> over the weekend or at least the alpha version of it was (full release scheduled for some time on 2011). </p><p>So what is it like?  Well first things first it's early days, there are certainly more than few rough edges but given the development timeline (~2 months) it is quite an impressive effort put in by the <span style="color: #1f497d;"><a href="http://www.filamentgroup.com/">Filament Group</a></span> and others.</p><h2>iThings</h2><p>The first question most people will ask (or the first thing they will try and do) will probably be</p><blockquote><p style="padding-left: 30px;">So how does it look on the various iThings (iPad, iPhone, iPhone 4)? </p></blockquote><p>Well it looks good for the most part.  There are some issues around page transitions and displaying dialogs (especially on the iPad) - things like page flickering, hidden content becoming visible after the page has loaded etc. and while they are a bit annoying they don't "break" anything.</p><p>As the framework isn't targeting iOS specifically there are some behaviours that would wouldn't necessarily expect if you used this as a native app (using PhoneGap or whatever).  Toolbars aren't explicitly fixed and when they are fixed disappear on scroll and repositioned after scrolling has finished.  Select boxes don't display the normal pickers found in native iOS but instead use a custom dialog for selection.  Again these aren't criticisms, they work well, but I have heard people already complaining because they expect the framework to produce a fully native looking app.</p><h2>Sencha Touch</h2><p>When comparing frameworks many peoples first thoughts will be</p><blockquote><p style="padding-left: 30px;">How does it compare to <span style="color: #1f497d;"><a href="http://www.sencha.com/products/touch/">Sencha Touch</a></span> </p></blockquote><p>To be honest  the comparison is like comparing apples to oranges, or jQueryUI to ExtJS.  Both projects have also different goals.  While Sencha currently aims to provide a rich native like experience on a small subset of mobile browsers (specifically iOS and Android), jQuery Mobile aims to create a consistent, mobile/touch capable experience across a much <span style="color: #1f497d;"><a href="http://jquerymobile.com/gbs/Touch">wider range of mobile browsers</a></span>.  This is by no means easy.  An interaction style one device may not be suitable for another.</p><h2>FOUC</h2><p>One of the goals of jQuery Mobile is to progressively enhance the base page to become more mobile capable.  Because of this the base page is very basic with jQuery Mobile specific stylers applied when the DOM is ready.  This can lead to some initial FOUC (Flash of Unstyled Content).  We can get around this by applying some of the basic jQuery Mobile styles to begin with and I suspect we will see this tactic being used on future releases.</p><p>[[posterous-content:EeHJJwvCqFJrzcdxeEEb]]</p><h2>Accessibility</h2><p>One thing I never really though of in a Mobile Framework is accessibility.  This is just short sightedness on my part as it is as relevant in the mobile world as it is in the desktop world.  jQuery Mobile aiming to be fully accessible through it's use of ARIA roles and progressive enhancement.</p><h2>The Technicals</h2><p>From a technical/developer stand point jQuery Mobile is quite nice.  Lets look at a few of the highlights,</p><h3>Pages</h3><p>Sites can be built as a single page with sub sections being marked as "pages" that jQuery Mobile can navigate.  External pages are load using ajax (rather than simply navigating to them), this give jQuery Mobile better control over transitions, and history management.  A simple page looks like this,</p><p></p><div class="highlight"><pre><code><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+<span class="nt">&lt;html&gt;</span> 
+    <span class="nt">&lt;head&gt;</span> 
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>jQuery Mobile<span class="nt">&lt;/title&gt;</span> 
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"Styles/jquery.mobile-1.0a1.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Scripts/jquery-1.4.3.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Scripts/jquery.mobile-1.0a1.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span> 
+    <span class="nt">&lt;body&gt;</span> 
+        <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"page"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"header"</span><span class="nt">&gt;</span>   
+                <span class="nt">&lt;h1&gt;</span>Page 1<span class="nt">&lt;/h1&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#about"</span><span class="nt">&gt;</span>Page 2<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"content"</span><span class="nt">&gt;</span>Page 1 Content<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"page"</span> <span class="na">id=</span><span class="s">"about"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"header"</span><span class="nt">&gt;</span>   
+                <span class="nt">&lt;h1&gt;</span>Page 2<span class="nt">&lt;/h1&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"content"</span><span class="nt">&gt;</span>Page 2 Content<span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"footer"</span><span class="nt">&gt;</span>Page 2 Footer<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+<p>So lets break this down and pick out the interesting parts,</p><p></p><div class="highlight"><pre><code><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+</code></pre></div>
+<p>HTML5 DocType which older browsers can handle gracefully</p><p></p><div class="highlight"><pre><code><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"Styles/jquery.mobile-1.0a1.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Scripts/jquery-1.4.3.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Scripts/jquery.mobile-1.0a1.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+<p>Scripts and styles included.  Now from a mobile perspective this is still quite a bit of script especially over some flaky 3G connections but in comparison to some of the frameworks out there it is still quite small.</p><p><div class="highlight"><pre><code><span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"page"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"header"</span><span class="nt">&gt;</span>   
+        <span class="nt">&lt;h1&gt;</span>Page 1<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#about"</span><span class="nt">&gt;</span>Page 2<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"content"</span><span class="nt">&gt;</span>Page 1 Content<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"page"</span> <span class="na">id=</span><span class="s">"about"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"header"</span><span class="nt">&gt;</span>   
+        <span class="nt">&lt;h1&gt;</span>Page 2<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"content"</span><span class="nt">&gt;</span>Page 2 Content<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-role=</span><span class="s">"footer"</span><span class="nt">&gt;</span>Page 2 Footer<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+</p><p>This section describes 2 pages.  A page is marked as a page by its `data-role` attribute and can contain 3 elements marking a header, the page content and the footer.  Unless stipulated the first page will be first page in the DOM.  Navigation between pages is handled using location.hash changes (page 1s button links to Page 2 in the example).</p><h3>Themeing</h3><p>Themeroller will see an overhaul on the official release which will allow you to create custom themes a la jQueryUI.  Currently jQuery Mobile comes with 2 themes both of which have a number of swtaches.  This is intended to create contrast between UI elements (e.g. for marking mandatory fields, or highlight primary buttons on a form etc.)</p><h3>Dialogs</h3><p>Dialogs in jQuery Mobile are simply pages with a `data-rel="dialog"` added to them so the same rules apply as above.</p><h3>Form Elements</h3><p>Forms in jQuery Mobile are plain old HTML(5) forms which is actually a VERY nice feature.  Sencha/ExtJS forms are nice but when using SELECTs etc. can become a real pain to manage.  jQuery Mobile uses a much lighter approach.  Some screenshots (iPhone 4)</p><p>[[posterous-content:qipBwFyayBhuztrHFpJI]] So thats a very quick overview of jQuery Mobile.  I encourage you to play around with and get those bugs filed.  As I've said it's early days but it's a big goal they are aiming for and they are currently well on track to produce a very nice framework come the official release.</p>
