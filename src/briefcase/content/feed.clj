@@ -17,14 +17,15 @@
 (defn- atom-xml
   "Generates the xml document for atom feed of all content on the site"
   [category posts]
-  (xml/emit-str
-    (xml/sexp-as-element
-      [:feed {:xmlns "http://www.w3.org/2005/Atom"}
-        [:id      (str "urn:yobriefca-se:feed:" category)]
-        [:updated (-> posts first :date)]
-        [:title   {:type "text"} (str "Yo! Briefcase: " category)]
-        [:link    {:rel "self" :href (str "http://yobriefca.se/feed/" category ".xml")}]
-        (map entry posts)])))
+  (let [category-id (->slug category)]
+    (xml/emit-str
+      (xml/sexp-as-element
+        [:feed {:xmlns "http://www.w3.org/2005/Atom"}
+          [:id      (str "urn:yobriefca-se:feed:" category-id)]
+          [:updated (-> posts first :date)]
+          [:title   {:type "text"} (str "Yo! Briefcase: " category-id)]
+          [:link    {:rel "self" :href (str "http://yobriefca.se/feed/" category-id ".xml")}]
+          (map entry posts)]))))
 
 (defn atom-sources
   "Generates the stasis compatible sources map from the atom feed. This is
