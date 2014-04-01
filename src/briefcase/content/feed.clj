@@ -10,7 +10,9 @@
     [:title   (:title post)]
     [:updated (:date post)]
     [:author  [:name "James Hughes"]]
-    [:link    {:href (str "http://yobriefca.se" (:uri post))}]
+    [:link    {:href (if (:external post)
+                       (:uri post)
+                       (str "http://yobriefca.se" (:uri post)))}]
     [:id      (str "urn:yobriefca-se:feed:post:" (:title post))]
     [:content {:type "html"}  (:html post)]])
 

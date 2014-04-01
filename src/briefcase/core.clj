@@ -48,5 +48,7 @@
     (save-assets styles output-dir)
     (println "Exporting non-optimised assets (maven, images)")
     (save-assets static output-dir)
+    (println "Exporting CNAME")
+    (spit (str output-dir "/CNAME") "yobriefca.se")
     (println "Exporting site")
     (stasis/export-pages (pages) output-dir { :optimus-assets styles })))
