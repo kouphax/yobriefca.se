@@ -131,12 +131,11 @@
    manipulated back into a statis source map via the specific pipeline"
   [[path content]]
   (assoc (frontmatter content)
-         :content   (content-body content)
-         :html      (if (some #{path} exclusions)
-                      (content-body content)
-                      (to-html (content-body content)))
-         :published (get content :published true)
-         :path      path))
+         :content (content-body content)
+         :html    (if (some #{path} exclusions)
+                    (content-body content)
+                    (to-html (content-body content)))
+         :path    path))
 
 (defn slurp-content
   "slurps a given resource directory and converts markdown entries into content

@@ -72,8 +72,6 @@
     (zipmap (map :uri internal)
             (map render-entry internal))))
 
-(filter #(= (:type %) "project") (entries))
-(keys (entry-sources (entries)))
 (defn index-sources [entries]
   (let [types (group-by :type entries)]
     (zipmap (map #(str "/" (name %) "s/") (keys types))
