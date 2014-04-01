@@ -1,5 +1,7 @@
 # Briefcase
 
+[CI](https://travis-ci.org/kouphax/yobriefca.se)
+
 Briefcase is the post-CMS engine that powers http://yobriefca.se.  It is built on Clojures Stasis library and will generate static files of the current state of yobriefca.se.  Originally written in Ruby and Middleman the conversion was undertkaen as a learning experience and experiment.  It stayed because it offered greater flexibiltiy at the cost of a tiny bit more code and reduction in overall generation of speed.
 
 Feel free to take stuff from it if thats your kind of thing.
