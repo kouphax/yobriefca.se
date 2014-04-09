@@ -60,7 +60,7 @@ Then somewhere in our `Downloader` actor we'd set global isDownloading flag to `
 ```scala
 class Downloader extends Actor {
   def receive = {
-    case Download =&gt; {
+    case Download => {
       Application.isDownloading = true
       // perform download
       Application.isDownloading = false
@@ -87,15 +87,15 @@ class DownloadCoordinator extends Actor with FSM[State, Unit] {
   startWith(Idle, Unit)
 
   when(Idle) {
-    case Event(Go, _) =&gt; goto(Downloading)
+    case Event(Go, _) => goto(Downloading)
   }
  
   when(Downloading) {
-    case Event(Finish, _) =&gt; goto(Idle)
+    case Event(Finish, _) => goto(Idle)
   }
  
   onTransition {
-    case Idle -&gt; Downloading =&gt; {
+    case Idle -> Downloading => {
       context.actorOf(Props[Downloader]) ! Go
     }
   }
@@ -113,7 +113,7 @@ When the download completes our actor can simply tell it `sender` it is finished
 ```scala
 class Downloader extends Actor { 
   def receive = {
-    case Go =&gt; {
+    case Go => {
       // perform download
       sender ! Finish
     }
@@ -148,9 +148,9 @@ class Downloader extends Actor {
   import context._
 
   def receive = {
-    case _ =&gt;
+    case _ =>
       become {
-        case _ =&gt; // do nothing
+        case _ => // do nothing
       }
   }
  
