@@ -6,7 +6,8 @@ categories: [Scala]
 type: article
 external: false
 ---
-&gt; The post has been updated to accomodate some of the excellent adivce from [Roland Kuhn](https://twitter.com/rolandkuhn) via his [Gist](https://gist.github.com/rkuhn/6061663)
+
+> The post has been updated to accomodate some of the excellent adivce from [Roland Kuhn](https://twitter.com/rolandkuhn) via his [Gist](https://gist.github.com/rkuhn/6061663)
 
 I've been playing around with [Akka](http://akka.io/) lately for a component I've been working on.  The component, a simple remote file sychroniser will essentially batch download files from URLs returned by a remote API call.  The specifics aren't important right now but thats the gist.  The component is scheduled to run every 3 hours (using the Akka scheduler) but sometimes the entire download process can actually take longer than 3 hours and I don't want to end up thrashing the remote API for little benefit - so I wanted a fail safe to ensure a new download process would only start if the previous one had finished.
 
