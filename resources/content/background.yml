@@ -40,6 +40,16 @@ experience:
   - name: Pluralsight
     experience:
       - role: Author
+        dates: November 2013 - February 2014
+        technologies:
+          - Scala
+          - Play! 2
+        description: |
+          Commissioned by Pluralsight to produce the
+          [Play! 2 for Scala](http://pluralsight.com/training/Courses/TableOfContents/play-2-scala)
+          course. The 2 hour course is intended to act as a high level introduction to the
+          Scala version of Play! 2 (v2.2.1) a JVM based web framework.
+      - role: Author
         dates: August 2013 - November 2013
         technologies:
           - Java
@@ -48,7 +58,7 @@ experience:
           Commissioned by Pluralsight to produce the
           [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
           course. The 2 hour course is intended to act as a high level introduction to the
-          Java version of Play! 2 a JVM based web framework.
+          Java version of Play! 2 a JVM based web framework.          
   - name: Kainos
     experience:
       - role: Technical Architect, Government Digital Service
