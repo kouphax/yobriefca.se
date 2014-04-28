@@ -162,7 +162,7 @@ enableCORS("*", "*", "*");
 
 Which is as open as possible (more than it needs to be in most cases) for remote clients. You can test this using [test-cors.org](http://client.cors-api.appspot.com/client) on your local instance.
 
-Now we have a simple CORS enabled setup to build you SPAs using the wealth of technologies that Java offers. [Full sample is on Github](https://github.com/kouphax/spark-spa). Happy trails.
+Now we have a simple CORS enabled setup to build you SPAs using the wealth of technologies that Java offers.
 
 <hr/>
 <sup><a name="1"></a>[1](#_1): You could, if you desired, return HTML snippets, or JS commands rather than data but for the purposes of this post lets assume an API as this a lot nicer when supporting 3rd party apps that want to integrate - DATA IS KING and all that.
