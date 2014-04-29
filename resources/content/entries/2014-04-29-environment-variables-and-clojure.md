@@ -82,7 +82,7 @@ Great, so why is this more useful?  The big benefit I've discovered is the `.lei
 
 __Caveat:__ Now you __can__ create this manually (this is what I have done for a small project I'm working on) but it's not officially recommended for a few reasons.  Firstly the minute you add the `lein-environ` plugin to the project your important setting will get wiped out and secondly you lose out on the ability to vary setting across profiles as well that you'd get from `profiles.clj`. 
 
-> Big thanks to [@waevejester](https://twitter.com/weavejester) the creator of `environ` for the tip off about my dubious use `.lein-env`
+> Big thanks to [@weavejester](https://twitter.com/weavejester) the creator of `environ` for the tip off about my dubious use of `.lein-env`
 
 So back to `.lein-env` - You end up with the `.lein-env` file on your machine with development (or profile) specific values and you forget about fallbacks and setting environment variables and the potential conflicts with other projects.  Then on your production and test systems you can source values from actual environment variables without having to change your strategy or use `(if (= "test" (:env config)))` style checks.
 
