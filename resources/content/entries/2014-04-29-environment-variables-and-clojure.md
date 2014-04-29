@@ -1,7 +1,7 @@
 ---
 date: 2014-04-29T00:00:00Z
-title: "Environment Variables and Clojure"
-published: false
+title: "Managing Environment Variables in Clojure"
+published: true
 categories: [Clojure]
 type: article
 external: false
