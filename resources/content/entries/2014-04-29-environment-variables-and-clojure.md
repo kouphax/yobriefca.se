@@ -62,10 +62,9 @@ We can import and use it where we need,
 
 So how are the environment variables sourced?  Well environ looks in a number of areas in order,
 
-1. `~/.lein/profiles.clj`
-2. A `.lein-env` file in the project directory
-3. Environment variables
-4. Java system properties
+1. A `.lein-env` file in the project directory
+2. Environment variables
+3. Java system properties
 
 It also keywordises the variable names as you can see from the example above.
 
