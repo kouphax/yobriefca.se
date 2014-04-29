@@ -73,7 +73,7 @@ Great, so why is this more useful?  The big benefit I've discovered is the `.lei
 1. The RIGHT way as set out by the creator of the project, and,
 2. The WRONG way as in how I use it
 
-`environ` also has a plugin available `lein-environ` which sucks profile specific settings from `~/.lein/profiles.clj` and/or a project specific `profiles.clj` (which should not be checked into source) and creates the `.lein-env` file when Leiningen does its thing (makeing `.lein-env` transient).  A `.lein-env` file looks a little something like this.
+`environ` also has a plugin available `lein-environ` which sucks profile specific settings from `~/.lein/profiles.clj` and/or a project specific `profiles.clj` (which should not be checked into source) and creates the `.lein-env` file when Leiningen does its thing (effectively making `.lein-env` a transient file).  A `.lein-env` file looks a little something like this.
 
 ```clojure
 { :env { :database-url "http://localhost/mydb" 
