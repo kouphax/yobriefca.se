@@ -17,7 +17,7 @@ Supporting this approach in Clojure is fairly simple and there are a few ways to
 
 ## System/getenv
 
-Clojure sits on the JVM and the JVM has the `System` namespace which provides utilities and classes for accessing the running systems features.  [`System.getenv`](http://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getenv()) and [`System.getenv(String)`](http://docs.oracle.com/javase/7/docs/api/java/lang/System.html#getenv(java.lang.String)) give us access to environment variables from Clojure.
+Clojure sits on the JVM and the JVM has the `System` namespace which provides utilities and classes for accessing the running systems features.  `System.getenv`  and `System.getenv(String)` give us access to environment variables from Clojure.
 
 ```clojure
 (System/getenv "DATABASE_URL")
