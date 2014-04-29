@@ -68,13 +68,22 @@ So how are the environment variables sourced?  Well environ looks in a number of
 
 It also keywordises the variable names as you can see from the example above.
 
-Great, so why is this more useful?  The big benefit I've discovered is the `.lein-env` file in the root of my project.  This file holds a map of environment values that can be useful during development.
+Great, so why is this more useful?  The big benefit I've discovered is the `.lein-env` file in the root of my project.  This file holds a map of environment values that can be useful during development.  There are 2 ways to create this file.
+
+1. The RIGHT way as set out by the creator of the project, and,
+2. The WRONG way as in how I use it
+
+`environ` also has a plugin available `lein-environ` which sucks profile specific settings from `~/.lein/profiles.clj` and/or a project specific `profiles.clj` (which should not be checked into source) and creates the `.lein-env` file when Leiningen does its thing (makeing `.lein-env` transient).  A `.lein-env` file looks a little something like this.
 
 ```clojure
 { :env { :database-url "http://localhost/mydb" 
          :client-token "QWERTY12345" } }
 ```
 
-You create and populate the `.lein-env` file on your machine with development specific values and you forget about fallbacks and setting environment variables and the potential conflicts with other projects.  Then on your production and test systems you can source values from actual environment variables without having to change your strategy or use `(if (= "test" (:env config)))` style checks.
+__Caveat:__ Now you __can__ create this manually (this is what I have done for a small project I'm working on) but it's not officially recommended for a few reasons.  Firstly the minute you add the `lein-environ` plugin to the project your important setting will get wiped out and secondly you lose out on the ability to vary setting across profiles as well that you'd get from `profiles.clj`. 
 
-Its worth noting that `.lein-env` is already added as a match in the default `.gitignore` from `lein new ...` so wont be checked into `git` - __BUUUUUUT...__ if you do manage to check in and push your `.lein-env` file and it does happen to contain secure tokens and passwords (hashed or otherwise) you must assume those values are already compromised even if you manage to purge them from history.
+> Big thanks to [@waevejester](https://twitter.com/weavejester) the creator of `environ` for the tip off about my dubious use `.lein-env`
+
+So back to `.lein-env` - You end up with the `.lein-env` file on your machine with development (or profile) specific values and you forget about fallbacks and setting environment variables and the potential conflicts with other projects.  Then on your production and test systems you can source values from actual environment variables without having to change your strategy or use `(if (= "test" (:env config)))` style checks.
+
+Its worth noting that `.lein-env` is already added as a match in the default `.gitignore` from `lein new ...` so wont be checked into `git` - __BUUUUUUT...__ if you do manage to check in and push your `.lein-env` file (or any project specific `profiles.clj` file) and it does happen to contain secure tokens and passwords (hashed or otherwise) you must assume those values are already compromised even if you manage to purge them from history.
