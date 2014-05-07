@@ -189,6 +189,12 @@ div.post img {
 	max-width:100%;
 }
 
+p code {
+	font-size:0.8em;	
+	background-color: #fbfbfb;
+	padding: 2px 5px;
+}
+
 @media (min-width: 400px) {
 	.row {
 		padding: 0 2.618rem;
