@@ -25,7 +25,7 @@ blockquote {
 	margin-left:0px;
 	margin-right:0px;
 	padding: 0.1rem 2rem;
-	border:0.1rem dashed #999;
+	border:1px solid #f0f0f0;
 }
 
 .homer {
