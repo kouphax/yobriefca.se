@@ -1,16 +1,33 @@
 html {
-	font-size: 22px;
+	font-size: 18px;
 }
 
 body {
 	color: #333333;
-	font-family: "Lora", serif;
-	line-height: 1.5;
+	font-family: "Open Sans", serif;
+	line-height: 1.9;
 }
 
 em {
 	font-style: normal;
 	font-weight: 700;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Lora", serif;
+  line-height:1.6em;
+}
+
+.entries {
+  font-size:1.2em;
+}
+
+p, li {
+  text-align:justify;
+}
+
+p {
+  margin-bottom:1.4rem;
 }
 
 h1 {
@@ -37,6 +54,7 @@ blockquote {
 	font-size: 2rem;
 	border-radius: 2.5rem;
 	background-color:#333;
+  line-height:1.7;
 }
 
 .homer a {
@@ -63,6 +81,7 @@ blockquote {
 
 div.elevator-pitch {
 	margin-top:-1rem;
+  text-align:justify;
 }
 
 a {
@@ -72,7 +91,7 @@ a {
 
 .dater {
 	font-family: "Open Sans";
-	font-size: 0.727rem;
+	font-size: 0.9rem;
 	right: 0;
 	padding: 1.618rem 2.618rem;
 	position: absolute;
@@ -82,7 +101,7 @@ a {
 .row {
 	margin    : 0 auto;
 	padding   : 0 1rem;
-	max-width : 800px;
+	max-width : 700px;
 }
 
 .row:first-of-type {
@@ -103,7 +122,7 @@ p img {
 }
 
 div.published_date {
-	font-size:0.8rem;
+	font-size:1rem;
 	color:#999;
 	font-weight: normal;
 }
@@ -190,8 +209,8 @@ div.post img {
 }
 
 p code {
-	font-size:0.8em;	
-	background-color: #fbfbfb;
+	font-size:0.9em;
+	background-color: #f6f6f6;
 	padding: 2px 5px;
 }
 
