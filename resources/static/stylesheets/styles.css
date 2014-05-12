@@ -112,7 +112,8 @@ pre {
   overflow-x: auto;
   padding-left:1rem;
   margin: 2rem 1rem 2rem 0;
-  font-size: 0.8rem;
+  font-size: .9rem;
+  line-height: 1.2rem;
 }
 
 p img {
