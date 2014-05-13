@@ -56,7 +56,7 @@
 (defn- old-entry-warning
   "Generates a warning for entries that are more than 6 months or so old"
   [data]
-  (when (before? (:date data) six-months-ago)
+  (when (before? (from-date (:date data)) six-months-ago)
     (hiccup.core/html
       [:blockquote.warning "This post is over 6 months old. 
       	Some details, especially technical, may have changed 
