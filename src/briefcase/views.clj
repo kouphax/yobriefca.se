@@ -4,7 +4,9 @@
            [optimus.hiccup    :as bundles]
            [cemerick.url      :refer [url-encode]]
            [slugger.core      :refer [->slug]]
-           [hiccup.page       :refer [html5]]))
+           [hiccup.page       :refer [html5]]
+           [clj-time.core     :refer [minus months before?]]
+           [clj-time.coerce   :refer [from-date]]))
 
 (declare main-layout)
 
@@ -48,6 +50,17 @@
     [:div.dater (pretty-date (:date data))]
     [:div.categories (published data)]))
 
+(def ^:private six-months-ago 
+  (minus (from-date (java.util.Date.) (months 6))))
+
+(defn- old-entry-warning
+  "Generates a warning for entries that are more than 6 months or so old"
+  [data]
+  (when (before? (:date data) six-months-ago)
+    (hiccup.core/html
+      [:blockquote.warning "This post is over 6 months old. 
+      	Some details, especially technical, may have changed 
+      	since posting."])))
 
 (defn index
   "Renders the landing page of the site"
@@ -75,6 +88,7 @@
   "Renders a non-external screencast page"
   [request data]
   (main-layout request (:title data)
+               (old-entry-warning data)
                [:div.vimeo
                  [:iframe { :src (:url data)
                             :width "631"
