@@ -222,6 +222,14 @@ p code,li code {
   margin-top: 1.5rem;
 }
 
+blockquote.warning {
+  background: #FEFECC;
+  padding: 1rem;
+  font-size: 0.8em;
+  text-align: center;
+  border: 1px solid #E4E4A9;  
+}
+
 @media (min-width: 400px) {
   .row {
     padding: 0 2.618rem;
