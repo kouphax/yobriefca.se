@@ -59,8 +59,7 @@
   (when (before? (from-date (:date data)) six-months-ago)
     (hiccup.core/html
       [:blockquote.warning "This post is over 6 months old. 
-      	Some details, especially technical, may have changed 
-      	since posting."])))
+      	Some details, especially technical, may have changed."])))
 
 (defn index
   "Renders the landing page of the site"
@@ -68,11 +67,11 @@
   (main-layout request "yobriefca.se"
                (md/to-html (slurp "resources/content/index.md"))))
 
-
 (defn article
   "Renders an article"
   [request data]
   (main-layout request (:title data)
+               (old-entry-warning data)
                [:h1 (:title data)]
                [:div.post (:html data)]
                (footer data)))
