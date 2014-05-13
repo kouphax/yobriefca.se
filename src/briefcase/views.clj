@@ -51,7 +51,7 @@
     [:div.categories (published data)]))
 
 (def ^:private six-months-ago 
-  (minus (from-date (java.util.Date.) (months 6))))
+  (minus (from-date (java.util.Date.)) (months 6)))
 
 (defn- old-entry-warning
   "Generates a warning for entries that are more than 6 months or so old"
