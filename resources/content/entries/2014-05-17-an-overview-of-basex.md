@@ -2,7 +2,7 @@
 date: 2014-05-17T00:00:00Z
 title: "A Brief Overview of BaseX"
 published: true
-categories: [Database]
+categories: [XML]
 type: article
 external: false
 ---
