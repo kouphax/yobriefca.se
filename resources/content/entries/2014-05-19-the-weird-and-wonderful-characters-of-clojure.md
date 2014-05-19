@@ -44,7 +44,7 @@ user=> (macroexpand '(m))
 (let* [x__681__auto__ 1] x__681__auto__)
 ```
 
-Another place you'll see the `#` is in [tagged literals](http://clojure.org/reader#The Reader--Tagged%20Literals).  Most commonly you'll see this use in [EDN](https://github.com/edn-format/edn)(extensible data notation - a rich data format tahat can be used in Clojure) and in ClojureScript (`#js`). Search for `#inst`, `#uuid` or `#js` for some more info.
+Another place you'll see the `#` is in [tagged literals](http://clojure.org/reader#The%20Reader--Tagged%20Literals).  Most commonly you'll see this use in [EDN](https://github.com/edn-format/edn)(extensible data notation - a rich data format tahat can be used in Clojure) and in ClojureScript (`#js`). Search for `#inst`, `#uuid` or `#js` for some more info.
 
 - [Clojure Documentation - Reader](http://clojure.org/reader)
 - [Clojure Reader Macros](http://briancarper.net/blog/449/)
