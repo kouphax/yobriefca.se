@@ -65,7 +65,7 @@ user=> (re-matches #"^test$" "test")
 
 This form is compiled at _read time_ into a `java.util.regex.Pattern`.
 
-- [Clojure Documentation: Regex Support](http://clojure.org/other_functions#Other%20Useful%20Functions%20and%20Macros-Regex Support)
+- [Clojure Documentation: Regex Support](http://clojure.org/other_functions#Other%20Useful%20Functions%20and%20Macros-Regex%20Support)
 
 <hr/>
 
