@@ -528,6 +528,17 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 
 <hr/>
 
+## `*var-name*` - Earmuffs
+
+Earmuffs (a pair of asterisk bookending var names) is a __naming convention__ in many LISPs used to denote __special vars__.  Most commonly in Clojure this seems to be used to denote __dynamic__ vars i.e. ones that can change depending on where you are in the program.  The earmuffs act as a warning that "here be dragons" and to never assume the state of the var. Remember this is a __convention__ not a __rule__.
+
+Core Clojure examples are `*out*` and `*in*` which represent the standard in and out Writers for Clojure.
+
+- [How is the *var-name* naming-convention used in clojure?](http://stackoverflow.com/questions/1986961/how-is-the-var-name-naming-convention-used-in-clojure)
+- [Clojure API Docs](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/*out*)
+
+<hr/>
+
 <script>
 (function(){
   var script = document.createElement('script');
