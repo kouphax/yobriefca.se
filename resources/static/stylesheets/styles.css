@@ -49,6 +49,10 @@ blockquote {
   border:1px solid #f0f0f0;
 }
 
+blockquote p {
+  margin-bottom:1rem;
+}
+
 .homer {
   position: absolute;
   left: 0;
@@ -231,7 +235,7 @@ blockquote.warning {
   padding: 1rem;
   font-size: 0.8em;
   text-align: center;
-  border: 1px solid #E4E4A9;  
+  border: 1px solid #E4E4A9;
 }
 
 @media (min-width: 400px) {
