@@ -1,5 +1,5 @@
 ---
-date: {}
+date: 2014-05-19T00:00:00Z
 title: The Weird and Wonderful Characters of Clojure
 published: true
 categories: 
