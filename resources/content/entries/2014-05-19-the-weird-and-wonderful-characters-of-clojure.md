@@ -10,6 +10,8 @@ external: false
 
 > A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search.  Sections not in any particualr order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
+<hr/>
+
 ### Character: `#`
 
 You'll see this macro character beside another e.g. `#(` or `#"`. This topic will act as a bit preamble before looking at your specific case.  
@@ -20,6 +22,8 @@ Clojure doesn't provide support for creating reader macros but it is possible th
 
 - [Clojure Documentation - Reader](http://clojure.org/reader)
 - [Clojure Reader Macros](http://briancarper.net/blog/449/)
+
+<hr/>
 
 ### Character: `#{`
 
@@ -44,7 +48,9 @@ user=> (set [1 2 3 4 1]) ; convert vector to set, removing duplicates
 #{1 2 3 4}
 ```
 
-- [Clojure Documentation: Sets](http://clojure.org/data_structures#Data Structures-Sets)
+- [Clojure Documentation: Sets](http://clojure.org/data_structures#Data%20Structures-Sets)
+
+<hr/>
 
 ### Character: `#"`
 
@@ -59,8 +65,9 @@ user=> (re-matches #"^test$" "test")
 
 This form is compiled at _read time_ into a `java.util.regex.Pattern`.
 
-- [Clojure Documentation: Regex Support](http://clojure.org/other_functions#Other Useful Functions and Macros-Regex Support)
+- [Clojure Documentation: Regex Support](http://clojure.org/other_functions#Other%20Useful%20Functions%20and%20Macros-Regex Support)
 
+<hr/>
 
 ### Character: `#(`
 
@@ -83,6 +90,8 @@ user=> (macroexpand `#(println %))
 (fn* [arg] (clojure.core/println arg)) ; argument names shortened for clarity
 ```
 
+<hr/>
+
 ### Character: `#'`
 
 `#'` is the var quote. It is the same a the `var` method,
@@ -101,6 +110,8 @@ user=> #'nine
 When used it will attempt to return the referenced var.  This is useful when you want to talk about the reference/declaration instead of the value it represents.  See the use of `meta` in the  metadata (`^`) discussion.
 
 - [Clojure Official Documentation: Special Forms](http://clojure.org/special_forms#var)
+
+<hr/>
 
 ### Character: `%`
 
@@ -132,6 +143,7 @@ So you don't have to use the arguments but you do need to declare them in the or
 user=> (macroexpand `#(println % %1)) ; use both % and %1
 (fn* [arg1] (clojure.core/println arg1 arg1)) ; still only takes 1 argument 
 ```
+<hr/>
 
 ### Character: `@`
 
@@ -148,6 +160,8 @@ user=>
 ```
 
 `@` is used to get the current value of a reference.  The above example uses `@` to get the current value of an [atom](http://clojure.org/atoms) but `@` can be applied to other things such as `future`s, `delay`s, `promise`s etc. to force computation and potentially block.
+
+<hr/>
 
 ### Character: `^`
 
@@ -201,6 +215,8 @@ user=> (meta #'five)
 - [Clojure Official Documentation: Metadata](http://clojure.org/metadata)
 - [Learning Clojure: Meta Data](http://en.wikibooks.org/wiki/Learning_Clojure/Meta_Data)
 
+<hr/>
+
 ### Character: `'`
 
 Can be used against symbols as part of a dispatch macro (see `#'`).  Also used to quote forms and prevent their evaluation as with the `quote` function.
@@ -218,6 +234,8 @@ user=>
 
 - [Clojure Official Documentation](http://clojure.org/special_forms#quote)
 
+<hr/>
+
 ### Character: `;`
 
 `;` is a comment.  In fact its a comment __macro__ that takes all input from its starting point to the end of the line and ensures the reader ignore it.
@@ -228,6 +246,8 @@ user=> (def x "x") ; this is a comment
 user=> ; this is a comment too
 <returns nothing>
 ```
+
+<hr/>
 
 ### Character: `:` 
 
@@ -260,6 +280,8 @@ user=> (:three my-map 3) ; it can return a default if specified
 
 - [Clojure Official Documentation](http://clojure.org/data_structures#Data%20Structures-Keywords)
 
+<hr/>
+
 ### Character: `::` 
 
 `::` is used to fully qualify a keyword with the current namespace.
@@ -277,11 +299,15 @@ I have found this useful when creating macros.  If I want to ensure a macro, tha
 
 - [What is the :: used for in clojure?](http://stackoverflow.com/questions/5771168/what-is-the-used-for-in-clojure)
 
+<hr/>
+
 ### Character: `/`
 
 Can be the division function `/` but can also act as a seperator in a symbol name to break apart the symbol name and the namespace is resides in `my-namepace/utils`.  This allows symbols to be fully qualified to prevent collisions or spread.
 
 - [Cloure Official Documentation](http://clojure.org/reader)
+
+<hr/>
 
 ### Character: `$`
 
@@ -299,6 +325,8 @@ Used to reference inner classes and interfaces in Java.  Seperates the container
 `EventNotifier` is an inner interface of the `BaseXClient` class which is an imported Java class.
 
 - [Clojure: Using Java Inner Classes](http://blog.jayfields.com/2011/01/clojure-using-java-inner-classes.html)
+
+<hr/>
 
 ### Character: `->`, `->>` etc.
 
@@ -335,6 +363,8 @@ The "etc." in the title refers to the fact there are a whole host of threading m
 - [Understanding the Clojure -> macro](http://blog.fogus.me/2009/09/04/understanding-the-clojure-macro/)
 - [Clojure Changelog](https://github.com/clojure/clojure/blob/67571d1844e7b9a0cab6089245d7e5cde208c67e/changes.md)
 
+<hr/>
+
 ### Character: `~`
 
 See `` ` `` (syntax quote) for additional information. 
@@ -358,6 +388,8 @@ This forms the meat and potatoes of creating macros which are, to be highly redu
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
 - [Clojure Offial Documentation](http://clojure.org/macros)
 
+<hr/>
+
 ### Character: `~@`
 
 See `` ` `` (syntax quote) and `~` (unquote) for additional information. 
@@ -378,6 +410,8 @@ Again this gives us a lot power in macros.
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
 - [Clojure Offial Documentation](http://clojure.org/macros)
+
+<hr/>
 
 ### Character: `` ` ``
 
