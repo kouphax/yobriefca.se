@@ -8,7 +8,7 @@ type: article
 external: false
 ---
 
-> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search or type the caharcters into the box below.  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
+> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search or type the symbols into the box below.  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
 <hr/>
 
