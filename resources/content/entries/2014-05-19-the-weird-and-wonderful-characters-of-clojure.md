@@ -2,7 +2,7 @@
 date: 2014-05-19T00:00:00Z
 title: The Weird and Wonderful Characters of Clojure
 published: true
-categories: 
+categories:
   - Clojure
 type: article
 external: false
@@ -10,11 +10,11 @@ external: false
 
 > A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Type the symbols into the box below to search (or use `CTRL-F`).  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
-## `#`
+## `#` - Dispatch macro
 
-You'll see this macro character beside another e.g. `#(` or `#"`. This topic will act as a bit preamble before looking at your specific case.  
+You'll see this macro character beside another e.g. `#(` or `#"`. This topic will act as a bit preamble before looking at your specific case.
 
-`#` is the dispatch macro, a reader macro that tells the Clojure reader (the thing that take a file of Clojure text and parses it for consumption in the compiler) to go and look at another __read table__ for the definition of the next character - in essence this allows extending default reader behaviour.  
+`#` is the dispatch macro, a reader macro that tells the Clojure reader (the thing that take a file of Clojure text and parses it for consumption in the compiler) to go and look at another __read table__ for the definition of the next character - in essence this allows extending default reader behaviour.
 
 Clojure doesn't provide support for creating reader macros but it is possible through [a bit of hackery](http://briancarper.net/blog/449/).
 
@@ -24,7 +24,7 @@ If you see `#` __at the end__ of a symbol then this is used to automatically gen
 user=> (defmacro m [] `(let [x 1] x))
 #'user/m
 user=> (m)
-CompilerException java.lang.RuntimeException: Can't let qualified name: user/x, compiling:(NO_SOURCE_PATH:1:1
+CompilerException java.lang.RuntimeException: Can't let qualified name: user/x, compiling:(NO_SOURCE_PATH:1)
 ```
 
 Instead you need to append `#` to the end of the variable name and let Clojure generate a unique symbol for it.
@@ -34,15 +34,17 @@ user=> (defmacro m [] `(let [x# 1] x#))
 #'user/m
 user=> (m)
 1
-user=> 
+user=>
 ```
 
-If we exapnd this macro we can see the gensym'd name
+If we expand this macro we can see the `gensym`'d name
 
 ```clojure
 user=> (macroexpand '(m))
 (let* [x__681__auto__ 1] x__681__auto__)
 ```
+
+Another place you'll see the `#` is in [tagged literals](http://clojure.org/reader#The Reader--Tagged%20Literals).  Most commonly you'll see this use in [EDN](https://github.com/edn-format/edn)(extensible data notation - a rich data format tahat can be used in Clojure) and in ClojureScript (`#js`). Search for `#inst`, `#uuid` or `#js` for some more info.
 
 - [Clojure Documentation - Reader](http://clojure.org/reader)
 - [Clojure Reader Macros](http://briancarper.net/blog/449/)
@@ -50,7 +52,7 @@ user=> (macroexpand '(m))
 
 <hr/>
 
-## `#{`
+## `#{` - Set macro
 
 See the dispatch (`#`) macro for additional details.
 
@@ -77,7 +79,7 @@ user=> (set [1 2 3 4 1]) ; convert vector to set, removing duplicates
 
 <hr/>
 
-## `#_`
+## `#_` - Discard macro
 
 See the dispatch (`#`) macro for additional details.
 
@@ -94,7 +96,7 @@ The docs suggest that "The form following `#_` is completely skipped by the read
 
 <hr/>
 
-## `#"`
+## `#"` - Regular Expression macro
 
 See the dispatch (`#`) macro for additional details.
 
@@ -111,7 +113,7 @@ This form is compiled at _read time_ into a `java.util.regex.Pattern`.
 
 <hr/>
 
-## `#(`
+## `#(` - Function macro
 
 See the dispatch (`#`) macro for additional details.
 
@@ -119,7 +121,7 @@ See the dispatch (`#`) macro for additional details.
 
 ```clojure
 ; anonymous function takin a single argument and printing it
-(fn [line] (println line)) ; 
+(fn [line] (println line)) ;
 
 ; anonymous function takin a single argument and printing it - shorthand
 #(println %)
@@ -134,7 +136,7 @@ user=> (macroexpand `#(println %))
 
 <hr/>
 
-## `#'`
+## `#'` - Var macro
 
 `#'` is the var quote. It is the same a the `var` method,
 
@@ -155,9 +157,35 @@ When used it will attempt to return the referenced var.  This is useful when you
 
 <hr/>
 
-## `%`
+##  `#inst`, `#uuid` & `#js` etc. - tagged literals
 
-`%` is not a macro but a placeholder for use in the `#(` macro.  It represents an argument that will be passed into the function when it is expanded. 
+Commonly found in EDN (extensible data notation - a rich data format) and ClojureScript this use of `#` is the tagged literal. Look at this example,
+
+```clojure
+user=> (java.util.Date.)
+#inst "2014-05-19T19:12:37.925-00:00"
+```
+
+When we create a new date it is represented as a tagged literal, or in this case a tagged string.  We can use Clojures `read-string` to read this back (or use it directly)
+
+```clojure
+user=> (type #inst "2014-05-19T19:12:37.925-00:00")
+java.util.Date
+(read-string "#inst \"2014-05-19T19:12:37.925-00:00\"")
+#inst "2014-05-19T19:12:37.925-00:00"
+user=> (type (read-string "#inst \"2014-05-19T19:12:37.925-00:00\""))
+java.util.Date
+```
+
+A tagged literal tells the reader how to parse the literal value.  Other common uses include `#uuid` for generating UUIDs and in the ClojureScript world an extremely common use of tagged literals is `#js` which can be used to convert ClojureScript data structures into JavaScript structures directly.
+
+- [EDN Tagged Elements](https://github.com/edn-format/edn#tagged-elements)
+
+<hr/>
+
+## `%` - Argument placeholder
+
+`%` is not a macro but a placeholder for use in the `#(` macro.  It represents an argument that will be passed into the function when it is expanded.
 
 ```clojure
 user=> (macroexpand `#(println %))
@@ -177,17 +205,17 @@ user=> (macroexpand `#(println %4))
 (fn* [arg1 arg2 arg3 arg4] (clojure.core/println 4)) ; takes 4 args doesn't use 3
 ```
 
-So you don't have to use the arguments but you do need to declare them in the order you'd expect an external caller to pass them in.  
+So you don't have to use the arguments but you do need to declare them in the order you'd expect an external caller to pass them in.
 
 `%` and `%1` can be used interchangably,
 
 ```clojure
 user=> (macroexpand `#(println % %1)) ; use both % and %1
-(fn* [arg1] (clojure.core/println arg1 arg1)) ; still only takes 1 argument 
+(fn* [arg1] (clojure.core/println arg1 arg1)) ; still only takes 1 argument
 ```
 <hr/>
 
-## `@`
+## `@` - Deref macro
 
 `@` is the deref macro, it is the shorthand equivalent of the `deref` function so these 2 forms are the same,
 
@@ -198,14 +226,14 @@ user=> @x
 1
 user=> (deref x)
 1
-user=> 
+user=>
 ```
 
 `@` is used to get the current value of a reference.  The above example uses `@` to get the current value of an [atom](http://clojure.org/atoms) but `@` can be applied to other things such as `future`s, `delay`s, `promise`s etc. to force computation and potentially block.
 
 <hr/>
 
-## `^`
+## `^` - Metadata
 
 `^` is the metadata marker.  Metadata is a map of values (with shorthand option) that can be attached to various forms in Clojure.  This provides extra information for these forms and can be used for documentation, compilation warnings, typehints and other features.
 
@@ -227,7 +255,7 @@ user=> (meta #'five)
 
 As we have a single value here we can use a shorthand notation for declaring the metadata `^:name` which is useful for flags as the value will be set to true.
 
-```clojure 
+```clojure
 user=> (def ^:debug five 5)
 #'user/five
 user=> (meta #'five)
@@ -259,7 +287,7 @@ user=> (meta #'five)
 
 <hr/>
 
-## `'`
+## `'` - Quote macro
 
 Can be used against symbols as part of a dispatch macro (see `#'`).  Also used to quote forms and prevent their evaluation as with the `quote` function.
 
@@ -271,14 +299,14 @@ user=> '(1 3 4) ; quote
 (1 3 4)
 user=> (quote (1 2 3)) ; using the longer quote method
 (1 2 3)
-user=> 
+user=>
 ```
 
 - [Clojure Official Documentation](http://clojure.org/special_forms#quote)
 
 <hr/>
 
-## `;`
+## `;` - Comment
 
 `;` is a comment.  In fact its a comment __macro__ that takes all input from its starting point to the end of the line and ensures the reader ignore it.
 
@@ -291,7 +319,7 @@ user=> ; this is a comment too
 
 <hr/>
 
-## `:` 
+## `:` - Keyword
 
 `:` is the indicator for a Keyword which is an interned string that provides fast comparison and lower memory overhead.
 
@@ -324,7 +352,7 @@ user=> (:three my-map 3) ; it can return a default if specified
 
 <hr/>
 
-## `::` 
+## `::` - Qualified keyword
 
 `::` is used to fully qualify a keyword with the current namespace.
 
@@ -343,7 +371,7 @@ I have found this useful when creating macros.  If I want to ensure a macro, tha
 
 <hr/>
 
-## `/`
+## `/` - Namespace seperator
 
 Can be the division function `/` but can also act as a seperator in a symbol name to break apart the symbol name and the namespace is resides in `my-namepace/utils`.  This allows symbols to be fully qualified to prevent collisions or spread.
 
@@ -351,7 +379,7 @@ Can be the division function `/` but can also act as a seperator in a symbol nam
 
 <hr/>
 
-## `$`
+## `$` - Inner class reference
 
 Used to reference inner classes and interfaces in Java.  Seperates the container class name and the inner class name,
 
@@ -370,7 +398,7 @@ Used to reference inner classes and interfaces in Java.  Seperates the container
 
 <hr/>
 
-## `-> ->> some-> cond-> as->` etc.
+## `-> ->> some-> cond-> as->` etc. - Threading macros
 
 These are threading macros.  Almost all of them take an initial value and __thread__ this value through a number of forms.  Lets imagine (for reasons unknown) we wanted to take a number, find the square root, cast it to an int, then a string then back to an integer again. We could write it like this,
 
@@ -394,9 +422,9 @@ Or if you prefer multiline and consistent brackettering
     (int)
     (str)
     (Integer.))
-```    
+```
 
-What the macro does is take the value returned from each expression and push it in as the first argument to the next one.  
+What the macro does is take the value returned from each expression and push it in as the first argument to the next one.
 
 `->>` is the same but different.  Rather than push the last value in as the __first__ argument it passes it in as the __last__ argument.
 
@@ -407,9 +435,9 @@ The "etc." in the title refers to the fact there are a whole host of threading m
 
 <hr/>
 
-## `~`
+## `~` - Unquote macro
 
-See `` ` `` (syntax quote) for additional information. 
+See `` ` `` (syntax quote) for additional information.
 
 `~` is unquote.  That is within as syntax quoted (`` ` ``) block `~` will __unquote__ the associated symbol i.e. resolve it in the current context.
 
@@ -432,11 +460,11 @@ This forms the meat and potatoes of creating macros which are, to be highly redu
 
 <hr/>
 
-## `~@`
+## `~@` - Unquote splicing macro
 
-See `` ` `` (syntax quote) and `~` (unquote) for additional information. 
+See `` ` `` (syntax quote) and `~` (unquote) for additional information.
 
-`~@` is unquote-slicing.  Where unquote (`~`) deals with single values (or treats its attached item as a single item) `~@` works on lists and expands them out into multiple statements.  Think JavaScripts `.apply` method that takes an array and expands it out as arguments the applied function.
+`~@` is unquote-splicing.  Where unquote (`~`) deals with single values (or treats its attached item as a single item) `~@` works on lists and expands them out into multiple statements.  Think JavaScripts `.apply` method that takes an array and expands it out as arguments the applied function.
 
 ```clojure
 user=> (def three-and-four (list 3 4))
@@ -455,9 +483,9 @@ Again this gives us a lot power in macros.
 
 <hr/>
 
-## `` ` ``
+## `` ` `` - Syntax quote
 
-See `~@` (unquote splicing) and `~` (unquote) for additional information. 
+See `~@` (unquote splicing) and `~` (unquote) for additional information.
 
 `` ` `` is the syntax quote.  When used on a symbol it resolves the symbol in the current context,
 
@@ -480,17 +508,19 @@ user=> `(1 2 3)
 You'll see this most often in the context of macros.  We can write one now,
 
 ```clojure
-user=> (defmacro debug [body] 
-  #_=>   `(do 
-  #_=>      (println "DEBUG: " ~body) 
-  #_=>      ~body))
+user=> (defmacro debug [body]
+  #_=>   `(let [val# ~body]
+  #_=>      (println "DEBUG: " val#)
+  #_=>      val#))
 #'user/debug
 user=> (debug (+ 2 2))
 DEBUG:  4
 4
 ```
 
-The macro takes a single statement wraps it in a __quoted__ `do` block, evaluates and prints the result and then evaluates the body (yes thats double execution but that irrelevant to the point).  In effect this `defmacro` call returns a quoted data structure representing the program we are writing with it.  The `` ` `` allows this to happen.
+> Code updated based on recommendations from Leif Foged
+
+The macro takes a single statement wraps it in a __quoted__ `do` block, evaluates and prints the result and then evaluates the body.  In effect this `defmacro` call returns a quoted data structure representing the program we are writing with it.  The `` ` `` allows this to happen.
 
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
@@ -500,38 +530,38 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 
 <script>
 (function(){
-	var script = document.createElement('script');
-	script.src = "http://code.jquery.com/jquery-latest.min.js"
-	script.onload = function(){
-		// wraps h3 in block
-		jQuery("h2").each(function(){ 
-			jQuery(this).nextUntil("h2")
-				   .andSelf()
-				   .wrapAll("<div class='block'/>") 
-		})
-		
-		jQuery('blockquote:first').after(jQuery("<input type='search' id='filter' placeholder='Search symbols..'/>").css({
-			"font-size"      : "2em",
-			"width"          : "100%",
-			"border"         : "1px solid #e0e0e0",
-			"text-indent"    : "0.5em",
-			"color"          : "#999",
-			"font-family"    : "Open Sans",
-			"padding-top"    : "0.2em",
-			"padding-bottom" : "0.2em"
-		}))
+  var script = document.createElement('script');
+  script.src = "http://code.jquery.com/jquery-latest.min.js"
+  script.onload = function(){
+    // wraps h3 in block
+    jQuery("h2").each(function(){
+      jQuery(this).nextUntil("h2")
+           .andSelf()
+           .wrapAll("<div class='block'/>")
+    })
 
-		var all = jQuery('h2').parents(".block")
+    jQuery('blockquote:first').after(jQuery("<input type='search' id='filter' placeholder='Search symbols..'/>").css({
+      "font-size"      : "2em",
+      "width"          : "100%",
+      "border"         : "1px solid #e0e0e0",
+      "text-indent"    : "0.5em",
+      "color"          : "#999",
+      "font-family"    : "Open Sans",
+      "padding-top"    : "0.2em",
+      "padding-bottom" : "0.2em"
+    }))
 
-		jQuery('#filter').on("keyup", function(e){ 
-			if(this.value === "") {
-				all.show();
-			} else {
-				all.hide()
-				jQuery('h2 code:contains(' + this.value + ')').parents(".block").show();
-			}
-		});		
-	}
-	document.getElementsByTagName('head')[0].appendChild(script);
-})()
+    var all = jQuery('h2').parents(".block")
+
+    jQuery('#filter').on("keyup", function(e){
+      if(this.value === "") {
+        all.show();
+      } else {
+        all.hide()
+        jQuery('h2 code:contains(' + this.value + ')').parents(".block").show();
+      }
+    });
+  }
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
 </script>
