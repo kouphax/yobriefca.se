@@ -20,8 +20,35 @@ You'll see this macro character beside another e.g. `#(` or `#"`. This topic wil
 
 Clojure doesn't provide support for creating reader macros but it is possible through [a bit of hackery](http://briancarper.net/blog/449/).
 
+If you see `#` __at the end__ of a symbol then this is used to automatically generate a new symbol.  This is useful inside macros to keep macro specifics leaking into the userspace.  A regular `let` will fail in a macro definition
+
+```clojure
+user=> (defmacro m [] `(let [x 1] x))
+#'user/m
+user=> (m)
+CompilerException java.lang.RuntimeException: Can't let qualified name: user/x, compiling:(NO_SOURCE_PATH:1:1
+```
+
+Instead you need to append `#` to the end of the variable name and let Clojure generate a unique symbol for it.
+
+```clojure
+user=> (defmacro m [] `(let [x# 1] x#))
+#'user/m
+user=> (m)
+1
+user=> 
+```
+
+If we exapnd this macro we can see the gensym'd name
+
+```clojure
+user=> (macroexpand '(m))
+(let* [x__681__auto__ 1] x__681__auto__)
+```
+
 - [Clojure Documentation - Reader](http://clojure.org/reader)
 - [Clojure Reader Macros](http://briancarper.net/blog/449/)
+- [ClojureDocs - gensym](http://clojuredocs.org/clojure_core/clojure.core/gensym)
 
 <hr/>
 
