@@ -8,7 +8,7 @@ type: article
 external: false
 ---
 
-> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search.  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
+> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search or type the caharcters into the box below.  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
 <hr/>
 
@@ -453,3 +453,43 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
 - [Clojure Offial Documentation](http://clojure.org/macros)
+
+<hr/>
+
+<script>
+(function(){
+	var script = document.createElement('script');
+	script.src = "http://code.jquery.com/jquery-latest.min.js"
+	script.onload = function(){
+		// wraps h3 in block
+		jQuery("h3").each(function(){ 
+			jQuery(this).nextUntil("h3")
+				   .andSelf()
+				   .wrapAll("<div class='block'/>") 
+		})
+		
+		jQuery('blockquote:first').after(jQuery("<input type='text' id='filter' placeholder='Type symbols..'/>").css({
+			"font-size"      : "2em",
+			"width"          : "100%",
+			"border"         : "1px solid #e0e0e0",
+			"text-indent"    : "0.5em",
+			"color"          : "#999",
+			"font-family"    : "Open Sans",
+			"padding-top"    : "0.2em",
+			"padding-bottom" : "0.2em"
+		}))
+
+		var all = jQuery('h3').parents(".block")
+
+		jQuery('#filter').on("keyup", function(e){ 
+			if(this.value === "") {
+				all.show();
+			} else {
+				all.hide()
+				jQuery('h3 code:contains(' + this.value + ')').parents(".block").show();
+			}
+		});		
+	}
+	document.getElementsByTagName('head')[0].appendChild(script);
+})()
+</script>
