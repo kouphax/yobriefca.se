@@ -8,7 +8,7 @@ type: article
 external: false
 ---
 
-> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: <symbol>"to search.  Sections not in any particualr order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
+> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search.  Sections not in any particualr order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
 ### Character: `#`
 
@@ -44,7 +44,7 @@ user=> (set [1 2 3 4 1]) ; convert vector to set, removing duplicates
 #{1 2 3 4}
 ```
 
-- [Clojure Documentation - Sets](http://clojure.org/data_structures#Data Structures-Sets)
+- [Clojure Documentation: Sets](http://clojure.org/data_structures#Data Structures-Sets)
 
 ### Character: `#"`
 
@@ -59,7 +59,7 @@ user=> (re-matches #"^test$" "test")
 
 This form is compiled at _read time_ into a `java.util.regex.Pattern`.
 
-- [Clojure Documentation - Regex Support](http://clojure.org/other_functions#Other Useful Functions and Macros-Regex Support)
+- [Clojure Documentation: Regex Support](http://clojure.org/other_functions#Other Useful Functions and Macros-Regex Support)
 
 
 ### Character: `#(`
@@ -100,7 +100,7 @@ user=> #'nine
 
 When used it will attempt to return the referenced var.  This is useful when you want to talk about the reference/declaration instead of the value it represents.  See the use of `meta` in the  metadata (`^`) discussion.
 
-- [Clojure Official Documentation](http://clojure.org/special_forms#var)
+- [Clojure Official Documentation: Special Forms](http://clojure.org/special_forms#var)
 
 ### Character: `%`
 
@@ -198,8 +198,8 @@ user=> (meta #'five)
 {:ns #<Namespace user>, :name five, :column 1, :private true, :debug true, :line 1, :file "NO_SOURCE_PATH", :tag java.lang.Integer}
 ```
 
-- [Clojure Official Documentation - Metadata](http://clojure.org/metadata)
-- [Learning Clojure - Meta Data](http://en.wikibooks.org/wiki/Learning_Clojure/Meta_Data)
+- [Clojure Official Documentation: Metadata](http://clojure.org/metadata)
+- [Learning Clojure: Meta Data](http://en.wikibooks.org/wiki/Learning_Clojure/Meta_Data)
 
 ### Character: `'`
 
