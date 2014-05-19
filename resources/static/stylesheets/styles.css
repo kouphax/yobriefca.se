@@ -8,6 +8,10 @@ body {
   line-height: 1.9;
 }
 
+hr {
+  border: 1px solid #e0e0e0;
+}
+
 em {
   font-style: normal;
   font-weight: 700;
