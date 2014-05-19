@@ -183,7 +183,7 @@ user=> (meta #'five)
 {:ns #<Namespace user>, :name five, :column 1, :debug true, :line 1, :file "NO_SOURCE_PATH"}
 ```
 
-As we have a single value here we can use a shorthand notation for decalring the metadata `^:name` which is useful for flags as the value will be set to true.
+As we have a single value here we can use a shorthand notation for declaring the metadata `^:name` which is useful for flags as the value will be set to true.
 
 ```clojure 
 user=> (def ^:debug five 5)
@@ -192,7 +192,7 @@ user=> (meta #'five)
 {:ns #<Namespace user>, :name five, :column 1, :debug true, :line 1, :file "NO_SOURCE_PATH"}
 ```
 
-Anotehr use of `^` is for type hints.  These are used to tell the compiler what type the value will be and allow it to perform type specific optimisations thus potentially making resultant code a bit faster.
+Another use of `^` is for type hints.  These are used to tell the compiler what type the value will be and allow it to perform type specific optimisations thus potentially making resultant code a bit faster.
 
 ```clojure
 user=> (def ^Integer five 5)
@@ -251,14 +251,14 @@ user=> ; this is a comment too
 
 ### Character: `:` 
 
-`:` is the indicator for a Keyword which is an interned string that provides fast comaprison and lower memory overhead.
+`:` is the indicator for a Keyword which is an interned string that provides fast comparison and lower memory overhead.
 
 ```clojure
 user=> (type :test)
 clojure.lang.Keyword
 ```
 
-Alternativley you can use `keyword` to create a keyowrd from a string
+Alternativley you can use `keyword` to create a keyword from a string
 
 ```clojure
 user=> (keyword "test")
@@ -344,7 +344,7 @@ user=> (-> 25 (Math/sqrt) int str Integer.)
 5
 ```
 
-Or if you like multi lines and consistent brackettering
+Or if you prefer multiline and consistent brackettering
 
 ```clojure
 (-> 25
