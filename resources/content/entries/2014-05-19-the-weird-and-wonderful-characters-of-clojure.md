@@ -20,7 +20,7 @@ You'll see this macro character beside another e.g. `#(` or `#"`. This topic wil
 
 Clojure doesn't provide support for creating reader macros but it is possible through [a bit of hackery](http://briancarper.net/blog/449/).
 
-If you see `#` __at the end__ of a symbol then this is used to automatically generate a new symbol.  This is useful inside macros to keep macro specifics leaking into the userspace.  A regular `let` will fail in a macro definition
+If you see `#` __at the end__ of a symbol then this is used to automatically generate a new symbol.  This is useful inside macros to keep macro specifics from leaking into the userspace.  A regular `let` will fail in a macro definition
 
 ```clojure
 user=> (defmacro m [] `(let [x 1] x))
@@ -76,6 +76,23 @@ user=> (set [1 2 3 4 1]) ; convert vector to set, removing duplicates
 ```
 
 - [Clojure Documentation: Sets](http://clojure.org/data_structures#Data%20Structures-Sets)
+
+<hr/>
+
+### Character: `#_`
+
+See the dispatch (`#`) macro for additional details.
+
+`#_` tells the reader to ignore the next form completely.
+
+```clojure
+user=> [1 2 3 #_ 4 5]
+[1 2 3 5]
+```
+
+The docs suggest that "The form following `#_` is completely skipped by the reader. (This is a more complete removal than the comment macro which yields nil).".  This can prove useful for debugging situations or for multline comments. I've never used it.
+
+- [Clojure Documentation - Reader](http://clojure.org/reader)
 
 <hr/>
 
