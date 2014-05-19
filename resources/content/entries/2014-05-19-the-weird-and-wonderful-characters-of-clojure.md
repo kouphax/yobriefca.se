@@ -552,7 +552,7 @@ Core Clojure examples are `*out*` and `*in*` which represent the standard in and
     })
 
     jQuery('blockquote:first').after(jQuery("<input type='search' id='filter' placeholder='Search symbols..'/>").css({
-      "font-size"      : "2em",
+      "font-size"      : "1.5em",
       "width"          : "100%",
       "border"         : "1px solid #e0e0e0",
       "text-indent"    : "0.5em",
@@ -564,14 +564,16 @@ Core Clojure examples are `*out*` and `*in*` which represent the standard in and
 
     var all = jQuery('h2').parents(".block")
 
-    jQuery('#filter').on("keyup", function(e){
+    var filter = function(e){
       if(this.value === "") {
         all.show();
       } else {
         all.hide()
         jQuery('h2 code:contains(' + this.value + ')').parents(".block").show();
       }
-    });
+    };
+
+    jQuery('#filter').on("keyup", filter).on("click", filter);
   }
   document.getElementsByTagName('head')[0].appendChild(script);
 })();
