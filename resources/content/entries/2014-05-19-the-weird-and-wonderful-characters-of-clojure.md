@@ -8,9 +8,9 @@ type: article
 external: false
 ---
 
-> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Use `CTRL-F` "Character: ..." to search or type the symbols into the box below.  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
+> A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Type the symbols into the box below to search (or use `CTRL-F`).  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
-### Character: `#`
+## `#`
 
 You'll see this macro character beside another e.g. `#(` or `#"`. This topic will act as a bit preamble before looking at your specific case.  
 
@@ -50,7 +50,7 @@ user=> (macroexpand '(m))
 
 <hr/>
 
-### Character: `#{`
+## `#{`
 
 See the dispatch (`#`) macro for additional details.
 
@@ -77,7 +77,7 @@ user=> (set [1 2 3 4 1]) ; convert vector to set, removing duplicates
 
 <hr/>
 
-### Character: `#_`
+## `#_`
 
 See the dispatch (`#`) macro for additional details.
 
@@ -94,7 +94,7 @@ The docs suggest that "The form following `#_` is completely skipped by the read
 
 <hr/>
 
-### Character: `#"`
+## `#"`
 
 See the dispatch (`#`) macro for additional details.
 
@@ -111,7 +111,7 @@ This form is compiled at _read time_ into a `java.util.regex.Pattern`.
 
 <hr/>
 
-### Character: `#(`
+## `#(`
 
 See the dispatch (`#`) macro for additional details.
 
@@ -134,7 +134,7 @@ user=> (macroexpand `#(println %))
 
 <hr/>
 
-### Character: `#'`
+## `#'`
 
 `#'` is the var quote. It is the same a the `var` method,
 
@@ -155,7 +155,7 @@ When used it will attempt to return the referenced var.  This is useful when you
 
 <hr/>
 
-### Character: `%`
+## `%`
 
 `%` is not a macro but a placeholder for use in the `#(` macro.  It represents an argument that will be passed into the function when it is expanded. 
 
@@ -187,7 +187,7 @@ user=> (macroexpand `#(println % %1)) ; use both % and %1
 ```
 <hr/>
 
-### Character: `@`
+## `@`
 
 `@` is the deref macro, it is the shorthand equivalent of the `deref` function so these 2 forms are the same,
 
@@ -205,7 +205,7 @@ user=>
 
 <hr/>
 
-### Character: `^`
+## `^`
 
 `^` is the metadata marker.  Metadata is a map of values (with shorthand option) that can be attached to various forms in Clojure.  This provides extra information for these forms and can be used for documentation, compilation warnings, typehints and other features.
 
@@ -259,7 +259,7 @@ user=> (meta #'five)
 
 <hr/>
 
-### Character: `'`
+## `'`
 
 Can be used against symbols as part of a dispatch macro (see `#'`).  Also used to quote forms and prevent their evaluation as with the `quote` function.
 
@@ -278,7 +278,7 @@ user=>
 
 <hr/>
 
-### Character: `;`
+## `;`
 
 `;` is a comment.  In fact its a comment __macro__ that takes all input from its starting point to the end of the line and ensures the reader ignore it.
 
@@ -291,7 +291,7 @@ user=> ; this is a comment too
 
 <hr/>
 
-### Character: `:` 
+## `:` 
 
 `:` is the indicator for a Keyword which is an interned string that provides fast comparison and lower memory overhead.
 
@@ -324,7 +324,7 @@ user=> (:three my-map 3) ; it can return a default if specified
 
 <hr/>
 
-### Character: `::` 
+## `::` 
 
 `::` is used to fully qualify a keyword with the current namespace.
 
@@ -343,7 +343,7 @@ I have found this useful when creating macros.  If I want to ensure a macro, tha
 
 <hr/>
 
-### Character: `/`
+## `/`
 
 Can be the division function `/` but can also act as a seperator in a symbol name to break apart the symbol name and the namespace is resides in `my-namepace/utils`.  This allows symbols to be fully qualified to prevent collisions or spread.
 
@@ -351,7 +351,7 @@ Can be the division function `/` but can also act as a seperator in a symbol nam
 
 <hr/>
 
-### Character: `$`
+## `$`
 
 Used to reference inner classes and interfaces in Java.  Seperates the container class name and the inner class name,
 
@@ -370,7 +370,7 @@ Used to reference inner classes and interfaces in Java.  Seperates the container
 
 <hr/>
 
-### Character: `->`, `->>` etc.
+## `-> ->> some-> cond-> as->` etc.
 
 These are threading macros.  Almost all of them take an initial value and __thread__ this value through a number of forms.  Lets imagine (for reasons unknown) we wanted to take a number, find the square root, cast it to an int, then a string then back to an integer again. We could write it like this,
 
@@ -407,7 +407,7 @@ The "etc." in the title refers to the fact there are a whole host of threading m
 
 <hr/>
 
-### Character: `~`
+## `~`
 
 See `` ` `` (syntax quote) for additional information. 
 
@@ -432,7 +432,7 @@ This forms the meat and potatoes of creating macros which are, to be highly redu
 
 <hr/>
 
-### Character: `~@`
+## `~@`
 
 See `` ` `` (syntax quote) and `~` (unquote) for additional information. 
 
@@ -455,7 +455,7 @@ Again this gives us a lot power in macros.
 
 <hr/>
 
-### Character: `` ` ``
+## `` ` ``
 
 See `~@` (unquote splicing) and `~` (unquote) for additional information. 
 
@@ -504,8 +504,8 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 	script.src = "http://code.jquery.com/jquery-latest.min.js"
 	script.onload = function(){
 		// wraps h3 in block
-		jQuery("h3").each(function(){ 
-			jQuery(this).nextUntil("h3")
+		jQuery("h2").each(function(){ 
+			jQuery(this).nextUntil("h2")
 				   .andSelf()
 				   .wrapAll("<div class='block'/>") 
 		})
@@ -521,14 +521,14 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 			"padding-bottom" : "0.2em"
 		}))
 
-		var all = jQuery('h3').parents(".block")
+		var all = jQuery('h2').parents(".block")
 
 		jQuery('#filter').on("keyup", function(e){ 
 			if(this.value === "") {
 				all.show();
 			} else {
 				all.hide()
-				jQuery('h3 code:contains(' + this.value + ')').parents(".block").show();
+				jQuery('h2 code:contains(' + this.value + ')').parents(".block").show();
 			}
 		});		
 	}
