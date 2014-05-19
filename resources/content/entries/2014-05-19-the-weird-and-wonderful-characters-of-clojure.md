@@ -468,7 +468,7 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 				   .wrapAll("<div class='block'/>") 
 		})
 		
-		jQuery('blockquote:first').after(jQuery("<input type='text' id='filter' placeholder='Type symbols..'/>").css({
+		jQuery('blockquote:first').after(jQuery("<input type='search' id='filter' placeholder='Search symbols..'/>").css({
 			"font-size"      : "2em",
 			"width"          : "100%",
 			"border"         : "1px solid #e0e0e0",
