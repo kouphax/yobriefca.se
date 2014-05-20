@@ -539,6 +539,41 @@ Core Clojure examples are `*out*` and `*in*` which represent the standard in and
 
 <hr/>
 
+## `>!!`, `<!!`, `>!` & `<!` - core.async channel macros
+
+These symbols are channel operations in `core.async` - a Clojure/ClojureScript library for channel based asynchronous programming (specifically CSP - Concurrent Sequential Programming).
+
+If you imagine, for the sake of argument, a channel is a bit like a queue that things can put stuff on and take stuff off then these symbols support that simple API.
+
+- `>!!` & `<!!` are __blocking__ __put__ and __take__ respectively
+- `>!` & `<!` are, simply, __put__ and __take__
+
+The difference being the blocking versions operate outside `go` blocks and block the thread they operate on.
+
+```clojure
+user=> (def my-channel (chan 10)) ; create a channel
+user=> (>!! my-channel "hello")   ; put stuff on the channel
+user=> (println (<!! my-channel)) ; take stuff off the channel
+hello
+```
+
+The non-blocking versions need to be executed within a `go` block otherwise they'll throw an exception
+
+```clojure
+user=> (def c (chan))
+#'user/c
+user=> (>! c "nope")
+AssertionError Assert failed: >! used not in (go ...) block
+nil  clojure.core.async/>! (async.clj:123)
+```
+
+While the difference between these is well outside the scope of this article fundamentally the `go` blocks operate and manages their own resources pausing __execution__ of code without blocking threads making asynchronously executes code appear to be synchronous and removing the pain of managing asynchronous code from the code base.
+
+- [core.async Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
+- [core.async Wiki](https://github.com/clojure/core.async/wiki)
+
+<hr/>
+
 <script>
 (function(){
   var script = document.createElement('script');
