@@ -202,7 +202,7 @@ user=> (macroexpand `#(println %1 %2))
 (fn* [arg1 arg2] (clojure.core/println arg1 arg2)) ; takes 2 args
 
 user=> (macroexpand `#(println %4))
-(fn* [arg1 arg2 arg3 arg4] (clojure.core/println 4)) ; takes 4 args doesn't use 3
+(fn* [arg1 arg2 arg3 arg4] (clojure.core/println arg4)) ; takes 4 args doesn't use 3
 ```
 
 So you don't have to use the arguments but you do need to declare them in the order you'd expect an external caller to pass them in.
