@@ -240,7 +240,7 @@ user=>
 It can be represented as a map,
 
 ```clojure
-user=> (def ^{ :debug true } five 5) ; meta map with singel boolena value
+user=> (def ^{ :debug true } five 5) ; meta map with single boolean value
 #'user/five
 ```
 
@@ -335,7 +335,7 @@ user=> (keyword "test")
 :test
 ```
 
-A neat thing about keywords is they also implement `IFn` and can act as functions for extracting values fom maps which is hella nice.
+A neat thing about keywords is they also implement `IFn` and can act as functions for extracting values from maps which is very nice.
 
 ```clojure
 user=> (def my-map { :one 1 :two 2 })
@@ -371,9 +371,9 @@ I have found this useful when creating macros.  If I want to ensure a macro, tha
 
 <hr/>
 
-## `/` - Namespace seperator
+## `/` - Namespace separator
 
-Can be the division function `/` but can also act as a seperator in a symbol name to break apart the symbol name and the namespace is resides in `my-namepace/utils`.  This allows symbols to be fully qualified to prevent collisions or spread.
+Can be the division function `/` but can also act as a separator in a symbol name to break apart the symbol name and the namespace it resides in `my-namepace/utils`.  This allows symbols to be fully qualified to prevent collisions or spread.
 
 - [Cloure Official Documentation](http://clojure.org/reader)
 
@@ -456,7 +456,7 @@ This forms the meat and potatoes of creating macros which are, to be highly redu
 
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
-- [Clojure Offial Documentation](http://clojure.org/macros)
+- [Clojure Official Documentation](http://clojure.org/macros)
 
 <hr/>
 
@@ -464,7 +464,7 @@ This forms the meat and potatoes of creating macros which are, to be highly redu
 
 See `` ` `` (syntax quote) and `~` (unquote) for additional information.
 
-`~@` is unquote-splicing.  Where unquote (`~`) deals with single values (or treats its attached item as a single item) `~@` works on lists and expands them out into multiple statements.  Think JavaScripts `.apply` method that takes an array and expands it out as arguments the applied function.
+`~@` is unquote-splicing.  Where unquote (`~`) deals with single values (or treats its attached item as a single item) `~@` works on lists and expands them out into multiple statements.  Think JavaScripts `.apply` method that takes an array and expands it out as arguments to the applied function.
 
 ```clojure
 user=> (def three-and-four (list 3 4))
@@ -475,11 +475,11 @@ user=> `(1 ~@three-and-four) ; expand out as seperate statements
 (1 3 4)
 ```
 
-Again this gives us a lot power in macros.
+Again this gives us a lot of power in macros.
 
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
-- [Clojure Offial Documentation](http://clojure.org/macros)
+- [Clojure Official Documentation](http://clojure.org/macros)
 
 <hr/>
 
@@ -496,7 +496,7 @@ user=> `five
 user/five
 ```
 
-When used with lists (remember every thing in Clojure is data) it forms a __template__ for the data structure and wont immediately resolve it.
+When used with lists (remember every thing in Clojure is data) it forms a __template__ for the data structure and won't immediately resolve it.
 
 ```clojure
 user=> (1 2 3)
@@ -524,7 +524,7 @@ The macro takes a single statement wraps it in a __quoted__ `do` block, evaluate
 
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
-- [Clojure Offial Documentation](http://clojure.org/macros)
+- [Clojure Official Documentation](http://clojure.org/macros)
 
 <hr/>
 
@@ -609,7 +609,15 @@ While the difference between these is well outside the scope of this article fun
     };
 
     jQuery('#filter').on("keyup", filter).on("click", filter);
+    
+    var initialFilter = window.location.hash.substring(1);
+    if(window.location.hash.substring(1) !== "") {
+      jQuery('#filter').val(initialFilter);
+      filter(null);
+    }
   }
   document.getElementsByTagName('head')[0].appendChild(script);
 })();
 </script>
+
+> Many thanks to everyone who has contributed ideas and [the copious amounts of] spelling corrections (crikey I'm bad at speelingz - so thanks Michael R. Mayne).  I've tried to call out people who have specifically asked for things.  Sorry if I've missed you.
