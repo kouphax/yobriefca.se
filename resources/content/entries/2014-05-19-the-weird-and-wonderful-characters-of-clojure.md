@@ -567,7 +567,7 @@ AssertionError Assert failed: >! used not in (go ...) block
 nil  clojure.core.async/>! (async.clj:123)
 ```
 
-While the difference between these is well outside the scope of this article fundamentally the `go` blocks operate and manages their own resources pausing __execution__ of code without blocking threads making asynchronously executes code appear to be synchronous and removing the pain of managing asynchronous code from the code base.
+While the difference between these is well outside the scope of this article fundamentally the `go` blocks operate and manage their own resources pausing __execution__ of code without blocking threads.  This makes asynchronously executed code appear to be synchronous and removing the pain of managing asynchronous code from the code base.
 
 - [core.async Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
 - [core.async Wiki](https://github.com/clojure/core.async/wiki)
