@@ -14,7 +14,7 @@ external: false
 
 You'll see this macro character beside another e.g. `#(` or `#"`. This topic will act as a bit preamble before looking at your specific case.
 
-`#` is the dispatch macro, a reader macro that tells the Clojure reader (the thing that take a file of Clojure text and parses it for consumption in the compiler) to go and look at another __read table__ for the definition of the next character - in essence this allows extending default reader behaviour.
+`#` is the dispatch macro, a reader macro that tells the Clojure reader (the thing that takes a file of Clojure text and parses it for consumption in the compiler) to go and look at another __read table__ for the definition of the next character - in essence this allows extending default reader behaviour.
 
 Clojure doesn't provide support for creating reader macros but it is possible through [a bit of hackery](http://briancarper.net/blog/449/).
 
