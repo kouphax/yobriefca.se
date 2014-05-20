@@ -610,11 +610,11 @@ While the difference between these is well outside the scope of this article fun
 
     jQuery('#filter').on("keyup", filter).on("click", filter);
     
-    var initialFilter = window.location.hash.substring(1);
-    if(window.location.hash.substring(1) !== "") {
-      jQuery('#filter').val(initialFilter);
-      filter(null);
-    }
+    //var initialFilter = window.location.hash.substring(1);
+    //if(window.location.hash.substring(1) !== "") {
+    //  jQuery('#filter').val(initialFilter);
+    //  filter(null);
+    //}
   }
   document.getElementsByTagName('head')[0].appendChild(script);
 })();
