@@ -574,6 +574,56 @@ While the difference between these is well outside the scope of this article fun
 
 <hr/>
 
+## `<symbol>?` - Boolean Convention
+
+Putting `?` at the end of a symbol is a __naming convention__ common across many languages that support special characters in their symbol names  It is used to indicate the thing is a predicate i.e. that it __poses a question__.  For example imagine using an API that dealt with buffer manipulation
+
+```clojure
+(def my-buffer (buffers/create-buffer [1 2 3]))
+(buffers/empty my-buffer)
+```
+
+At a glance how would you know if the method `empty` in this case,
+
+- Returned true if the passed in buffer was empty, or,
+- Cleared the buffer
+
+While the author could have renamed `empty` to `is-empty` the richness of symbol naming in Clojure allows us to express intent more symbolically.
+
+```clojure
+(def my-buffer (buffers/create-buffer [1 2 3]))
+(buffers/empty? my-buffer)
+false
+```
+
+This is simply a recommended __convention__ not a __requirement__
+
+- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)	
+
+<hr/>
+
+## `<symbol>!` - Unsafe Operations
+
+The Clojure style guide has this to say 
+
+> The names of functions/macros that are not safe in STM transactions should end with an exclamation mark (e.g. `reset!`).
+
+You'll most commonly see this appended to function names whose purpose is to mutate state e.g connecting to a data store, updating an atom or closing a file stream.
+
+```clojure
+user=> (def my-stateful-thing (atom 0))
+#'user/my-stateful-thing
+user=> (swap! my-stateful-thing inc)
+1
+user=> @my-stateful-thing
+1
+```
+This is simply a recommended __convention__ not a __requirement__
+
+- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)	
+
+<hr/>
+
 <script>
 (function(){
   var script = document.createElement('script');
