@@ -574,7 +574,7 @@ While the difference between these is well outside the scope of this article fun
 
 <hr/>
 
-## `<symbol>?` - Boolean Convention
+## `<symbol>?` - Predicate Marker
 
 Putting `?` at the end of a symbol is a __naming convention__ common across many languages that support special characters in their symbol names  It is used to indicate the thing is a predicate i.e. that it __poses a question__.  For example imagine using an API that dealt with buffer manipulation
 
