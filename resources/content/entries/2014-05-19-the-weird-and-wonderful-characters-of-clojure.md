@@ -670,4 +670,4 @@ This is simply a recommended __convention__ not a __requirement__
 })();
 </script>
 
-> Many thanks to everyone who has contributed ideas and [the copious amounts of] spelling corrections (crikey I'm bad at speelingz - so thanks Michael R. Mayne).  I've tried to call out people who have specifically asked for things.  Sorry if I've missed you.
+> Many thanks to everyone who has contributed ideas and [the copious amounts of] spelling corrections (crikey I'm bad at speelingz - so thanks Michael R. Mayne, lobsang_ludd).  I've tried to call out people who have specifically asked for things.  Sorry if I've missed you.
