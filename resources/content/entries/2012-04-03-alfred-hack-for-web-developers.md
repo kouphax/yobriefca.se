@@ -10,4 +10,4 @@ I've been a fan of [Alfred](http://www.alfredapp.com/) for some time and use it 
 
 Alfred to the rescue here, just create a script as shown below and then running alfred and typing `l 9000` you can launch your default browser at `http://localhost:9000`.  Very simple but saves me heaps of time at the minute.
 
-![](/images/blog/alfredscript.png)
+![Screenshot](/images/blog/alfredscript.png)
