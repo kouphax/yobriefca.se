@@ -520,7 +520,7 @@ DEBUG:  4
 
 > Code updated based on recommendations from Leif Foged
 
-The macro takes a single statement wraps it in a __quoted__ `do` block, evaluates and prints the result and then evaluates the body.  In effect this `defmacro` call returns a quoted data structure representing the program we are writing with it.  The `` ` `` allows this to happen.
+The macro takes a single statement wraps it in a __quoted__ `let` block, evaluates and prints the result and then evaluates the body.  In effect this `defmacro` call returns a quoted data structure representing the program we are writing with it.  The `` ` `` allows this to happen.
 
 - [Clojure for the Brave and True - Writing Macros](http://www.braveclojure.com/writing-macros/)
 - [Clojure from the ground up: macros](http://aphyr.com/posts/305-clojure-from-the-ground-up-macros)
@@ -541,7 +541,7 @@ Core Clojure examples are `*out*` and `*in*` which represent the standard in and
 
 ## `>!!`, `<!!`, `>!` & `<!` - core.async channel macros
 
-These symbols are channel operations in `core.async` - a Clojure/ClojureScript library for channel based asynchronous programming (specifically CSP - Concurrent Sequential Programming).
+These symbols are channel operations in `core.async` - a Clojure/ClojureScript library for channel based asynchronous programming (specifically [CSP - Communicating Sequential Processes](http://en.wikipedia.org/wiki/Communicating_sequential_processes)).
 
 If you imagine, for the sake of argument, a channel is a bit like a queue that things can put stuff on and take stuff off then these symbols support that simple API.
 
