@@ -50,7 +50,7 @@
     [:div.dater (pretty-date (:date data))]
     [:div.categories (published data)]))
 
-(def ^:private six-months-ago 
+(def ^:private six-months-ago
   (minus (from-date (java.util.Date.)) (months 6)))
 
 (defn- old-entry-warning
@@ -58,7 +58,7 @@
   [data]
   (when (before? (from-date (:date data)) six-months-ago)
     (hiccup.core/html
-      [:blockquote.warning "This post is over 6 months old. 
+      [:blockquote.warning "This post is over 6 months old.
       	Some details, especially technical, may have changed."])))
 
 (defn index
@@ -151,6 +151,21 @@
                   [:h3
                    [:a { :href url } title]
                    [:div.published_date "Published on " date]])]))
+
+(defn gallery-view
+  [request list-title items]
+  (main-layout request "yobriefca.se"
+               [:h1.title list-title]
+               [:div.entries.gallery
+                 (for [thingie items
+                        :let [title (:title thingie)
+                              url   (:uri thingie)
+                              date  (pretty-date (:date thingie))
+                              image (:image thingie)]]
+                   [:div.item
+                     [:a { :href url } [:img { :src image }]]
+                     [:a { :href url } [:h3 title]]
+                     [:div.published_date date]])]))
 
 (defn- main-layout
   "provides the main page layout for the site"

@@ -59,13 +59,14 @@
 (defn render-list
   "renders a list or index view based on the entires"
   [entries]
-  (let [title (-> entries
-                  (first)
-                  (:type)
+  (let [type  (-> entries first :type keyword)
+        title (-> type
                   (name)
                   (clojure.string/capitalize)
                   (str "s"))]
-    #(views/list-view %  title entries)))
+    (if (= :talk type)
+      #(views/gallery-view % title entries)
+      #(views/list-view %  title entries))))
 
 (defn entry-sources [entries]
   (let [internal (filter #(not (:external %)) entries)]
