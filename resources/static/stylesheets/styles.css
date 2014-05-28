@@ -266,26 +266,6 @@ blockquote.warning {
   }
 }
 
-@media (max-width: 400px) {
-  .homer {
-    margin: 2rem 1rem 2rem 1.5rem;
-    padding:0.5rem 0.6rem 0.3rem 0.6rem;
-  }
-
-  html {
-    font-size: 16px;
-  }
-
-  .gallery .item {
-    font-size:100%;
-    width:100%;
-    height:auto;
-    margin-bottom:25px;
-    float:none;
-  }
-
-}
-
 @media (max-width: 800px) {
   .testimonial {
     padding-right:0rem;
@@ -305,3 +285,22 @@ blockquote.warning {
 
 }
 
+@media (max-width: 400px) {
+  .homer {
+    margin: 2rem 1rem 2rem 1.5rem;
+    padding:0.5rem 0.6rem 0.3rem 0.6rem;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  .gallery .item {
+    font-size:100%;
+    width:100%;
+    height:auto;
+    margin-bottom:25px;
+    float:none;
+  }
+
+}
