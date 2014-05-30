@@ -21,24 +21,24 @@ ClojureScript projects are still Clojure projects and so there are few bits and 
 
 Thankfully David Nolen has you covered.  [Mies](https://github.com/swannodette/mies) is a very basic ClojureScript project template so getting up and running is a matter of,
 
-```shell
+```bash
 lein new mies <project name>
 cd <project name>
 ```
 
 At this point you are good to go.  To compile the ClojureScript you can run,
 
-```shell
+```bash
 lein cljsbuild once
 ```
 
 If you open `index.html` and view the developer console you should see some predictable output.  Alternatively if you run,
 
-```shell
+```bash
 lein cljsbuild auto
 ```
 
-The plugin will watch your project sources and recompile everything when changes are made.  This is significantly faster that manually compiling every time as compilation is incremental.  So instead of 10s of seconds for each compile you'll be getting sub-second compilations.  Much more 
+The plugin will watch your project sources and recompile everything when changes are made.  This is significantly faster that manually compiling every time as compilation is incremental.  So instead of 10s of seconds for each compile you'll be getting sub-second compilations.
 
 ## Ajax
 
