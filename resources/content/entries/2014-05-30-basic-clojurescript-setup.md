@@ -1,10 +1,8 @@
 ---
 date: 2014-05-30T00:00:00Z
-title: Basic ClojureScript Setup
+title: "Basic ClojureScript Setup"
 published: true
-categories:
-  - Clojure
-  - ClojureScript
+categories: [Clojure, ClojureScript]
 type: article
 external: false
 ---
