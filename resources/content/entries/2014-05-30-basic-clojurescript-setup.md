@@ -87,4 +87,4 @@ Now if we run `lein cooper` we will have single call to start up our dynamic(ish
 
 ## Summing Up
 
-So we now have a very basic project setup that will allow us to tinker with ClojureScript, make Ajax calls, edit code and cleanly automate away all the stoping and restarting and problematic debugging.  It's not quite the REPL driven style of a typical Clojure project but it's minimal enough to try a few smaller scale things.
+So we now have a very basic project setup that will allow us to tinker with ClojureScript, make Ajax calls, edit code and cleanly automate away all the stopping and restarting and problematic debugging.  It's not quite the REPL driven style of a typical Clojure project but it's minimal enough to try a few smaller scale things.
