@@ -624,6 +624,28 @@ This is simply a recommended __convention__ not a __requirement__
 
 <hr/>
 
+## `_` - Irrelevant var
+
+When you see this used as function arguments or similar it is a common naming convention for vars or arguments you are not interested in using.  That is you don't intend to use them so you aren't really interested in thinking of a useful name for them.
+
+This is an example using the `add-watch` function that can be used to add callback style behavior when atoms change value.  Imagine, given an atom, we want to print the new value everytime it changes,
+
+```clojure
+(def value (atom 0))
+
+(add-watch value nil (fn [_ _ _ new-value] 
+                       (println new-value))
+
+(reset! value 6)
+; prints 6
+(reset! value 9)
+; prints 9
+```
+
+`add-watch` takes 4 arguments but in our case we only really care about the last argument - the new value of the atom. I don't really want to spend time thinking of names for these arguments I'll never use, nor do I want to generate a long line of text unnecessarily (of course I could have used the shorthand `#(println %4)` but that defeats the purpose of this example).
+
+<hr/>
+
 <script>
 (function(){
   var script = document.createElement('script');
