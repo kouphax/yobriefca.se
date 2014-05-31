@@ -7,7 +7,7 @@ type: article
 external: false
 ---
 
-ClojureScript is a bit of an awkward one to get into.  If Clojure isn't your natural language then you may well find the clojurarian setup and the long compilation times a bit of a frustration.  Even if you're accustomed to the REPL based development approach that fits so well with Clojure there is still a certain amount of friction to be had with ClojureScript.
+ClojureScript is a bit of an awkward one to get into.  If Clojure isn't your natural language then you may well find the clojarian setup and the long compilation times a bit of a frustration.  Even if you're accustomed to the REPL based development approach that fits so well with Clojure there is still a certain amount of friction to be had with ClojureScript.
 
 Recently a strong desire to play with and better understand [`core.async`](https://github.com/clojure/core.async) in ClojureScript I decided to try and put together a lightweight workflow.  In doing so I ended up producing a Clojure library ([primrose](http://yobriefca.se/primrose/)) and a Leiningen plugin ([lein-cooper](http://yobriefca.se/lein-cooper/)) to better support this workflow.
 
