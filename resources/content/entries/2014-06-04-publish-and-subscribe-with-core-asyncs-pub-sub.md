@@ -27,7 +27,6 @@ This may appear a bit more jarring than a typical approach where you just have a
 If you think of a simple message bus implementation (in whatever language floats your boat - I've went with Swift, nah just kidding its JavaScript) you would traditionally do something like this,
 
 ```javascript
-
 // grab/create a bus - typically global.
 var bus = new Bus();
 
