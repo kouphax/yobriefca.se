@@ -11,10 +11,6 @@ Following on from my [previous article](/blog/2014/06/01/combining-and-controlli
 
 While the pub/sub mechanism provided by core.async is higher level than working directly with `chan`s and `mult`s to achieve the same thing (in fact that is how the pub/sub operations are implemented internally) it should still be considered a set of lower level primitives compared to say a specific event bus notification with topic namespacing, wildcard broadcasting and other such specialised features.
 
-I've attempted to visualise how the various parts of a pub/sub setup would interact.  We'll use this as a starting point and expand on how this all falls together through the course of the article.
-
-![pub sub](..,)
-
 ## Setup
 
 Once again we'll use ClojureScript to demonstrate the use of pub/sub.  I'll refer you the __Setting Up__ section of my [previous article](/blog/2014/06/01/combining-and-controlling-channels-with-core-dot-asyncs-merge-and-mix/) if you want to get a basic ClojureScript setup running with `core.async`
