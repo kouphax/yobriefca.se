@@ -9,7 +9,7 @@ external: false
 
 ## A Story
 
-"If you guess how many USB sticks are in the jar you win an iPad" they said with a smile that been seared into their face from years of standing at conference popup stands selling the same message.  I glance over at the sacred prize.  For randomly picking a number out of thin air I could easily walk away with a brand spanking new... 
+"If you guess how many USB sticks are in the jar you win an iPad" they said with a smile that had been seared into their face from years of standing at conference popup stands selling the same message.  I glance over at the sacred prize.  For randomly picking a number out of thin air I could easily walk away with a brand spanking new... 
 
 "Wait", I say noticing something is odd about the prize.  "Is that, an original iPad?".
 
@@ -25,7 +25,7 @@ external: false
 
 "Why are you giving away an iPad One?"
 
-"Well no one has ever actually won"
+"Well no one has ever actually won so we haven't felt the need to replace it"
 
 "Why"
 
@@ -43,13 +43,13 @@ The story above sounds incredibly silly yet we as an industry still do this on a
 
 I'm still hearing, to this day, stories of people treating estimates as targets.  I'm hearing them from the enterprise companies that will never change and I'm hearing them from the companies that grace our stages at conferences and talk about how they are enabling agile teams to deliver value by running lean with a shared responsibility.  
 
-And yet the reality is many teams are forced into this fixed template of Scrum with its overhead of extra ceremony and expected to deliver more without giving up the practices of old.  It's crunch time every sprint for the team.  Its unsustainable.  We see the senior members "rise up" and become "cross team" conduits for best practice and status updates, they extract themselves from the daily grind and frustration of the sprint.  
+And yet the reality is many teams are forced into this fixed template of Scrum with its overhead of extra ceremony and expected to deliver more without giving up the practices of old.  It's crunch time every sprint for the team.  Its unsustainable.  We see the senior members "rise up" and become "cross team" conduits for best practice and status updates. They have successfully extracted themselves from the daily grind and frustration of the sprint.  
 
-It sounds like just another one of those developer frustrations that managers tell us "same as it ever was" ad nauseam when we complain, but it's not.  When we combine it with the faux-agile "process over people" approach most organisations actually have we have a serious problem.  The people that were already shipping software in a healthy manner continue to do that, the ones who changed over the last few years in response to careful agile market-erring and brand engagement (through certification and top dollar coaching) have just heaped more pain onto their process.
+It may sound like just another one of those developer frustrations that managers tell us "same as it ever was, back in my day..." ad nauseam - but it's not.  When we combine it with the faux-agile "it's actually process over people" approach most organisations actually have then we have a serious problem. Seriouser, in fact.  The people that were already shipping software in a healthy manner continue to do that, the ones who changed over the last few years in response to careful agile market-erring and brand engagement (through certification and top dollar coaching) have just heaped more pain onto their process.
 
-The iterative incremental application of big upfront methodology practices will completely and utterly dehumanise a team.  People being to tell themselves the flat team, the shared vision, one goal stuff was nonsense anyway, it pays the bills for the houses and flats we never really get to see because of the "Project Death March" being exacted one overladen, overprocess-ised, overtime driven sprint at a time.  The team don't get their 3 months head space of building solutions against slipping timelines followed by a few weeks of intense crunching, no, they get a constant slightly less intense crunching __all the time__. 
+The iterative incremental application of big upfront methodology practices will completely and utterly dehumanise a team.  People begin to tell themselves that the flat team, the shared vision, one goal stuff was nonsense anyway, it pays the bills for the houses and flats we never really get to see because of the "Project Death March" being exacted one overladen, overprocess-ised, overtime driven sprint at a time.  The team don't get their 3 months head space of building solutions against slipping timelines followed by a few weeks of intense crunching, no, they get a constant slightly less intense crunching __all the time__, non-stop, forever and ever and ever and ever and ever.
 
-This is so true, so pandemic, that one musical collective even wrote a song about it - [Godspeed You! Black Emperor - The Dead Flag Blues](https://www.youtube.com/watch?v=-aLjup934Rk).  Of course they had to give it a fictional political lean to avoid getting into trouble at work but at the risk of getting them found out allow me to break it down a bit.
+Don't believe me?  Trust me this is so true, so pandemic, that one musical collective even wrote a song about it - [Godspeed You! Black Emperor - The Dead Flag Blues](https://www.youtube.com/watch?v=-aLjup934Rk).  Of course they had to give it a fictional political lean to avoid getting into trouble at work but at the risk of getting them found out allow me to break their brutally honest piece down a bit.
 
 > The car is on fire, and there's no driver at the wheel
 >
