@@ -15,11 +15,11 @@ I glance over at the sacred prize.  For randomly picking a number out of thin ai
 
 "Well its not a knock off it that's what you mean"
 
-"No no I mean is it an original version, an iPad one"
+"No no I mean is it an original version, an iPad one?"
 
 "Oh, yep it is"
 
-"And that's what you win"
+"And that's what you win?"
 
 "Of course"
 
