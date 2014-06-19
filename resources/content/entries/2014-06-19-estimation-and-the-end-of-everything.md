@@ -47,7 +47,7 @@ And yet the reality is many teams are forced into this fixed template of Scrum w
 
 It may sound like just another one of those developer frustrations that managers tell us "same as it ever was, back in my day..." ad nauseam - but it's not.  When we combine it with the faux-agile "it's actually process over people" approach most organisations actually have then we have a serious problem. Seriouser, in fact.  The people that were already shipping software in a healthy manner continue to do that, the ones who changed over the last few years in response to careful agile market-erring and brand engagement (through certification and top dollar coaching) have just heaped more pain onto their process.
 
-The iterative incremental application of big upfront methodology practices will completely and utterly dehumanise a team.  People begin to tell themselves that the flat team, the shared vision, one goal stuff was nonsense anyway, it pays the bills for the houses and flats we never really get to see because of the "Project Death March" being exacted one overladen, overprocess-ised, overtime driven sprint at a time.  The team don't get their 3 months head space of building solutions against slipping timelines followed by a few weeks of intense crunching, no, they get a constant slightly less intense crunching __all the time__, non-stop, forever and ever and ever and ever and ever.
+The iterative incremental application of big upfront methodology practices will completely and utterly dehumanise a team.  People begin to tell themselves that the flat team, the shared vision, one goal stuff was nonsense anyway, it pays the bills for the houses and flats they never really get to see because of the "Unending Project Death March" being exacted one overladen, overprocess-ised, overtime driven sprint at a time.  The team don't get their 3 months head space of building solutions against slipping timelines followed by a few weeks of intense crunching, no, they get a constant slightly less intense crunching __all the time__, non-stop, forever and ever and ever and ever and ever.
 
 Don't believe me?  Trust me this is so true, so pandemic, that one musical collective even wrote a song about it - [Godspeed You! Black Emperor - The Dead Flag Blues](https://www.youtube.com/watch?v=-aLjup934Rk).  Of course they had to give it a fictional political lean to avoid getting into trouble at work but at the risk of getting them found out allow me to break their brutally honest piece down a bit.
 
@@ -132,8 +132,8 @@ Consultancy.
 
 ### The End of Everything
 
-It may have seemed like a small thing to enforce estimates as targets but you've just ruined the world a bit more.  Your teams write crappy broken software because they hate what they do.  They hate what we do because they are forced to work against arbitrary timescales like Battery Chickens - no light, hemmed in pushing out sub standard cheap tiny bits of code as often as possible.
+It may have seemed like a small thing to enforce estimates as targets but you've just ruined the world a bit more.  Your teams write crappy broken software because they hate what they do.  They hate what we do because they are forced to work against arbitrary timescales like battery chickens - no light, hemmed in pushing out sub-standard cheap bits of code as often as possible.  Quantity over quality, no time for quality, no way no how.
 
-Look what we did. Shame on us.
+This is the end of everything.
 
 <blockquote class="warning">If you got this far and are fuming at how inarticulate, inaccurate or generally wrong this piece is - you're right. You still read it and that page hit in Google Analytics is all I care about.  That or it could be a joke.</blockquote>
