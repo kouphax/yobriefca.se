@@ -31,7 +31,7 @@ I glance over at the sacred prize.  For randomly picking a number out of thin ai
 
 "Well no one has ever guessed the exact amount of 1GB USB sticks in this jar"
 
-"So you need to be exact, not just be the closest"
+"So you need to be exact, not just be 'the closest'?"
 
 "Of course, now listen buddy, are you just going to question me about the prize or are you going to listen while I talk to you about our latest release of Super Pro Manager 4.0 - Agile Enterprise Edition."
 
