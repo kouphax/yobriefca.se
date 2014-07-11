@@ -47,7 +47,7 @@ Now if we try our query again
 ```scala
 scala> DB.withConnection { implicit connection => SQL"SELECT * FROM users".map(mapUser).list() }
 res19: Seq[scala.collection.immutable.Map[String,String]] = List(Map(username -> kouphax, password -> JHGW$FSWF$KJJK$3231))
- ```
+```
 
 To be super clean we can even stop the running instance
 
