@@ -1,7 +1,7 @@
 ---
 date: 2014-07-24T00:00:00Z
 title: "Nomadic Tendencies"
-published: false
+published: true
 categories: [Random]
 type: article
 external: false
