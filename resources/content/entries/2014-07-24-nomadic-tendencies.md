@@ -15,7 +15,7 @@ If there is one thing that shows the immaturity of the software industry (relati
 
 And yet most software that we use is still awful.  It still exhibits the same problems, it still breaks in the most unpredictable ways and it leaves people as angry and frustrated as ever.
 
-But I guess that's to be expected.  If we regularly reinvent everything in "the next big thing" when do we ever find time to refine anything?  The industry marches on, but the industry never moves.  Like a perpetual early beta phase our systems are built up just enough before we tear them down and rewrite them in something new.  Even enterprises, who tend to move much slower and are therefore buffered from smaller fluctuations in trend, suffer from the same problems and no one has ever said the enterprise __gets__ its users, not without a hint of sarcasm at least.
+But I guess that's to be expected.  If we regularly reinvent everything in "the next big thing" when do we ever find time to refine anything?  The industry marches on, but the industry never moves.  Like a perpetual early beta phase our systems are built up just enough before we tear them down and rewrite them in something new.  Even enterprises, who tend to move much slower and are therefore buffered from smaller fluctuations in trend, suffer from the same problems at a different scale.
 
 Ultimately this behavior puts the focus on the technology and how it can make our systems better.  Our users are once more second class citizens because what __we__ want is somehow more important (and who needs users anyway when people are throwing millions at pointless smoke and mirror apps).  
 
