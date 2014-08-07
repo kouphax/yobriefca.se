@@ -26,6 +26,10 @@
         title-part (to-slug (:title article))]
     (str "/blog" "/" date-part "/" title-part "/")))
 
+(defn rambling-uri
+  [rambling]
+  (clojure.string/replace (article-uri rambling) #"^/blog/" "/ramblings/"))
+
 (defn screencast-uri
   "generates a uri for access non-external screencast entries"
   [screencast]
@@ -45,7 +49,8 @@
                         :article    (article-uri %)
                         :screencast (screencast-uri %)
                         :talk       (:url %)
-                        :project    (:url %))))
+                        :project    (:url %)
+                        :rambling   (rambling-uri %))))
          (sort-by :date)
          (reverse))))
 
@@ -54,6 +59,7 @@
   [entry]
   (case (keyword (:type entry))
     :article    #(views/article % entry)
+    :rambling   #(views/rambling % entry)
     :screencast #(views/screencast % entry)))
 
 (defn render-list

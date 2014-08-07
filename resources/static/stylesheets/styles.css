@@ -18,9 +18,24 @@ em {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: "Lora", serif;
+  font-family: "Open Sans", serif;
   line-height:1.6em;
 }
+
+h1, .post h2, .post h3, .post h4, .post h5 {
+  color: #fff;
+  background-color: #333;
+  display:inline;
+  box-shadow: 15px 0 0 #333, -15px 0 0 #333;
+  position:relative;
+  right:-15px;
+}
+
+.post h2 a, .post h2 a code {
+  color: #fff;
+  background-color: #333;
+}
+
 
 .entries {
   font-size:1.2em;
@@ -88,8 +103,8 @@ blockquote p {
 }
 
 div.elevator-pitch {
-  margin-top:-1rem;
   text-align:justify;
+  margin-top: 1rem;
 }
 
 a {
@@ -170,6 +185,12 @@ margin-top: 1rem;
   margin-left:10px;
 }
 
+.categories a {
+  background-color: #333;
+  color: #fff;
+  padding: 0.1rem 0.5rem;
+}
+
 .testimonial {
   padding:4rem;
   padding-left:1rem;
@@ -236,6 +257,10 @@ blockquote.warning {
   font-size: 0.8em;
   text-align: center;
   border: 1px solid #E4E4A9;
+}
+
+.gallery {
+  margin-top: 1rem;
 }
 
 .gallery .item {

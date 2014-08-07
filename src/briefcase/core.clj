@@ -15,14 +15,15 @@
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
   []
-  (let [entries (entries)]
+  (let [entries           (entries)
+        without-ramblings (filter #(not (= "rambling" (:type %))) entries)]
     (stasis/merge-page-sources
-      { :static      { "/index.html"    #(views/index %)
-                       "/background/"   #(views/background %)
-                       "/testimonials/" #(views/testimonials %) }
-        :rss         (atom-sources entries)
-        :categories  (category-sources entries)
-        :content     (entry-sources entries)
+      { :static          { "/index.html"    #(views/index %)
+                           "/background/"   #(views/background %)
+                           "/testimonials/" #(views/testimonials %) }
+        :rss             (atom-sources without-ramblings)
+        :categories      (category-sources without-ramblings)
+        :content         (entry-sources entries)
         :content-indexes (index-sources entries) })))
 
 (def app

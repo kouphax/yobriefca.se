@@ -34,7 +34,7 @@
   "For a given bit of content this function generates an HTML snippet of
    all the categories it is declared under and links to these categories"
   [data]
-  (clojure.string/join ", " (map category-anchor (:categories data))))
+  (clojure.string/join " " (map category-anchor (:categories data))))
 
 (defn- published
   "Generates the 'Published In ...' tag line that is renderd at the bottom
@@ -58,8 +58,13 @@
   [data]
   (when (before? (from-date (:date data)) six-months-ago)
     (hiccup.core/html
-      [:blockquote.warning "This post is over 6 months old.
-      	Some details, especially technical, may have changed."])))
+      [:blockquote.warning "This post is over 6 months old.  Some details,
+       especially technical, may have changed."])))
+
+(defn- rambling-warning []
+  (hiccup.core/html
+    [:blockquote.warning "These posts are a collection of non-tech
+     specific personal ramblings and unarticulated thoughts."]))
 
 (defn index
   "Renders the landing page of the site"
@@ -75,6 +80,14 @@
                [:h1 (:title data)]
                [:div.post (:html data)]
                (footer data)))
+
+(defn rambling
+  "Renders a rambling"
+  [request data]
+  (main-layout request (:title data)
+               (rambling-warning)
+               [:h1 (:title data)]
+               [:div.post (:html data)]))
 
 ;(defn- vimeo-link
 ;  "Videos are hosted on vimeo.  This function generates a vimeo link based on
