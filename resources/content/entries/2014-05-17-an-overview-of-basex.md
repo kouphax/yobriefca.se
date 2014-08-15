@@ -135,6 +135,8 @@ There are a heap of them allowing you to customise BaseX to your needs.
 
 ### Other Notable Things
 
+There are a few other things worth mentioning that don't fit into their own category.
+
 #### Admin GUI
 
 One of the things I miss with a lot of the NoSQL databases is a good Admin app.  These apps let me poke around the data in my database, model solution and generally visualise all those bits and bytes.
