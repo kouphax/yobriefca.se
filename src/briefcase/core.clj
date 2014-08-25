@@ -31,7 +31,10 @@
    via optimus are served without any sort of optimisation"
   (let [pages (pages)]
     (-> (stasis/serve-pages pages)
-        (optimus/wrap (fn [] (concat (style-bundle) (static-bundle))) optimizations/none serve-live-assets)
+        (optimus/wrap
+          (fn [] (concat (style-bundle)
+                         (static-bundle)))
+          optimizations/none serve-live-assets)
         (wrap-content-type))))
 
 (defn export

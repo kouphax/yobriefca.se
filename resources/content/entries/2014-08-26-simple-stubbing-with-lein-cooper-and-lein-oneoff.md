@@ -9,7 +9,7 @@ external: false
 
 Work on [lein-cooper](https://github.com/kouphax/lein-cooper) has been pretty quiet.  It's not because it has been abandoned but because it doesn't enough for my needs.  As and when it starts getting issues or pull requests coming in I can start adapting it to fit the wider needs of others.
 
-Recently I came across a lovely Leiningen plugin called [`lein-oneoff`](https://github.com/mtyaka/lein-oneoff). `oneoff` allows you to specify dependencies for a clojure script at the top of a clojure script (a bit like what [Grape](http://groovy.codehaus.org/Grape) does in the Groovy world I believe).  This means you don't have to spin up all the project infrastructure to run a simple script.  So instead of `lein new server` and editing the `core.clj` file to mock up a simple "Hello World" sample you could do something like this,
+Recently I came across a lovely leiningen plugin called [`lein-oneoff`](https://github.com/mtyaka/lein-oneoff). `oneoff` allows you to specify dependencies for a clojure script at the top of a clojure script (a bit like what [Grape](http://groovy.codehaus.org/Grape) does in the Groovy world I believe).  This means you don't have to spin up all the project infrastructure to run a simple script.  So instead of `lein new server` and editing the `core.clj` file to mock up a simple "Hello World" sample you could do something like this,
 
 ```clojure
 (defdeps
@@ -30,7 +30,7 @@ Recently I came across a lovely Leiningen plugin called [`lein-oneoff`](https://
 
 If this were saved as `server.clj` we could use `lein-oneoff` (declared in the global `~/.lein/profiles.clj`) to run it like so,
 
-```shell
+```bash
 > lein oneoff server.clj
 ```
 
