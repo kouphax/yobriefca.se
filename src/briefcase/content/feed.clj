@@ -32,8 +32,9 @@
 (defn atom-sources
   "Generates the stasis compatible sources map from the atom feed. This is
    just going to be a single entry but hey ho."
-  [entries]
-  (into { "/feed/index.xml" (atom-xml "index" entries) }
+  [entries ramblings]
+  (into { "/feed/index.xml"     (atom-xml "index" entries)
+          "/feed/ramblings.xml" (atom-xml "ramblings" ramblings)}
         (for [category (categories/categories-for-entries entries)
               :let [title   (:title category)
                     uri     (str "/feed/" (->slug title) ".xml")

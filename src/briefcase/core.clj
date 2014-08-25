@@ -15,13 +15,13 @@
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
   []
-  (let [entries           (entries)
-        without-ramblings (filter #(not (= "rambling" (:type %))) entries)]
+  (let [entries                       (entries)
+        [ramblings without-ramblings] (partition-by #(= "rambling" (:type %)) entries) ]
     (stasis/merge-page-sources
       { :static          { "/index.html"    #(views/index %)
                            "/background/"   #(views/background %)
                            "/testimonials/" #(views/testimonials %) }
-        :rss             (atom-sources without-ramblings)
+        :rss             (atom-sources without-ramblings ramblings)
         :categories      (category-sources without-ramblings)
         :content         (entry-sources entries)
         :content-indexes (index-sources entries) })))
