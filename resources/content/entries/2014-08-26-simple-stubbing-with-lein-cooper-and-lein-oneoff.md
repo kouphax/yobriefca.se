@@ -1,13 +1,13 @@
 ---
 date: 2014-08-26T00:00:00Z
 title: "Simple stubbing with lein-cooper and lein-oneoff"
-published: false
+published: true
 categories: [Clojure]
 type: article
 external: false
 ---
 
-Work on [lein-cooper](https://github.com/kouphax/lein-cooper) has been pretty quiet.  It's not because it has been abandoned but because it doesn't enough for my needs.  As and when it starts getting issues or pull requests coming in I can start adapting it to fit the wider needs of others.
+Work on [lein-cooper](https://github.com/kouphax/lein-cooper) has been pretty quiet.  It's not because it has been abandoned but because it does enough for my needs.  As and when it starts getting issues or pull requests coming in I can start adapting it to fit the wider needs of others.
 
 Recently I came across a lovely leiningen plugin called [`lein-oneoff`](https://github.com/mtyaka/lein-oneoff). `oneoff` allows you to specify dependencies for a clojure script at the top of a clojure script (a bit like what [Grape](http://groovy.codehaus.org/Grape) does in the Groovy world I believe).  This means you don't have to spin up all the project infrastructure to run a simple script.  So instead of `lein new server` and editing the `core.clj` file to mock up a simple "Hello World" sample you could do something like this,
 
@@ -38,7 +38,7 @@ Notice the `defdeps` form at the top of the file, this will be used to grab depe
 
 Pretty neat.
 
-I also noticed that this would be a perfect accompaniment for a typical usage of `lein-cooper` stubbing out external services.  If you're building a system that integrates with other services (either internal or external) you introduce a bit of friction when it comes to developing and testing (at the integration level) your system.  Either you have to build and run dependent services or rely on external services that may or may not be available. A simple solution is to develop against simple stubs for these services.  This is what `coop-off` (the new power couple portmanteau I've given to the `lein-cooper`/`lein-oneoff` combination) can make easier.
+I also noticed that this would be a perfect accompaniment for a typical usage of `lein-cooper` - __stubbing out external services__.  If you're building a system that integrates with other services (either internal or external) you introduce a bit of friction when it comes to developing and testing (at the integration level at least) your system.  Either you have to build and run dependent services or rely on external services that may or may not be available. A simple solution is to develop against simple stubs for these services.  This is what `coop-off` (the new power couple portmanteau I've given to the `lein-cooper`/`lein-oneoff` combination) can make easier.
 
 Just create a `stubs` folder in your project, create standalone service stubs (like the example below that also demonstrates the use of `oneoff`s `*command-line-args*` for accessing arguments passed with the command),
 
@@ -68,7 +68,7 @@ Just create a `stubs` folder in your project, create standalone service stubs (l
 (start-server port)
 ```
 
-And you can integrate the running of this and other stubs alongside using `lein-cooper`.  Just create a `Procfile` with commands to run everything,
+And you can integrate the running of this and other stubs alongside using `lein-cooper`.  Just create a `Procfile` for `lein-cooper` with commands to run everything,
 
 ```
 web: lein ring server
@@ -76,4 +76,6 @@ data: lein oneoff stubs/data.clj 3000
 auth: lein oneoff stubs/auth.clj 3002
 ```
 
-Finally run the whole thing with `lein cooper`.  The neatly isolated stubs will be executed alongside your own service without the overhead of having to manage separate projects or integrate test code into your own project.
+Finally run the whole thing via `lein cooper`.  
+
+The standalone stubs will be executed alongside your own service without the overhead of having to manage separate projects or integrate test code into your own project.
