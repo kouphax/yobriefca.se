@@ -8,7 +8,7 @@ links:
 abstract:
   A software engineer with a strong passion for
   crafting high quality solutions, using the right tools, technologies,
-  techniques and, most importantly, people. 
+  techniques and, most importantly, people.
 
 
   I am a firm believer in knowledge sharing and this is evident in my frequent
@@ -18,10 +18,23 @@ abstract:
   patterns and approaches so that projects are delivered with a focus on user
   needs rather than developer or team bias.
 experience:
-  - name: CyberSource
+  - name: Deloitte (Contract)
     experience:
       - role: Developer
-        dates: February 2014 - Present
+        dates: August 2014 - Present
+        technologies:
+          - Java
+          - Play
+          - OpenCV
+          - ImageMagick
+        description: |
+          Helping to develop high volume imaging services for government projects
+          in Java using a service oriented approach. Work includes facial detection and
+          various image transformations as well as API design and documentation.
+  - name: CyberSource (Contract)
+    experience:
+      - role: Developer
+        dates: February 2014 - August 2014
         technologies:
           - Java
           - Tomcat
@@ -52,7 +65,7 @@ experience:
           Commissioned by Pluralsight to produce the
           [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
           course. The 2 hour course is intended to act as a high level introduction to the
-          Java version of Play! 2 a JVM based web framework.          
+          Java version of Play! 2 a JVM based web framework.
   - name: Kainos
     experience:
       - role: Technical Architect, Government Digital Service
