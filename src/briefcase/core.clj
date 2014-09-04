@@ -12,11 +12,12 @@
            [briefcase.content.feed        :refer [atom-sources]]
            [briefcase.content.categories  :refer [category-sources]]))
 
+
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
   []
   (let [entries                       (entries)
-        [ramblings without-ramblings] (partition-by #(= "rambling" (:type %)) entries) ]
+        [ramblings without-ramblings] ((juxt filter remove) #(= "rambling" (:type %)) entries) ]
     (stasis/merge-page-sources
       { :static          { "/index.html"    #(views/index %)
                            "/background/"   #(views/background %)
