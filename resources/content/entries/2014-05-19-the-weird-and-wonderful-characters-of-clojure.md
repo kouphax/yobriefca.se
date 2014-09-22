@@ -8,6 +8,10 @@ type: article
 external: false
 ---
 
+<style>
+  h2 code {background-color: transparent;}
+</style>
+
 > A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Type the symbols into the box below to search (or use `CTRL-F`).  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
 ## `#` - Dispatch macro
@@ -598,13 +602,13 @@ false
 
 This is simply a recommended __convention__ not a __requirement__
 
-- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)	
+- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)
 
 <hr/>
 
 ## `<symbol>!` - Unsafe Operations
 
-The Clojure style guide has this to say 
+The Clojure style guide has this to say
 
 > The names of functions/macros that are not safe in STM transactions should end with an exclamation mark (e.g. `reset!`).
 
@@ -620,7 +624,7 @@ user=> @my-stateful-thing
 ```
 This is simply a recommended __convention__ not a __requirement__
 
-- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)	
+- [Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide#naming)
 
 <hr/>
 
@@ -633,7 +637,7 @@ This is an example using the `add-watch` function that can be used to add callba
 ```clojure
 (def value (atom 0))
 
-(add-watch value nil (fn [_ _ _ new-value] 
+(add-watch value nil (fn [_ _ _ new-value]
                        (println new-value))
 
 (reset! value 6)
@@ -681,7 +685,7 @@ This is an example using the `add-watch` function that can be used to add callba
     };
 
     jQuery('#filter').on("keyup", filter).on("click", filter);
-    
+
     //var initialFilter = window.location.hash.substring(1);
     //if(window.location.hash.substring(1) !== "") {
     //  jQuery('#filter').val(initialFilter);
