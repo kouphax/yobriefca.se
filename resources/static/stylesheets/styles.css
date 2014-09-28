@@ -4,7 +4,7 @@ html {
 
 body {
   color: #333333;
-  font-family: "Open Sans", serif;
+  font-family: "Merriweather", serif;
   line-height: 1.9;
 }
 
@@ -22,14 +22,6 @@ h1,h2,h3,h4,h5,h6 {
   line-height:1.6em;
 }
 
-h1, .post h2, .post h3, .post h4, .post h5 {
-  color: #fff;
-  background-color: #333;
-  display:inline;
-  box-shadow: 15px 0 0 #333, -15px 0 0 #333;
-  position:relative;
-  right:-15px;
-}
 
 .post h2 a, .post h2 a code {
   color: #fff;
@@ -178,6 +170,7 @@ margin-top: 1rem;
 }
 
 .categories {
+  font-family: "Open Sans";
   color: #999;
   margin: 2rem 0;
 }
@@ -252,6 +245,7 @@ p code,li code, h1 code, h2 code, h3 code, h4 code {
 }
 
 blockquote.warning {
+  font-family: "Open Sans";
   background: #FEFECC;
   padding: 1rem;
   font-size: 0.8em;
