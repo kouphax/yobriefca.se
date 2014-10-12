@@ -60,13 +60,10 @@ blockquote p {
   padding:0rem 0.6rem 0.2rem 0.6rem;
   top: 0;
   font-size: 2rem;
-  border-radius: 2.5rem;
-  background-color:#333;
-  line-height:1.7;
 }
 
 .homer a {
-  color: #fff;
+  color: #333;
 }
 
 .homer-inline {
@@ -77,14 +74,12 @@ blockquote p {
   display: inline-block;
   position: relative;
   top:-26px;
-  border-radius: 2.5rem;
-  background-color:#333;
   margin-right: 20px;
   font-weight: normal;
 }
 
 .homer-inline a {
-  color: #fff;
+  color: #333;
 }
 
 div.elevator-pitch {
