@@ -27,10 +27,15 @@ experience:
           - Play
           - OpenCV
           - ImageMagick
+          - Akka
+          - Ansible
+          - Jenkins
         description: |
-          Helping to develop high volume imaging services for government projects
-          in Java using a service oriented approach. Work includes facial detection and
-          various image transformations as well as API design and documentation.
+          Helping to develop batch processing and high volume imaging services
+          for government projects in using a service oriented approach. Work
+          includes various image transformations (facial detection, adaptive
+          contrast etc.), fault tolerant system design with throttling and back
+          pressure capabilities and API design and documentation.
   - name: CyberSource (Contract)
     experience:
       - role: Developer
