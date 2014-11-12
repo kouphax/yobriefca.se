@@ -68,7 +68,7 @@ Some of you may be ready to tell me that your favourite provisioning tool (Puppe
 2. You may not have it set up correctly to deal with certain unique states of deployment boxes
 3. You may have ultra-secure environments that you can't even run these tools on without a lot of pain and so manual provisioning is necessary.
 
-Additionally if you are following any of the point in the [Twelve Factor App Methodology](http://12factor.net/) you'll notice you are relying more on the hosting environment and this can amplify the problem.
+Additionally if you are following any of the points in the [Twelve Factor App Methodology](http://12factor.net/) you'll notice you are relying more on the hosting environment and this can amplify the problem.
 
 ## The Preflight Check
 
