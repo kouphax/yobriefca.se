@@ -47,7 +47,7 @@ Trying to compile this sample will fail on the last line because a number isn't 
 
 ## The Problem, Solution and Result
 
-So what's the problem?  Well in the dynamic example we won't know about the issue until such times as the application gets into a certain state and the manifest problem may happen elsewhere far far down the call chain cause great confusion and frustration.
+So what's the problem?  Well in the dynamic example we won't know about the issue until such times as the application gets into a certain state and the manifest problem may happen elsewhere far far down the call chain causing great confusion and frustration.
 
 Solutions to this problem are available.
 
