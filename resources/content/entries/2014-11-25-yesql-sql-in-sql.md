@@ -252,8 +252,6 @@ What is actually returned depends on the database engine, h2 returns a map conta
 
 Thats just about covers the main features of [yesql][0] which as you can see is a neat little solution to bridging the gap between the database and your code.  It avoids all the normal pain of wrangling with other peoples conventions and leaky abstractions and allows you to use SQL directly which is a much better medium to express queries against relational data stores.
 
-## Links
-
 [0]: https://github.com/krisajenkins/yesql
 [1]: http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html
 [2]: http://h2database.com/html/main.html
