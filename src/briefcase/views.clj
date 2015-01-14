@@ -189,7 +189,7 @@
      [:meta { :content "IE=edge,chrome=1" :http-equiv "X-UA-Compatible" }]
      [:meta { :name "viewport" :content "width=device-width, user-scalable=no" }]
      [:meta { :name "description" :content title}]
-     [:link { :href "http://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" :rel "stylesheet" :type "text/css" }]
+     [:link { :href "https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" :rel "stylesheet" :type "text/css" }]
      (bundles/link-to-css-bundles request  ["styles.css"])
      [:title title]]
     [:body
