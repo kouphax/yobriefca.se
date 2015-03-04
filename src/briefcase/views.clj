@@ -72,6 +72,12 @@
   (main-layout request "yobriefca.se"
                (md/to-html (slurp "resources/content/index.md"))))
 
+(defn fourohfour
+  "Renders the default 404 Not Found page"
+  [request]
+  (main-layout request "yobriefca.se"
+               (md/to-html (slurp "resources/content/404.md"))))
+
 (defn article
   "Renders an article"
   [request data]

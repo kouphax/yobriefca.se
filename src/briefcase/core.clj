@@ -21,6 +21,7 @@
     (stasis/merge-page-sources
       { :static          { "/index.html"    #(views/index %)
                            "/background/"   #(views/background %)
+                           "/404.html"      #(views/fourohfour %)
                            "/testimonials/" #(views/testimonials %) }
         :rss             (atom-sources without-ramblings ramblings)
         :categories      (category-sources without-ramblings)
