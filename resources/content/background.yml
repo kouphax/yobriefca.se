@@ -32,7 +32,7 @@ experience:
           - Jenkins
         description: |
           Helping to develop batch processing and high volume imaging services
-          for government projects in using a service oriented approach. Work
+          for government projects using a service oriented approach. Work
           includes various image transformations (facial detection, adaptive
           contrast etc.), fault tolerant system design with throttling and back
           pressure capabilities and API design and documentation.
