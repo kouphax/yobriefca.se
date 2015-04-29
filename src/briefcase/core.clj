@@ -22,7 +22,8 @@
       { :static          { "/index.html"    #(views/index %)
                            "/background/"   #(views/background %)
                            "/404.html"      #(views/fourohfour %)
-                           "/testimonials/" #(views/testimonials %) }
+                           "/testimonials/" #(views/testimonials %)
+                           "/metrics/"      #(views/metrics %) }
         :rss             (atom-sources without-ramblings ramblings)
         :categories      (category-sources without-ramblings)
         :content         (entry-sources entries)

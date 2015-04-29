@@ -72,6 +72,12 @@
   (main-layout request "yobriefca.se"
                (md/to-html (slurp "resources/content/index.md"))))
 
+(defn metrics
+  "Renders the metrcis page of the site"
+  [request]
+  (main-layout request "yobriefca.se"
+               (md/to-html (slurp "resources/content/metrics.md"))))
+
 (defn fourohfour
   "Renders the default 404 Not Found page"
   [request]
