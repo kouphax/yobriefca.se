@@ -14,5 +14,6 @@
   []
   (concat (assets/load-bundle "static" "images"         [#"/images/.*"])
           (assets/load-bundle "static" "maven"          [#"/maven/.*"])
+          (assets/load-bundle "static" "random-js"      [#"/javascripts/.*"])
           (assets/load-bundle "static" "presentations"  [#"/presentations/.*"])))
 

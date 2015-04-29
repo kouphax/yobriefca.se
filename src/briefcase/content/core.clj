@@ -1,7 +1,9 @@
 (ns briefcase.content.core
   (require [briefcase.views         :as views]
            [slugger.core            :refer [->slug]]
-           [briefcase.content.utils :refer [slurp-content]]))
+           [briefcase.content.utils :refer [slurp-content]]
+           [clj-time.format :as f]
+           [clj-time.coerce :as c]))
 
 (defn to-slug
   "slugger attempts to match stringex style slugification.  However due to some
@@ -54,6 +56,8 @@
          (sort-by :date)
          (reverse))))
 
+
+
 (defn render-entry
   "build the view function for the item"
   [entry]
@@ -63,16 +67,19 @@
     :screencast #(views/screencast % entry)))
 
 (defn render-list
-  "renders a list or index view based on the entires"
-  [entries]
-  (let [type  (-> entries first :type keyword)
-        title (-> type
-                  (name)
-                  (clojure.string/capitalize)
-                  (str "s"))]
-    (if (= :talk type)
-      #(views/gallery-view % title entries)
-      #(views/list-view %  title entries))))
+  "renders a list or index view based on the entires. Janky multimethod
+   jiggerypokery here that makes no sense and should be refactored"
+  ([entries]
+   (let [type  (-> entries first :type keyword)
+         title (-> type
+                   (name)
+                   (clojure.string/capitalize)
+                   (str "s"))]
+     (if (= :talk type)
+       #(views/gallery-view % title entries)
+       #(views/list-view %  title entries))))
+  ([entries title]
+   #(views/list-view % title entries)))
 
 (defn entry-sources [entries]
   (let [internal (filter #(not (:external %)) entries)]
@@ -83,3 +90,10 @@
   (let [types (group-by :type entries)]
     (zipmap (map #(str "/" (name %) "s/") (keys types))
             (map render-list (vals types)))))
+
+(defn breakdown-sources [entries]
+  (let [formatter  (f/formatter "yyyy/MM/dd")
+        grouper   #(str "/" (f/unparse formatter (c/from-date (:date %))) "/")
+        dates      (group-by grouper entries)]
+    (zipmap (keys dates)
+            (map #(render-list % "On this day...") (vals dates)))))

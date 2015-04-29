@@ -7,11 +7,11 @@
            [optimus.strategies            :refer [serve-live-assets]]
            [optimus.export                :refer :all]
            [ring.middleware.content-type  :refer [wrap-content-type]]
-           [briefcase.content.core        :refer [entry-sources index-sources entries]]
+           [briefcase.content.core        :refer [entry-sources index-sources entries breakdown-sources]]
            [briefcase.content.bundles     :refer :all]
            [briefcase.content.feed        :refer [atom-sources]]
+           [briefcase.csv                 :as    csv]
            [briefcase.content.categories  :refer [category-sources]]))
-
 
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
@@ -19,13 +19,15 @@
   (let [entries                       (entries)
         [ramblings without-ramblings] ((juxt filter remove) #(= "rambling" (:type %)) entries) ]
     (stasis/merge-page-sources
-      { :static          { "/index.html"    #(views/index %)
-                           "/background/"   #(views/background %)
-                           "/404.html"      #(views/fourohfour %)
-                           "/testimonials/" #(views/testimonials %)
-                           "/metrics/"      #(views/metrics %) }
+      { :static          { "/index.html"       #(views/index %)
+                           "/background/"      #(views/background %)
+                           "/404.html"         #(views/fourohfour %)
+                           "/testimonials/"    #(views/testimonials %)
+                           "/metrics/"         #(views/metrics %)
+                           "/metrics/data.csv" (csv/daily-contributions entries) }
         :rss             (atom-sources without-ramblings ramblings)
         :categories      (category-sources without-ramblings)
+        :daily-breakdown (breakdown-sources entries)
         :content         (entry-sources entries)
         :content-indexes (index-sources entries) })))
 

@@ -1,8 +1,8 @@
 
 ---
-date: 2015-04-29T00:00:00Z
+date: 2015-04-30T00:00:00Z
 title: "Quick Markdown Preview in Vim"
-published: true
+published: false
 categories: [Vim]
 type: article
 external: false
