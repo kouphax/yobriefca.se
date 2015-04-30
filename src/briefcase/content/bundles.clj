@@ -14,6 +14,11 @@
   []
   (concat (assets/load-bundle "static" "images"         [#"/images/.*"])
           (assets/load-bundle "static" "maven"          [#"/maven/.*"])
-          (assets/load-bundle "static" "random-js"      [#"/javascripts/.*"])
           (assets/load-bundle "static" "presentations"  [#"/presentations/.*"])))
 
+(defn metrics-page-bundle
+  "Metrics bundle includes the css and js for the metrics contribution page"
+  []
+  (concat (assets/load-bundle "static" "metrics" ["/javascripts/d3.v3.min.js"
+                                                  "/javascripts/metrics.js"
+                                                  "/stylesheets/metrics.css"])))

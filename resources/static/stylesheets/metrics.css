@@ -1,0 +1,23 @@
+/* Stylesheet for the /metrics page chart */
+#chart {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+
+.day {
+  fill: #fff;
+  stroke: #ccc;
+}
+
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.RdYlGn .v1{fill:rgb(208, 222, 170)}
+.RdYlGn .v2{fill:rgb(190, 210, 141)}
+.RdYlGn .v3{fill:rgb(153, 183, 111)}
+.RdYlGn .v4{fill:rgb(122, 158, 88)}
+.RdYlGn .v5{fill:rgb(73, 98, 59)}
+.RdYlGn .v6{fill:rgb(1, 50, 32)}

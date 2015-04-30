@@ -27,7 +27,7 @@
                            "/metrics/data.csv" (csv/daily-contributions entries) }
         :rss             (atom-sources without-ramblings ramblings)
         :categories      (category-sources without-ramblings)
-        :daily-breakdown (breakdown-sources entries)
+        :daily-indexes   (breakdown-sources entries)
         :content         (entry-sources entries)
         :content-indexes (index-sources entries) })))
 
@@ -38,7 +38,8 @@
     (-> (stasis/serve-pages pages)
         (optimus/wrap
           (fn [] (concat (style-bundle)
-                         (static-bundle)))
+                         (static-bundle)
+                         (metrics-page-bundle)))
           optimizations/none serve-live-assets)
         (wrap-content-type))))
 
@@ -50,13 +51,16 @@
   []
   (let [styles     (optimizations/all (style-bundle) {})
         static     (optimizations/none (static-bundle) {})
+        metrics    (optimizations/none (metrics-page-bundle) {})
         output-dir "build"]
     (println "Clearing output directory")
     (stasis/empty-directory! output-dir)
     (println "Exporting optimised assets (css, javascript)")
     (save-assets styles output-dir)
     (println "Exporting non-optimised assets (maven, images)")
-    (save-assets static output-dir)
+    (save-assets static  output-dir)
+    (println "Exporting assets for metrics page (css, javascript)")
+    (save-assets metrics output-dir)
     (println "Exporting CNAME")
     (spit (str output-dir "/CNAME") "yobriefca.se")
     (println "Exporting site")
