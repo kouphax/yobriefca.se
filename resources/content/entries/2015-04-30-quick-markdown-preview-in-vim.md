@@ -2,7 +2,7 @@
 ---
 date: 2015-04-30T00:00:00Z
 title: "Quick Markdown Preview in Vim"
-published: false
+published: true
 categories: [Vim]
 type: article
 external: false
