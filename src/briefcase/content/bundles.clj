@@ -12,7 +12,8 @@
    pushed through Optimus.  Basically my maven repo and the images as
    these are refered in markdown and not rewritten"
   []
-  (concat (assets/load-bundle "static" "images"         [#"/images/.*"])
+  (concat (assets/load-bundle "static" "images"         [#"/images/.*"
+                                                         "/favicon.ico"])
           (assets/load-bundle "static" "maven"          [#"/maven/.*"])
           (assets/load-bundle "static" "presentations"  [#"/presentations/.*"])))
 
