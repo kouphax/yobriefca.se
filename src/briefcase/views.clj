@@ -20,7 +20,7 @@
   "Generates a 'Tweet this' compatibale link for the passed in content"
   [data]
   (str "https://twitter.com/intent/tweet"
-       "?url="  (url-encode (str "http://yobriefca.se" (:uri data)))
+       "?url="  (url-encode (str "https://yobriefca.se" (:uri data)))
        "&text=" (url-encode (:title data))
        "&via=kouphax"))
 

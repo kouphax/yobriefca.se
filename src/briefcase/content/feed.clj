@@ -12,7 +12,7 @@
     [:author  [:name "James Hughes"]]
     [:link    {:href (if (:external post)
                        (:uri post)
-                       (str "http://yobriefca.se" (:uri post)))}]
+                       (str "https://yobriefca.se" (:uri post)))}]
     [:id      (str "urn:yobriefca-se:feed:post:" (:title post))]
     [:content {:type "html"}  (:html post)]])
 
@@ -26,7 +26,7 @@
           [:id      (str "urn:yobriefca-se:feed:" category-id)]
           [:updated (-> posts first :date)]
           [:title   {:type "text"} (str "Yo! Briefcase: " category-id)]
-          [:link    {:rel "self" :href (str "http://yobriefca.se/feed/" category-id ".xml")}]
+          [:link    {:rel "self" :href (str "https://yobriefca.se/feed/" category-id ".xml")}]
           (map entry posts)]))))
 
 (defn atom-sources
