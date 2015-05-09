@@ -7,7 +7,7 @@ type: article
 external: false
 ---
 
-So Java, you've heard of it right?  It's the language thats used to [convert XML into stack traces](https://twitter.com/avalanche123/status/7062890318143488).  You know the one... its [really popular](http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html) and has a massive ecosystem of powerful open source tools and techs but everyone says its the worst.  Sadly making fun of Java lacks any real challenge because, if I can be blunt, Java makes it easy to do so (see I just did it without thinking).
+So Java, you've heard of it right?  It's the language thats used to [convert XML into stack traces](https://twitter.com/avalanche123/status/7062890318143488).  You know the one... it's [really popular](http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html) and has a massive ecosystem of powerful open source tools and techs but everyone says it's the worst.  Sadly making fun of Java lacks any real challenge because, if I can be blunt, Java makes it easy to do so (see I just did it without thinking).
 
 There are a lot of things that make Java an easy target but in my frequent exposure to Java there are 3 things that really wind me up.
 
@@ -27,7 +27,7 @@ Fear ye not you beautifully desperate people there are things you can do. A word
 
 So lets remove the boilerplate from Java without having to rewrite our solutions in a new language.  To do this we are going to use [Lombok](https://projectlombok.org/).  Now the website is very light on explanation but [Lombok](https://projectlombok.org/) is an annotation based code generation library that focuses on removing the noise and boilerplate from your code without the need for actual authentigenuine magic.  So while it may feel like magic being released from the shackles of Javas boilerplate oppression it is just a bunch of common patterns rolled into annotations.  Oh and yes, if you've read any of my older posts, annotations are a pet hate of mine so you'll understand I'm not saying any of this lightly.
 
-So whats the elevator pitch for Lombok (after I've spent over 500 words meandering over nonsense)?  OK lets go.  
+So whats the elevator pitch for Lombok (after I've spent over 500 words meandering over nonsense)?  OK lets go.
 
 Assume we have a `Character` (in the RPG sense not the textual sense) class that has just 2 properties - a `name` and a `level`.  Now the `name` is set once and never changes and the `level` fluctuates as this character kills dragons, marries trolls and harvests magic mushrooms (usually it goes up but you can never really tell with magic mushrooms).
 
@@ -269,7 +269,7 @@ Which gives us the rather pretty output of,
 ¸¸♬·¯·♩¸¸♪·¯·♫¸¸EXTEEEEEENSION METHODSSSSSS¸¸♬·¯·♩¸¸♪·¯·♫¸¸
 ```
 
-In fact `@ExtensionMethod` can take any class with `static` methods and make them callable as instance methods such as `java.util.Arrays`.  
+In fact `@ExtensionMethod` can take any class with `static` methods and make them callable as instance methods such as `java.util.Arrays`.
 
 OK extension methods are just a nice bit of syntactic sugar but they can be really nice when creating a consistent approach to code style.
 
