@@ -10,7 +10,7 @@
           utility class"
   [name]
   { :title name
-    :uri   (str "/categories/" (->slug name)) })
+    :uri   (str "/categories/" (->slug name) "/") })
 
 (defn- merge-latest-date-from-content
   "Given a sequence of items/content this function

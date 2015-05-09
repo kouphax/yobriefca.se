@@ -1,7 +1,7 @@
 (ns briefcase.views
   (require [clj-yaml.core     :as yaml]
            [me.raynes.cegdown :as md]
-           [optimus.hiccup    :as bundles]
+           [optimus.html    :as bundles]
            [cemerick.url      :refer [url-encode]]
            [slugger.core      :refer [->slug]]
            [hiccup.page       :refer [html5]]
@@ -25,9 +25,9 @@
        "&via=kouphax"))
 
 (defn- category-anchor
-  "Generates a link tage for a particular category"
+  "Generates a link tag for a particular category"
   [category]
-  (let [link (str "/categories/" (->slug category))]
+  (let [link (str "/categories/" (->slug category) "/")]
     (hiccup.core/html [:a { :href link } category])))
 
 (defn- categories

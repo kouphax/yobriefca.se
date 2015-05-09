@@ -39,7 +39,7 @@
     (:url screencast)
     (let [path (:path screencast)
           name (nth (re-matches #"^/\d\d\d\d-\d\d-\d\d-(.*)\.md$" path) 1)]
-      (str "/screencasts/" name))))
+      (str "/screencasts/" name "/"))))
 
 (defn entries
   []
