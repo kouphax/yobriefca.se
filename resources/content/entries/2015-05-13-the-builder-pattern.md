@@ -1,7 +1,7 @@
 ---
 date: 2015-05-13T00:00:00Z
 title: "The Builder Pattern"
-published: false
+published: true
 categories: [Craftsmanship]
 type: article
 external: false
@@ -9,7 +9,7 @@ external: false
 
 <style>
   body {
-    background-color: #253338;
+    background-color: #253239;
     color: #cfd8dc;
   }
 
@@ -98,41 +98,11 @@ What happens then if we want to introduce a constructor that only sets the `sour
 
 We already have a constructor that takes a single `int` for `id`. Working around this may require exposing the knowledge of default values outside the class and have the constructing object know to pass in `-1` to the 2 arg constructor but then we have externalised coupling and what's the point of having a nice encapsulated OO design if you end up doing something like this?
 
-> Those among you who use __sensible__ languages that have features such as default parameter values and copy constructors will find this isn't as much of a problem but even in those languages its possible to tie yourself up in knots. 
+> Those among you who use __sensible__ languages that have features such as default parameter values and copy constructors will find this isn't as much of a problem but even in those languages its possible to tie yourself up in knots.
 
 ![The Builder Pattern](/images/thebuilderpattern/thebuilderpattern.016.png)
 
-[VIDEO]
-
------------------------------------------
-
-So lets use the builder pattern to address the issues we've encountered above.  I'm going to cheat slightly an start with using Lombok to generate the builder code without me having to type it.
-
-We'll start with our original code for the `Reading` class and strip out everything except the variable declarations.  Then I'm going to add the lombok `Builder` annotation.  This allows us to construct our Reading object however we want.
-
-```java
-Reading reading = Reading.builder().sourceId(10).build();
-```
-
-Now this doesn't give us exactly what we want here because of the way Lombok works, but as this isn't a demonstration of Lombok lets just desugar this and see  how this builder pattern is implemented.
-
-So as we can see we have our original all args constructor and a `ReadingBuilder` inner class.  This class represents a mutable version of our `Reading` class and exposes setters.  You''ll notice these setters always return an instance of the Builder instance.
-
-The other method this builder class exposes is the build method.  As you can see this method constructs an actual immutable `Reading` instance using the values originally passed to the `ReadingBuilder`.
-
-Finally our `Reader` class has a static method for creating an instance of the `ReadingBuilder` inner class which is used to kick everything off.
-
-To be faithful to the original requirements I can add the default values to the `ReadingBuilder` variable declarations.
-
-```java
-private int id = -1;
-private int sourceId = -1;
-private String name = "UNNAMED";
-private Date time = new Date();
-private double value = 0;
-```
-
------------------------------------------
+<iframe src="https://player.vimeo.com/video/127740033" width="700" height="439" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ![The Builder Pattern](/images/thebuilderpattern/thebuilderpattern.017.png)
 
