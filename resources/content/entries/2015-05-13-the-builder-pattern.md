@@ -157,4 +157,4 @@ The 2 biggest causes for concern are,
 
 ![The Builder Pattern](/images/thebuilderpattern/thebuilderpattern.001.png)
 
-And that is the builder pattern in a nutshell.  It is very likely you'll have already come across uses of the builder pattern in the wild.  It is a very simple and flexible pattern but should, as with all things, treated with respect.
+And that is the builder pattern in a nutshell.  It is very likely you'll have already come across uses of the builder pattern in the wild.  It is a very simple and flexible pattern but should, as with all things, be treated with respect.
