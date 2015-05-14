@@ -102,7 +102,7 @@ We already have a constructor that takes a single `int` for `id`. Working around
 
 ![The Builder Pattern](/images/thebuilderpattern/thebuilderpattern.016.png)
 
-<iframe src="https://player.vimeo.com/video/127740033" width="700" height="439" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<div class="vimeo"><iframe src="https://player.vimeo.com/video/127740033" width="700" height="439" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
 
 ![The Builder Pattern](/images/thebuilderpattern/thebuilderpattern.017.png)
 
