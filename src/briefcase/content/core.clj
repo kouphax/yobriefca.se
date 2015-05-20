@@ -28,10 +28,6 @@
         title-part (to-slug (:title article))]
     (str "/blog" "/" date-part "/" title-part "/")))
 
-(defn rambling-uri
-  [rambling]
-  (clojure.string/replace (article-uri rambling) #"^/blog/" "/ramblings/"))
-
 (defn screencast-uri
   "generates a uri for access non-external screencast entries"
   [screencast]
@@ -43,7 +39,10 @@
 
 (defn entries
   []
-  (let [entries (slurp-content "resources/content/entries")]
+  (let [source-dir (or (System/getenv "CONTENT_SOURCES")
+                       "resources/content/entries")
+        entries    (slurp-content source-dir)]
+    (println (str "Building site from entries in " source-dir))
     (->> entries
          (filter :published)
          (map #(assoc % :uri
@@ -51,19 +50,15 @@
                         :article    (article-uri %)
                         :screencast (screencast-uri %)
                         :talk       (:url %)
-                        :project    (:url %)
-                        :rambling   (rambling-uri %))))
+                        :project    (:url %))))
          (sort-by :date)
          (reverse))))
-
-
 
 (defn render-entry
   "build the view function for the item"
   [entry]
   (case (keyword (:type entry))
     :article    #(views/article % entry)
-    :rambling   #(views/rambling % entry)
     :screencast #(views/screencast % entry)))
 
 (defn render-list

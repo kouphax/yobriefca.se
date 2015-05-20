@@ -16,8 +16,7 @@
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
   []
-  (let [entries                       (entries)
-        [ramblings without-ramblings] ((juxt filter remove) #(= "rambling" (:type %)) entries) ]
+  (let [entries (entries)]
     (stasis/merge-page-sources
       { :static          { "/index.html"       #(views/index %)
                            "/background/"      #(views/background %)
@@ -25,8 +24,8 @@
                            "/testimonials/"    #(views/testimonials %)
                            "/metrics/"         #(views/metrics %)
                            "/metrics/data.csv" (csv/daily-contributions entries) }
-        :rss             (atom-sources without-ramblings ramblings)
-        :categories      (category-sources without-ramblings)
+        :rss             (atom-sources entries)
+        :categories      (category-sources entries)
         :daily-indexes   (breakdown-sources entries)
         :content         (entry-sources entries)
         :content-indexes (index-sources entries) })))

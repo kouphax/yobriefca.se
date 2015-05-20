@@ -3,7 +3,7 @@ date: 2013-06-05T23:00:00Z
 title: Elsewhere
 published: true
 categories: [Random]
-type: rambling
+type: article
 external: false
 ---
 Oh hey hi, this post is a "personal" post.  It doesn't involve any code or analogies to writing software (that I'm aware of) so yeah.....
