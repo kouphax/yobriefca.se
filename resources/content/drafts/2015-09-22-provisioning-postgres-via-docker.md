@@ -45,11 +45,11 @@ RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 # install the necesarry packages
-RUN apt-get update
-RUN apt-get install -y \
-  python-software-properties \
-  software-properties-common \
-  postgresql-9.4
+RUN apt-get update && \
+  apt-get install -y \
+    python-software-properties \
+    software-properties-common \
+    postgresql-9.4
 
 # run the rest as the postgres user
 USER postgres
