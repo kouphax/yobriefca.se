@@ -24,6 +24,7 @@ I'm going to assume that at this point we have `docker` and, if necessary, `boot
 With `boot2docker` installed we need to start it.
 
 ```
+boot2docker init # only need this the first time
 boot2docker up
 ```
 
