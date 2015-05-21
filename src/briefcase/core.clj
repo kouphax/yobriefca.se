@@ -18,12 +18,13 @@
   []
   (let [entries (entries)]
     (stasis/merge-page-sources
-      { :static          { "/index.html"       #(views/index %)
-                           "/background/"      #(views/background %)
-                           "/404.html"         #(views/fourohfour %)
-                           "/testimonials/"    #(views/testimonials %)
-                           "/metrics/"         #(views/metrics %)
-                           "/metrics/data.csv" (csv/daily-contributions entries) }
+      { :static          { "/index.html"                  #(views/index %)
+                           "/background/"                 #(views/background %)
+                           "/404.html"                    #(views/fourohfour %)
+                           "/testimonials/"               #(views/testimonials %)
+                           "/metrics/"                    #(views/metrics %)
+                           "/metrics/data.csv"             (csv/daily-contributions entries)
+                           "/googlec7ff2e80f1e6f808.html"  (slurp "resources/static/googlec7ff2e80f1e6f808.html") }
         :rss             (atom-sources entries)
         :categories      (category-sources entries)
         :daily-indexes   (breakdown-sources entries)
