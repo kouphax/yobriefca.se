@@ -16,6 +16,11 @@
   [date]
   (.format (java.text.SimpleDateFormat. "MMMM dd, yyyy") date))
 
+(defn- time-element-date
+  "Converts standard dates into the representation accepted by time elements"
+  [date]
+  (.format (java.text.SimpleDateFormat. "dd-MM-yyyy") date))
+
 (defn- twitter-url
   "Generates a 'Tweet this' compatibale link for the passed in content"
   [data]
@@ -46,8 +51,14 @@
   "Generates the footer appended at the end of every content page"
   [data]
   (hiccup.core/html
-    [:a.twitter { :target "_blank" :href (twitter-url data) } "Tweet This"]
-    [:div.dater (pretty-date (:date data))]
+    [:a.twitter { :target   "_blank"
+                  :href     (twitter-url data)
+                  :itemprop "discussionUrl" }
+                "Tweet This"]
+    [:div.dater
+      [:time { :datetime (time-element-date (:date data))
+               :itemprop "datePublished" }
+             (pretty-date (:date data))]]
     [:div.categories (published data)]))
 
 (def ^:private six-months-ago
@@ -90,9 +101,10 @@ The darker the colour for a certain day the more activity there was. Probably no
   [request data]
   (main-layout request (:title data)
                (old-entry-warning data)
-               [:h1 (:title data)]
-               [:div.post (:html data)]
-               (footer data)))
+               [:div { :itemscope "" :itemtype "http://schema.org/Article"}
+                 [:h1 { :itemprop "name" } (:title data)]
+                 [:div.post { :itemprop "articleBody" }  (:html data)]
+                 (footer data)]))
 
 ;(defn- vimeo-link
 ;  "Videos are hosted on vimeo.  This function generates a vimeo link based on
