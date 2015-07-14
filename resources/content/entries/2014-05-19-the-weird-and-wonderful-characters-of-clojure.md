@@ -653,7 +653,7 @@ This is an example using the `add-watch` function that can be used to add callba
 <script>
 (function(){
   var script = document.createElement('script');
-  script.src = "http://code.jquery.com/jquery-latest.min.js"
+  script.src = "https://code.jquery.com/jquery-1.11.3.min.js"
   script.onload = function(){
     // wraps h3 in block
     jQuery("h2").each(function(){
@@ -685,12 +685,6 @@ This is an example using the `add-watch` function that can be used to add callba
     };
 
     jQuery('#filter').on("keyup", filter).on("click", filter);
-
-    //var initialFilter = window.location.hash.substring(1);
-    //if(window.location.hash.substring(1) !== "") {
-    //  jQuery('#filter').val(initialFilter);
-    //  filter(null);
-    //}
   }
   document.getElementsByTagName('head')[0].appendChild(script);
 })();
