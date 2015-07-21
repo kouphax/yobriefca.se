@@ -65,6 +65,10 @@ Aside from a name change Reagent (formerly Cloact) hasn't really change that muc
 
 I've never really looked into the other React wrappers so I can't speak to whether Reagent is the best but I can say it's certainly been a pleasure to use on small scale apps.
 
+## Source
+
+The source for the app is available, as always, on [Github](https://github.com/kouphax/zombie-dice/) and I welcome any feedback or advice you may have.
+
 ## Plans
 
 I think I'm going to write this in Elm just to see what all the fuss is about. Maybe add some local storage for saving historical games and players. Truth be told I'll probably never touch it again but a man can dream.
