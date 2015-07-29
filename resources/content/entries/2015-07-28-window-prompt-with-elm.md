@@ -141,14 +141,14 @@ The `Prompt` action is the one we want to use to trigger our `window.prompt` cal
 ```haskell
 port suppliedNames : Signal String
 
-port confirm : Signal ()
-port confirm =
+port prompt : Signal ()
+port prompt =
   actions.signal
     |> filter (\s -> s == Prompt) NoOp
     |> map (always ())
 ```
 
-`suppliedNames` is our innie.  This will receive names we've created later on.  `confirm` is our outtie.  What we do is 
+`suppliedNames` is our innie.  This will receive names we've created later on.  `prompt` is our outtie.  What we do is 
 
 - take the signal from our `Mailbox`
 - `filter` everything except the `Prompt` actions
