@@ -44,11 +44,11 @@ So when we boot our app we pass in an initial value.
 Lets look at another port,
 
 ```haskell
-port totalCapacity : Signal Int
-port totalCapacity = lift (sum . Dict.values) dock
+port totalCapacity : Signal String
+port totalCapacity = map toString somethingElse
 ```
 
-This one, lifted from one of the original port samples, is an outtie.  This is used to signal things __out__ of our Elm app into JavaScript.  In this case it sends out the sum of some data strucutre as and when it changes.  We can listen to these signals in JavaScript like this,
+This one is an outtie.  This is used to signal things __out__ of our Elm app into JavaScript.  In this case it sends out the sum of some data strucutre as and when it changes.  We can listen to these signals in JavaScript like this,
 
 ```javascript
 app.ports.totalCapacity.subscribe(function(x) { 
