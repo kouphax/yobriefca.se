@@ -48,7 +48,7 @@ port totalCapacity : Signal String
 port totalCapacity = map toString somethingElse
 ```
 
-This one is an outtie.  This is used to signal things __out__ of our Elm app into JavaScript.  In this case it sends out the sum of some data strucutre as and when it changes.  We can listen to these signals in JavaScript like this,
+This one is an outtie.  This is used to signal things __out__ of our Elm app into JavaScript.  In this case it sends out the sum of some data structure as and when it changes.  We can listen to these signals in JavaScript like this,
 
 ```javascript
 app.ports.totalCapacity.subscribe(function(x) { 
@@ -58,7 +58,7 @@ app.ports.totalCapacity.subscribe(function(x) {
 
 Outtie ports have a `subscribe` method generated for them that takes a function accepting the payload.  In our case we simply log it.
 
-Now onto out specific use case.  My needs are slightly different to the samples because while they broadcast data out of the Elm side I jsut want some sort of trigger to say "go ahead and open a prompt".  This is 100% impure in that it is __only__ used for side effects and I've found that with Elm being a rather pure language this sort of requirement feels kind of awkward.  Thats not a criticism, just an observation. you should expect bad things to feel awkward, it helps you minimise them.
+Now onto our specific use case.  My needs are slightly different to the samples because while they broadcast data out of the Elm side I just want some sort of trigger to say "go ahead and open a prompt".  This is 100% impure in that it is __only__ used for side effects and I've found that with Elm being a rather pure language this sort of requirement feels kind of awkward.  Thats not a criticism, just an observation. You should expect bad things to feel awkward, it helps you minimise them.
 
 The JavaScript/HTML side of our application is fairly unsurprising (assuming you've not skipped the last few paragraphs).
 
