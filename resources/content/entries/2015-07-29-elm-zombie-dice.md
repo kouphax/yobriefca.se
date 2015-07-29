@@ -7,9 +7,9 @@ type: article
 external: false
 ---
 
-[As promised](https://yobriefca.se/blog/2015/07/28/window-dot-prompt-in-elm/) yesterday evening I spent some time last night re-writing my [Zombie Dice Score Card](https://yobriefca.se/blog/2015/07/20/zombie-dice-score-card-with-reagent/), originally written in ClojureScript and [Reagent](http://reagent-project.github.io/), in [Elm](http://elm-lang.org).  
+[As promised](https://yobriefca.se/blog/2015/07/28/window-dot-prompt-in-elm/) yesterday evening I spent some time re-writing my [Zombie Dice Score Card](https://yobriefca.se/blog/2015/07/20/zombie-dice-score-card-with-reagent/), originally written in ClojureScript and [Reagent](http://reagent-project.github.io/), in [Elm](http://elm-lang.org).  
 
-If you just want to poke around the code the source for the implementations is available on Github,
+If you just want to poke around the code then the source for each implementation is available on Github,
 
 1. [The Elm implementation](https://github.com/kouphax/zombie-dice-elm)
 2. [The ClojureScript implementation](https://github.com/kouphax/zombie-dice)
@@ -36,7 +36,7 @@ type alias ScoreBoard =
     uid     : Int }
 ```
 
-This explicit declaration really calls out stuff that, in ClojureScript (or my ClojureScript code at least), is implied and typically scattered over the place. For example, in the code below I'm just pulling out keys from a map `:id`, `:games-won` etc. because __I know__ these things should exist. 
+This explicit declaration really calls out stuff that, in ClojureScript (or __my__ ClojureScript code at least), is implied and typically scattered over the place. For example, in the code below I'm just pulling out keys from a map `:id`, `:games-won` etc. because __I know__ these things should exist. 
 
 ```clojure
  (defn- finish-game []
@@ -46,7 +46,7 @@ This explicit declaration really calls out stuff that, in ClojureScript (or my C
      (reset-scores)))
 ```
  
-Last night when I revisited this code I had forgotten what my model looked like and I had to figure it out by scanning all my code for when things are set and read from my data structure representing my state.  I'm sure I could structure my ClojureScript better, perhaps use something like [core.typed](https://github.com/clojure/core.typed) or [Prismatic Schema](https://github.com/Prismatic/schema), but the onus is on the developer.  Of course this is not a new and startling revelation this is just dynamic vs static.  So what does Elm do to make this appealing?  Well it uses gradual typing.  I can declare a function like this,
+Last night when I revisited this code I had forgotten what my model looked like and I had to figure it out by scanning all my code for when things are set and read from my data structure representing my state.  I'm sure I could structure my ClojureScript better, perhaps use something like [core.typed](https://github.com/clojure/core.typed) or [Prismatic Schema](https://github.com/Prismatic/schema), but the onus is on the developer.  Of course this is not a new and startling revelation this is just one of the many difference in dynamic/static languages.  So what does Elm do to make this different?  Well, for one, it uses gradual typing.  I can declare a function like this,
 
 ```haskell
 newPlayer id name =
@@ -62,7 +62,7 @@ This will work fine and the Elm compiler will infer the types and shout at me if
 newPlayer: Int -> String -> Player
 ```
 
-When I initially started dipping into Elm I thought these signatures would be an after thought for me.  I'd only add them in for completeness sake.  I was wrong. They are extremely useful and helped massively as I designed my implementation.  They alse improve the error messages.
+When I initially started dipping into Elm I thought these signatures would be an after thought for me.  I'd only add them in for completeness sake.  I was wrong. They are extremely useful and helped massively as I designed my implementation.  They also improve the error messages.  Scala has this sort of type inference as well but I almost always left it out unless required.  Perhaps I've got wiser in my old age or maybe Elm has made the type system more accessible.
 
 ## Error Messages
 
@@ -85,7 +85,7 @@ between these two types:
     { a | score : Int, uid : Int, gamesWon : Int, name : String } Use --force to continue.
 ```
 
-Just look at that message.  It's telling me exactly what is wrong and I knew how to fix it once I'd read this message.  Most Elm messages are like this though some of the type related ones did make me scratch my head until I wrapped my head around them.
+Just look at that message.  It's telling me exactly what is wrong and I knew how to fix it once I'd read this message.  Most Elm messages are like this although some of the type related ones did make me scratch my head until I wrapped my head around them a bit more.
 
 ## HTML
 
