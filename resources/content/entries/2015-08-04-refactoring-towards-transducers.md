@@ -74,27 +74,27 @@ Any place that we apply some sort of filtering, mapping, reduction, take etc. ov
 If we rewrite these areas as transducers we come out with the following code,
 
 ```clojure
-(def is-xml?
+(def xml-extension-only
   (filter (fn [file] (-> file
                          (.getName)
                          (str/split #"\.")
                          (last)
                          (= "xml")))))
 
-(def is-file?
+(def files-only
   (filter (fn [file] (.isFile file))))
 
 (def as-path
   (map (fn [item] (.getAbsolutePath item))))
 ```
 
-I've entirely redefined the `is-xml?` function as a var that returns a transducer.  The other transducer definitions are just restructured, single arity versions of our original `filter` and `map`.
+you should be able to see these transducer definitions are just restructured, single arity versions of our original `filter` and `map` calls.
 
 Now we need to turn these into a pipeline.  We do this using the `comp` function,
 
 ```clojure
 (def xform 
-  (comp is-file is-xml as-path))
+  (comp files-only xml-extension-only as-path))
 ```
 
 The use of `xform` as a name is common in transducer examples (short for transform) so I have retained the use here for consistency.  
@@ -118,21 +118,21 @@ The complete code for this example looks like this,
 (defn- list-files [folder]
   (file-seq (io/file folder)))
 
-(def is-xml?
+(def xml-extension-only
   (filter (fn [file] (-> file
                          (.getName)
                          (str/split #"\.")
                          (last)
                          (= "xml")))))
 
-(def is-file?
+(def files-only
   (filter (fn [file] (.isFile file))))
 
 (def as-path
   (map (fn [item] (.getAbsolutePath item))))
 
 (def xform 
-  (comp is-file? is-xml? as-path))
+  (comp files-only xml-extension-only as-path))
 
 (defn- list-xml-paths [folder]
   (sequence xform (list-files folder)))
