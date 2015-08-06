@@ -24,7 +24,9 @@
                            "/testimonials/"               #(views/testimonials %)
                            "/metrics/"                    #(views/metrics %)
                            "/metrics/data.csv"             (csv/daily-contributions entries)
-                           "/googlec7ff2e80f1e6f808.html"  (slurp "resources/static/googlec7ff2e80f1e6f808.html") }
+                           "/googlec7ff2e80f1e6f808.html"  (slurp "resources/static/googlec7ff2e80f1e6f808.html")
+                           "/blog/2013/04/28/micro-service-architecture/" "<html><head><script>window.location = '/blog/2013/04/29/micro-service-architecture/'</script></head></html>"
+                           }
         :rss             (atom-sources entries)
         :categories      (category-sources entries)
         :daily-indexes   (breakdown-sources entries)
