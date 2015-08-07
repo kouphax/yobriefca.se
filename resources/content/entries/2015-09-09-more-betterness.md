@@ -96,7 +96,7 @@ So you can see with more context we can actually alter the entire narrative of a
 
 And that is the point of this entire talk. With enough context we can make better decisions, with better decisions we can be more successful and start moving toward more betterness.
 
-But it's not just context other things where at play such as bias and influence.  So in order to be better we need to understand these things as well.
+But it's not just context other things where at play such as bias and influence.  So in order to achieve more betterness we need to understand these things as well.
 
 ![More Betterness](/images/morebetterness/morebetterness.036.png)
 
