@@ -116,7 +116,7 @@ In fact not being aware of a bias you may hold can lead to unintended steering o
 
 One thing I did during the original case studies was, at least attempt to, influence your feelings for the person.  I intentionally used negative words and tone to make you think the worst.
 
-Influence may know about situational context but doesn't care.  The loudest voice in the room may get their way but they may not be right.  Influence can be either internal or external.  That echo chamber of a Twitter stream that tells you how OO is bad and functional programming is the one true way can affect the decisions you make because of the influence it has over you.  The thing is no-one wants to blog about daily maven usage when you get more social engagement and karma from writing about SBT internals.
+Influence may know about situational context but doesn't care.  The loudest voice in the room may get their way but they may not be right.  Influence can be either internal or external.  That echo chamber of a Twitter stream that tells you how "OO is bad and functional programming is the one true way" can affect the decisions you make because of the influence it has over you.  The thing is no-one wants to blog about daily maven usage when you get more social engagement and karma from writing about SBT internals.
 
 ![More Betterness](/images/morebetterness/morebetterness.039.png)
 
