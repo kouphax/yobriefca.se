@@ -106,7 +106,7 @@ Don't walk into any situation with rigid assumptions, don't “solutionize" befo
 
 ![More Betterness](/images/morebetterness/morebetterness.037.png)
 
-I'm sure as I was reading out the case studies some of you had some reaction to the stories I was telling.  Perhaps Alice and her lack of tests made you roll your eyes.  Thats bias at play.  Bias actually reinforced the story irrespective of the situational context.
+I'm sure as I was reading out the case studies some of you had some reaction to the stories I was telling.  Perhaps Alice and her lack of tests made you roll your eyes.  Thats bias at play.  Bias actually reinforced the narrative irrespective of the situational context.
 
 We all have bias and bias exists without context.  Bias affects your understanding of the context and so can adversely affect decision making.  While we can't necessarily change our bias we can be aware of it.  This helps us better understand our decision making.
 
