@@ -100,7 +100,7 @@ But it's not just context other things where at play such as bias and influence.
 
 ![More Betterness](/images/morebetterness/morebetterness.036.png)
 
-First and foremost establish as much context as possible.  Context is king after all.  You can see how without bias I was able to alter the narrative of a story. Know that there may always be more to it.  Use discovery to improve understanding of the context.  There is a reason why a great discovery session starts with as many diverse stakeholders as possible - everyone has a slightly different view of the overall context.
+First and foremost establish as much context as possible.  Context is king after all.  You can see how without context I was able to alter the narrative of a story. Know that there may always be more to it.  Use discovery to improve understanding of the context.  There is a reason why a great discovery session starts with as many diverse stakeholders as possible - everyone has a slightly different view of the overall context.
 
 Don't walk into any situation with rigid assumptions, don't “solutionize" before you know enough. Listen.
 
