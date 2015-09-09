@@ -1,5 +1,5 @@
 ---
-date: 2015-05-13T00:00:00Z
+date: 2015-09-09T00:00:00Z
 title: "More Betterness"
 published: true
 categories: [Craftsmanship]
@@ -124,7 +124,7 @@ And this brings me on to the team.
 
 When I say team I mean a proper team not a group of people thrown together because the resourcing pipeline spat out a few available candidates.  Some may have started out that way of course.  I mean a group of people that have come together under a common cause. A team of people, not resources.
 
-The great thing about a good team is that it normalises everything.  Biases balance out, influences are moderated and everyone works together to form the truest view of the given problem context.  The team establish context, the team make decisions.  
+The great thing about a good team is that it normalises everything.  Biases balance out, influences are moderated and everyone works together to form the truest view of the given problem context.  The team establish context, the team make decisions.
 
 A good team will do wonderful things. A bad team can lay the groundwork for years of pain.  A good team will coalesce on an ideal.  A bad team will bicker.  A good team will make informed decisions quickly.  A bad team will flounder.  A bad team will cost you reputation and money.  A good team will address problems upfront and openly.  A bad team will let things fester until peer review time.  A good team is diverse as it naturally allows for a broader range of thinking.  A bad team is a monoculture.
 
