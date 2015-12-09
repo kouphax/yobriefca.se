@@ -18,10 +18,36 @@ abstract:
   patterns and approaches so that projects are delivered with a focus on user
   needs rather than developer or team bias.
 experience:
-  - name: Deloitte (Contract)
+  - name: Home Office (Contract)
     experience:
+      - role: Developer/Team Lead
+        dates: August 2015 - Current
+        technologies:
+          - Scala
+          - MongoDB
+          - Play
+          - Akka
+          - Spray
+          - Ansible
+          - Jenkins
+          - ELK
+        description: |
+          Helping to build citizen facing digital services for the Home Office. The role spans
+          many disciplines including building new transactions, live service improvement, live 
+          service support, operations and infrastructure. Solutions built in a multi-service
+          manner with a varierty of external intergration points different formats (JSON, SOAP, Binary)
+  - name: DVLA (Contract)
+    experience:
+      - role: Live Service Support and Service Management
+        dates: March 2015 - August 2015
+        technologies:
+          - As below
+        description: |
+          Transitioned in to live service support for the previously delivered solution.
+          Role included dealing with live service incidents, service improvements and 
+          running monthly service management sessions with the project board. 
       - role: Developer
-        dates: August 2014 - Present
+        dates: August 2014 - February 2015
         technologies:
           - Java
           - Play
