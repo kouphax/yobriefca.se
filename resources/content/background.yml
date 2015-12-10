@@ -32,16 +32,16 @@ experience:
           - Jenkins
           - ELK
         description: |
-          Helping to build citizen facing digital services for the Home Office. The role spans
-          many disciplines including building new transactions, live service improvement, live 
+          Helping to build public facing digital services for the Home Office. The role spans
+          many disciplines including building new customer interactions, live service improvement, live 
           service support, operations and infrastructure. Solutions built in a multi-service
-          manner with a varierty of external intergration points different formats (JSON, SOAP, Binary)
+          manner with multiple integration points.
   - name: DVLA (Contract)
     experience:
       - role: Live Service Support and Service Management
         dates: March 2015 - August 2015
         technologies:
-          - As below
+          - Technologies as below
         description: |
           Transitioned in to live service support for the previously delivered solution.
           Role included dealing with live service incidents, service improvements and 
