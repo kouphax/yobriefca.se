@@ -5,7 +5,8 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :plugins [[lein-ring "0.8.10"]]
   :ring { :handler briefcase.core/app }
-  :aliases {"build-site" ["run" "-m" "briefcase.core/export"]}
+  :aliases { "build-site" ["run" "-m" "briefcase.core/export"]
+             "new-article" ["run" "-m" "briefcase.tasks/new-article"] }
   :dependencies [[org.clojure/clojure   "1.7.0"]
                  [stasis                "2.2.2"]
                  [ring/ring-core        "1.4.0"]
