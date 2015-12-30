@@ -48,7 +48,7 @@ user=> (macroexpand '(m))
 (let* [x__681__auto__ 1] x__681__auto__)
 ```
 
-Another place you'll see the `#` is in [tagged literals](http://clojure.org/reader#The%20Reader--Tagged%20Literals).  Most commonly you'll see this use in [EDN](https://github.com/edn-format/edn)(extensible data notation - a rich data format tahat can be used in Clojure) and in ClojureScript (`#js`). Search for `#inst`, `#uuid` or `#js` for some more info.
+Another place you'll see the `#` is in [tagged literals](http://clojure.org/reader#The%20Reader--Tagged%20Literals).  Most commonly you'll see this use in [EDN](https://github.com/edn-format/edn) (extensible data notation - a rich data format that can be used in Clojure) and in ClojureScript (`#js`). Search for `#inst`, `#uuid` or `#js` for some more info.
 
 - [Clojure Documentation - Reader](http://clojure.org/reader)
 - [Clojure Reader Macros](http://briancarper.net/blog/449/)
@@ -69,7 +69,7 @@ user=> (hash-set 1 2 3 4)
 #{1 2 3 4}
 ```
 
-Attempting to create a `set` using this literal form will throw if there are duplicates.  Instead the `set` function should be used on a vector
+Attempting to create a `set` using this literal form will throw if there are duplicates.  Instead the `hash-set` function should be used on a vector
 
 ```clojure
 user=> #{1 2 3 4 1}
@@ -163,7 +163,7 @@ When used it will attempt to return the referenced var.  This is useful when you
 
 ##  `#inst`, `#uuid` & `#js` etc. - tagged literals
 
-Commonly found in EDN (extensible data notation - a rich data format) and ClojureScript this use of `#` is the tagged literal. Look at this example,
+Commonly found in EDN and ClojureScript this use of `#` is called the tagged literal. Look at this example,
 
 ```clojure
 user=> (java.util.Date.)
@@ -240,8 +240,6 @@ user=>
 ## `^` - Metadata
 
 `^` is the metadata marker.  Metadata is a map of values (with shorthand option) that can be attached to various forms in Clojure.  This provides extra information for these forms and can be used for documentation, compilation warnings, typehints and other features.
-
-It can be represented as a map,
 
 ```clojure
 user=> (def ^{ :debug true } five 5) ; meta map with single boolean value
