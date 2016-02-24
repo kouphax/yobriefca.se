@@ -1,7 +1,9 @@
 sudo: false
 language: clojure
 lein: lein
-script: lein do test, build-site
+before_script:
+  - ulimit -c unlimited -S
+script: lein build-site
 branches:
   only:
     - master
