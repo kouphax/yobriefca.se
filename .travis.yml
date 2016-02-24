@@ -1,9 +1,6 @@
-sudo: false
+sudo: required
 language: clojure
-lein: lein
-before_script:
-  - ulimit -c unlimited -S
-script: lein build-site
+script: lein do test, build-site
 branches:
   only:
     - master
