@@ -51,6 +51,7 @@ Ansible provisioning in Vagrant accepts, at the minimum, a playbook to run and t
 - hosts: all
   sudo: yes
   gather_facts: no
+  tasks:
     - name: ensure apt cache is up to date
       apt: update_cache=yes
     - name: ensure packages are installed
