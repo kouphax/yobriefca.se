@@ -96,6 +96,12 @@ The darker the colour for a certain day the more activity there was. Probably no
   (main-layout request "yobriefca.se"
                (md/to-html (slurp "resources/content/404.md"))))
 
+(defn now
+  "Renders my now page http://nownownow.com/"
+  [request]
+  (main-layout request "Now"
+               (md/to-html (slurp "resources/content/now.md"))))
+
 (defn article
   "Renders an article"
   [request data]

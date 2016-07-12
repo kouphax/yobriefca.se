@@ -24,7 +24,10 @@
                            "/testimonials/"               #(views/testimonials %)
                            "/metrics/"                    #(views/metrics %)
                            "/metrics/data.csv"             (csv/daily-contributions entries)
+                           "/now/"                        #(views/now %)
+                           ; this is for the google webmaster tools, i've never used it
                            "/googlec7ff2e80f1e6f808.html"  (slurp "resources/static/googlec7ff2e80f1e6f808.html")
+                           ; this is a lovely little hack to prevent people using the wrong link to go to my old MSA article
                            "/blog/2013/04/28/micro-service-architecture/" "<html><head><script>window.location = '/blog/2013/04/29/micro-service-architecture/'</script></head></html>"
                            }
         :rss             (atom-sources entries)
