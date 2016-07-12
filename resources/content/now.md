@@ -18,6 +18,10 @@ I'm trying run as often as possible.  Aiming for a super slow pace run for an ho
 
 Musically there has been some decent music this year (including discoveries from previous years) like Blink 182, Biffy Clyro, Frightened Rabbit, The Falcon, Animal Flag, Wolf Alice, All Get Out.
 
+I've started filling my travel and running times with podcasts.  The Message was pretty great, as was This American Life but my mainstays these days are Beautiful Stories from Anonymous People and My Dad Wrote a Porno.
+
+I'm not reading as much this year as I did lasst year but I just finished All the Birds in the Sky which I can only describe as a brilliant book, terribly written.  I'm also trying to digest more comics such as Lumberjanes, Rat Queens and Sandman.
+
 I'm still filling empty shelves with board games and recent favourites include - Exploding Kittens, Istanbul, Odin's Ravens and Escape: Curse of the Temple.
 
 *Last updated 12 July 2016*
