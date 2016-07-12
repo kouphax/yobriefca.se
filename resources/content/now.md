@@ -14,7 +14,7 @@ While I haven't written or delivered talks in a while (mainly due to travel) I'm
 
 ## Play
 
-I'm trying run as often as possible.  Aiming for a super slow pace run for an hour or so every day (typically about 10k) I'm in Belfast and about an 8k's worth of walking in London.  I'm also trying to rekindle my old love of climbing.
+I'm trying run as often as possible.  Aiming for a slowish pace run for an hour (typically about 10k) or so every day I'm in Belfast and about an 8k's worth of walking in London.  I'm also trying to rekindle my old love of climbing.
 
 Musically there has been some decent music this year (including discoveries from previous years) like Blink 182, Biffy Clyro, Frightened Rabbit, The Falcon, Animal Flag, Wolf Alice, All Get Out.
 
