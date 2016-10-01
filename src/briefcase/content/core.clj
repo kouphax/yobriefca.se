@@ -28,6 +28,16 @@
         title-part (to-slug (:title article))]
     (str "/blog" "/" date-part "/" title-part "/")))
 
+(defn unlisted-uri
+  "derives the final uri path for an article so that 2011-12-12-test-this.md
+   would become /blog/2011/12/12/test-this/index.html for example
+
+  [TODO] This could be made more generic for other content types but we need
+         to make sure we aren't breaking older urls too"
+  [article]
+  (let [title-part (to-slug (:title article))]
+    (str "/unlisted" "/" title-part "/")))
+
 (defn screencast-uri
   "generates a uri for access non-external screencast entries"
   [screencast]
@@ -48,6 +58,7 @@
          (map #(assoc % :uri
                       (case (keyword (:type %))
                         :article    (article-uri %)
+                        :unlisted   (unlisted-uri %)
                         :screencast (screencast-uri %)
                         :talk       (:url %)
                         :project    (:url %))))
@@ -59,31 +70,39 @@
   [entry]
   (case (keyword (:type entry))
     :article    #(views/article % entry)
+    :unlisted   #(views/article % entry)
     :screencast #(views/screencast % entry)))
 
 (defn render-list
   "renders a list or index view based on the entires. Janky multimethod
    jiggerypokery here that makes no sense and should be refactored"
   ([entries]
-   (let [type  (-> entries first :type keyword)
-         title (-> type
-                   (name)
-                   (clojure.string/capitalize)
-                   (str "s"))]
+   (let [type           (-> entries first :type keyword)
+         title-singular (-> type
+                            (name)
+                            (clojure.string/capitalize))
+         title          (if (= :unlisted type)
+                          title-singular
+                          (str title-singular "s"))]
      (if (= :talk type)
        #(views/gallery-view % title entries)
        #(views/list-view %  title entries))))
   ([entries title]
    #(views/list-view % title entries)))
 
+(defn unlisted-sources [entries]
+  (let [unlisted (filter :unlisted entries)]
+    (zipmap (map :uri unlisted)
+            (map render-entry unlisted))))
+
 (defn entry-sources [entries]
-  (let [internal (filter #(not (:external %)) entries)]
+  (let [internal (filter #(and (not (:external %)) (not (:unlisted %))) entries)]
     (zipmap (map :uri internal)
             (map render-entry internal))))
 
 (defn index-sources [entries]
   (let [types (group-by :type entries)]
-    (zipmap (map #(str "/" (name %) "s/") (keys types))
+    (zipmap (map #(str "/" (name %) (if (= % "unlisted") "/" "s/")) (keys types))
             (map render-list (vals types)))))
 
 (defn breakdown-sources [entries]
