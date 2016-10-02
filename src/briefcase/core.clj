@@ -13,6 +13,9 @@
            [briefcase.csv                 :as    csv]
            [briefcase.content.categories  :refer [category-sources]]))
 
+(defn without-unlisted [entries]
+  (remove #(= (:type %) "unlisted") entries))
+
 (defn pages
   "defines the overall strcuture of the site via discrete sources"
   []
@@ -30,7 +33,7 @@
                            ; this is a lovely little hack to prevent people using the wrong link to go to my old MSA article
                            "/blog/2013/04/28/micro-service-architecture/" "<html><head><script>window.location = '/blog/2013/04/29/micro-service-architecture/'</script></head></html>"
                            }
-        :rss             (atom-sources entries)
+        :rss             (atom-sources (without-unlisted entries))
         :categories      (category-sources entries)
         :daily-indexes   (breakdown-sources entries)
         :content         (entry-sources entries)
