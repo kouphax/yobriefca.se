@@ -28,7 +28,7 @@
                           "title: \"" title "\"\n"
                           "published: true\n"
                           "categories: [" (clojure.string/join "," categories)  "]\n"
-                          "type:" (name type) "\n"
+                          "type: " (name type) "\n"
                           "external: false\n"
                           "---\n")
         filename     (str date "-" slug ".md")
