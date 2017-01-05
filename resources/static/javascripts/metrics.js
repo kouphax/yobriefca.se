@@ -10,7 +10,7 @@ var day = d3.time.format('%w'),
 var color = function(x) { return 'v' + x; }
 
 var svg = d3.select('#chart').selectAll('svg')
-    .data(d3.range(2009, 2017))
+    .data(d3.range(2009, 2018))
   .enter().append('svg')
     .attr('width', width)
     .attr('height', height)

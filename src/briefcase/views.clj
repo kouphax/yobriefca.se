@@ -84,8 +84,7 @@
   (main-layout request "yobriefca.se"
                [:h1 "Contribution Chart"]
                [:script { :src "/javascripts/d3.v3.min.js" }]
-               [:p "A chronological graph showing my activity on this site (articles, talks, open source).
-The darker the colour for a certain day the more activity there was. Probably not mobile friendly because it's a YOLOAMIRITE architecture derived from REKT principles, hire me if you need to know more."]
+               [:p "A chronological graph showing my activity on this site (articles, talks, open source)."]
                [:div { :id "chart" }]
                [:link { :href "/stylesheets/metrics.css" :rel "stylesheet" }]
                [:script  { :src "/javascripts/metrics.js" }]))
