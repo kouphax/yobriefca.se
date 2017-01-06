@@ -3,7 +3,7 @@ date: 2016-11-02T00:00:00Z
 title: "Bashing Ambiguity"
 published: true
 categories: [craftsmanship]
-type:article
+type: article
 external: false
 ---
 
