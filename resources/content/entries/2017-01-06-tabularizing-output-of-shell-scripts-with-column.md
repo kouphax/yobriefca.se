@@ -2,7 +2,7 @@
 date: 2017-01-06T00:00:00Z
 title: "Tabularizing output of shell scripts with column"
 published: true
-categories: []
+categories: [Shell, DevOps]
 type: article
 external: false
 ---
