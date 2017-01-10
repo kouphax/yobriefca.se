@@ -14,7 +14,7 @@ It's fair to say over the past year or so I've dabbled in a bit of mobile develo
 - Mobile Hackathon ([jQuery Mobile](http://jquerymobile.com) and [PhoneGap](http://phonegap.com) and [Parse](http://parse.com))
 - Hybrid Application for a Bank ([Sencha Touch](http://www.sencha.com/products/touch) and [PhoneGap](http://phonegap.com))
 - Various iPhone and iPad POCs for a health based project ([MonoTouch](http://xamarin.com/monotouch), XCode)
-- Technology evaluations (Native Apple Development, [Parse](http://parse.com), [Sencha Touch](http://www.sencha.com/products/touch)], [PhoneGap](http://phonegap.com), [NimbleKit](http://nimblekit.com/index.php), [jQuery Mobile](http://jquerymobile.com), [Backbone](http://documentcloud.github.com/backbone/), [Spine.js](http://spinejs.com), [Appcelerator](http://www.appcelerator.com/), [MonoTouch](http://xamarin.com/monotouch), [Monodroid](http://android.xamarin.com/) and plenty more...)
+- Technology evaluations (Native Apple Development, [Parse](http://parse.com), [Sencha Touch](http://www.sencha.com/products/touch)], [PhoneGap](http://phonegap.com), [NimbleKit](http://nimblekit.com/index.php), [jQuery Mobile](http://jquerymobile.com), [Backbone](http://backbonejs.org/), [Spine.js](http://spinejs.com), [Appcelerator](http://www.appcelerator.com/), [MonoTouch](http://xamarin.com/monotouch), [Monodroid](http://android.xamarin.com/) and plenty more...)
 - Consulted on various projects around the whole "native vs hybrid vs web" thing
 
 ## That Hybrid Word

@@ -89,7 +89,7 @@ This carries a penalty though.  Even when used on the top of the line device the
 
 ### MVC Frameworks - Backbone, Spine(Mobile), Sammy etc.
 
-If you want to roll your own UI entirely but still need to create a scalable and proven foundation [Backbone](http://documentcloud.github.com/backbone/) and [Spine](http://spinejs.com/mobile/index) are two very interesting projects.  It's worth noting that Sencha Touch has a powerful MVC architecture built into to and it is somewhat similar to these frameworks.
+If you want to roll your own UI entirely but still need to create a scalable and proven foundation [Backbone](http://backbonejs.org/) and [Spine](http://spinejs.com/mobile/index) are two very interesting projects.  It's worth noting that Sencha Touch has a powerful MVC architecture built into to and it is somewhat similar to these frameworks.
 
 These sort of frameworks offer base classes for your typical project structure - Controllers, Models and Views.  They provide the wiring between these abstract classes allowing the developers to focus on the important stuff.  The controllers allow you to specify custom routing in your single page apps, the models give you structured persistence and sometimes relationships and the views give you a nicer lifecycle around page components and custom event handling.
 
