@@ -15,7 +15,7 @@ Survive: Escape from Atlantis is nearly as old as me.
 
 Survive: Escape from Atlanta is a not a Walking Dead themed version of this game but it wouldn't surprise me if it eventually became one - you know what these crazy brands are like.
 
-Survive: Escape from Atlantis sees players try and get their meeples off a sinking island, Atlantis, with various amounts of loot (each maple has a certain score 1-6 that is undisclosed once the game starts) by boat or swimming.  The winner is the one with the most loot at the end, so the more meeples you get on one of the four islands the better chance you have of winning.
+Survive: Escape from Atlantis sees players try and get their meeples off a sinking island, Atlantis, with various amounts of loot (each meeple has a certain score 1-6 that is undisclosed once the game starts) by boat or swimming.  The winner is the one with the most loot at the end, so the more meeples you get on one of the four islands the better chance you have of winning.
 
 Players take turns to
 
