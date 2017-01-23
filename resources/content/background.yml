@@ -20,6 +20,23 @@ abstract:
 experience:
   - name: Home Office (Contract)
     experience:
+      - role: Developer/Architect
+        dates: January 2017 - Current
+        technologies:
+          - Java
+          - Amazon Web Services
+          - Play
+          - Akka
+          - RabbitMQ
+          - Ansible
+          - Jenkins
+        description: |
+          Designing and developing a core integration point between my previous project and a serivce
+          created to consolidate multiple existing integration points.  Core non-functional requirements
+          focus on resilience and fault tolerance to ensure reliable delivery of messages across
+          multiple third-party systems in multiple formats.
+  - name: Home Office (Contract)
+    experience:
       - role: Developer/Team Lead
         dates: August 2015 - Current
         technologies:
@@ -33,7 +50,7 @@ experience:
           - ELK
         description: |
           Helping to build public facing digital services for the Home Office. The role spans
-          many disciplines including building new customer interactions, live service improvement, live 
+          many disciplines including building new customer interactions, live service improvement, live
           service support, operations and infrastructure. Solutions built in a multi-service
           manner with multiple integration points.
   - name: DVLA (Contract)
@@ -44,8 +61,8 @@ experience:
           - Technologies as below
         description: |
           Transitioned in to live service support for the previously delivered solution.
-          Role included dealing with live service incidents, service improvements and 
-          running monthly service management sessions with the project board. 
+          Role included dealing with live service incidents, service improvements and
+          running monthly service management sessions with the project board.
       - role: Developer
         dates: August 2014 - February 2015
         technologies:
