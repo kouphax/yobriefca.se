@@ -7,13 +7,13 @@ type: unlisted
 external: false
 ---
 
-> My dad passed away on the 18th of January 2017.  Today we said godbye. I wrote this for him.
+> My dad passed away on the 18th of January 2017.  Today we said goodbye. I wrote this for him.
 
 Pour one out for the big lad.
 
-Pour one out for the man who had only one hobby… to collect hobbies.
+Pour one out for the man who had only one hobby... to collect hobbies.
 
-Pour one out for the stamp collector, the rally driver, the mountaineer, the orienteer, the cyclist, the swimmer, the runner, the climber, the small plane aviator and the musician.
+Pour one out for the stamp collector, the rally driver, the mountaineer, the orienteer, the cyclist, the swimmer, the runner, the climber, the aviator and the musician.
 
 Pour one out for the computer tinkerer, the builder, the carpenter, the engineer, the mechanic, the brewer, the distiller, the vintner, the gamer, the cocktail maker, the model maker, the baker and painter.
 
@@ -21,7 +21,7 @@ Pour one out for the bird watcher, the butterfly catcher, the moth genitalia dis
 
 Pour one out for the man who taught me to drink, taught me to run, taught me how to use a computer, to ride a bike, to climb, to hike, to navigate, to camp, to fish, to tie knots, to wire a plug, to drill holes and millions of other things I've already forgotten.
 
-Pour one out for the man who… tried… to teach me to drive.
+Pour one out for the man who... tried... to teach me to drive.
 
 Pour one out for the man who taught me to be pragmatic, to think critically and to respect nature.
 
