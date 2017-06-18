@@ -12,6 +12,9 @@ external: false
   h2 code {background-color: transparent;}
 </style>
 
+
+<blockquote class='warning' style="text-align:left">This ancient article has been superseded by a <a href='https://clojure.org/guides/weird_characters'>much better and up to date article on the Clojure website</a></blockquote>
+
 > A reference collection of characters used in Clojure that are difficult to "google". Descriptions sourced from various blogs, [StackOverflow](http://stackoverflow.com/questions/tagged/clojure), [Learning Clojure](http://en.wikibooks.org/wiki/Learning_Clojure) and the [official Clojure docs](http://clojure.org/documentation) - sources attributed where necessary.  Type the symbols into the box below to search (or use `CTRL-F`).  Sections not in any particular order but related items are grouped for ease. If I'm wrong or missing anything worthy of inclusion tweet me [@kouphax](http://twitter.com/kouphax) or mail me at <james@yobriefca.se>.
 
 ## `#` - Dispatch macro
