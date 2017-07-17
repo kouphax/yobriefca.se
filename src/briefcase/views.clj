@@ -116,7 +116,7 @@
 ;   a contents video_url value"
 ;  [data]
 ;  (let [code (:video_url data)]
-;    (str "http://player.vimeo.com/video/" code "?title=0&amp;byline=0&amp;portrait=0")))
+;    (str "https://player.vimeo.com/video/" code "?title=0&amp;byline=0&amp;portrait=0")))
 
 (defn screencast
   "Renders a non-external screencast page"

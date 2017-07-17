@@ -2,7 +2,7 @@
 date: 2013-02-18T00:00:00Z
 title: play-reactivemongo
 published: true
-url: http://player.vimeo.com/video/62324768?title=0&amp;byline=0&amp;portrait=0
+url: https://player.vimeo.com/video/62324768?title=0&amp;byline=0&amp;portrait=0
 categories: [Scala, MongoDB]
 type: screencast
 external: false

@@ -2,7 +2,7 @@
 date: 2013-01-21T00:00:00Z
 title: 'Starter for 10: Play! 2 - Part One'
 published: true
-url: http://player.vimeo.com/video/62324767?title=0&amp;byline=0&amp;portrait=0
+url: https://player.vimeo.com/video/62324767?title=0&amp;byline=0&amp;portrait=0
 categories: [Scala]
 type: screencast
 external: false
