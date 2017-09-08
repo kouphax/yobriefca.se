@@ -20,8 +20,26 @@ abstract:
 experience:
   - name: Home Office (Contract)
     experience:
+      - role: DevOps Engineer
+        dates: August 2017 - Current
+        technologies:
+          - Jenkins
+          - Amazon Web Services
+          - Groovy (Jenkinsfile, Shared Resources, Jobs DSL)
+          - Docker
+          - Kubernetes
+          - Ansible
+          - Data migration
+          - Postgres
+        description: |
+          Migration of an entire live system between two cloud providers. Architecting and building
+          automated, dockerized build and deployment pipelines. Dealing with data migration between
+          different data stores (Mongo - Postgres) and networking between external third party services
+          with varying connectivity requirements.
+  - name: Home Office (Contract)
+    experience:
       - role: Developer/Architect
-        dates: January 2017 - Current
+        dates: January 2017 - July 2017
         technologies:
           - Java
           - Amazon Web Services
@@ -38,7 +56,7 @@ experience:
   - name: Home Office (Contract)
     experience:
       - role: Developer/Team Lead
-        dates: August 2015 - Current
+        dates: August 2015 - December 2016
         technologies:
           - Scala
           - MongoDB
