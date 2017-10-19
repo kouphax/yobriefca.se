@@ -1,5 +1,5 @@
 ---
-date: 2016-11-02T00:00:00Z
+date: 2017-10-19T00:00:00Z
 title: "Bashing Ambiguity"
 published: true
 categories: [craftsmanship]
@@ -7,7 +7,7 @@ type: article
 external: false
 ---
 
-I read a great tweet the other week,
+I read a great tweet the other year,
 
 > Was hoping to get some verbose output from pkill, ran `pkill -9 -v process_name`. Ho boy.
 >   &mdash; Maxime Chevalier (@Love2Code) [September 21, 2016](https://twitter.com/Love2Code/status/778387312002510848)
@@ -44,6 +44,6 @@ For some crazy bizarro reason `pkill` and `pgrep` don't have the double dash equ
 
 It's shit isn't it?  Even the most standard tools we use as developers take the [principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment) and just throw it into the endlessly burning tyre fire of misery and terrible user experience.
 
-So what can we do?  Easy! __TRUST__. __NOTHING__. Never assume anything. Slow down. Think. Think even when it seems obvious.  Think even when you've written the same command for the 100th time.
+So what can we do?  Easy! __TRUST__. __NOTHING__. Never assume anything. Slow down. Think. Think even when it seems obvious.  Think even when you've written the same command for the 100th time.  If you can't think or don't want to think make sure everything you do isn't irrevocably  destructive, make sure you can get back to the same point you where at before you went and destroyed the world in a raging hellfire of accidental typage.
 
 
