@@ -8,8 +8,9 @@ deploy:
   provider: pages
   repo: kouphax.github.com
   target-branch: master
-  skip-cleanup: true
   github-token: $GITHUB_TOKEN
+  edge:
+    branch: v1.8.47
   local-dir: build
   on:
     branch: master
