@@ -9,8 +9,7 @@ deploy:
   repo: kouphax.github.com
   target-branch: master
   github-token: $GITHUB_TOKEN
-  edge:
-    branch: v1.8.47
   local-dir: build
+  verbose: true
   on:
     branch: master
