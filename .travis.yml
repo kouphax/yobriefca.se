@@ -9,6 +9,7 @@ deploy:
   repo: kouphax.github.com
   target-branch: master
   github-token: $GITHUB_TOKEN
+  skip_cleanup: true
   local-dir: build
   verbose: true
   on:
