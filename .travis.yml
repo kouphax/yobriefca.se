@@ -4,17 +4,11 @@ script: lein do test, build-site
 branches:
   only:
     - master
-env:
-  global:
-    secure: GHO+y9Tl4sI0nzlT0aY2QG8rC+gyJc2nslW4DCvwuC9cH5ykJRwZ0Uzn3+76I/DXfc7e4WN82cgpIFz50dAgpw3LFk5++ulAzp4cYOnLgGwkSJn+8aZobWtXj98VTBkE49rcnuEORr6x6YmWv92CMQO8NMVgOo3j+EHnOEt9fBU=
-after_script:
-  - cd build
-  - git config --global user.email "james@yobriefca.se"
-  - git config --global user.name "travis-ci"
-  - git init
-  - git config credential.helper "store --file=.git/credentials"
-  - echo "https://${DEPLOY_TOKEN}:@github.com" > .git/credentials
-  - git remote add origin https://github.com/kouphax/kouphax.github.com.git
-  - git add -A
-  - git commit -m "Automated push from travis"
-  - git push --force origin master
+deploy:
+  provider: pages
+  repo: kouphax.github.com
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: build
+  on:
+    branch: master
