@@ -20,8 +20,24 @@ abstract:
 experience:
   - name: Home Office (Contract)
     experience:
+      - role: Developer
+        dates: September 2018 - Current
+        technologies:
+          - Java
+          - Scala
+          - Docker
+          - Helm
+          - Spring Boot
+          - Dropwizard
+          - Play! (Java)
+        description: |
+          Technical design and development of public facing services as well as internal
+          services for development teams and back office business teams focused around
+          EU Exit as well as general architectural and platform evolution.
+  - name: Home Office (Contract)
+    experience:    
       - role: DevOps Engineer
-        dates: August 2017 - Current
+        dates: August 2017 - September 2018
         technologies:
           - Jenkins
           - Amazon Web Services
