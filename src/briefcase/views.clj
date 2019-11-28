@@ -141,7 +141,8 @@
   [request]
   (let [data (yaml/parse-string (slurp "resources/content/background.yml"))]
     (main-layout request "yobriefca.se"
-      [:h1 "James Hughes"]
+      [:h1 "People"]
+      [:h2 "James Hughes"]
       [:ul
         (for [{ href :href name :name } (:links data)]
           [:li [:a { :href href } name]])]
