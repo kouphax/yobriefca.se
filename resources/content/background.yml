@@ -1,24 +1,20 @@
 links:
   - name: Email
     href: mailto:james@yobriefca.se
-  - name: Twitter
-    href: http://twitter.com/kouphax
-  - name: Github
-    href: https://github.com/kouphax
 abstract:
-  An independent software engineer with a strong passion for
+  A software engineer with a strong passion for
   crafting high quality solutions, using the right tools, technologies,
   techniques and, most importantly, people.
 
 
-  A firm believer in knowledge sharing and this is evident in my frequent
+  A firm believer in knowledge sharing and this is evident in my 
   speaking engagements, education authoring and online writing. I also
   strongly believe the generalist approach to software development is
   essential to truly understanding both the "how" and the "why" of technologies,
   patterns and approaches so that projects are delivered with a focus on user
   needs rather than developer or team bias.
 experience:
-  - name: Home Office (Contract)
+  - name: Home Office (Project Not Disclosed)
     experience:
       - role: Developer
         dates: September 2018 - Current
@@ -31,10 +27,10 @@ experience:
           - Dropwizard
           - Play! (Java)
         description: |
-          Technical design and development of public facing services as well as internal
+          Delivery of technical design and solutions for public facing services as well as internal
           services for development teams and back office business teams focused around
-          EU Exit as well as general architectural and platform evolution.
-  - name: Home Office (Contract)
+          EU Exit.
+  - name: Home Office (Project Not Disclosed)
     experience:    
       - role: DevOps Engineer
         dates: August 2017 - September 2018
@@ -48,13 +44,13 @@ experience:
           - Data migration
           - Postgres
         description: |
-          Migration of an entire live system between two cloud providers. Architecting and building
-          automated, dockerized build and deployment pipelines. Dealing with data migration between
+          Delievery of platform migration for an entire live system between two cloud providers. 
+          Architecting and building automated, dockerized build and deployment pipelines. Dealing with data migration between
           different data stores (Mongo - Postgres) and networking between external third party services
           with varying connectivity requirements.
-  - name: Home Office (Contract)
+  - name: Home Office (Project Not Disclosed)
     experience:
-      - role: Developer/Architect
+      - role: Architect
         dates: January 2017 - July 2017
         technologies:
           - Java
@@ -65,13 +61,12 @@ experience:
           - Ansible
           - Jenkins
         description: |
-          Designing and developing a core integration point between my previous project and a serivce
-          created to consolidate multiple existing integration points.  Core non-functional requirements
-          focus on resilience and fault tolerance to ensure reliable delivery of messages across
+          Delivery of core integration broker created to consolidate multiple existing integration points.  
+          Core non-functional requirements focus on resilience and fault tolerance to ensure reliable delivery of messages across
           multiple third-party systems in multiple formats.
-  - name: Home Office (Contract)
+  - name: Home Office (Project Not Disclosed)
     experience:
-      - role: Developer/Team Lead
+      - role: Developer/Architect
         dates: August 2015 - December 2016
         technologies:
           - Scala
@@ -83,18 +78,17 @@ experience:
           - Jenkins
           - ELK
         description: |
-          Helping to build public facing digital services for the Home Office. The role spans
-          many disciplines including building new customer interactions, live service improvement, live
-          service support, operations and infrastructure. Solutions built in a multi-service
-          manner with multiple integration points.
-  - name: DVLA (Contract)
+          Delivery of public facing digital services for the Home Office. The role spans
+          many disciplines including building new customerinteractions, live service improvement, live
+          service support, operations and infrastructure. 
+  - name: DVLA
     experience:
       - role: Live Service Support and Service Management
         dates: March 2015 - August 2015
         technologies:
           - Technologies as below
         description: |
-          Transitioned in to live service support for the previously delivered solution.
+          Delivery of ongoing live service support.
           Role included dealing with live service incidents, service improvements and
           running monthly service management sessions with the project board.
       - role: Developer
@@ -108,12 +102,12 @@ experience:
           - Ansible
           - Jenkins
         description: |
-          Helping to develop batch processing and high volume imaging services
+          Delivery of batch processing and high volume imaging services
           for government projects using a service oriented approach. Work
           includes various image transformations (facial detection, adaptive
           contrast etc.), fault tolerant system design with throttling and back
           pressure capabilities and API design and documentation.
-  - name: CyberSource (Contract)
+  - name: CyberSource
     experience:
       - role: Developer
         dates: February 2014 - August 2014
@@ -148,7 +142,7 @@ experience:
           [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
           course. The 2 hour course is intended to act as a high level introduction to the
           Java version of Play! 2 a JVM based web framework.
-  - name: Kainos
+  - name: Kainos (Full Time Employment)
     experience:
       - role: Technical Architect, Government Digital Service
         dates: July 2013 - February 2014
