@@ -14,9 +14,31 @@ abstract:
   patterns and approaches so that projects are delivered with a focus on user
   needs rather than developer or team bias.
 experience:
-  - name: Home Office (Project Not Disclosed)
+  - name: Pluralsight
     experience:
-      - role: Developer
+      - role: Author
+        dates: November 2013 - Current
+        technologies:
+          - Scala
+          - Play! 2
+        description: |
+          Commissioned by Pluralsight to produce the
+          [Play! 2 for Scala](http://pluralsight.com/training/Courses/TableOfContents/play-2-scala)
+          course. The 2 hour course is intended to act as a high level introduction to the
+          Scala version of Play! 2 (v2.2.1) a JVM based web framework.
+      - role: Author
+        dates: August 2013 - November 2013
+        technologies:
+          - Java
+          - Play! 2
+        description: |
+          Commissioned by Pluralsight to produce the
+          [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
+          course. The 2 hour course is intended to act as a high level introduction to the
+          Java version of Play! 2 a JVM based web framework.
+  - name: Home Office
+    experience:
+      - role: Developer & Integration Specialist
         dates: September 2018 - Current
         technologies:
           - Java
@@ -32,7 +54,7 @@ experience:
           EU Exit.
   - name: Home Office (Project Not Disclosed)
     experience:    
-      - role: DevOps Engineer
+      - role: DevOps Engineer & Migration Specialist
         dates: August 2017 - September 2018
         technologies:
           - Jenkins
@@ -66,7 +88,7 @@ experience:
           multiple third-party systems in multiple formats.
   - name: Home Office (Project Not Disclosed)
     experience:
-      - role: Developer/Architect
+      - role: Developer & Architect
         dates: August 2015 - December 2016
         technologies:
           - Scala
@@ -78,9 +100,7 @@ experience:
           - Jenkins
           - ELK
         description: |
-          Delivery of public facing digital services for the Home Office. The role spans
-          many disciplines including building new customerinteractions, live service improvement, live
-          service support, operations and infrastructure. 
+          Delivery of public facing digital services and live service support for the Home Office.
   - name: DVLA
     experience:
       - role: Live Service Support and Service Management
@@ -91,6 +111,8 @@ experience:
           Delivery of ongoing live service support.
           Role included dealing with live service incidents, service improvements and
           running monthly service management sessions with the project board.
+  - name: DVLA
+    experience:
       - role: Developer
         dates: August 2014 - February 2015
         technologies:
@@ -120,160 +142,14 @@ experience:
           gateways into existing solution.  Improving overall code quality,
           addressing long standing technical debt and helping address process
           flow issues.
-  - name: Pluralsight
-    experience:
-      - role: Author
-        dates: November 2013 - February 2014
-        technologies:
-          - Scala
-          - Play! 2
-        description: |
-          Commissioned by Pluralsight to produce the
-          [Play! 2 for Scala](http://pluralsight.com/training/Courses/TableOfContents/play-2-scala)
-          course. The 2 hour course is intended to act as a high level introduction to the
-          Scala version of Play! 2 (v2.2.1) a JVM based web framework.
-      - role: Author
-        dates: August 2013 - November 2013
-        technologies:
-          - Java
-          - Play! 2
-        description: |
-          Commissioned by Pluralsight to produce the
-          [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
-          course. The 2 hour course is intended to act as a high level introduction to the
-          Java version of Play! 2 a JVM based web framework.
   - name: Kainos (Full Time Employment)
     experience:
-      - role: Technical Architect, Government Digital Service
-        dates: July 2013 - February 2014
+      - role: Software Engineer to  Technical Architect
+        dates: 2004 - 2014
         technologies:
-          - Java
-          - Scala
-          - Play! 2
-          - Dropwizard
-          - Jenkins
-          - Puppet
+          - Various and many.
         description: |
-          As part of the GDS Transformation team I was responsible for leading
-          the delivery of of the Home Office Visas Exemplar as
-          Lead Developer/Technical Architect. This role involved various activities
-          such as working to deliver the Beta phase of the Java/Scala service based
-          solution in an agile manner as well as helping the Home Office with their
-          "Agile Transformation". Notable activities included - integration into
-          WorldPay payment gateway, building a robust automated delivery pipeline,
-          identifying areas of cross-exemplar reuse and providing technical oversight
-          across various government exemplars.
-      - role: Technical Architect, Department for International Development
-        dates: November 2012 - July 2013
-        technologies:
-          - Play! 2
-          - Middleman
-          - Scala
-          - Java
-          - ElasticSearch
-          - BaseX
-          - Akka
-          - Jenkins
-          - EC2
-        description: |
-          Technical Architect helping develop an [open source platform](http://gov.uk/devtracker) for visualising
-          government aid spending in foreign countries. The beta architecture evolved
-          substantially from the alpha project (mentioned below) to cope with changing
-          requirements. Ultimately this solution included many JVM based technologies
-          such as ElasticSearch, BaseX, Akka, Neo4J and Play! as well as custom rich
-          visualisation on the web based front end via D3, Leaflet and TileStream.
-      - role: Technical Architect, Cabinet Office
-        dates: September 2012 - November 2012
-        technologies:
-          - Scala
-          - Play! 2
-          - MongoDB
-          - Heroku
-          - Jenkins
-        description: |
-          Seconded to the Cabinet Office to provide technical insight into agile
-          delivery of a spend control solution using various technologies
-          including Play! (Scala), Akka and MongoDB. This was a transitional role
-          intended to ramp up and coach a inexperienced team in various topics
-          including agile delivery, continuous delivery and a modern technology
-          stack.
-      - role: Technical Architect, Department for International Development
-        dates: August 2012 - September 2012
-        technologies:
-          - Play! 2
-          - Scala
-          - Ruby
-          - Middleman
-          - Neo4J
-          - MongoDB
-          - EC2
-          - NodeJS
-          - D3
-          - Leaflet
-          - EC2
-          - Jenkins
-        description: |
-          This role was to develop, alongside a UX consultant, the “vision”
-          of the DFID Aid Tracker (subsequently renamed to Dev Tracker) which
-          required aggregation and analysis of dispersed XML based datasets.
-          This was undertaken using various JVM technologies such as Neo4J
-          and Play!
-      - role: Lead Developer, New Ireland
-        dates: June 2012 - August 2012
-        technologies:
-          - Sencha Touch
-          - Phonegap
-          - Objective-C
-          - Spring-WS
-          - iOS
-          - Android
-        description: |
-          Lead developer (of a two person team) on the New Ireland Mobile
-          Pipeline - a cross platform mobile pipeline for brokers. The project
-          involved creation of Java Spring MVC based ReSTful web services and
-          creation of a PhoneGap/Cordova based iOS/Android application using
-          JavaScript (Sencha Touch).
-      - role: Technical Architect, Government Digital Service
-        dates: April 2012 - June 2012
-        technologies:
-          - D3
-          - Ruby
-          - Scala
-          - Play! 2
-          - Finagle
-          - MongoDB
-          - EC2
-          - Jenkins
-        description: |
-          Developed and architected (as part of a two person team) various
-          prototypes for the GDS Innovation Pipeline. Predominantly these
-          where JVM based projects (Play!/Scala/Java) with a MongoDB backend.
-      - role: Technical Architect, Government Digital Service (ERTP)
-        dates: February 2012 - April 2012
-        technologies:
-          - Scala
-          - Play! 2
-          - Scalatra
-          - MongoDB
-          - EC2
-          - Jenkins
-        description: |
-          Scrum Master, Technical Architect and team member for the alpha of the
-          Electoral Registration Transform Programme (ERTP). This was a Java/Scala
-          service based system with a MongoDB datastore. Various iterations
-          included building web applications in Scalatra and Play! and various
-          service endpoints in Play! and Dropwizard (Java)
-      - role: Previous Projects, Various
-        dates: Before Feb 2012
-        technologies:
-          - C#
-          - Java
-          - Spring
-          - ASP.NET MVC
-          - Monotouch
-          - Sencha/ExtJS and more.
-        description: |
-          Lead Mobile Developer for __Kainos/VTT__, Lead Developer for
+          Technical Architect for __Government Digital Service__, Technical Architect for __DfID__, Lead Mobile Developer for __Kainos/VTT__, Lead Developer for
           __Evolve Mobile__, Solution Architect for __New Ireland Mobile Pipeline__,
           Technical Consultant for __AON Web SQP Integration__, Technical Architect for
           __AON GripT Mobile__, Technical Architect for __AON Carrier Dashboard Mobile__,
