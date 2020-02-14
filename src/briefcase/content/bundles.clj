@@ -15,7 +15,8 @@
   (concat (assets/load-bundle "static" "images"         [#"/images/.*"
                                                          "/favicon.ico"])
           (assets/load-bundle "static" "maven"          [#"/maven/.*"])
-          (assets/load-bundle "static" "presentations"  [#"/presentations/.*"])))
+          (assets/load-bundle "static" "presentations"  [#"/presentations/.*"])
+          (assets/load-bundle "static" "assets"         [#"/assets/.*"])))
 
 (defn metrics-page-bundle
   "Metrics bundle includes the css and js for the metrics contribution page"

@@ -72,22 +72,27 @@
       [:blockquote.warning "This post is over 6 months old.  Some details,
        especially technical, may have changed."])))
 
+; (defn index
+;   "Renders the landing page of the site"
+;   [request]
+;   (main-layout request "yobriefca.se"
+;                (md/to-html (slurp "resources/content/index.md"))))
+
 (defn index
   "Renders the landing page of the site"
   [request]
-  (main-layout request "yobriefca.se"
-               (md/to-html (slurp "resources/content/index.md"))))
+  (slurp "resources/static/index.html"))
 
-(defn metrics
-  "Renders the metrcis page of the site"
-  [request]
-  (main-layout request "yobriefca.se"
-               [:h1 "Contribution Chart"]
-               [:script { :src "/javascripts/d3.v3.min.js" }]
-               [:p "A chronological graph showing my activity on this site (articles, talks, open source)."]
-               [:div { :id "chart" }]
-               [:link { :href "/stylesheets/metrics.css" :rel "stylesheet" }]
-               [:script  { :src "/javascripts/metrics.js" }]))
+; (defn metrics
+;   "Renders the metrcis page of the site"
+;   [request]
+;   (main-layout request "yobriefca.se"
+;                [:h1 "Contribution Chart"]
+;                [:script { :src "/javascripts/d3.v3.min.js" }]
+;                [:p "A chronological graph showing my activity on this site (articles, talks, open source)."]
+;                [:div { :id "chart" }]
+;                [:link { :href "/stylesheets/metrics.css" :rel "stylesheet" }]
+;                [:script  { :src "/javascripts/metrics.js" }]))
 
 (defn fourohfour
   "Renders the default 404 Not Found page"
@@ -135,43 +140,43 @@
                (:html data)
                (footer data)))
 
-(defn background
-  "Renders the background page.  This page is drvien by YML configuration to
-   support alternative views and outputs (pdf for example)."
-  [request]
-  (let [data (yaml/parse-string (slurp "resources/content/background.yml"))]
-    (main-layout request "yobriefca.se"
-      [:h1 "People"]
-      [:h1 "James Hughes"]
-      [:ul
-        (for [{ href :href name :name } (:links data)]
-          [:li [:a { :href href } name]])]
-      [:h2 "Abstract"]
-      (md/to-html (:abstract data))
-      [:div.experience
-        [:h1 "Experience"]
-        (for [org (:experience data)]
-          [:div
-            [:h2 (:name org)]
-            (for [exp (:experience org)]
-              [:div
-                [:h3 (:role exp)]
-                [:h4 (:dates exp)]
-                [:h5 (clojure.string/join ", " (:technologies exp))]
-                (md/to-html (:description exp))])])])))
+; (defn background
+;   "Renders the background page.  This page is drvien by YML configuration to
+;    support alternative views and outputs (pdf for example)."
+;   [request]
+;   (let [data (yaml/parse-string (slurp "resources/content/background.yml"))]
+;     (main-layout request "yobriefca.se"
+;       [:h1 "People"]
+;       [:h1 "James Hughes"]
+;       [:ul
+;         (for [{ href :href name :name } (:links data)]
+;           [:li [:a { :href href } name]])]
+;       [:h2 "Abstract"]
+;       (md/to-html (:abstract data))
+;       [:div.experience
+;         [:h1 "Experience"]
+;         (for [org (:experience data)]
+;           [:div
+;             [:h2 (:name org)]
+;             (for [exp (:experience org)]
+;               [:div
+;                 [:h3 (:role exp)]
+;                 [:h4 (:dates exp)]
+;                 [:h5 (clojure.string/join ", " (:technologies exp))]
+;                 (md/to-html (:description exp))])])])))
 
-(defn testimonials
-  "Renders the testimonials page.  Driven by YML configuration to make it
-   easier to add testimonials in the future and generate extra views."
-  [request]
-  (let [data (yaml/parse-string (slurp "resources/content/testimonials.yml"))]
-    (main-layout request "yobriefca.se"
-      [:h1.title.testimonial-header "Testimonials"]
-      [:div.testimonial
-       (for [{ text :text from :from } data]
-         [:span
-           (md/to-html text)
-           [:div " - " from]])])))
+; (defn testimonials
+;   "Renders the testimonials page.  Driven by YML configuration to make it
+;    easier to add testimonials in the future and generate extra views."
+;   [request]
+;   (let [data (yaml/parse-string (slurp "resources/content/testimonials.yml"))]
+;     (main-layout request "yobriefca.se"
+;       [:h1.title.testimonial-header "Testimonials"]
+;       [:div.testimonial
+;        (for [{ text :text from :from } data]
+;          [:span
+;            (md/to-html text)
+;            [:div " - " from]])])))
 
 (defn list-view
   "Many pages on the site are simply lists with titles and publication dates
