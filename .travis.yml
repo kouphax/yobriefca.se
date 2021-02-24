@@ -6,7 +6,7 @@ branches:
     - master
 deploy:
   provider: pages
-  repo: kouphax/kouphax.github.com
+  repo: kouphax/kouphax.github.io
   target-branch: master
   github-token: $GITHUB_TOKEN
   skip_cleanup: true
