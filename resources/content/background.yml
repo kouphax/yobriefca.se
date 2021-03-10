@@ -36,10 +36,25 @@ experience:
           [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
           course. The 2 hour course is intended to act as a high level introduction to the
           Java version of Play! 2 a JVM based web framework.
-  - name: Home Office
+  - name: Home Office (Project Not Disclosed)
+    experience:
+      - role: Developer & Technical Archittect
+        dates: March 2020 - Current
+        technologies:
+          - Java
+          - Docker
+          - Helm
+          - Spring Boot
+          - Node JS
+          - Postgres
+          - Redis
+        description: |
+          Delivery of technical design and solutions for authentication and profile services across the public 
+          facing Home Office portfolio
+  - name: Home Office (Project Not Disclosed)
     experience:
       - role: Developer & Integration Specialist
-        dates: September 2018 - Current
+        dates: September 2018 - March 2020
         technologies:
           - Java
           - Scala
