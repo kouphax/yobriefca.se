@@ -17,7 +17,6 @@ experience:
   - name: Pluralsight
     experience:
       - role: Author
-        dates: November 2013 - Current
         technologies:
           - Scala
           - Play! 2
@@ -27,7 +26,6 @@ experience:
           course. The 2 hour course is intended to act as a high level introduction to the
           Scala version of Play! 2 (v2.2.1) a JVM based web framework.
       - role: Author
-        dates: August 2013 - November 2013
         technologies:
           - Java
           - Play! 2
