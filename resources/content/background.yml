@@ -14,6 +14,22 @@ abstract:
   patterns and approaches so that projects are delivered with a focus on user
   needs rather than developer or team bias.
 experience:
+  - name: Home Office (Project Not Disclosed)
+    experience:
+      - role: Technical Lead
+        dates: Jan 2021 - Current
+        technologies:
+          - Java
+          - Node JS
+          - Keycloak
+          - Docker
+          - Helm
+          - Kubernetes
+          - Ansible
+          - Postgres
+        description: |
+          Design and delivery of the primary authentication, authorization and verification platform for both internal and extrnal facing users
+          across the HO immigration portfolio.
   - name: Pluralsight
     experience:
       - role: Author
@@ -34,21 +50,6 @@ experience:
           [Play! 2 for Java](http://pluralsight.com/training/Courses/TableOfContents/play-2-java)
           course. The 2 hour course is intended to act as a high level introduction to the
           Java version of Play! 2 a JVM based web framework.
-  - name: Home Office (Project Not Disclosed)
-    experience:
-      - role: Developer & Technical Archittect
-        dates: March 2020 - Current
-        technologies:
-          - Java
-          - Docker
-          - Helm
-          - Spring Boot
-          - Node JS
-          - Postgres
-          - Redis
-        description: |
-          Delivery of technical design and solutions for authentication and profile services across the public 
-          facing Home Office portfolio
   - name: Home Office (Project Not Disclosed)
     experience:
       - role: Developer & Integration Specialist
